@@ -1,0 +1,76 @@
+\usepackage[italian]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc} % si possono usare caratteri accentati direttamente
+\usepackage{macros}
+
+% --- FONT ---
+\usepackage{lmodern}
+% ------------
+
+\usepackage{hyperref}
+\usepackage{chngcntr} % \counterwithout
+\usepackage[useregional]{datetime2} % (!) tenere dopo {babel}
+\usepackage{fancyhdr}
+
+% --- THEOREMS ---
+\declaretheorem[style=definition,name=Definizione]{defn}
+\declaretheorem[style=plain,name=Teorema]{teo}
+\declaretheorem[style=plain,name=Proposizione]{prop}
+\declaretheorem[style=remark,name=Esercizio]{ex}
+\newenvironment{solution}
+{\noindent\emph{Soluzione.}\footnotesize}
+{}
+% ----------------
+
+\DTMlangsetup{showyear=false}
+
+\newcommand\includelesson[4]{%
+\begin{lesson}{#1}{#2}{#3}{#4}
+\input{lez-#1-#2-#3}
+\end{lesson}}
+
+% --- SEARCH PATHS ---
+\makeatletter
+\providecommand*{\input@path}{}
+\g@addto@macro\input@path{{figure/}, {lezioni/}}
+\makeatother
+% --------------------
+
+%%% --- DOCUMENT --- %%%
+
+\title{Appunti di Analisi statistica dei dati}
+\author{%
+Giacomo Petrillo}
+\date{Anno accademico 2017--2018}
+
+\begin{document}
+
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt}
+
+% \frontmatter
+
+\fancyhf{}
+\fancyhead[LO,RE]{\rightmark}
+\fancyhead[RO,LE]{\thepage}
+
+\maketitle
+
+\tableofcontents
+\clearpage
+
+% \mainmatter
+
+\fancyhf{}
+\fancyhead[LO,RE]{\rightmark}
+\fancyhead[RO]{{\small\headcmacro}\hspace{2cm}\thepage}
+\fancyhead[LE]{\thepage\hspace{2cm}{\small\headcmacro}}
+
+\chapter{Probabilità}
+
+\includelesson{2017}{09}{20}{Morello}
+
+\renewcommand*\listtheoremname{Definizioni, teoremi, esercizi}
+\listoftheorems[onlynamed]
+
+\end{document}

@@ -1,0 +1,24 @@
+%!TEX encoding = UTF-8 Unicode
+
+\documentclass[a4paper]{report}
+\usepackage[twoside,asymmetric,top=2.5cm,bottom=2cm,left=1cm,right=7cm,bindingoffset=1cm,marginparwidth=5.5cm]{geometry}
+
+\usepackage[font={sf}]{caption}
+\usepackage{etoolbox} % \patchcmd
+
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+
+\let\oldmarginpar\marginpar
+\renewcommand\marginpar[1]{\oldmarginpar{\sffamily\scriptsize #1}}
+
+\patchcmd{\chapter}{plain}{fancy}{}{}
+
+\newenvironment{lesson}[4]{%
+\marginpar{\Large\bfseries Lezione \DTMdisplaydate{#1}{#2}{#3}{-1}\\(#4)}}{%
+}
+\newcommand*\titlet[1]{\section{#1}}
+\newcommand*\subtitlet[1]{\subsection{#1}}
+\newcommand*\headcmacro{}
+
+\input{appunti_core.tex}

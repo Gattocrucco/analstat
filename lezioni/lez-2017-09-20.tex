@@ -1,0 +1,74 @@
+% Giacomo Petrillo
+% lezione di Morello
+
+\begin{defn}[Probabilità]
+	Definiamo in astratto la probabilità $\fundef[P]{\pset(S)}\R$ come funzione dai sottoinsiemi di un insieme universo $S$ a valori reali, che soddisfa i seguenti \emph{assiomi di Kolmogorov}:
+	\begin{enumerate}
+		\item $\forall A\subseteq S:P(A) \ge 0$;
+		\item $\forall A,B\subseteq S: A\cap B=\emptyset \rightarrow P(A)+P(B)=P(A\cup B)$; \label{kolm2}
+		\item $P(S)=1$.
+	\end{enumerate}
+\end{defn}
+
+\begin{teo}[Probabilità dell'unione]
+	$P(A\cup B) = P(A) + P(B) - P(A\cap B)$
+\end{teo}
+
+\begin{proof}
+	Scrivo $B$ come l'unione di due insiemi disgiunti
+	\[B = (A\cap B) \cup (\comp A \cap B)\]
+	dove $\comp A\is S\setminus A$; per l'assioma \ref{kolm2} segue
+	\[P(B) = P(A\cap B) + P(\comp A \cap B).\]
+	Scrivo $A\cup B$ come l'intersezione di se stesso con $S=A\cup\comp A$
+	\[A\cup B = (A\cup\comp A) \cap (A\cup B)\]
+	e applico la proprietà distributiva
+	\begin{align*}
+		A\cup B
+		&= (A\cap A) \cup (A\cap B) \cup (\comp A\cap A) \cup (\comp A \cap B) = \\
+		&= A \cup (\comp A\cap B)
+	\end{align*}
+	che sono disgiunti, da cui segue
+	\[P(A\cup B) =  P(A) + P(\comp A\cap B)\]
+	sostituendo nell'equazione per $P(B)$ ottengo la tesi.
+\end{proof}
+
+\begin{defn}[Probabilità condizionata]
+	Sia $P(C)\neq 0$. Definiamo la \emph{probabilità di $A$ dato $C$} come
+	\[P(A|C) \is \frac{P(A\cap C)}{P(C)}.\]
+\end{defn}
+
+Il senso della probabilità condizionata è che se $C$ diventa certo, devo modificare le probabilità degli altri insiemi in modo che il nuovo insieme universo sia $C$.
+
+\begin{ex}
+	Verificare che gli assiomi di Kolmogorov continuano a valere se, per fissato $C$, sostituisco in generale $P(X)$ con $P(X|C)$.
+\end{ex}
+
+\begin{defn}[Indipendenza]
+	$A$ e $B$ sono \emph{indipendenti} se $P(A|B) = P(A)$.
+\end{defn}
+
+\begin{ex}
+	Se $A$ e $B$ sono indipendenti allora $P(A\cap B) = P(A)P(B)$.
+\end{ex}
+
+\begin{ex}
+	Siano $P(A)=\frac1{10}$ e $P(B)=1$, $A$ e $B$ sono indipendenti?
+\end{ex}
+
+\begin{solution}
+	Sono indipendenti, perché:
+	\begin{align*}
+		&1 \ge P(A\cup B) \ge P(B) = 1 \\
+		\implies &1 = P(A\cup B) = P(A) + P(B) - P(A\cap B) = \frac{11}{10} - P(A\cap B) \\
+		\implies &P(A\cap B) = \frac{1}{10} \\
+		&P(A|B) = \frac{P(A\cap B)}{P(B)} = \frac{\frac{1}{10}}{1} = P(A)
+	\end{align*}
+\end{solution}
+
+\begin{ex}
+	Siano $A$ e $B$ mutualmente esclusivi. Dire cosa significa e se allora sono indipendenti.
+\end{ex}
+
+\begin{solution}
+	Significa che $A\cap B=\emptyset$ e in generale non implica l'indipendenza, perché si ha sempre $P(A|B)\propto P(A\cap B)=0$.
+\end{solution}
