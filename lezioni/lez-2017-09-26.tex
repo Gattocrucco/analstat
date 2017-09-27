@@ -1,0 +1,214 @@
+% Giacomo Petrillo
+% lezione di Punzi
+
+Interpretazioni della probabilità:
+\begin{description}
+	\item[``Classica'']
+		Vale il principio di equiprobabilità e i calcoli probabilistici sono in sostanza calcoli combinatori.
+	\item[Frequentista]
+		Le quantità di cui ha senso calcolare la probabilità sono quelle che almeno concettualmente potrei campionare nella realtà per verificare la probabilità assegnata.
+	\item[Bayesiana]
+		La probabilità formalizza la conoscenza soggettiva.
+\end{description}
+Esempio con il dado:
+\begin{description}
+	\item[``Classica'']
+		I singoli eventi sono le uscite delle facce e li assumo equiprobabili.
+	\item[Frequentista]
+		Il fatto che le facce siano equiprobabili è una teoria la cui veridicità è in definitiva verificata lanciando il dado tante volte.
+	\item[Bayesiana]
+		Prima di lanciare il dado considero le facce equiprobabili perché questa distribuzione rispetta la simmetria che vedo nel sistema se l'unica cosa che so è che ci sono sei facce, quindi è la distribuzione che rappresenta la mia conoscenza a priori; lanciato il dado applico la teoria della probabilità per modificare la distribuzione a priori.
+\end{description}
+
+\begin{defn}[Distribuzione di probabilità]
+	Consideriamo una famiglia $F\subseteq\pset(S)$ di sottoinsiemi di $S$ disgiunti tra a due a due.
+	Diciamo che gli elementi di $F$ sono i valori di una \emph{variabile aleatoria}
+	e che la \emph{distribuzione} della variabile è la probabilità ristretta a $F$.
+\end{defn}
+
+\begin{defn}[Osservabile]
+	Chiamiamo \emph{osservabile} una variabile aleatoria a cui assegnamo un preciso significato fisico e che possiamo misurare.
+\end{defn}
+
+\begin{defn}[Variabili indipendenti]
+	Due variabili aleatorie $x$ e $y$ sono indipendenti se ogni valore di $x$ è indipendente da ogni valore di $y$.
+\end{defn}
+
+\begin{es}[Variabili reali]
+	Consideriamo i sottoinsiemi di $S=\R^2$
+	\begin{align*}
+		X(x) &= \setdef[(x,y)]{y\in\R}, \\
+		Y(y) &= \setdef[(x,y)]{x\in\R}.
+	\end{align*}
+	Le famiglie
+	\begin{align*}
+		\mathcal X &= \setdef[X(x)]{x\in\R} \\
+		\text{e }\mathcal Y &= \setdef[Y(y)]{y\in\R}
+	\end{align*}
+	formano due variabili aleatorie.
+	Sono indipendenti se vale
+	\begin{equation*}
+		P(X(x) \cap Y(y)) = P(X(x))P(Y(y))
+	\end{equation*}
+	per ogni coppia $(x,y)\in S$.
+	Tipicamente si usa implicitamente un solo simbolo scrivendo <<la variabile $x$>>, $P(x)$, $P(x,y)$.
+\end{es}
+
+\begin{defn}[Marginalizzazione]
+	Usando le definizioni si verifica subito che, data la distribuzione congiunta di due variabili $P(x,y)$,
+	ottengo la distribuzione di una variabile con
+	\begin{equation*}
+		P(x) = \sum_y P(x,y);
+	\end{equation*}
+	questa operazione si chiama \emph{marginalizzazione}.
+\end{defn}
+
+\begin{defn}[Densità di probabilità]
+	Data una probabilità su $S=\R^n$, se esiste una funzione $\fundef[p]{\R^n}{\R}$ tale che
+	\begin{equation*}
+		\forall A\subseteq\R^n : P(A) = \int_A p,
+	\end{equation*}
+	dove $\int$ è l'integrale di Lebesgue,
+	si dice che $p$ è la \emph{densità di probabilità},
+	spesso indicata con <<pdf>> (probability density function).
+\end{defn}
+
+La definizione di densità implica due requisiti:
+\begin{description}
+	\item[Positività] $p \ge 0$,
+	\item[Normalizzazione] $\int_S p = 1$.
+\end{description}
+Le proprietà dell'integrale di Lebesgue fanno sì che in ogni caso una densità con queste proprietà genera una probabilità ben definita.
+Viceversa, ci sono probabilità che non hanno una densità, a meno di non usare le distribuzioni.
+L'esempio più semplice è
+\begin{align*}
+	P(X) &= \begin{cases}
+		1 & 0 \in X \\
+		0 & \text{altrimenti}
+	\end{cases} \\
+	\implies p(x) &= \delta(x).
+\end{align*}
+Usando la $\delta$ si può estendere una probabilità discreta a una continua:
+\begin{equation*}
+	p(x) = \sum_n P(x_n)\delta(x-x_n).
+\end{equation*}
+Scritta con la densità la marginalizzazione diventa
+\begin{equation*}
+	p(x) = \int_{-\infty}^\infty \de y\,p(x,y).
+\end{equation*}
+
+\begin{defn}[Cumulante]
+	Per una densità su $\R$, si definisce \emph{cumulante} o in breve \emph{cdf}
+	\begin{equation*}
+		F(x) = P(\setdef[x']{x'<x}) = \int_{-\infty}^x \de x'\,p(x').
+	\end{equation*}
+\end{defn}
+
+\begin{defn}[Statistica]
+	Una funzione $\fundef[s]{S_1}{S_2}$ tra due insiemi dotati di probabilità è una \emph{statistica} se soddisfa
+	\begin{equation*}
+		\forall A\subseteq S_1 : P(s(A)) = P(A).
+	\end{equation*}
+\end{defn}
+
+Tipicamente ho la funzione $s$ e definisco la probabilità su $S_2$ in modo che sia una statistica.
+Passando alle densità, se $s$ è biunivoca e derivabile, basta fare un cambio di variabili nell'integrale:
+\begin{align*}
+	P(s(A)) &= \int_{s(A)} p_2 = \int_A p_2 J[s] = \int_A p_1 = P(A) \\
+	\implies p_2 &= \frac{p_1}{J[s]}
+\end{align*}
+dove $J[s]$ è il modulo del determinante jacobiano di $s$.
+Se $s$ non è biunivoca bisogna dividere $S_1$ in sottodomini in cui lo è e risommare.
+
+\begin{es}
+	Consideriamo una densità monodimensionale $p(x)$ e una funzione monotona $y(x)$.
+	Intuitivamente per cambiare variabile conservando la probabilità scrivo l'equazione
+	\begin{align*}
+		\de P_y &= \de P_x \\
+		\implies p(y)\de y &= p(x) \de x \\
+		\implies p(y) &= \frac{p(x)}{\left|\frac{\de y}{\de x}\right|}.
+	\end{align*}
+	Supponiamo che $y$ non sia monotona ma invece ad esempio $y(x)=x^2$.
+	Allora dividiamo il dominio in $x<0$, $x>0$ e otteniamo
+	\begin{equation*}
+		p(y) = \frac{p(x)}{\left|\frac{\de y}{\de x}(x)\right|} + \frac{p(-x)}{\left|\frac{\de y}{\de x}(-x)\right|} =
+		\frac{p(x)}{2x} + \frac{p(x)}{2x} = \frac{p(x)}{x}.
+	\end{equation*}
+\end{es}
+
+\begin{ex}
+	Partendo da una densità uniforme su $[0,1]$,
+	trovare $y(x)$ tale che $p(y) = ke^{-ky}$.
+\end{ex}
+
+\begin{solution}
+	Cerchiamo $y$ monotona e, senza perdita di generalità, crescente; possiamo anche fissare $y(0) = 0$.
+	\begin{align*}
+		p(y) &= \frac{p(x)}{\frac{\de y}{\de x}} \\
+		\implies \frac{\de y}{\de x} &= \frac{p(x)}{p(y)} = \frac{1}{ke^{-ky}}\\
+		\implies ke^{-ky}\de y &= \de x \\
+		\implies x &= \int_{0}^{y} \de y\, ke^{-ky} = \left[ -e^{-ky} \right]_{0}^{y} = 1 - e^{-ky} \\
+		\implies y &= -\frac1k \log(1-x).
+	\end{align*}
+\end{solution}
+
+\begin{defn}[Valore atteso]
+	Detto anche \emph{valore di aspettazione} o \emph{speranza matematica},
+	è un funzionale sulle statistiche definito come
+	\begin{equation*}
+		\langle s \rangle \is E[s] \is \int_S sp
+	\end{equation*}
+\end{defn}
+Il valore atteso è lineare:
+\begin{equation*}
+	E[s_1+\alpha s_2] = E[s_1] + \alpha E[s_2],
+\end{equation*}
+e per variabili indipendenti vale
+\begin{equation*}
+	\langle xy \rangle = \langle x \rangle \langle y \rangle.
+\end{equation*}
+
+\begin{defn}[Convergenza in probabilità]
+	Data una variabile $x$, si dice che $f(x)$ \emph{converge debolmente in probabilità} a $f_0$ per $x$ che tende a $x_0$ se
+	\begin{equation*}
+		\forall\varepsilon > 0 \lim_{x\to x_0} P\left( \left| f(x) - f_0 \right| > \varepsilon \right) = 0.
+	\end{equation*}
+	Si dice invece che la convergenza è \emph{forte} se
+	\begin{equation*}
+		P\left( \lim_{x\to x_0} f(x) = f_0 \right) = 1
+	\end{equation*}
+	cioè se, estesa opportunamente la probabilità alle successioni, l'insieme di quelle che non convergono a $f_0$ ha probabilità nulla.
+\end{defn}
+
+In generale se $P(A)=1$ si dice che $A$ è \emph{quasi certo}. Il <<quasi>> è perché nel continuo si possono costruire insiemi di probabilità nulla nei quali la densità è non nulla.
+
+\begin{fat}[Leggi dei grandi numeri]
+	\footnote{Ci sono una dozzina di proposizioni che vengono chiamate <<leggi dei grandi numeri>>.}
+	Considero sequenze di $N$ variabili indipendenti con la stessa densità (ovvero, detto intuitivamente, $N$ \emph{estrazioni} di una variabile $x$) per la quale esiste il valore atteso $E[x]$.
+	Allora la media aritmetica $\frac1N\sum_ix_i$ converge sia debolmente che fortemente a $E[x]$ per $N\to\infty$.
+	Esplicitamente:
+	\begin{align*}
+		\forall\varepsilon > 0 \lim_{N\to \infty} P\left( \left| \frac{\sum_ix_i}N - E[x] \right| > \varepsilon \right) &= 0, \\
+		P\left( \lim_{N\to \infty} \frac{\sum_ix_i}N = E[x] \right) &= 1.
+	\end{align*}
+\end{fat}
+
+Per certe distribuzioni che non ammettono $E[x]$ la legge debole continua a valere sostituendo $E[x]$ con un certo valore fissato.
+\marginpar{Vale per Cauchy?}
+
+\begin{defn}[Momenti]
+	Si definisce \emph{momento $n$-esimo centrato su $x_0$} il valore di aspettazione
+	\begin{equation*}
+		\mu_n(x_0) \is E[(x - x_0)^n].
+	\end{equation*}
+	Il momento di ordine 1 centrato su 0 si chiama \emph{media} e quello di ordine 2 centrato sulla media \emph{varianza}:
+	\begin{align*}
+		\mu = \text{media} &\is \mu_1(0) = E[x] \\
+		\sigma^2 = \text{varianza} &\is \mu_2(\mu_1(0)) = E[(x-\mu)^2].
+	\end{align*}
+	La quantità $\sigma$ è la \emph{deviazione standard}.
+\end{defn}
+
+\begin{fat}
+	Se per due pdf analitiche in un certo punto esistono tutti i momenti e sono uguali, allora le pdf sono uguali.
+\end{fat}

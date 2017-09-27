@@ -15,8 +15,9 @@
 % --- THEOREMS ---
 \declaretheorem[style=definition,name=Definizione]{defn}
 \declaretheorem[style=plain,name=Teorema]{teo}
-\declaretheorem[style=plain,name=Proposizione]{prop}
+\declaretheorem[style=remark,name=Esempio]{es}
 \declaretheorem[style=remark,name=Esercizio]{ex}
+\declaretheorem[style=plain,name=Fatto]{fat}
 \newenvironment{solution}
 {\noindent\emph{Soluzione.}\footnotesize}
 {}
@@ -68,8 +69,11 @@ Giacomo Petrillo}
 
 \chapter{Probabilità}
 
+% manca la prima lezione di Punzi a cui non c'ero
 \includelesson{2017}{09}{20}{Morello}
 \includelesson{2017}{09}{22}{Morello}
+\includelesson{2017}{09}{26}{Punzi}
+% la lezione del 27 settembre non si è tenuta
 
 \renewcommand*\listtheoremname{Definizioni, teoremi, esercizi}
 \listoftheorems[onlynamed]
