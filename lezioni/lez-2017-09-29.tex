@@ -63,12 +63,32 @@ Invece i momenti pari divergono, quindi la varianza rispetto a~0 (la media non e
 \end{ex}
 
 \begin{solution*}
-	$\begin{aligned}[t]
+	Formalmente dobbiamo calcolare la pdf della statistica $\fundef[s]{\R^2}\R$,
+	$s(x,y)=x+y$.
+	Per usare il jacobiano nel cambio di variabili estendiamo $s$ aggiungendo una dimensione:
+	\begin{align*}
+		\mathbf s(x,y) &= \left(\begin{matrix}
+			x+y \\
+			y
+		\end{matrix} \right) \\
+		J = \frac{\partial\mathbf s}{\partial(x,y)} &= \det\left(\begin{matrix}
+			1 & 1 \\
+			0 & 1
+		\end{matrix}\right) = 1 \\
+		\implies p(\mathbf s) &= p(x,y) = p_x(x)p_y(y).
+	\end{align*}
+	Per ricavare la componente che ci interessa marginalizziamo:
+	\begin{align*}
+		p(s_1) &= \int \de s_2\, p(\mathbf s) = \\
+		&= \int \de y\, p_y(y) p_x(s_1 - y) = p_x \star p_y (s_1),
+	\end{align*}
+	dove $\star$ indica la convoluzione.
+	Avremmo potuto scrivere intuitivamente l'integrale in questo modo:
+	\begin{align*}
 		p(s) &= \int\limits_{x+y = s} \de x\de y\, p_x(x) p_y(y) = \\
 		&= \int \de x\de y\, p_x(x) p_y(y) \delta(s - x - y) = \\
-		&= \int \de x\, p_x(x) p_y(s-x) = p_x \star p_y (s),
-	\end{aligned}$\vspace{.5em}\\
-	dove $\star$ indica la convoluzione.
+		&= \int \de x\, p_x(x) p_y(s-x).
+	\end{align*}
 \end{solution*}
 
 \begin{ex}[Prodotto e rapporto di variabili]

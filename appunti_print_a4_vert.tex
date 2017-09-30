@@ -15,6 +15,7 @@
 \patchcmd{\chapter}{plain}{fancy}{}{}
 
 \newenvironment{lesson}[4]{%
+\addcontentsline{toc}{section}{Lezione \DTMdisplaydate{#1}{#2}{#3}{-1} (#4)}%
 \marginpar{\Large\bfseries Lezione \DTMdisplaydate{#1}{#2}{#3}{-1}\\(#4)}}{%
 }
 \newcommand*\titlet[1]{\section{#1}}
