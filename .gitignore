@@ -11,6 +11,9 @@
 *.cb
 *.cb2
 
+## TextMate
+*.watcher_pid
+
 ## Intermediate documents:
 *.dvi
 *-converted-to.*

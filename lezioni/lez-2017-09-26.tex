@@ -121,6 +121,7 @@ dove $J[s]$ è il modulo del determinante jacobiano di $s$.
 Se $s$ non è biunivoca bisogna dividere $S_1$ in sottodomini in cui lo è e risommare.
 
 \begin{es}
+	\label{th:stat1d}
 	Consideriamo una densità monodimensionale $p(x)$ e una funzione monotona $y(x)$.
 	Intuitivamente per cambiare variabile conservando la probabilità scrivo l'equazione
 	\begin{align*}
@@ -132,7 +133,7 @@ Se $s$ non è biunivoca bisogna dividere $S_1$ in sottodomini in cui lo è e ris
 	Allora dividiamo il dominio in $x<0$, $x>0$ e otteniamo
 	\begin{equation*}
 		p(y) = \frac{p(x)}{\left|\frac{\de y}{\de x}(x)\right|} + \frac{p(-x)}{\left|\frac{\de y}{\de x}(-x)\right|} =
-		\frac{p(x)}{2x} + \frac{p(x)}{2x} = \frac{p(x)}{x}.
+		\left.\frac{p(x)+p(-x)}{2x}\right|_{x=\sqrt y}.
 	\end{equation*}
 \end{es}
 
@@ -194,7 +195,6 @@ In generale se $P(A)=1$ si dice che $A$ è \emph{quasi certo}. Il <<quasi>> è p
 \end{fat}
 
 Per certe distribuzioni che non ammettono $E[x]$ la legge debole continua a valere sostituendo $E[x]$ con un certo valore fissato.
-\marginpar{Vale per Cauchy?}
 
 \begin{defn}[Momenti]
 	Si definisce \emph{momento $n$-esimo centrato su $x_0$} il valore di aspettazione
@@ -203,7 +203,7 @@ Per certe distribuzioni che non ammettono $E[x]$ la legge debole continua a vale
 	\end{equation*}
 	Il momento di ordine 1 centrato su 0 si chiama \emph{media} e quello di ordine 2 centrato sulla media \emph{varianza}:
 	\begin{align*}
-		\mu = \text{media} &\is \mu_1(0) = E[x] \\
+		\mu = \text{media} &\is \mu_1(0) = E[x], \\
 		\sigma^2 = \text{varianza} &\is \mu_2(\mu_1(0)) = E[(x-\mu)^2].
 	\end{align*}
 	La quantità $\sigma$ è la \emph{deviazione standard}.
