@@ -1,0 +1,141 @@
+% Giacomo Petrillo
+% lezione di Punzi
+
+\begin{defn}[Matrice di covarianza]
+	Date $n$ variabili $x_i$ si definisce \emph{matrice di covarianza}
+	\begin{equation*}
+		A_{ij} = \cov[x_i,x_j] \is E[(x_i-\avg{x_i})(x_j-\avg{x_j})].
+	\end{equation*}
+	Gli elementi diagonali sono le varianze e quelli fuori diagonale sono le covarianze.
+\end{defn}
+
+Data una statistica abbiamo visto come ricavarne esattamente la distribuzione;
+può però essere utile ricavare solo alcuni momenti in modo approssimato.
+Sia $\mathbf x\in\R^n$, sviluppiamo $s(\mathbf x)$ in serie intorno alla media:
+\begin{align*}
+	s(\mathbf x) &= s(\boldsymbol \mu) + {}\\
+	&+ \sum_i \left.\frac{\partial s}{\partial x_i}\right|_{\boldsymbol\mu} (x_i - \mu_i) + {}\\
+	&+ \frac12 \sum_{ij} \left.\frac{\partial^2 s}{\partial x_i \partial x_j}\right|_{\boldsymbol\mu} (x_i-\mu_i)(x_j-\mu_j) + {}\\
+	&+ O(|\mathbf x - \boldsymbol\mu|^3).
+\end{align*}
+Calcoliamo la media e la varianza, ricordando che il valore atteso è lineare:
+\begin{align*}
+	E[s(\mathbf x)] &\approx s(\boldsymbol \mu) + {}\\
+	&+ \sum_i \left.\frac{\partial s}{\partial x_i}\right|_{\boldsymbol\mu} E[x_i - \mu_i] + {} & \Big\} = 0\\
+	&+ \frac12 \sum_{ij} \left.\frac{\partial^2 s}{\partial x_i \partial x_j}\right|_{\boldsymbol\mu} E[(x_i-\mu_i)(x_j-\mu_j)] = \\
+	&= s(\boldsymbol \mu) +
+	\frac12 \sum_{ij} \left.\frac{\partial^2 s}{\partial x_i \partial x_j}\right|_{\boldsymbol\mu}
+	\cov[x_i,x_j];
+\end{align*}
+\begin{align*}
+	\var[s(\mathbf x)] &= E[(s - \avg s)^2] \approx \\
+	&\approx E\left[
+	\sum_i \left.\frac{\partial s}{\partial x_i}\right|_{\boldsymbol\mu} (x_i - \mu_i) \cdot
+	\sum_j \left.\frac{\partial s}{\partial x_j}\right|_{\boldsymbol\mu} (x_j - \mu_j) \right] = \\
+	&= \sum_{ij}
+	\left.\frac{\partial s}{\partial x_i}\right|_{\boldsymbol\mu}
+	\left.\frac{\partial s}{\partial x_j}\right|_{\boldsymbol\mu}
+	E[ (x_i - \mu_i) (x_j - \mu_j) ] = \\
+	&= \sum_{ij}
+	\left.\frac{\partial s}{\partial x_i}\right|_{\boldsymbol\mu}
+	\left.\frac{\partial s}{\partial x_j}\right|_{\boldsymbol\mu}
+	\cov[x_i,x_j].
+\end{align*}
+Nel caso che le $x_i$ siano indipendenti, questa approssimazione della varianza diventa
+\begin{equation*}
+	\var[s] \approx \sum_i
+	\left( \left.\frac{\partial s}{\partial x_i}\right|_{\boldsymbol\mu} \right)^2
+	\var[x_i].
+\end{equation*}
+Probabilmente avrete già incontrato questa formula come ``formula di propagazione degli errori'';
+sottolineiamo che è una del tutto generale approssimazione di un momento di una statistica e che non è detto sia sempre una buona approssimazione quando la usiamo per la propagazione degli errori (o, come preferiamo chiamarle, incertezze).
+
+\begin{defn}[Funzione generatrice]
+	Data la pdf $p(x)$, la sua \emph{funzione generatrice} è
+		$M(t) = E[e^{tx}]$.
+\end{defn}
+
+La funzione generatrice è utile per calcolare i momenti, infatti:
+\begin{align*}
+	M^{(n)}(t) &=
+	\frac{\partial^n}{\partial t^n} E[e^{tx}] =
+	E \left[ \frac{\partial^n}{\partial t^n} e^{tx} \right] =
+	E[x^n e^{tx}]
+	\intertext{che per $t=0$ diventa}
+	&= E[x^n] = \mu_n(0).
+\end{align*}
+In base al \autoref{th:pdfmom} segue che la generatrice determina completamente la pdf.
+
+Per due variabili indipendenti $x$, $y$ vale che
+\begin{equation*}
+	M_{x+y}(t) =
+	E[e^{t(x+y)}] =
+	E[e^{tx} e^{ty}] =
+	E[e^{tx}] E[e^{ty}] =
+	M_x(t) M_y(t);
+\end{equation*}
+inoltre ovviamente $M_{\alpha x}(t) = M_x(\alpha t)$.
+
+\begin{es}
+	Consideriamo una distribuzione uniforme in $[0,m]$:
+	\begin{equation*}
+		p(x) = \begin{cases}
+			\frac 1m & 0 \le x \le m \\
+			0  & \text{altrimenti.}
+		\end{cases}
+	\end{equation*}
+	Calcoliamo la generatrice:
+	\begin{align*}
+		M(t) &= 
+		\int \de x\, p(x) e^{tx} =
+		\int_0^m \de x\, \frac{e^{tx}}{m} =
+		\frac 1m \left[ \frac{e^{tx}}{t} \right]_{t=0}^m = \\
+		&= \frac{e^{mt} - 1}{mt}.
+	\end{align*}
+	Sviluppiamo $M$ in serie:
+	\begin{align*}
+		M(t) &=
+		\frac{mt + \frac{(mt)^2}2 + \frac{(mt)^3}{3!} + \dotsb}{mt} = \\
+		&= 1 + \frac{mt}2 + \frac{(mt)^2}{3!} + \dotsb = \\
+		&= \mu_0 + \mu_1t + \frac{\mu_2}2t^2 + \dotsb  \\
+		\implies &\begin{cases}
+			\mu_0 = 1 \\
+			\mu_1 = \frac m2 \\
+			\mu_2 = \frac{m^2}3 \\
+			\vdots
+		\end{cases}
+	\end{align*}
+	Dai primi momenti possiamo calcolare direttamente la varianza:
+	\begin{equation*}
+		\sigma^2 = \mu_2 - \mu_1^2 = \frac{m^2}{12}.
+	\end{equation*}
+\end{es}
+
+La distribuzione di una variabile che può assumere solo due valori si chiama \emph{distribuzione di Bernoulli}.
+Fissiamo la notazione:
+\begin{equation*}
+	x \in \set{0,1}, \quad P(x) = \begin{cases}
+		p & x = 1 \\
+		1-p & x = 0.
+	\end{cases}
+\end{equation*}
+Date $n$ variabili di Bernoulli indipendenti calcoliamo la probabilità che $k$ siano 1.
+Il modo di disporre $k$ oggetti identici in $n$ posti è $\binom nk$, quindi
+\begin{equation*}
+	P(k;n,p) = \binom nk p^{k} (1-p)^{n-k};
+\end{equation*}
+questa distribuzione si chiama \emph{binomiale}.
+Calcoliamone la generatrice:
+\begin{align*}
+	M_k(t) &=
+	\sum_k e^{tk} P(k;n,p) =
+	\sum_k \binom nk p^k e^{tk} (1-p)^{n-k} = \\
+	&= (pe^t + 1-p)^n,
+\end{align*}
+ma in effetti la generatrice di una Bernoulli è
+\begin{equation*}
+	M_x(t) = pe^{1\cdot t} + (1-p)e^{0\cdot t} = pe^t + 1-p
+\end{equation*}
+e $k$ può essere scritto come $\sum_ix_i$, quindi deve essere $M_k = M_x^n$.
+
+
