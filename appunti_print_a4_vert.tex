@@ -3,8 +3,9 @@
 \documentclass[a4paper,fleqn]{report}
 \usepackage[twoside,asymmetric,top=2.5cm,bottom=2cm,left=1cm,right=7cm,bindingoffset=1cm,marginparwidth=5.5cm]{geometry}
 
-\usepackage[font={sf}]{caption}
+\usepackage[font={sf}]{caption} % sans font in captions to distinguish them from main text
 \usepackage{etoolbox} % \patchcmd
+\usepackage{collect}
 
 \setcounter{secnumdepth}{3}
 \setcounter{tocdepth}{3}
@@ -21,5 +22,16 @@
 \newcommand*\titlet[1]{\section{#1}}
 \newcommand*\subtitlet[1]{\subsection{#1}}
 \newcommand*\headcmacro{}
+
+% --- SOLUTIONS ---
+\definecollection{solfile}
+\newcommand\mycollect[1]{\collect{solfile}{\subsection*{Soluzione esercizio #1}}{}}
+\newenvironment{solution} % solution to be put in the "solutions" chapter
+{\begingroup\edef\x{\endgroup\noexpand\mycollect{\theexercise}}\x}%
+{\endcollect}
+\newcommand\solutions{%
+\appendix\chapter{Soluzioni}
+\includecollection{solfile}}
+% -----------------
 
 \input{appunti_core.tex}

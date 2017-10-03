@@ -1,18 +1,18 @@
 % Giacomo Petrillo
 % lezione di Morello
 
-\begin{defn}[Probabilità]
+\begin{definition}[Probabilità]
 	Definiamo in astratto la probabilità $\fundef[P]{\pset(S)}\R$ come funzione dai sottoinsiemi di un insieme universo $S$ a valori reali, che soddisfa i seguenti \emph{assiomi di Kolmogorov}:
 	\begin{enumerate}
 		\item $\forall A\subseteq S:P(A) \ge 0$;
 		\item $\forall A,B\subseteq S: A\cap B=\emptyset \rightarrow P(A)+P(B)=P(A\cup B)$; \label{kolm2}
 		\item $P(S)=1$.
 	\end{enumerate}
-\end{defn}
+\end{definition}
 
-\begin{teo}[Probabilità dell'unione]
+\begin{theorem}[Probabilità dell'unione]
 	$P(A\cup B) = P(A) + P(B) - P(A\cap B)$
-\end{teo}
+\end{theorem}
 
 \begin{proof}
 	Scrivo $B$ come l'unione di due insiemi disgiunti
@@ -32,28 +32,28 @@
 	sostituendo nell'equazione per $P(B)$ ottengo la tesi.
 \end{proof}
 
-\begin{defn}[Probabilità condizionata]
+\begin{definition}[Probabilità condizionata]
 	Sia $P(C)\neq 0$. Definiamo la \emph{probabilità di $A$ dato $C$} come
 	\[P(A|C) \is \frac{P(A\cap C)}{P(C)}.\]
-\end{defn}
+\end{definition}
 
 Il senso della probabilità condizionata è che se $C$ diventa certo, devo modificare le probabilità degli altri insiemi in modo che il nuovo insieme universo sia $C$.
 
-\begin{ex}
+\begin{exercise}
 	Verificare che gli assiomi di Kolmogorov continuano a valere se, per fissato $C$, sostituisco in generale $P(X)$ con $P(X|C)$.
-\end{ex}
+\end{exercise}
 
-\begin{defn}[Indipendenza]
+\begin{definition}[Indipendenza]
 	$A$ e $B$ sono \emph{indipendenti} se $P(A|B) = P(A)$.
-\end{defn}
+\end{definition}
 
-\begin{ex}
+\begin{exercise}
 	Se $A$ e $B$ sono indipendenti allora $P(A\cap B) = P(A)P(B)$.
-\end{ex}
+\end{exercise}
 
-\begin{ex}
+\begin{exercise}
 	Siano $P(A)=\frac1{10}$ e $P(B)=1$, $A$ e $B$ sono indipendenti?
-\end{ex}
+\end{exercise}
 
 \begin{solution}
 	Sono indipendenti, perché:
@@ -65,9 +65,9 @@ Il senso della probabilità condizionata è che se $C$ diventa certo, devo modif
 	\end{align*}
 \end{solution}
 
-\begin{ex}
+\begin{exercise}
 	Siano $A$ e $B$ mutualmente esclusivi. Dire cosa significa e se allora sono indipendenti.
-\end{ex}
+\end{exercise}
 
 \begin{solution}
 	Significa che $A\cap B=\emptyset$ e in generale non implica l'indipendenza, perché si ha sempre $P(A|B)\propto P(A\cap B)=0$.

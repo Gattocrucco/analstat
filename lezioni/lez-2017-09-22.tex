@@ -1,17 +1,17 @@
 % Giacomo Petrillo
 % lezione di Morello
 
-\begin{ex}
+\begin{exercise}
 	Lanciati due dadi coperti, sapendo che la somma esce~6, calcolare la probabilità che scoprendone uno esca~3.
-\end{ex}
+\end{exercise}
 
 \begin{solution}
 	Calcoliamo la probabilità condizionata. La probabilità che la somma sia 6 e che un fissato dado sia 3 è $1/36$ (combinazione $(3,3)$), la probabilità che la somma sia 6 è $5/36$ (combinazioni da $(1,5)$ a $(5,1)$), il rapporto è dunque $1/5$.
 \end{solution}
 
-\begin{ex}
+\begin{exercise}
 	Siano $A$, $B$, $C$ indipendenti a due a due. Vale $P(A\cap B\cap C)=P(A)P(B)P(C)$?
-\end{ex}
+\end{exercise}
 
 \begin{solution}
 	No. Controesempio: prendiamo l'insieme universo
@@ -24,9 +24,9 @@
 	Risulta $P(A)=P(B)=P(C)=1/3$, $P(A\cap B)=\dots=1/9$, ma $P(A\cap B\cap C)=1/9\neq1/27$.
 \end{solution}
 
-\begin{teo}
+\begin{theorem}
 	$S=\bigcup_iH_i,\ H_i\cap H_j=\emptyset\implies P(A)=\sum_iP(A|H_i)P(H_i)$
-\end{teo}
+\end{theorem}
 
 \begin{proof}
 	$\begin{aligned}[t]

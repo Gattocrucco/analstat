@@ -20,21 +20,21 @@ Esempio con il dado:
 		Prima di lanciare il dado considero le facce equiprobabili perché questa distribuzione rispetta la simmetria che vedo nel sistema se l'unica cosa che so è che ci sono sei facce, quindi è la distribuzione che rappresenta la mia conoscenza a priori; lanciato il dado applico la teoria della probabilità per modificare la distribuzione a priori.
 \end{description}
 
-\begin{defn}[Distribuzione di probabilità]
+\begin{definition}[Distribuzione di probabilità]
 	Consideriamo una famiglia $F\subseteq\pset(S)$ di sottoinsiemi di $S$ disgiunti tra a due a due.
 	Diciamo che gli elementi di $F$ sono i valori di una \emph{variabile aleatoria}
 	e che la \emph{distribuzione} della variabile è la probabilità ristretta a $F$.
-\end{defn}
+\end{definition}
 
-\begin{defn}[Osservabile]
+\begin{definition}[Osservabile]
 	Chiamiamo \emph{osservabile} una variabile aleatoria a cui assegnamo un preciso significato fisico e che possiamo misurare.
-\end{defn}
+\end{definition}
 
-\begin{defn}[Variabili indipendenti]
+\begin{definition}[Variabili indipendenti]
 	Due variabili aleatorie $x$ e $y$ sono indipendenti se ogni valore di $x$ è indipendente da ogni valore di $y$.
-\end{defn}
+\end{definition}
 
-\begin{es}[Variabili reali]
+\begin{example}[Variabili reali]
 	Consideriamo i sottoinsiemi di $S=\R^2$
 	\begin{align*}
 		X(x) &= \setdef[(x,y)]{y\in\R}, \\
@@ -52,18 +52,18 @@ Esempio con il dado:
 	\end{equation*}
 	per ogni coppia $(x,y)\in S$.
 	Tipicamente si usa implicitamente un solo simbolo scrivendo <<la variabile $x$>>, $P(x)$, $P(x,y)$.
-\end{es}
+\end{example}
 
-\begin{defn}[Marginalizzazione]
+\begin{definition}[Marginalizzazione]
 	Usando le definizioni si verifica subito che, data la distribuzione congiunta di due variabili $P(x,y)$,
 	ottengo la distribuzione di una variabile con
 	\begin{equation*}
 		P(x) = \sum_y P(x,y);
 	\end{equation*}
 	questa operazione si chiama \emph{marginalizzazione}.
-\end{defn}
+\end{definition}
 
-\begin{defn}[Densità di probabilità]
+\begin{definition}[Densità di probabilità]
 	Data una probabilità su $S=\R^n$, se esiste una funzione $\fundef[p]{\R^n}{\R}$ tale che
 	\begin{equation*}
 		\forall A\subseteq\R^n : P(A) = \int_A p,
@@ -71,7 +71,7 @@ Esempio con il dado:
 	dove $\int$ è l'integrale di Lebesgue,
 	si dice che $p$ è la \emph{densità di probabilità},
 	spesso indicata con <<pdf>> (probability density function).
-\end{defn}
+\end{definition}
 
 La definizione di densità implica due requisiti:
 \begin{description}
@@ -97,19 +97,19 @@ Scritta con la densità la marginalizzazione diventa
 	p(x) = \int_{-\infty}^\infty \de y\,p(x,y).
 \end{equation*}
 
-\begin{defn}[Cumulante]
+\begin{definition}[Cumulante]
 	Per una densità su $\R$, si definisce \emph{cumulante} o in breve \emph{cdf}
 	\begin{equation*}
 		F(x) = P(\setdef[x']{x'<x}) = \int_{-\infty}^x \de x'\,p(x').
 	\end{equation*}
-\end{defn}
+\end{definition}
 
-\begin{defn}[Statistica]
+\begin{definition}[Statistica]
 	Una funzione $\fundef[s]{S_1}{S_2}$ tra due insiemi dotati di probabilità è una \emph{statistica} se soddisfa
 	\begin{equation*}
 		\forall A\subseteq S_1 : P(s(A)) = P(A).
 	\end{equation*}
-\end{defn}
+\end{definition}
 
 Tipicamente ho la funzione $s$ e definisco la probabilità su $S_2$ in modo che sia una statistica.
 Passando alle densità, se $s$ è biunivoca e derivabile, basta fare un cambio di variabili nell'integrale:
@@ -120,7 +120,7 @@ Passando alle densità, se $s$ è biunivoca e derivabile, basta fare un cambio d
 dove $J[s]$ è il modulo del determinante jacobiano di $s$.
 Se $s$ non è biunivoca bisogna dividere $S_1$ in sottodomini in cui lo è e risommare.
 
-\begin{es}
+\begin{example}
 	\label{th:stat1d}
 	Consideriamo una densità monodimensionale $p(x)$ e una funzione monotona $y(x)$.
 	Intuitivamente per cambiare variabile conservando la probabilità scrivo l'equazione
@@ -135,12 +135,12 @@ Se $s$ non è biunivoca bisogna dividere $S_1$ in sottodomini in cui lo è e ris
 		p(y) = \frac{p(x)}{\left|\frac{\de y}{\de x}(x)\right|} + \frac{p(-x)}{\left|\frac{\de y}{\de x}(-x)\right|} =
 		\left.\frac{p(x)+p(-x)}{2x}\right|_{x=\sqrt y}.
 	\end{equation*}
-\end{es}
+\end{example}
 
-\begin{ex}
+\begin{exercise}
 	Partendo da una densità uniforme su $[0,1]$,
 	trovare $y(x)$ tale che $p(y) = ke^{-ky}$.
-\end{ex}
+\end{exercise}
 
 \begin{solution}
 	Cerchiamo $y$ monotona e, senza perdita di generalità, crescente; possiamo anche fissare $y(0) = 0$.
@@ -153,13 +153,13 @@ Se $s$ non è biunivoca bisogna dividere $S_1$ in sottodomini in cui lo è e ris
 	\end{align*}
 \end{solution}
 
-\begin{defn}[Valore atteso]
+\begin{definition}[Valore atteso]
 	Detto anche \emph{valore di aspettazione} o \emph{speranza matematica},
 	è un funzionale sulle statistiche definito come
 	\begin{equation*}
 		\langle s \rangle \is E[s] \is \int_S sp
 	\end{equation*}
-\end{defn}
+\end{definition}
 Il valore atteso è lineare:
 \begin{equation*}
 	E[s_1+\alpha s_2] = E[s_1] + \alpha E[s_2],
@@ -169,7 +169,7 @@ e per variabili indipendenti vale
 	\langle xy \rangle = \langle x \rangle \langle y \rangle.
 \end{equation*}
 
-\begin{defn}[Convergenza in probabilità]
+\begin{definition}[Convergenza in probabilità]
 	Data una variabile $x$, si dice che $f(x)$ \emph{converge debolmente in probabilità} a $f_0$ per $x$ che tende a $x_0$ se
 	\begin{equation*}
 		\forall\varepsilon > 0 \lim_{x\to x_0} P\left( \left| f(x) - f_0 \right| > \varepsilon \right) = 0.
@@ -179,11 +179,11 @@ e per variabili indipendenti vale
 		P\left( \lim_{x\to x_0} f(x) = f_0 \right) = 1
 	\end{equation*}
 	cioè se, estesa opportunamente la probabilità alle successioni, l'insieme di quelle che non convergono a $f_0$ ha probabilità nulla.
-\end{defn}
+\end{definition}
 
 In generale se $P(A)=1$ si dice che $A$ è \emph{quasi certo}. Il <<quasi>> è perché nel continuo si possono costruire insiemi di probabilità nulla nei quali la densità è non nulla.
 
-\begin{fat}[Leggi dei grandi numeri]
+\begin{fact}[Leggi dei grandi numeri]
 	\footnote{Ci sono una dozzina di proposizioni che vengono chiamate <<leggi dei grandi numeri>>.}
 	Considero sequenze di $N$ variabili indipendenti con la stessa densità (ovvero, detto intuitivamente, $N$ \emph{estrazioni} di una variabile $x$) per la quale esiste il valore atteso $E[x]$.
 	Allora la media aritmetica $\frac1N\sum_ix_i$ converge sia debolmente che fortemente a $E[x]$ per $N\to\infty$.
@@ -192,11 +192,11 @@ In generale se $P(A)=1$ si dice che $A$ è \emph{quasi certo}. Il <<quasi>> è p
 		\forall\varepsilon > 0 \lim_{N\to \infty} P\left( \left| \frac{\sum_ix_i}N - E[x] \right| > \varepsilon \right) &= 0, \\
 		P\left( \lim_{N\to \infty} \frac{\sum_ix_i}N = E[x] \right) &= 1.
 	\end{align*}
-\end{fat}
+\end{fact}
 
 Per certe distribuzioni che non ammettono $E[x]$ la legge debole continua a valere sostituendo $E[x]$ con un certo valore fissato.
 
-\begin{defn}[Momenti]
+\begin{definition}[Momenti]
 	Si definisce \emph{momento $n$-esimo centrato su $x_0$} il valore di aspettazione
 	\begin{equation*}
 		\mu_n(x_0) \is E[(x - x_0)^n].
@@ -207,9 +207,9 @@ Per certe distribuzioni che non ammettono $E[x]$ la legge debole continua a vale
 		\sigma^2 = \text{varianza} &\is \mu_2(\mu_1(0)) = E[(x-\mu)^2].
 	\end{align*}
 	La quantità $\sigma$ è la \emph{deviazione standard}.
-\end{defn}
+\end{definition}
 
-\begin{fat}
+\begin{fact}
 	\label{th:pdfmom}
 	Se per due pdf analitiche in un certo punto esistono tutti i momenti e sono uguali, allora le pdf sono uguali.
-\end{fat}
+\end{fact}

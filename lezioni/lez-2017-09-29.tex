@@ -1,13 +1,13 @@
 % Giacomo Petrillo
 % lezione di Morello
 
-\begin{defn}[Covarianza]
+\begin{definition}[Covarianza]
 	Date due variabili, si chiama \emph{covarianza} il valore di aspettazione
 	\begin{equation*}
 		\sigma_{xy} \is E[(x-\langle x\rangle)(y-\langle y\rangle)].
 	\end{equation*}
 	Le variabili si dicono \emph{scorrelate} o \emph{correlate} se rispettivamente la covarianza è nulla o non nulla.
-\end{defn}
+\end{definition}
 
 Si verifica immediatamente che due variabili indipendenti sono scorrelate, ma non vale il viceversa.
 Prendiamo $y=x^2$. Le variabili $x$ e $y$ sono ovviamente dipendenti, ma
@@ -16,9 +16,9 @@ Prendiamo $y=x^2$. Le variabili $x$ e $y$ sono ovviamente dipendenti, ma
 \end{equation*}
 quindi basta scegliere una distribuzione pari per $x$ affinché siano scorrelate.
 
-\begin{ex}
+\begin{exercise}
 	Qual è la probabilità che, lanciando $n$ dadi, il massimo dei valori ottenuti sia $c$?
-\end{ex}
+\end{exercise}
 
 \begin{solution*}
 	Vogliamo calcolare
@@ -58,9 +58,9 @@ La distribuzione di Cauchy non ammette momenti dispari, perché l'integrale
 non esiste; lo si vede dal fatto che gli integrali parziali $\int_{0}^\infty$ e $\int_{-\infty}^{0}$ divergono con segno opposto per $n \ge 1$ e dispari, quindi facendo il limite in modo diverso cambia il risultato.
 Invece i momenti pari divergono, quindi la varianza rispetto a~0 (la media non esiste) è infinita.
 
-\begin{ex}[Somma di variabili]
+\begin{exercise}[Somma di variabili]
 	Date due variabili indipendenti $x$ e $y$, qual è la pdf di $x+y$?
-\end{ex}
+\end{exercise}
 
 \begin{solution*}
 	Formalmente dobbiamo calcolare la pdf della statistica $\fundef[s]{\R^2}\R$,
@@ -91,9 +91,9 @@ Invece i momenti pari divergono, quindi la varianza rispetto a~0 (la media non e
 	\end{align*}
 \end{solution*}
 
-\begin{ex}[Prodotto e rapporto di variabili]
+\begin{exercise}[Prodotto e rapporto di variabili]
 	Date $x$ e $y$ indipendenti calcolare le pdf di $xy$ e $\frac xy$.
-\end{ex}
+\end{exercise}
 
 \begin{solution}
 	\begin{description}
@@ -114,7 +114,7 @@ Invece i momenti pari divergono, quindi la varianza rispetto a~0 (la media non e
 	\end{description}
 \end{solution}
 
-\begin{ex}[Somma di variabili Cauchy]
+\begin{exercise}[Somma di variabili Cauchy]
 	\label{th:sumcauchy}
 	Dimostrare che la somma di due variabili con pdf di Cauchy
 	\begin{equation*}
@@ -124,7 +124,7 @@ Invece i momenti pari divergono, quindi la varianza rispetto a~0 (la media non e
 	\begin{equation*}
 		p(x) = \frac1{2\pi} \frac1{1 + \left(\frac x2\right)^2}.
 	\end{equation*}
-\end{ex}
+\end{exercise}
 
 \begin{solution}
 	Facciamo la convoluzione
@@ -154,14 +154,14 @@ Invece i momenti pari divergono, quindi la varianza rispetto a~0 (la media non e
 Dall'\autoref{th:sumcauchy} segue che la distribuzione della media aritmetica di variabili Cauchy è ancora Cauchy con la stessa larghezza,
 quindi la legge debole dei grandi numeri non vale anche sostituendo $E[x]$ con $0$.
 
-\begin{ex}
+\begin{exercise}
 	Distribuzione della somma di due variabili uniformi in $[0,1]$.
-\end{ex}
+\end{exercise}
 
 \begin{solution*}
 	\begin{figure}
 		\centering
-		\includegraphics[width=\textwidth]{somma}
+		\includegraphics[width=\columnwidth]{somma}
 		\caption{Distribuzione della somma di due uniformi.}
 	\end{figure}
 	$\begin{aligned}[t]
@@ -178,9 +178,9 @@ quindi la legge debole dei grandi numeri non vale anche sostituendo $E[x]$ con $
 	\end{aligned}$
 \end{solution*}
 
-\begin{ex}
+\begin{exercise}
 	Distribuzione di prodotto e rapporto di variabili uniformi in $(0,1)$.
-\end{ex}
+\end{exercise}
 
 \begin{solution}
 	\begin{description}
@@ -206,9 +206,9 @@ quindi la legge debole dei grandi numeri non vale anche sostituendo $E[x]$ con $
 	\end{description}
 \end{solution}
 
-\begin{ex}
+\begin{exercise}
 	Distribuzione di $y=x^2$ con $x$ uniforme in (a) $[0,1]$ o (b) $[-1,1]$.
-\end{ex}
+\end{exercise}
 
 \begin{solution}
 	La distribuzione di $y=x^2$ è $1/x$ per la parte pari di $p(x)$ (vedi \autoref{th:stat1d}). Si ottiene

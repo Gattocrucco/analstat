@@ -7,6 +7,7 @@
 
 \usepackage[font={sf}]{caption}
 \usepackage{etoolbox} % \patchcmd
+\usepackage{collect}
 \usepackage{ifthen} % \ifthenelse
 
 \setcounter{secnumdepth}{3}
@@ -16,7 +17,9 @@
 \renewcommand\marginpar[1]{\oldmarginpar{}}
 
 \patchcmd{\chapter}{plain}{fancy}{}{}
+\patchcmd{\tableofcontents}{onecolumn}{twocolumn}{}{}
 
+% --- LESSON MARK ---
 \newcounter{thislessonpage}
 \newcounter{lastlessonpage}
 \newenvironment{lesson}[4]{%
@@ -35,7 +38,19 @@
 {Lezioni \DTMusedate{lastlessondate}, \DTMusedate{thislessondate}}
 {Lezione \DTMusedate{thislessondate}}%
 }
+% -------------------
 \newcommand*\titlet[1]{\section{#1}}
 \newcommand*\subtitlet[1]{\subsection{#1}}
+
+% --- SOLUTIONS ---
+\definecollection{solfile}
+\newcommand\mycollect[1]{\collect{solfile}{\subsection*{Soluzione esercizio #1}}{}}
+\newenvironment{solution} % solution to be put in the "solutions" chapter
+{\begingroup\edef\x{\endgroup\noexpand\mycollect{\theexercise}}\x}%
+{\endcollect}
+\newcommand\solutions{%
+\appendix\chapter{Soluzioni}
+\includecollection{solfile}}
+% -----------------
 
 \input{appunti_core.tex}

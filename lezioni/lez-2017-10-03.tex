@@ -1,13 +1,13 @@
 % Giacomo Petrillo
 % lezione di Punzi
 
-\begin{defn}[Matrice di covarianza]
+\begin{definition}[Matrice di covarianza]
 	Date $n$ variabili $x_i$ si definisce \emph{matrice di covarianza}
 	\begin{equation*}
 		A_{ij} = \cov[x_i,x_j] \is E[(x_i-\avg{x_i})(x_j-\avg{x_j})].
 	\end{equation*}
 	Gli elementi diagonali sono le varianze e quelli fuori diagonale sono le covarianze.
-\end{defn}
+\end{definition}
 
 Data una statistica abbiamo visto come ricavarne esattamente la distribuzione;
 può però essere utile ricavare solo alcuni momenti in modo approssimato.
@@ -50,10 +50,10 @@ Nel caso che le $x_i$ siano indipendenti, questa approssimazione della varianza 
 Probabilmente avrete già incontrato questa formula come ``formula di propagazione degli errori'';
 sottolineiamo che è una del tutto generale approssimazione di un momento di una statistica e che non è detto sia sempre una buona approssimazione quando la usiamo per la propagazione degli errori (o, come preferiamo chiamarle, incertezze).
 
-\begin{defn}[Funzione generatrice]
+\begin{definition}[Funzione generatrice]
 	Data la pdf $p(x)$, la sua \emph{funzione generatrice} è
 		$M(t) = E[e^{tx}]$.
-\end{defn}
+\end{definition}
 
 La funzione generatrice è utile per calcolare i momenti, infatti:
 \begin{align*}
@@ -76,7 +76,7 @@ Per due variabili indipendenti $x$, $y$ vale che
 \end{equation*}
 inoltre ovviamente $M_{\alpha x}(t) = M_x(\alpha t)$.
 
-\begin{es}
+\begin{example}
 	Consideriamo una distribuzione uniforme in $[0,m]$:
 	\begin{equation*}
 		p(x) = \begin{cases}
@@ -109,7 +109,7 @@ inoltre ovviamente $M_{\alpha x}(t) = M_x(\alpha t)$.
 	\begin{equation*}
 		\sigma^2 = \mu_2 - \mu_1^2 = \frac{m^2}{12}.
 	\end{equation*}
-\end{es}
+\end{example}
 
 La distribuzione di una variabile che può assumere solo due valori si chiama \emph{distribuzione di Bernoulli}.
 Fissiamo la notazione:
