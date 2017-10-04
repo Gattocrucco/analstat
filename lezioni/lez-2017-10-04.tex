@@ -1,0 +1,57 @@
+% Giacomo Petrillo
+% lezione di Francavilla
+
+\begin{figure}
+	\centering
+	\includegraphics[width=9cm]{binomiale}
+	\caption{Distribuzione binomiale per $n=5$ e $p=0.5, 0.8$.}
+\end{figure}
+
+\begin{exercise}
+	Calcolare direttamente media e varianza della binomiale.
+\end{exercise}
+
+\begin{solution}
+	\begin{align*}
+		E[k] &=
+		\sum_{k=0}^n k \binom nk p^k (1-p)^{n-k} = \\
+		\Bigg[ k \binom nk &= k \frac{n!}{(n-k)!k!} = \frac{n!(n-k+1)}{(n-k+1)!(k-1)!} = (n-k+1) \binom n{k-1} \Bigg] \\
+		&= (n+1) \sum_{k=1}^n \binom n{k-1} p^k (1-p)^{n-k} + {} \\
+		&\phantom{{}={}} - \sum_{k=1}^n k \binom n{k-1} p^k (1-p)^{n-k} = \\
+		&= (n+1) \sum_{k=0}^{n-1} \binom nk p^{k+1} (1-p)^{n-k+1} + {} \\
+		&\phantom{{}={}} - \sum_{k=0}^{n-1} (1+k) \binom nk p^{k+1} (1-p)^{n-k+1} = \\
+		&= \frac p{1-p} \big( (n+1)(E[1] - p^n) - (E[1] + E[k] - (1+n)p^n) \big) = \\
+		&= \frac p{1-p} ( n - E[k] ) \rightarrow \\
+		&\rightarrow E[k]\left(1-\frac p{1-p} \right) = \frac {np}{1-p} \rightarrow \\
+		&\rightarrow E[k] = np
+	\end{align*}
+	\begin{align*}
+		E[k^2] &=
+		\sum_{k=0}^n k^2 \binom nk p^k (1-p)^{n-k} = \\
+		&= \sum_{k=0}^n k(n+1-k) \binom n{k-1} p^k (1-p)^{n-k} = \\
+		&= (n+1) \sum_{k=1}^n k \binom n{k-1} p^k (1-p)^{n-k} + {} \\
+		&\phantom{{}={}} - \sum_{k=1}^n k^2 \binom n{k-1} p^k (1-p)^{n-k} = \\
+		&= (n+1) \sum_{k=0}^{n-1} (1+k) \binom nk p^{k+1} (1-p)^{n-k-1} + {} \\
+		&\phantom{{}={}} - \sum_{k=0}^{n-1} (1+k)^2 \binom nk p^{k+1} (1-p)^{n-k-1} = \\
+		&= \frac p{1-p} \Big(
+		(n+1)(E[1] + E[k] - (n+1)p^n) + {} \\
+		&\phantom{{} = \frac p{1-p} \big({}} - (E[1] + 2E[k] + E[k^2] - (n+1)^2p^n) \Big) \rightarrow \\
+		\rightarrow E[k^2] &= p\big((n+1)(1+np) - 1 - 2np\big) = \\
+		&= -np^2 + np + n^2p^2
+	\end{align*}
+	\begin{equation*}
+		\sigma^2 = E[k^2] - E[k]^2 = np(1-p)
+	\end{equation*}
+\end{solution}
+
+Noi la calcoliamo invece con la funzione generatrice:
+\begin{align*}
+	\frac{\de M}{\de t} &=
+	n(pe^t + 1 - p)^{n-1}pe^t \\
+	\frac{\de^2 M}{\de t^2} &=
+	np \big(e^t(pe^t + 1-p)^{n-1} + e^t(n-1)(pe^t+1-p)^{n-2}pe^t\big) = \\
+	&= npe^t(pe^t + 1-p)^{n-2}(pe^t+1-p + pe^t(n-1)) \\
+	\mu &= \left. \frac{\de M}{\de t} \right|_{t=0} = np \\
+	\mu_2 &= \left. \frac{\de^2 M}{\de t^2} \right|_{t=0} = np(1 + p(n-1)) = np + n^2p^2 - np^2 \\
+	\sigma^2 &= \mu_2 - \mu^2 = np(1-p).
+\end{align*}
