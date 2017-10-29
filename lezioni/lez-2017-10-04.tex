@@ -103,7 +103,7 @@ Noi la calcoliamo invece con la funzione generatrice:
 \begin{figure}
 	\centering
 	\includegraphics[width=9cm]{poisson}
-	\caption{Distribuzione binomiale per $\mu=2,5$.}
+	\caption{Distribuzione poissoniana per $\mu=2,5$.}
 \end{figure}
 
 \begin{exercise}
@@ -180,5 +180,65 @@ Noi la calcoliamo invece con la funzione generatrice:
 \end{solution*}
 
 \begin{exercise}
-	Ho un rate di eventi alto abbastanza da non poterli salvare tutti. Posso scegliere di sal
+	Ho un rate di eventi alto abbastanza da non poterli salvare tutti. Posso scegliere di salvare un evento ogni $n$ oppure di decidere casualmente per ogni evento di salvarlo con probabilità $1/n$. La distribuzione temporale degli eventi salvati è la stessa nei due casi?
 \end{exercise}
+
+\begin{solution}
+	Il tempo che intercorre tra un evento e quello successivo è distribuito esponenzialmente:
+	\begin{equation*}
+		p(t) = e^{-t};
+	\end{equation*}
+	quindi il tempo che intercorre tra $n$ eventi è la somma di $n$ variabili esponenziali.
+	Calcoliamo la distribuzione usando la funzione caratteristica:
+	\begin{align*}
+		\phi_t(u) &= \frac1{1-iu} \\
+		\phi_{\sum_{i=1}^n t_i}(u) &= \frac1{(1-iu)^n} \\
+		p_{\sum_{i=1}^n t_i}(t)
+		&= \frac1{2\pi} \int_{-\infty}^\infty \de u\, e^{-itu} \frac1{(1-iu)^n} = \\
+		&= \frac{e^{-t}}{2\pi} \int_{-\infty}^\infty \de u\, \frac{e^{(1-iu)t}}{(1-iu)^n} = \\
+		&= \frac{e^{-t}}{2\pi}
+		\left[ \frac{-i}{n-1} \frac1{(1-iu)^{n-1}} e^{(1-iu)t} \right]_{-\infty}^\infty + & \Bigg\} =0\\
+		&\phantom{{}={}} - \frac{e^{-t}}{2\pi}
+		\int_{-\infty}^\infty \de u\, \frac{-i}{n-1} \frac1{(1-iu)^{n-1}} (-it) e^{(1-iu)t} = \\
+		&= \frac{e^{-t}}{2\pi} \frac{t}{n-1} \int_{-\infty}^\infty \de u\, \frac{e^{(1-iu)t}}{(1-iu)^{n-1}} = \\
+		&= \frac{e^{-t}}{2\pi} \frac{t^{n-1}}{(n-1)!} \int_{-\infty}^\infty \de u\, \frac{e^{(1-iu)t}}{1-iu} = \\
+		&= \frac{e^{-t}}{2\pi} \frac{t^{n-1}}{(n-1)!} 2\pi e^t \frac1{2\pi} \int_{-\infty}^\infty \de u\, e^{-itu} \phi_t(u) = \\
+		&= \frac{t^{n-1}}{(n-1)!} e^{-t}
+	\end{align*}
+	Fissato un evento salvato, la probabilità che quello salvato successivo sia il $k$-esimo successivo è la probabilità di salvare quell'evento per la probabilità di non aver salvato quelli precedenti, cioè
+	\begin{equation*}
+		P(k) = p(1-p)^{k-1}, \quad p\is\frac1n.
+	\end{equation*}
+	La distribuzione del tempo fino al $k$-esimo evento è quella calcolata prima, allora
+	\begin{align*}
+		p(t) &= \sum_{k=1}^\infty p(t|k) P(k) = \\
+		&= \sum_{k=1}^\infty \frac{t^{k-1}}{(k-1)!}e^{-t} \,  p(1-p)^{k-1} = \\
+		&= e^{-t}p \sum_{k=0}^\infty \frac{t^k}{k!}(1-p)^k = \\
+		&= e^{-t}p e^{t(1-p)} = pe^{-pt},
+	\end{align*}
+	che è ancora esponenziale.
+	In particolare quindi le due distribuzioni sono diverse.
+\end{solution}
+
+\begin{exercise}
+	Funzione caratteristica della Cauchy.
+\end{exercise}
+
+\begin{solution}
+	Dobbiamo calcolare
+	\begin{equation*}
+		\int_{-\infty}^\infty \de x\, e^{itx} \frac1\pi \frac1{1+x^2}.
+	\end{equation*}
+	L'integrando va a zero almeno come $1/x^2$ per $t><0$ in uno dei due semipiani complessi quindi usiamo i residui.
+	I poli sono in $\pm i$, sviluppiamo:
+	\begin{align*}
+		&\phantom{{}={}} \frac1\pi \frac{e^{it(\pm i)}}{1+ (\pm i + \Delta x^2)} = \\
+		&= \frac1\pi \frac{e^{\mp t}}{\pm 2i\Delta x + O(\Delta x^2)} \approx \\
+		&\approx \pm\frac{e^{\mp t}}{2\pi i} \frac1{\Delta x}.
+	\end{align*}
+	Se $t><0$ dobbiamo usare il semipiano rispettivamente superiore/inferiore,
+	nel secondo caso la retta reale viene percorsa in verso opposto quindi l'integrale è
+	\begin{equation*}
+		\pm 2\pi i \left ( \pm\frac{e^{\mp t}}{2\pi i} \right) = e^{-|t|}.
+	\end{equation*}
+\end{solution}
