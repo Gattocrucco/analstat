@@ -140,11 +140,12 @@ e $k$ può essere scritto come $\sum_ix_i$, quindi deve essere $M_k = M_x^n$.
 
 Calcoliamo ora la probabilità che in un intervallo di tempo $T$ si verifichino $k$ eventi se per il singolo evento è definita una probabilità per unità di tempo $\lambda$.
 Dividiamo l'intervallo $T$ in $N$ sottointervalli uguali.
-La probabilità che in un sottointervallo si verifichi un solo evento è
+Nel limite $N\to\infty$, la probabilità che in un sottointervallo si verifichi un solo evento è
 \begin{equation*}
 	p \is \lambda \frac TN,
 \end{equation*}
 quindi la probabilità $p_q$ che in un sottointervallo si verifichino $q>0$ eventi è $p^q$,
+\marginpar{invece dovrebbe essere $p^q/q!$}
 mentre la probabilità che si verifichino 0 eventi è
 \begin{equation*}
 	p_0 = 1 - \sum_{q\ge1} p^q = 1 - \left(\frac1{1-p} - 1\right) = \frac{1-2p}{1-p}.
@@ -152,19 +153,19 @@ mentre la probabilità che si verifichino 0 eventi è
 Sia $k_q$ il numero di sottointervalli in cui si verificano $q$ eventi,
 se $k$ è il numero totale di eventi vale ovviamente
 \begin{equation*}
-	k = \sum_{q\ge1} k_q, \quad k_0 = N - k.
+	k = \sum_{q\ge1} q k_q, \quad k_0 = N - \sum_{q\ge 1} k_q \isis N - s.
 \end{equation*}
 La distribuzione dei $k_q$ è la multinomiale
 \begin{align*}
 	P(k_1,k_2,\dotsc)
 	&= \frac{N!}{k_0!k_1!\dotsm} p_0^{k_0} p_1^{k_1} \dotsm = \\
-	&= \frac{N!}{(N - k)!} \left(\frac{1-2p}{1-p}\right)^{N-k} \prod_{q\ge1} \frac{p^{qk_q}}{k_q!} = \\
-	&= \frac{N!}{(N - k)!} \left(\frac{1-2\frac{\lambda T}{N}}{1-\frac{\lambda T}{N}}\right)^{N-k} \left(\frac{\lambda T}{N}\right)^{\sum_{q\ge1} qk_q} \prod_{q\ge1} \frac1{k_q!}.
+	&= \frac{N!}{(N - s)!} \left(\frac{1-2p}{1-p}\right)^{N-s} \prod_{q\ge1} \frac{p^{qk_q}}{k_q!} = \\
+	&= \frac{N!}{(N - s)!} \left(\frac{1-2\frac{\lambda T}{N}}{1-\frac{\lambda T}{N}}\right)^{N-s} \left(\frac{\lambda T}{N}\right)^k \prod_{q\ge1} \frac1{k_q!}.
 \end{align*}
 Facendo il limite per $N\to\infty$, risulta
 \begin{equation*}
 	P(k_1,k_2,\dotsc)
-	= N^k e^{-\lambda T} \left(\frac{\lambda T}{N}\right)^{\sum_{q\ge1} qk_q} \prod_{q\ge1} \frac1{k_q!}
+	= N^s e^{-\lambda T} \left(\frac{\lambda T}{N}\right)^k \prod_{q\ge1} \frac1{k_q!}
 	= O\left(N^{\sum_{q\ge1} k_q - \sum_{q\ge1} qk_q}\right)
 \end{equation*}
 che non va a zero solo se $k_q=0$ per $q > 1$ ovvero se $k=k_1$,

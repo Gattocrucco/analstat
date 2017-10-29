@@ -22,7 +22,7 @@
 		&\phantom{{}={}} - \sum_{k=0}^{n-1} (1+k) \binom nk p^{k+1} (1-p)^{n-k+1} = \\
 		&= \frac p{1-p} \big( (n+1)(E[1] - p^n) - (E[1] + E[k] - (1+n)p^n) \big) = \\
 		&= \frac p{1-p} ( n - E[k] ) \rightarrow \\
-		&\rightarrow E[k]\left(1-\frac p{1-p} \right) = \frac {np}{1-p} \rightarrow \\
+		&\rightarrow E[k]\left(1+\frac p{1-p} \right) = \frac {np}{1-p} \rightarrow \\
 		&\rightarrow E[k] = np
 	\end{align*}
 	\begin{align*}
@@ -55,3 +55,130 @@ Noi la calcoliamo invece con la funzione generatrice:
 	\mu_2 &= \left. \frac{\de^2 M}{\de t^2} \right|_{t=0} = np(1 + p(n-1)) = np + n^2p^2 - np^2 \\
 	\sigma^2 &= \mu_2 - \mu^2 = np(1-p).
 \end{align*}
+
+\begin{exercise}
+	Calcolare la distribuzione del numero $n$ di lanci necessari per ottenere $k$ successi.
+\end{exercise}
+
+\begin{solution}
+	Dobbiamo contare le sequenze binarie lunghe $n$ che hanno $k$ uno e finiscono per uno,
+	cioè contare le sequenze lunghe $n-1$ con $k-1$ uno.
+	La probabilità di una sequenza è $p^k(1-p)^{n-k}$.
+	Quindi
+	\begin{equation*}
+		P(n;k) \propto \binom{n-1}{k-1} (1-p)^n.
+	\end{equation*}
+	La normalizzazione è
+	\begin{equation*}
+		\sum_{n=k}^\infty \binom{n-1}{k-1} (1-p)^n =
+		\sum_{n=k}^\infty O(n^k) (1-p)^n
+	\end{equation*}
+	che converge.
+	Nota: non è corretto il ragionamento
+	<<$P(k;n)$ è la binomiale, ricavo $P(n;k)$ usando Bayes>>
+	perché qui sappiamo che al $k$-esimo successo smettiamo di lanciare.
+\end{solution}
+
+\begin{exercise}
+	Calcolare media e varianza della Poissoniana.
+\end{exercise}
+
+\begin{solution*}
+	Calcoliamo la generatrice
+	\begin{align*}
+		M(t) &= E[e^{tk}] = \\
+		&= \sum_k e^{tk} \frac{\mu^k}{k!} e^{-\mu} =
+		e^{-\mu} \sum_k \frac{(\mu e^t)^k}{k!} = \\
+		&= e^{-\mu} e^{\mu e^t} = e^{\mu(e^t - 1)}.
+	\end{align*}
+	Dalla generatrice ricaviamo la media e la varianza
+	\begin{align*}
+		\frac{\de M}{\de t} &= e^{\mu(e^t-1)}\mu e^t = \mu e^{\mu(e^t-1) + t} \\
+		\frac{\de^2 M}{\de t^2} &= \mu e^{\mu(e^t-1) + t} (\mu e^t + 1) \\
+		E[k] &= \left. \frac{\de M}{\de t} \right|_{t=0} = \mu \\
+		\var[k] &= \left. \frac{\de^2 M}{\de t^2} \right|_{t=0} - E[k]^2 = \mu.
+	\end{align*}
+\end{solution*}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=9cm]{poisson}
+	\caption{Distribuzione binomiale per $\mu=2,5$.}
+\end{figure}
+
+\begin{exercise}
+	Distribuzione della somma di variabili poissoniane.
+\end{exercise}
+
+\begin{solution}
+	Si ricava immediatamente dalla funzione generatrice:
+	\begin{equation*}
+		M_{k_1+k_2}(t) =
+		M_{k_1}(t)M_{k_2}(t) =
+		e^{\mu_1(e^t-1)} e^{\mu_2(e^t-1)} =
+		e^{(\mu_1+\mu_2)(e^t-1)}
+	\end{equation*}
+	quindi la distribuzione è ancora poissoniana con $\mu=\mu_1+\mu_2$.
+	Notiamo che si arriva alla stessa conclusione partendo dal fatto che la poissoniana è la distribuzione del numero di eventi in un certo tempo $T$ con una definita probabilità per unità di tempo $\lambda$; poiché quello che conta è il prodotto $\lambda T$ possiamo prendere $\lambda_1=\lambda_2$ quindi sommare due conteggi di eventi è come concatenare due intervalli di tempo.
+\end{solution}
+
+\begin{exercise}
+	Per un certo tempo osservo la strada e conto i taxi,
+	tuttavia ho una probabilità $1-\epsilon$ di distrarmi e non contare un taxi.
+	Qual è la distribuzione del mio conteggio?
+\end{exercise}
+
+\begin{solution*}
+	Assumiamo che il flusso medio di taxi non cambi nell'intervallo di osservazione,
+	quindi il numero di taxi che passano è una poissoniana con media~$\mu$:
+	\begin{equation*}
+		P(n;\mu) = \frac{\mu^n}{n!}e^{-\mu}.
+	\end{equation*}
+	Dei taxi che passano, quelli che effettivamente conto è una binomiale:
+	\begin{equation*}
+		P(k|n;\epsilon) = \binom nk \epsilon^k (1-\epsilon)^{n-k}.
+	\end{equation*}
+	La probabilità di $k$ è allora
+	\begin{align*}
+		P(k;\mu,\epsilon) &=
+		\sum_n P(k|n;\epsilon) P(n;\mu) = \\
+		&= \sum_{n=k}^\infty \binom nk \epsilon^k (1-\epsilon)^{n-k} \frac{\mu^n}{n!}e^{-\mu} = \\
+		&= \left( \frac\epsilon{1-\epsilon} \right)^k e^{-\mu} \sum_{n=k}^\infty \binom nk (1-\epsilon)^n \frac{\mu^n}{n!} = \\
+		&= \left( \frac\epsilon{1-\epsilon} \right)^k \frac{e^{-\mu}}{k!} \sum_{n=k}^\infty \frac{(\mu(1-\epsilon))^n}{(n-k)!} = \\
+		&= \left( \frac\epsilon{1-\epsilon} \right)^k \frac{e^{-\mu}}{k!} (\mu(1-\epsilon))^k e^{\mu(1-\epsilon)} = \\
+		&= \frac{(\mu\epsilon)^k}{k!}e^{-\mu\epsilon},
+	\end{align*}
+	cioè poissoniana con media $\mu\epsilon$.
+\end{solution*}
+
+\begin{exercise}
+	Media e varianza della distribuzione esponenziale.
+\end{exercise}
+
+\begin{solution*}
+	La distribuzione esponenziale è
+	\begin{equation*}
+		p(x) = e^{-x}, \quad x \ge 0;
+	\end{equation*}
+	calcoliamo la funzione caratteristica:
+	\begin{align*}
+		\phi(t) &=  E[e^{itx}] = \\
+		&= \int_0^\infty \de x\, e^{itx}e^{-x} = \int_0^\infty \de x\, e^{(it-1)x} = \\
+		&= \left[ \frac{e^{(it-1)x}}{it-1} \right]_0^\infty = \frac1{1-it}.
+	\end{align*}
+	Calcoliamo i momenti:
+	\begin{align*}
+		\phi'(t) &= \frac{i}{(1-it)^2} \\
+		\phi''(t) &= \frac{-2}{(1-it)^3} \\
+		E[x] &= \frac1i \phi'(0) = 1 \\
+		\var[x] &= \frac1{i^2}\phi''(0) - E[x]^2 = 2 - 1 = 1.
+	\end{align*}
+	Media e varianza per l'esponenziale nella forma $\lambda e^{-\lambda x}$ si ricavano immediatamente con un cambio di variabili:
+	\begin{equation*}
+		E[x] = \lambda^{-1}, \quad \var[x] = \lambda^{-2}.
+	\end{equation*}
+\end{solution*}
+
+\begin{exercise}
+	Ho un rate di eventi alto abbastanza da non poterli salvare tutti. Posso scegliere di sal
+\end{exercise}
