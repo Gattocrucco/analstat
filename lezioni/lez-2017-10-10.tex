@@ -103,3 +103,89 @@ Spesso ci interessa il caso di misure ripetute di una stessa quantità e di come
 \begin{equation*}
 	\mathcal L(\mu) = P(x_1;\mu) P(x_2;\mu) \dotsm P(x_N;\mu).
 \end{equation*}
+
+\begin{example}
+	\begin{figure}
+		\centering
+		\includegraphics[width=9cm]{likelihood_uniforme}
+		\caption{Distribuzione uniforme e likelihood.}
+	\end{figure}
+	Consideriamo una pdf uniforme
+	\begin{equation*}
+		p(x;m) = \begin{cases}
+			\frac 1m & 0<x<m \\
+			0 & \text{altrimenti.}
+		\end{cases}
+	\end{equation*}
+	Fissata una misura $x_0$ la likelihood è
+	\begin{equation*}
+		\mathcal L(m) = \begin{cases}
+			\frac 1m & m > x_0 \\
+			0 & 0 < m \le x_0.
+		\end{cases}
+	\end{equation*}
+\end{example}
+
+Se cambiamo variabile, la likelihood trasforma con una costante:
+\begin{align*}
+	y &= f(x) \\
+	p(y;\mu) &= \frac{p(x;\mu)}{|f'(x)|} \\
+	\mathcal L_y(\mu) &= \frac{\mathcal L_x(\mu)}{|f'(x)|}.
+\end{align*}
+quindi diciamo che la likelihood è definita a meno di una costante moltiplicativa.
+Se invece cambiamo parametrizzazione, la likelihood trasforma in modo banale:
+\begin{align*}
+	\eta &= g(\mu) \\
+	\mathcal L_\eta(\eta) &= \mathcal L_\mu(g^{-1}(\eta)).
+\end{align*}
+In seguito a queste due osservazioni possiamo considerare la likelihood una proprietà ``intrinseca'' del modello.
+
+Se combino misure indipendenti, le likelihood si moltiplicano:
+\begin{align*}
+	p(x,y;\mu) &= p(x;\mu) p(y;\mu) \\
+	\rightarrow \mathcal L_{xy}(\mu) &= \mathcal L_x(\mu) \mathcal L_y(\mu).
+\end{align*}
+
+Supponiamo che $\mu$ ammetta una probabilità. Allora possiamo porre
+\begin{equation*}
+	P(x|\mu) = P(x;\mu)
+\end{equation*}
+e applicare il teorema di Bayes per ricavare $P(\mu|x)$:
+\begin{equation*}
+	P(\mu|x) = \frac{P(x|\mu)P(\mu)}{P(x)}
+\end{equation*}
+che, fissata una misura $x_0$, diventa
+\begin{equation*}
+	P(\mu|x_0) = \frac{\mathcal L(\mu) P(\mu)}{P(x_0)}.
+\end{equation*}
+Si chiamano $P(\mu|x_0)$ \emph{posteriore} e $P(\mu)$ \emph{priore}.
+Il termine $P(x_0)$ è un fattore di normalizzazione, in effetti
+\begin{equation*}
+	P(x_0) = \int \de \mu\, \mathcal L(\mu) P(\mu).
+\end{equation*}
+Il termine interessante è il priore, perché richiede in pratica di scegliere un'ulteriore distribuzione oltre al modello.
+Se abbiamo il priore, l'inferenza è finita, perché tutto quello che la teoria della probabilità ci può dire su $\mu$ in seguito alla misura è racchiuso in $P(\mu|x_0)$.
+
+Supponiamo di non essere in grado per qualche motivo di fare inferenza sul modello, ma di essere in grado di fare inferenza su ogni sottomodello di una partizione.
+Diciamo allora che abbiamo un'\emph{incertezza sistematica}.
+Il risultato sarà un qualche tipo di sintesi di una famiglia di inferenze.
+\marginpar{un esempio gioverebbe alla comprensione}
+
+Secondo l'interpretazione frequentista della probabilità,
+per assegnare un priore a $\mu$ è richiesto che sia quantomeno possibile una verifica empirica della distribuzione di $\mu$.
+Tuttavia questo restringe molto i casi in cui possiamo ricavare il posteriore.
+Esiste un'interpretazione \emph{bayesiana} della probabilità in cui si afferma semplicemente che una distribuzione di probabilità rappresenta la conoscenza soggettiva che abbiamo di una quantità.
+Allora possiamo scegliere ad arbitrio il priore.
+Se questa scelta arbitraria sembra un problema fondamentale,
+ricordiamo al lettore che in definitiva anche il modello è arbitrario.
+Si vede subito che non esiste un priore privilegiato perché cambiando parametrizzazione il priore trasforma in modo non banale, a differenza della likelihood.
+
+Dal punto di vista computazionale, anche il termine di normalizzazione $P(x_0)$ può essere un problema.
+Ci sono quindi casi in cui si cerca di ricondursi a un rapporto di posteriori per due modelli diversi:
+\begin{equation*}
+	\frac{P(\mu_1|x_0)}{P(\mu_2|x_0)} = \frac{\mathcal L(\mu_1)}{\mathcal L(\mu_2)} \frac{P(\mu_1)}{P(\mu_2)}.
+\end{equation*}
+
+In statistica esiste un ``principio di Likelihood'' secondo cui tutta l'informazione della misura nell'inferenza dev'essere racchiusa nella likelihood.
+Come abbiamo visto questo è verificato per l'inferenza probabilistica completa in cui si ricava il posteriore.
+Tuttavia nel caso ad esempio di incertezze sistematiche già non è più definita una singola likelihood.
