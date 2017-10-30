@@ -10,7 +10,96 @@ dalle proprietà del valore atteso si ricava immediatamente che
 \begin{equation*}
 	E[\bar x] = \mu, \quad \var[\bar x] = \frac{\sigma^2}{n}.
 \end{equation*}
-
-
+Definiamo
+\begin{equation*}
+	y_n \is \frac{\bar x - \mu}{\sigma / \sqrt n},
+\end{equation*}
+che ha media~0 e varianza~1.
+Dalle proprietà della funzione caratteristica si ricava che
+\begin{equation*}
+	\phi_{y_n}(t) = e^{-\frac{it\mu}{\sigma}\sqrt n} \phi_x\left(\frac t\sigma \frac1{\sqrt n}\right)^n,
+\end{equation*}
+dove $\phi_x$ è la funzione caratteristica delle $x_i$. Prendiamone il logaritmo:
+\begin{equation*}
+	\log\phi_{y_n}(t) = -\frac{it\mu}{\sigma}\sqrt n + n\log\phi_x\left(\frac t\sigma \frac1{\sqrt n}\right).
+\end{equation*}
+Dagli sviluppi del logaritmo e della funzione caratteristica
+\begin{align*}
+	\log(1+u) &= u - \frac12 u^2 + \dotsb \\
+	\phi_x(u) &= \phi_x(0) + \phi_x'(0)u + \frac12 \phi_x''(0) u^2 + \dotsb
+\end{align*}
+e usando i momenti
+\begin{align*}
+	\phi_x(0) &= 1 \\
+	\mu = i^{-1}\phi_x'(0) \rightarrow \phi_x'(0) &= i\mu \\
+	\sigma^2 = i^{-2}\phi_x''(0) - \mu^2 \rightarrow \phi_x''(0) &= -(\mu^2+\sigma^2)
+\end{align*}
+otteniamo che
+\begin{align*}
+	\log\phi_{y_n}(t)
+	&= -\frac{it\mu}{\sigma}\sqrt n + {} \\
+	&\phantom{{}={}} + n \log\left(1 + \phi_x'(0) \frac t\sigma \frac1{\sqrt n}
+	+ \frac12 \phi_x''(0) \frac{t^2}{\sigma^2} \frac1n
+	+ O\left(\frac1{n\sqrt n}\right) \right) = \\
+	&= -\frac{it\mu}{\sigma}\sqrt n
+	+ n \left( \phi_x'(0) \frac t\sigma \frac1{\sqrt n}
+	+ \frac12 \phi_x''(0) \frac{t^2}{\sigma^2} \frac 1n + {}\right. \\
+	&\left.\phantom{= -\frac{it\mu}{\sigma}\sqrt n + n\left(\vphantom{\frac1{\sqrt n}}\right.}
+	- \frac12 \phi_x'(0)^2 \frac{t^2}{\sigma^2} \frac 1n 
+	+ O\left(\frac1{n\sqrt n}\right) \right) = \\
+	&= -\frac{it\mu}{\sigma}\sqrt n
+	+ \frac{it\mu}{\sigma}\sqrt n
+	+ \frac12 (-\mu^2 - \sigma^2 + \mu^2) \frac{t^2}{\sigma^2} + O\left(\frac1{\sqrt n}\right) = \\
+	&= -\frac{t^2}2 + O\left(\frac1{\sqrt n}\right),
+\end{align*}
+quindi abbiamo il limite
+\begin{equation*}
+	\phi_{y_\infty}(t) = e^{-\frac{t^2}2}.
+\end{equation*}
+Ricaviamo la pdf con la trasformata inversa:
+\marginpar{andrebbe chiarito il passaggio dal limite sulle caratteristiche a quello sulle pdf}
+\begin{align*}
+	p(y)
+	&= \frac1{2\pi} \int_{-\infty}^\infty \de t\, e^{-ity} e^{-\frac{t^2}2} = \\
+	&= \frac1{2\pi} \int_{-\infty}^\infty \de t\,
+	e^{-\left(\frac t{\sqrt 2} + \frac{iy}{\sqrt 2}\right)^2 - \frac{y^2}2} = \\
+	&= \frac1{2\pi} \sqrt{2\pi} e^{-\frac{y^2}2} = \\
+	&= \frac1{\sqrt{2\pi}} e^{-\frac{y^2}2};
+\end{align*}
+abbiamo quindi dimostrato il
+\begin{theorem}[del limite centrale]
+	Sia $x$ variabile che ammette media e varianza e con funzione caratteristica sviluppabile in serie di potenze su $\R$,
+	allora la somma di $n$ variabili indipendenti identiche a $x$ normalizzata in modo da avere media nulla e varianza unitaria ha distribuzione gaussiana nel limite $n\to\infty$.
+\end{theorem}
+Questa è una forma debole del teorema del limite centrale, che sotto opportune ipotesi vale anche sommando variabili con distribuzioni diverse.
 
 \chapter{Inferenza}
+
+L'inferenza cerca di risolvere il problema:
+<<ho delle misure che voglio descrivere con la probabilità,
+qual è la distribuzione che devo usare, ovvero \emph{assegnare alle misure}?>>
+Affinché la questione sia ben posta bisogna fissare un'insieme di distribuzioni, il \emph{modello},
+tra cui in qualche modo scegliere quelle che descrivono meglio le misure.
+Tipicamente descriverò una famiglia di distribuzioni al variare di parametri reali,
+ad esempio se <<scelgo un modello poissoniano>> di solito intendo la famiglia di distribuzioni
+\begin{equation*}
+	P(k) = \frac{\mu^k}{k!}e^{-\mu}
+\end{equation*}
+in cui il parametro è $\mu$.
+Il punto diventa allora dire quali siano i valori di $\mu$ ``giusti'' e in che senso siano ``giusti''.
+
+\begin{definition}[Likelihood]
+	Dato un modello parametrizzato da $\mu$ (in uno spazio qualsiasi)
+	e data una misura $x$ descritta dal modello,
+	la \emph{likelihood} o \emph{verosimiglianza} è la funzione di $\mu$
+	che restituisce la (densità di) probabilità in $x$ per l'elemento indicizzato da $\mu$ del modello:
+	\begin{equation*}
+		\mathcal L(\mu) = P(x;\mu).
+	\end{equation*}
+\end{definition}
+
+Notiamo che la likelihood non è in generale una distribuzione per $\mu$.
+Spesso ci interessa il caso di misure ripetute di una stessa quantità e di come vari l'inferenza all'aumentare del numero di misure, in questo caso la likelihood si scrive
+\begin{equation*}
+	\mathcal L(\mu) = P(x_1;\mu) P(x_2;\mu) \dotsm P(x_N;\mu).
+\end{equation*}
