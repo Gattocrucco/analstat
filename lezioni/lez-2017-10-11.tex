@@ -8,12 +8,91 @@
 	Il test è caratterizzato una probabilità di falso positivo $P(+|0)$ e una di falso negativo
 	$P(-|1) = 1 - P(+|1)$.
 	Quello che interessa al paziente è la probabilità di avere la malattia in base al risultato del test:
-	$P(m|t)$. Calcolarlo conoscendo la frazione di popolazione che ha la malattia $P(m)$, anche numericamente con i valori: $P(+|0)=0.03$, $P(-|1)=0.02$, $P(1)=10^{-3}$.
+	$P(1|\pm)$. Calcolarlo conoscendo la frazione di popolazione che ha la malattia $P(1)$, anche numericamente con i valori: $P(+|0)=0.03$, $P(-|1)=0.02$, $P(1)=10^{-3}$.
 \end{exercise}
 
 \begin{solution*}
 	È una semplice applicazione del teorema di Bayes:
 	\begin{align*}
-		P()
+		P(1|\pm) &= \frac{P(\pm|1) P(1)}{P(\pm)} \\
+		\Big[ P(\pm) &= P(\pm|1)P(1) + P(\pm|0)P(0) \Big] \\
+	\end{align*}
+	che sostituendo i valori numerici risulta:
+	\begin{align*}
+		P(1|+) &= 0.032 \\
+		P(1|-) &= \num{2.1e-5}.
 	\end{align*}
 \end{solution*}
+
+\begin{exercise}
+	Un rivelatore di particelle è composto da due contatori.
+	Al passaggio di una particella,
+	un contatore ha probabilità $p$ o $q$ di inviare un segnale se la particella è rispettivamente
+	un elettrone ($e$) o un fotone ($\gamma$).
+	Gli eventi possibili sono 0, 1, 2 cioè il numero di contatori che ha inviato un segnale.
+	Calcolare $P(\gamma|1)$ e $P(\gamma|2)$ per un fascio di particelle con frazione di elettroni $P(e)$,
+	anche con i valori numerici $p=0.97$, $q=10^{-3}$, $P(e)=10^{-4}$.
+\end{exercise}
+
+\begin{solution*}
+	È anche questa una semplice applicazione di Bayes.
+	\begin{align*}
+		P(\gamma|12) &= \frac{P(12|\gamma) P(\gamma)}{P(12)} \\
+		P(12) &= P(12|\gamma)P(\gamma) + P(12|e)P(e) \\
+		P(1|\gamma) &= 2q(1-q), \quad P(1|e) = 2p(1-p) \\
+		P(2|\gamma) &= q^2, \quad P(2|e) = p^2 \\
+		P(\gamma) &= 1 - P(e).
+	\end{align*}
+	Mettendo i numeri:
+	\begin{align*}
+		P(\gamma|1) &= 1 - \num{3e-3} \\
+		P(\gamma|2) &= 0.01.
+	\end{align*}
+\end{solution*}
+
+\begin{exercise}
+	Abbiamo un deposito di munizioni stipate in casse.
+	Da indagini precendenti sappiamo che ci sono casse ``malandate''
+	in cui una frazione $q_0$ delle munizioni è difettosa,
+	mentre nelle altre casse tutti i proiettili sono buoni.
+	La probabilità che una cassa sia malandata è $f$.
+	Vogliamo migliorare la qualità aprendo tutte le casse,
+	controllando in ognuna una quantità fissata di munizioni e
+	eliminando la cassa se troviamo una munizione difettosa.
+	Calcolare $f$ in seguito a questa procedura.
+\end{exercise}
+
+\begin{solution*}
+	Fissiamo la notazione:
+	$q$ è la frazione di proiettili difettosi in un cassa,
+	$n$ è il numero di munizioni che controlliamo in ogni cassa,
+	$k$ è il numero di munizioni difettose tra quelle che controlliamo in una cassa.
+	
+	Quello che ci interessa è $P(q=0|k=0)$.
+	Il priore su $q$ è
+	\begin{equation*}
+		P(q) = (1-f) \delta(q) + f \delta(q-q_0).
+	\end{equation*}
+	La distribuzione di $k$ è binomiale:
+	\begin{equation*}
+		P(k|q) = \binom nk q^k (1-q)^{n-k}.
+	\end{equation*}
+	La soluzione è ora immediata:
+	\begin{align*}
+		P(q|k) &= \frac{P(k|q) P(q)}{P(k)} \\
+		\Bigg[ P(k) &= \int \de q\, P(k|q) P(q) \Bigg].
+	\end{align*}
+	Si può rendere più realistico l'esercizio usando un priore su $q$ non discreto.
+\end{solution*}
+
+% qui manca un esercizio perché mi sono distratto
+% aveva a che fare con la temperatura e i taxi
+
+\begin{example}
+	Consideriamo un modello poissoniano con priore \emph{improprio} uniforme:
+	\begin{align*}
+		P(k|\mu) &= \frac{\mu^k}{k!}e^{-\mu} \quad (\mu > 0) \\
+		P(\mu) &= 1.
+	\end{align*}
+	
+\end{example}
