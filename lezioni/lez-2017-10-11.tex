@@ -85,8 +85,8 @@
 	Si può rendere più realistico l'esercizio usando un priore su $q$ non discreto.
 \end{solution*}
 
-% qui manca un esercizio perché mi sono distratto
-% aveva a che fare con la temperatura e i taxi
+\marginpar{qui manca un esercizio perché mi sono distratto
+aveva a che fare con la temperatura e i taxi}
 
 \begin{example}
 	Consideriamo un modello poissoniano con priore \emph{improprio} uniforme:
@@ -94,5 +94,16 @@
 		P(k|\mu) &= \frac{\mu^k}{k!}e^{-\mu} \quad (\mu > 0) \\
 		P(\mu) &= 1.
 	\end{align*}
-	
+	Anche se il priore è non normalizzabile, il posteriore lo è:
+	\begin{align*}
+		P(\mu|k_0) &= \frac{P(k_0|\mu) P(\mu)}{P(k_0)} \\
+		P(k_0) &= \int_0^\infty \de\mu\, \frac{\mu^{k_0}}{k_0!}e^{-\mu} = \frac{\Gamma(1+k_0)}{k_0!} = 1.
+	\end{align*}
+	Se cambiamo parametrizzazione a $\tau=1/\mu$ e scegliamo un priore uniforme su $\tau$,
+	il posteriore non è più normalizzabile per $k_0<2$:
+	\begin{equation*}
+		P(k_0)
+		= \int_0^\infty \de\tau\, \frac{\tau^{-k_0}}{k_0!}e^{-1/\tau}
+		= \frac1{k_0!} \int_0^\infty \frac{\de\mu}{\mu^2} \mu^{k_0}e^{-\mu}.
+	\end{equation*}
 \end{example}
