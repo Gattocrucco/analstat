@@ -34,5 +34,92 @@ Con le notazioni della \autoref{th:suff}, calcoliamo $P(x|s)$:
 	\intertext{(se $s$ è iniettiva)}
 	&= f(x) \delta(s(x)=s_0).
 \end{align*}
-\marginpar{Forse val la pena di richiedere l'iniettività nella definizione di statistica sufficiente}%
 Quindi, data una statistica sufficiente iniettiva, la probabilità di~$x$ non dipende da~$\mu$.
+Notiamo che per definizione
+\begin{equation*}
+	\mathcal L(\mu) = P(x_0;\mu) = f(x_0) P(s(x_0);\mu)
+\end{equation*}
+quindi, poiché la likelihood è definita a meno di constante moltiplicativa,
+per scrivere la likelihood è sufficiente conoscere $s_0 \is s(x_0)$.
+Perciò il principio di Likelihood si estende a un \emph{principio di sufficienza},
+cioè che l'inferenza su $\mu$ è equivalente se sostituisco le misure con una loro statistica sufficiente.
+
+\begin{definition}
+	Una statistica sufficiente $s$ è \emph{minimale} se
+	\begin{equation*}
+		\forall \sigma \text{ statistica sufficiente}\ \exists f\ \forall x:
+		s(x) = f(\sigma(x)).
+	\end{equation*}
+\end{definition}
+Nota: non è detto che la statistica sufficiente minimale sia unica.
+
+\begin{theorem}
+	\label{th:suffatt}
+	Se la (densità di) probabilità di $x$ si fattorizza come
+	\begin{equation*}
+		P(x;\mu) = f(x) g(s(x);\mu)
+	\end{equation*}
+	e vale una delle seguenti:
+	\begin{itemize}
+		\item $f \ge 0$, oppure
+		\item $s$ è iniettiva,
+	\end{itemize}
+	allora $s$ è sufficiente.
+\end{theorem}
+
+\begin{proof}
+	Calcoliamo la probabilità di $s(x)$:
+	\begin{align*}
+		P(s(x);\mu)
+		&= \sum_{x':s(x')=s(x)} \frac{P(x';\mu)}{J(x')} = \\
+		&= \sum_{x':s(x')=s(x)} \frac{f(x') g(s(x');\mu)}{J(x')} = \\
+		&= \left( \sum_{x':s(x')=s(x)} \frac{f(x')}{J(x')} \right) g(s(x);\mu),
+	\end{align*}
+	dove $J$ è il jacobiano se $P$ sono densità altrimenti~1.
+	Se la somma su $x'$ è nulla,
+	nel caso $f\ge 0$ devono essere nulli tutti i termini quindi anche $f(x)$,
+	nel caso $s$ iniettiva la somma si riduce a $f(x)/J(x)$.
+	Allora posso scrivere
+	\begin{align*}
+		P(x;\mu)
+		&= F(x) P(s(x);\mu) \\
+		\intertext{dove}
+		F(x)
+		&= \begin{cases}
+			\displaystyle\frac{f(x)}{\sum_{x':s(x')=s(x)} \frac{f(x')}{J(x')}} & \sum_{x':s(x')=s(x)} \frac{f(x')}{J(x')} \neq 0 \\
+			0 & \text{altrimenti.}
+		\end{cases} \qedhere
+	\end{align*}
+\end{proof}
+
+\begin{fact}[Teorema di Darmois]
+	Sia $x$ variabile reale e $\fundef[\mathbf s_N]{\R^N}{\R^d}$ statistica sufficiente per $\mu$ di $N$ estrazioni di $x$ per ogni $N$,
+	allora necessariamente
+	\begin{equation*}
+		p(x;\mu) =
+		\exp \left( \sum_{i=1}^d \alpha_i(x)a_i(\mu) + \beta(x) + \gamma(\mu) \right);
+	\end{equation*}
+	le pdf in questa forma si chiamano \emph{famiglia esponenziale}.
+	Viceversa, se la pdf è della famiglia esponenziale, una statistica con le proprietà precedenti è data da
+	\begin{equation*}
+		s_{N,i}(\mathbf x) = \sum_{k=1}^{N} \alpha_i(x_k).
+	\end{equation*}
+\end{fact}
+
+\begin{exercise}
+	Dimostrare la seconda freccia del teorema di Darmois.
+\end{exercise}
+
+\begin{solution}
+	Calcoliamo la pdf delle estrazioni:
+	\begin{align*}
+		p(\mathbf x;\mu)
+		&= \prod_{k=1}^N p(x_k;\mu) = \\
+		&= \exp \left( \sum_{k=1}^N \sum_{i=1}^d \alpha_i(x_k)a_i(\mu)
+		+ \sum_{k=1}^N \beta(x_k) + N\gamma(\mu) \right) = \\
+		&= \exp \left( \sum_{k=1}^N \beta(x_k) \right)
+		\cdot \exp \left( \sum_{i=1}^d a_i(\mu)s_i(\mathbf x) + N\gamma(\mu) \right) = \\
+		&= f(\mathbf x) \cdot g(\mathbf s(\mathbf x);\mu), \quad f\ge0.
+	\end{align*}
+	Il \autoref{th:suffatt} conclude.
+\end{solution}
