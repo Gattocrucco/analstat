@@ -1,0 +1,38 @@
+% Giacomo Petrillo
+% lezione di Punzi
+
+Definiamo la gaussiana
+\begin{equation*}
+	g(x;\mu,\sigma) \is \frac1{\sqrt{2\pi}\sigma} e^{-\frac12 \left( \frac{x-\mu}\sigma \right)^2}.
+\end{equation*}
+Calcoliamo la likelihood per $\mu$ con due misure:
+\begin{align*}
+	\mathcal L(\mu)
+	&= g(x_1;\mu,\sigma) g(x_2;\mu,\sigma) = \\
+	&= \frac1{2\pi\sigma^2}
+	e^{\left( \frac{x_1-x_2}{2\sigma} \right)^2}
+	e^{-\frac2{2\sigma^2} \left( \frac{x_1+x_2}2 - \mu \right)^2} = \\
+	&= f(x_1,x_2) g \big( \mu;\bar x,\sigma/\sqrt2 \big).
+\end{align*}
+Dunque la likelihood per $\mu$ è gaussiana.
+Notiamo che la distribuzione di $\bar x$ ha la stessa forma $g \big( \bar x;\mu,\sigma/\sqrt2 \big)$
+e che questo non vale in generale, si pensi ad esempio alla distribuzione uniforme
+in cui la somma di due variabili è triangolare mentre la likelihood per la media della distribuzione è un'iperbole troncata.
+
+\begin{definition}[Sufficienza]
+	\label{th:suff}
+	Consideriamo un modello per $x$ con parametro $\mu$ e una statistica $s$.
+	Si dice che $s$ è \emph{sufficiente} per $\mu$ se la distribuzione di $x$ si fattorizza come
+	$P(x;\mu) = f(x) P(s(x);\mu)$.
+\end{definition}
+
+Con le notazioni della \autoref{th:suff}, calcoliamo $P(x|s)$:
+\begin{align*}
+	P(x|s_0)
+	&= \frac{P(x,s_0;\mu)}{P(s_0;\mu)} = \\
+	&= \frac{P(x;\mu) \delta(s(x)=s_0)}{\displaystyle \sum_{x'\in s^{-1}(s_0)} \frac{P(x';\mu)}{f(x')}} = \\
+	\intertext{(se $s$ è iniettiva)}
+	&= f(x) \delta(s(x)=s_0).
+\end{align*}
+\marginpar{Forse val la pena di richiedere l'iniettività nella definizione di statistica sufficiente}%
+Quindi, data una statistica sufficiente iniettiva, la probabilità di~$x$ non dipende da~$\mu$.
