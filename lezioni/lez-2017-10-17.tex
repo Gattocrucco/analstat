@@ -1,0 +1,36 @@
+% Giacomo Petrillo
+% lezione di Punzi
+
+\begin{example}
+	Consideriamo la pdf uniforme
+	\begin{equation*}
+		p(x;m) = \begin{cases}
+			\frac1m & x\in(0,m) \\
+			0 & \text{altrimenti}
+		\end{cases}
+		= \frac{\chi_{(0,m)}(x)}m.
+	\end{equation*}
+	Date $N$ estrazioni di $x$ calcoliamo la pdf del massimo
+	\begin{equation*}
+		X(\mathbf x) \is \max\{x_1,\dotsc,x_N\}.
+	\end{equation*}
+	Partiamo calcolando la cdf:
+	\begin{align*}
+		F(x;m) &= \begin{cases}
+			0 & x \le 0 \\
+			\frac xm & 0 < x < m \\
+			1 & x \ge m
+		\end{cases} \\
+		P(X\le X_0)
+		&= P(\forall i:x_i\le X_0) = \\
+		&= P(x \le X_0)^N \\
+		\implies
+		p(X;m) &= \frac Nm \left( \frac Xm \right)^{N-1} \chi_{(0,m)}(X).
+	\end{align*}
+	Notiamo che la pdf delle estrazioni fattorizza con quella di $X$:
+	\begin{align*}
+		p(\mathbf x;m)
+		&= \frac{\prod_{i=1}^N \chi_{(0,m)}(x_i)}{m^N} = \\
+		&= \frac{\chi_{(0,\infty)}(\min(\mathbf x))\chi_{(-\infty,m)}(X(\mathbf x))}{m^N} = 
+	\end{align*}
+\end{example}
