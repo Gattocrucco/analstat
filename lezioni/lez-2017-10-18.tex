@@ -1,0 +1,61 @@
+% Giacomo Petrillo
+% lezione di Francavilla
+
+\begin{exercise}
+	\label{th:troncexp}
+	Consideriamo un'esponenziale troncata a destra:
+	\begin{equation*}
+		p(t;\lambda)
+		= \frac{\lambda e^{-\lambda t}}{1 - e^{-\lambda T}},
+		\quad t \in (0,T).
+	\end{equation*}
+	Calcolare l'informazione di Fisher per $\lambda$.
+\end{exercise}
+
+\begin{solution*}
+	\begin{align*}
+		\log p(t;\lambda)
+		&= \log\lambda - \lambda t - \log(1-e^{-\lambda T}) \\
+		\frac{\partial}{\partial\lambda} \log p(t;\lambda)
+		&= \frac1\lambda - t - \frac{-(-T)e^{-\lambda T}}{1-e^{-\lambda T}} = \\
+		&= \frac1\lambda - t - \frac{T}{e^{\lambda T}-1} \\
+		-\frac{\partial^2}{\partial\lambda^2} \log p(t;\lambda)
+		&= \frac1{\lambda^2} - \frac{T^2e^{\lambda T}}{(e^{\lambda T}-1)^2}.
+	\end{align*}
+	Notiamo che per $\lambda T\to0$ l'informazione va a zero mentre per $\lambda T\to\infty$
+	riotteniamo l'informazione dell'esponenziale.
+	Calcoliamo la variazione relativa rispetto a quest'ultima:
+	\begin{equation*}
+		\frac{I_T(\lambda)}{I_\infty(\lambda)}
+		= \lambda^2 I_T(\lambda)
+		= 1 - \frac {(\lambda T)^2e^{\lambda T}} {(e^{\lambda T}-1)^2}.
+	\end{equation*}
+	Ad esempio, per $\lambda T=5$ l'informazione cala del \SI{17}\percent.
+	Se immaginiamo di perdere bernouillianamente una frazione
+	\begin{equation*}
+		\epsilon
+		= \int_T^\infty \de t\, \lambda e^{-\lambda t}
+		= e^{-\lambda T}
+	\end{equation*}
+	delle misure di un'esponenziale,
+	la variazione relativa dell'informazione di Fisher è~$-\epsilon$
+	che per $\lambda T=5$ vale \SI{0.7}\percent.
+	\marginpar{Questa cosa non è chiarissima perché se immagino di misurare il tempo tra un evento e l'altro e non osservo un evento con probabilità $\epsilon$ (vedi \autoref{th:salvexp}) l'informazione di Fisher non cambia.
+	Quello che qui si intende è come se facessi le misure e poi ne buttassi via alcune (tipo trigger).}
+\end{solution*}
+
+\begin{exercise}
+	Calcolare l'informazione di Fisher di un'esponenziale troncata a sinistra.
+\end{exercise}
+
+\begin{solution}
+	Scriviamo la pdf:
+	\begin{align*}
+		p(t;\lambda)
+		&= \frac {\lambda e^{-\lambda t}} {\int_T^\infty \de t\, \lambda e^{-\lambda t}} = \\
+		&= \lambda e^{-\lambda (t-T)}, \quad t\in(T,\infty).
+	\end{align*}
+	Com'era intuitivo è un'esponenziale traslata quindi l'informazione di Fisher è ancora~$1/\lambda^2$.
+\end{solution}
+
+
