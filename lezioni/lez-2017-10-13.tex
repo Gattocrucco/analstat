@@ -39,7 +39,7 @@ Notiamo che per definizione
 \begin{equation*}
 	\mathcal L(\mu) = P(x_0;\mu) = f(x_0) P(s(x_0);\mu)
 \end{equation*}
-quindi, poiché la likelihood è definita a meno di constante moltiplicativa,
+quindi, poiché la likelihood è definita a meno di costante moltiplicativa,
 per scrivere la likelihood è sufficiente conoscere $s_0 \is s(x_0)$.
 Perciò il principio di Likelihood si estende a un \emph{principio di sufficienza},
 cioè che l'inferenza su $\mu$ è equivalente se sostituisco le misure con una loro statistica sufficiente.
@@ -60,6 +60,10 @@ Nota: non è detto che la statistica sufficiente minimale sia unica.
 		P(x;\mu) = f(x) g(s(x);\mu)
 	\end{equation*}
 	e vale una delle seguenti:
+	\marginpar{Queste ipotesi non sono quelle minimali, ma sono quelle sensate.
+	Comunque, visto che a noi alla fine interessa che la likelihood cambi solo di una costante moltiplicativa positiva,
+	non possiamo definire direttamente la sufficienza in questo modo
+	ed evitare tutto il giro con l'altra definizione?}%
 	\begin{itemize}
 		\item $f \ge 0$, oppure
 		\item $s$ è iniettiva,
@@ -95,7 +99,8 @@ Nota: non è detto che la statistica sufficiente minimale sia unica.
 \begin{fact}[Teorema di Darmois]
 	Sia $x$ variabile reale e $\fundef[\mathbf s_N]{\R^N}{\R^d}$ statistica sufficiente per $\mu$ di $N$ estrazioni di $x$ per ogni $N$,
 	\marginpar{Manca qualche ipotesi. Il controesempio della distribuzione uniforme si sistema con $p(x)>0$,
-	ma non so se è sufficiente in generale.}%
+	ma non so se è sufficiente in generale.\\
+	Forse l'ipotesi è che il supporto non dipenda dal parametro, anche se a prima vista è controintuitivo.}%
 	allora necessariamente
 	\begin{equation*}
 		p(x;\mu) =

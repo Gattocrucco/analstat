@@ -31,6 +31,137 @@
 	\begin{align*}
 		p(\mathbf x;m)
 		&= \frac{\prod_{i=1}^N \chi_{(0,m)}(x_i)}{m^N} = \\
-		&= \frac{\chi_{(0,\infty)}(\min(\mathbf x))\chi_{(-\infty,m)}(X(\mathbf x))}{m^N} = 
+		&= \frac{\chi_{(0,\infty)}(\min(\mathbf x))\chi_{(-\infty,m)}(X(\mathbf x))}{m^N} = \\
+		&= \frac{\chi_{(0,\infty)}(\min(\mathbf x))}{N X(\mathbf x)^{N-1}}
+		\frac Nm \left( \frac{X(\mathbf x)}m \right)^{N-1} \chi_{(0,m)}(X(\mathbf x)) = \\
+		&= f(\mathbf x) p(X(\mathbf x);m),
 	\end{align*}
+	quindi il massimo è una statistica sufficiente per $m$.
+\end{example}
+
+\begin{definition}[Informazione di Fisher]
+	Dato un modello per $x$ con parametro $\boldsymbol\mu\in\R^n$,
+	l'\emph{informazione di Fisher} è la matrice
+	\begin{equation*}
+		I_{ij}(\boldsymbol\mu) \is E \left[
+		\frac{\partial\log p(x;\boldsymbol\mu)}{\partial\mu_i}
+		\frac{\partial\log p(x;\boldsymbol\mu)}{\partial\mu_j} \right].
+	\end{equation*}
+\end{definition}
+
+Poiché l'informazione di Fisher richiede di calcolare il logaritmo della probabilità,
+se ci sono degli $x$ per i quali la probabilità è nulla
+è necessario restringere il dominio.
+Espandiamo la definizione di $I$, abbreviando $p(x;\boldsymbol\mu)\isis L$:
+\begin{align*}
+	I_{ij}(\boldsymbol\mu)
+	&= \int\de x\, L
+	\frac{\partial\log L}{\partial\mu_i}
+	\frac{\partial\log L}{\partial\mu_j} = \\
+	&= \int\de x\,
+	\frac{\partial\log L}{\partial\mu_i}
+	\frac{\partial L}{\partial\mu_j} = \\
+	&= \int\de x \left(
+	\frac{\partial}{\partial\mu_j} \left( L \frac{\partial\log L}{\partial\mu_i} \right)
+	- L \frac{\partial^2\log L}{\partial\mu_i\partial\mu_j} \right) = \\
+	\intertext{(nei prossimi due passaggi portiamo fuori una derivata dall'integrale supponendo che il dominio non dipenda dal parametro)}
+	&= \frac{\partial}{\partial\mu_j} \int\de x\, L \frac{\partial\log L}{\partial\mu_i}
+	- \int\de x\, L \frac{\partial^2\log L}{\partial\mu_i\partial\mu_j} = \\
+	&= \frac{\partial^2}{\partial\mu_i\partial\mu_j} \int\de x\, L
+	- E \left[ \frac{\partial^2\log L}{\partial\mu_i\partial\mu_j} \right] = \\
+	&= E \left[ -\frac{\partial^2\log p(x;\boldsymbol\mu)}{\partial\mu_i\partial\mu_j} \right].
+\end{align*}
+Scritta $I(\boldsymbol\mu)$ in questa forma,
+si vede subito che se combino due variabili indipendenti le informazioni di Fisher si sommano.
+
+\begin{example}
+	Consideriamo $N$ estrazioni dell'esponenziale e calcoliamo l'informazione di Fisher:
+	\begin{align*}
+		p(\mathbf t;\lambda)
+		&= \lambda^N e^{-\lambda\sum_{i=1}^N t_i}
+		= \lambda^N e^{-\lambda N \bar t}, \quad \mathbf t\in(0,\infty)^N \\
+		\log p(\mathbf t;\lambda)
+		&= N\log\lambda - \lambda N\bar t \\
+		\frac{\partial \log p(\mathbf t;\lambda)}{\partial\lambda}
+		&= N \left( \frac1\lambda - \bar t \right) \\
+		-\frac{\partial^2 \log p(\mathbf t;\lambda)}{\partial\lambda^2}
+		&= \frac N{\lambda^2}.
+	\end{align*}
+	Come prima detto, combinando $N$ esponenziali indipendenti ottengo la somma delle informazioni delle singole esponenziali.
+\end{example}
+
+\begin{example}
+	Consideriamo $N$ estrazioni della uniforme e calcoliamo l'informazione di Fisher sia con la definizione che con la formula con la derivata seconda:
+	\begin{align*}
+		p(\mathbf x;m)
+		&= \frac1{m^N}, \quad \mathbf x\in(0,m)^N \\
+		\log p(\mathbf x;m)
+		&= -N\log m \\
+		\left( \frac{\partial\log p(\mathbf x;m)}{\partial m} \right)^2
+		&= \frac{N^2}{m^2} \\
+		-\frac{\partial^2\log p(\mathbf x;m)}{\partial m^2}
+		&= -\frac N{m^2}.
+	\end{align*}
+	Il conto con la seconda formula dà un risultato sbagliato, infatti il dominio dipende da~$m$.
+\end{example}
+
+\begin{example}
+	Consideriamo una gaussiana multidimensionale con matrice di covarianza fissata $V$ (che è necessariamente simmetrica e definita positiva), e calcoliamo l'informazione di Fisher per la media:
+	\begin{align*}
+		p(\mathbf x;\boldsymbol \mu)
+		&= \frac1{\sqrt{\det(2\pi V)}}
+		\exp \left( -\frac12 (\mathbf x-\boldsymbol\mu)^\transp V^{-1} (\mathbf x-\boldsymbol\mu) \right) \\
+		\log p(\mathbf x;\boldsymbol\mu)
+		&= -\frac12\log\det(2\pi V)
+		- \frac12 (\mathbf x-\boldsymbol\mu)^\transp V^{-1} (\mathbf x-\boldsymbol\mu) = \\
+		&= (\ldots) - \frac12 (x_i-\mu_i)V^{-1}_{ij}(x_j-\mu_j) \\
+		\frac{\partial\log p(\mathbf x;\boldsymbol\mu)}{\partial\mu_k}
+		&= -\frac12 V^{-1}_{ij} \big( -\delta_{ik}(x_j-\mu_j) - \delta_{jk}(x_i-\mu_i) \big) = \\
+		\intertext{(l'inversa di una matrice simmetrica è simmetrica)}
+		&= V^{-1}_{ik}(x_i-\mu_i) \\
+		-\frac{\partial^2\log p(\mathbf x;\boldsymbol\mu)}{\partial\mu_l\partial\mu_k}
+		&= -V^{-1}_{ik}(-\delta_{il}) = V^{-1}_{lk} \\
+		\implies I(\boldsymbol\mu) &= V^{-1}.
+	\end{align*}
+\end{example}
+
+Consideriamo una statistica sufficiente:
+\begin{align*}
+	p(x;\mu)
+	&= f(x)p(s(x);\mu) \\
+	\frac{\partial}{\partial\mu}\log p(x;\mu)
+	&= \frac{\partial}{\partial\mu} \big( \log f(x) + \log p(s(x);\mu) \big) = \\
+	&= \frac{\partial}{\partial\mu}\log p(s(x);\mu),
+\end{align*}
+quindi l'informazione di Fisher di una statistica sufficiente è uguale a quella originale.
+
+\begin{fact}
+	L'informazione di Fisher di una statistica è minore o uguale all'originale.
+\end{fact}
+
+\noindent In generale il fatto che l'informazione di Fisher sia uguale non implica che la statistica sia sufficiente, tuttavia per vari esempi comuni è vero.
+
+\begin{example}
+	Calcoliamo l'informazione di Fisher di un istogramma ordinato di un'esponenziale.
+	Sia $\Delta$ la larghezza dei bin.
+	Per ogni estrazione, la probabilità di cadere nel $k$-esimo bin ($k\ge 0$) è
+	\begin{align*}
+		p(k;\lambda)
+		&= \int_{k\Delta}^{(k+1)\Delta}\de t\, \lambda e^{-\lambda t} = \\
+		&= \big[-e^{-\lambda t}\big]_{k\Delta}^{(k+1)\Delta} = \\
+		&= e^{-\lambda k\Delta}(1-e^{-\lambda\Delta}).
+	\end{align*}
+	L'istogramma ordinato è la $N$-upla $\mathbf k$ dei bin in cui cadono $N$ estrazioni.
+	Calcoliamo l'informazione di Fisher per $N=1$.
+	\begin{align*}
+		\frac{\partial}{\partial\lambda} \log p(k;\lambda)
+		&= -k\Delta + \frac{\Delta e^{-\lambda\Delta}}{1-e^{-\lambda\Delta}} \\
+		-\frac{\partial^2}{\partial\lambda^2} \log p(k;\lambda)
+		&= \frac{\partial^2}{\partial\lambda^2}
+		\left( \frac{\Delta}{1-e^{\lambda\Delta}} \right) = \\
+		&= \frac {\Delta^2 e^{\lambda\Delta}} {(e^{\lambda\Delta}-1)^2} = \\
+		&= \frac1{\lambda^2} \left( 1 - \frac{\lambda^2\Delta^2}{12} + o(\lambda^2\Delta^2) \right)
+	\end{align*}
+	Il caso generale si ottiene moltiplicando per $N$.
+	Notiamo che nel limite $\Delta\to0$ riotteniamo l'informazione dell'esponenziale.
 \end{example}
