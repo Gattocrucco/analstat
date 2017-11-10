@@ -88,7 +88,7 @@
 	È ancor più immediato dell'\autoref{th:avgsuffgauss}:
 	\begin{align*}
 		\hat\sigma^2(\mathbf x)
-		&= \frac1N \sum_{i=1}^N (x_i-\mu)^2 \\
+		&\is \frac1N \sum_{i=1}^N (x_i-\mu)^2 \\
 		p(\mathbf x;\sigma)
 		&= \left( \frac1{\sqrt{2\pi}\sigma} \right)^N
 		\exp \left( -\frac12 \sum_{i=1}^N \left( \frac{x_i-\mu}\sigma \right)^2 \right) = \\
@@ -131,3 +131,100 @@
 		\end{align*}
 	\end{description}
 \end{solution}
+
+\begin{exercise}
+	Applicare il teorema di Darmois (\autoref{th:darmois}) alla gaussiana separatamente per la media e per la varianza.
+\end{exercise}
+
+\begin{solution*}
+	Dobbiamo scrivere la pdf nella forma:
+	\begin{equation*}
+		p(x;\theta)
+		= \exp \left( \sum_{k=1}^d \alpha_k(x)a_k(\theta) + \beta(x) + \gamma(\theta) \right).
+	\end{equation*}
+	Procediamo per la media:
+	\begin{align*}
+		p(x;\mu)
+		&= \frac1{\sqrt{2\pi}\sigma}
+		\exp\left( -\frac12 \left(\frac{x-\mu}\sigma\right)^2 \right) = \\
+		&= \frac1{\sqrt{2\pi}\sigma}
+		\exp\left( \frac{-x^2-\mu^2+2\mu x}{2\sigma^2} \right) = \\
+		&= \exp \left( x\frac\mu{\sigma^2} - \frac{x^2}{2\sigma^2}
+		 - \frac{\mu^2}{2\sigma^2} - \log(\sqrt{2\pi}\sigma) \right),
+	\end{align*}
+	quindi le varie funzioni del teorema di Darmois sono:
+	\begin{align*}
+		\alpha(x) &= x \hspace{5em} (d = 1)\\
+		a(\mu) &= \frac{\mu}{\sigma^2} \\
+		\beta(x) &= - \frac{x^2}{2\sigma^2} \\
+		\gamma(\mu) &= - \frac{\mu^2}{2\sigma^2} - \log(\sqrt{2\pi}\sigma),
+	\end{align*}
+	da cui ricaviamo la statistica sufficiente:
+	\begin{equation*}
+		s(\mathbf x)
+		= \sum_{i=1}^N \alpha(x_i)
+		= N\bar x.
+	\end{equation*}
+	Come già sapevamo, la media aritmetica è sufficiente,
+	quindi se a meno di cambi di variabile esiste una sola statistica sufficiente,
+	deve essere la media aritmetica.
+	
+	Vediamo per la varianza:
+	\begin{align*}
+		p(x;\sigma)
+		&= \exp \left( (2x\mu-x^2)\frac1{2\sigma^2}
+		- \frac{\mu^2}{2\sigma^2}
+		-\log(\sqrt{2\pi}\sigma) \right) \\
+		\implies s(\mathbf x)
+		&= \sum_{i=1}^N (2x_i\mu-x_i^2) = \\
+		&= -\sum_{i=1}^N (x_i-\mu)^2 + \mu^2 = \\
+		&= \mu^2 - N\hat\sigma^2.
+	\end{align*}
+\end{solution*}
+
+\begin{exercise}
+	Trovare una statistica sufficiente simultaneamente per media e varianza della gaussiana.
+\end{exercise}
+
+\begin{solution}
+	Usiamo il teorema di Darmois:
+	\begin{align*}
+		p(x;\mu,\sigma)
+		&= \exp \left( \frac{-x^2-\mu^2+2\mu x}{2\sigma^2} - \log(\sqrt{2\pi}\sigma) \right) = \\
+		&= \exp \left( -x^2\frac1{2\sigma^2}
+		+ x\frac\mu{\sigma^2}
+		-\frac{\mu^2}{2\sigma^2} - \log(\sqrt{2\pi}\sigma) \right);
+	\end{align*}
+	le varie funzioni sono:
+	\begin{align*}
+		a_{1,2}(x) &= x^2, x \hspace{6em} (d=2)\\
+		\alpha_{1,2}(\mu,\sigma) &= -\frac1{2\sigma^2}, \frac\mu{\sigma^2} \\
+		\beta(x) &= 0 \\
+		\gamma(\mu,\sigma) &= -\frac{\mu^2}{2\sigma^2} - \log(\sqrt{2\pi}\sigma)
+	\end{align*}
+	quindi la statistica sufficiente è
+	\begin{equation*}
+		\mathbf s(\mathbf x) = \sum_{i=1}^N \begin{pmatrix} x_i^2 \\ x_i \end{pmatrix}
+	\end{equation*}
+	dove la somma si intende componente per componente.
+	Questa statistica ha l'utile proprietà che può essere calcolata leggendo una $x$ alla volta e aggiungendo $(x^2,x)$ alla somma parziale, quindi non serve salvare tutte le misure.
+	Notiamo che con un cambio di variabili possiamo scrivere la statistica in un modo più familiare:
+	\begin{align*}
+		\mathbf S(\mathbf s)
+		&= \begin{pmatrix}
+			s_2 / N \\
+			s_1 / N - s_2^2 / N^2
+		\end{pmatrix} \\
+		S_1(\mathbf s(\mathbf x)) 
+		&= \frac{\sum_ix_i}N = \bar x \\
+		S_2(\mathbf s(\mathbf x))
+		&= \frac{\sum_ix_i^2}N - \frac{\big(\sum_ix_i\big)^2}{N^2} = \\
+		&= \frac{\sum_ix_i^2}N - 2\frac{\big(\sum_ix_i\big)^2}{N^2} + \frac{\big(\sum_ix_i\big)^2}{N^2} = \\
+		&= \frac1N\sum_ix_i^2 - \frac1N2\bar x\sum_ix_i + \bar x^2 = \\
+		&= \frac1N\sum_i(x_i-\bar x)^2.
+	\end{align*}
+\end{solution}
+
+\begin{exercise}
+	Applicare Darmois a binomiale, poissoniana, esponenziale.
+\end{exercise}

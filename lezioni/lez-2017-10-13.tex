@@ -97,20 +97,23 @@ Nota: non è detto che la statistica sufficiente minimale sia unica.
 \end{proof}
 
 \begin{fact}[Teorema di Darmois]
-	Sia $x$ variabile reale e $\fundef[\mathbf s_N]{\R^N}{\R^d}$ statistica sufficiente per $\mu$ di $N$ estrazioni di $x$ per ogni $N$,
+	\label{th:darmois}
+	Sia $x$ variabile reale e $\fundef[\mathbf s_N]{\R^N}{\R^d}$ statistica sufficiente per $\theta$ di $N$ estrazioni di $x$ per ogni $N$,
 	\marginpar{Manca qualche ipotesi. Il controesempio della distribuzione uniforme si sistema con $p(x)>0$,
 	ma non so se è sufficiente in generale.\\
 	Forse l'ipotesi è che il supporto non dipenda dal parametro, anche se a prima vista è controintuitivo.}%
 	allora necessariamente
 	\begin{equation*}
-		p(x;\mu) =
-		\exp \left( \sum_{i=1}^d \alpha_i(x)a_i(\mu) + \beta(x) + \gamma(\mu) \right);
+		p(x;\theta) =
+		\exp \left( \sum_{k=1}^d \alpha_k(x)a_k(\theta) + \beta(x) + \gamma(\theta) \right)
 	\end{equation*}
+	e la statistica sufficiente è, a meno di una funzione biunivoca,
+	\begin{equation}
+		\label{eq:statdarmois}
+		s_{N,k}(\mathbf x) = \sum_{i=1}^{N} \alpha_k(x_i);
+	\end{equation}
 	le pdf in questa forma si chiamano \emph{famiglia esponenziale}.
-	Viceversa, se la pdf è della famiglia esponenziale, una statistica con le proprietà precedenti è data da
-	\begin{equation*}
-		s_{N,i}(\mathbf x) = \sum_{k=1}^{N} \alpha_i(x_k).
-	\end{equation*}
+	Viceversa, se la pdf è della famiglia esponenziale, la statistica \eqref{eq:statdarmois} è sufficiente.
 \end{fact}
 
 \begin{exercise}
