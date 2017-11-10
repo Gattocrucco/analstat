@@ -58,4 +58,76 @@
 	Com'era intuitivo è un'esponenziale traslata quindi l'informazione di Fisher è ancora~$1/\lambda^2$.
 \end{solution}
 
+\begin{exercise}
+	\label{th:avgsuffgauss}
+	La media aritmetica è una statistica sufficiente per la media della gaussiana?
+\end{exercise}
 
+\begin{solution*}
+	Sì:
+	\begin{align*}
+		p(\mathbf x;\mu)
+		&= \prod_{i=1}^N \frac1{\sqrt{2\pi}\sigma} 
+		\exp \left( -\frac12 \left( \frac{x_i-\mu}\sigma \right)^2 \right) = \\
+		&= \left( \frac1{\sqrt{2\pi}\sigma} \right)^N
+		\exp \left( -\frac12 \sum_{i=1}^N \left( \frac{x_i-\mu}\sigma \right)^2 \right) = \\
+		&\left[ \sum_{i=1}^N (x_i-\mu)^2
+		= \sum_{i=1}^N x_i^2 + N\mu^2 - 2\mu N\bar x \right] \\
+		&= \left( \frac1{\sqrt{2\pi}\sigma} \right)^N
+		\exp \left( -\frac12 \sum_{i=1}^N \frac{x_i^2}{\sigma^2} \right)
+		\cdot \exp \left( -\frac{N\mu^2-2\mu N\bar x}{2\sigma^2} \right) = \\
+		&= f(\mathbf x) \cdot g(\bar x,\mu).
+	\end{align*}
+\end{solution*}
+
+\begin{exercise}
+	Lo scarto quadratico medio è una statistica sufficiente per la deviazione standard della gaussiana?
+\end{exercise}
+
+\begin{solution*}
+	È ancor più immediato dell'\autoref{th:avgsuffgauss}:
+	\begin{align*}
+		\hat\sigma^2(\mathbf x)
+		&= \frac1N \sum_{i=1}^N (x_i-\mu)^2 \\
+		p(\mathbf x;\sigma)
+		&= \left( \frac1{\sqrt{2\pi}\sigma} \right)^N
+		\exp \left( -\frac12 \sum_{i=1}^N \left( \frac{x_i-\mu}\sigma \right)^2 \right) = \\
+		&= \left( \frac1{\sqrt{2\pi}\sigma} \right)^N
+		\exp \left( -\frac12 \frac{N\hat\sigma^2}{\sigma^2} \right) = \\
+		&= g(\hat\sigma,\sigma).
+	\end{align*}
+\end{solution*}
+
+\begin{exercise}
+	Verificare se la media aritmetica è sufficiente per la media delle distribuzioni
+	binomiale,
+	poissoniana,
+	esponenziale.
+\end{exercise}
+
+\begin{solution}
+	È sufficiente per tutte e tre.
+	\begin{description}
+		\item[Binomiale]
+		La media è $np$, fissiamo $n$ e usiamo $p$ come parametro:
+		\begin{align*}
+			p(\mathbf k;p)
+			&= \prod_{i=1}^N \binom{n}{k_i} p^{k_i} (1-p)^{n-k_i} = \\
+			&= \left( \prod_{i=1}^N \binom{n}{k_i} \right) \cdot
+			p^{N\bar k} (1-p)^{Nn-N\bar k}.
+		\end{align*}
+		\item[Poissoniana]
+		\begin{align*}
+			p(\mathbf k;\mu)
+			&= \prod_{i=1}^N \frac{\mu^{k_i}}{k_i!}e^{-\mu} = \\
+			&= \left( \prod_{i=1}^N \frac1{k_i!} \right) \cdot \mu^{N\bar k} e^{-N\mu}.
+		\end{align*}
+		\item[Esponenziale]
+		La media è $1/\lambda$, usiamo $\lambda$ come parametro:
+		\begin{align*}
+			p(\mathbf t;\lambda)
+			&= \prod_{i=1}^N \lambda e^{-\lambda t_i} = \\
+			&= \lambda^N e^{-N\lambda\bar t}.
+		\end{align*}
+	\end{description}
+\end{solution}
