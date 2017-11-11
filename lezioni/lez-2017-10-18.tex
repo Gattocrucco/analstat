@@ -228,3 +228,168 @@
 \begin{exercise}
 	Applicare Darmois a binomiale, poissoniana, esponenziale.
 \end{exercise}
+
+\begin{exercise}
+	Calcolare l'informazione di Fisher della poissoniana e della binomiale e verificare che la statistica sufficiente ha la stessa informazione.
+\end{exercise}
+
+\begin{solution}
+	Calcoliamo l'informazione di Fisher per una estrazione della poissoniana:
+	\begin{align*}
+		\log p(k;\mu)
+		&= k\log\mu - \log(k!) - \mu \\
+		\frac{\partial}{\partial\mu} \log p(k;\mu)
+		&= \frac k\mu - 1 \\
+		-\frac{\partial^2}{\partial\mu^2} \log p(k;\mu)
+		&= \frac k{\mu^2} \\
+		I(\mu)
+		&= \frac{E[k]}{\mu^2}
+		= \frac1\mu.
+	\end{align*}
+	La statistica sufficiente è la somma.
+	La somma di poissoniane è poissoniana
+	\begin{equation*}
+		p(s;\mu)
+		= \frac{(N\mu)^s}{s!}e^{-N\mu};
+	\end{equation*}
+	l'informazione di Fisher ha una derivata seconda nel parametro quindi
+	\begin{equation*}
+		I(\mu)
+		= N^2 I(N\mu),
+	\end{equation*}
+	ma $I(N\mu)$ è quella poissoniana quindi
+	\begin{equation*}
+		I(\mu) = N^2 \frac1{N\mu} = \frac N\mu
+	\end{equation*}
+	che è l'informazione di $N$ estrazioni della poissoniana.
+	Procediamo con la binomiale:
+	\begin{align*}
+		\log p(k;p)
+		&= \log\binom nk + k\log p + (n-k)\log p \\
+		\frac{\partial}{\partial p} \log p(k;p)
+		&= \frac kp - \frac{n-k}{1-p} \\
+		-\frac{\partial^2}{\partial p^2} \log p(k;p)
+		&= \frac k{p^2} + \frac{n-k}{(1-p)^2} \\
+		I(p)
+		&= \frac{np}{p^2} + \frac{n-np}{(1-p)^2} = \\
+		&= \frac n{p(1-p)}.
+	\end{align*}
+	Per come abbiamo definito la binomiale, la somma di binomiali è binomiale sommando gli $n$,
+	quindi otteniamo l'informazione moltiplicando per $N$ esattamente come per le $N$ estrazioni.
+\end{solution}
+
+\begin{exercise}
+	Calcolare l'informazione di Fisher della gaussiana per $(\mu,\sigma)$ e per $(\mu,\sigma^2)$.
+\end{exercise}
+
+\begin{solution}
+	Procediamo per $(\mu,\sigma)$:
+	\begin{align*}
+		L &\is \log p(x;\mu,\sigma) \\
+		L &= -\frac12 \log(2\pi) - \log\sigma - \frac12\left(\frac{x-\mu}{\sigma}\right)^2 \\
+		\intertext{calcoliamo le derivate prime:}
+		\frac{\partial L}{\partial\mu}
+		&= \frac{x-\mu}{\sigma^2} \\
+		\frac{\partial L}{\partial\sigma}
+		&= -\frac1\sigma - \frac12(x-\mu)^2 \frac{-2}{\sigma^3} = \\
+		&= \frac{(x-\mu)^2}{\sigma^3} - \frac1\sigma \\
+		\intertext{calcoliamo le derivate seconde:}
+		-\frac{\partial^2 L}{\partial\mu^2}
+		&= \frac1{\sigma^2} \\
+		-\frac{\partial^2 L}{\partial\sigma^2}
+		&= 3\frac{(x-\mu)^2}{\sigma^4} - \frac1{\sigma^2} \\
+		-\frac{\partial^2 L}{\partial\mu\partial\sigma}
+		&= 2\frac{x-\mu}{\sigma^3}
+		\intertext{per ricavare l'informazione prendiamo il valore atteso:}
+		I(\mu,\sigma)
+		&= \begin{pmatrix}
+			\frac1{\sigma^2} & 0 \\
+			0 & \frac2{\sigma^2}
+		\end{pmatrix}
+		\intertext{passiamo direttamente da $\sigma$ a $\sigma^2$:}
+		I_{\sigma^2\sigma^2}
+		&= E \left[ \left( \frac{\partial L}{\partial \sigma^2} \right)^2 \right] = \\
+		&= E \left[ \left( \frac{\partial\sigma}{\partial\sigma^2} \frac{\partial L}{\partial\sigma} \right)^2 \right] = \\
+		&= E \left[ \left( \frac{\partial\sigma}{\partial\sigma^2} \right)^2 \right] I_{\sigma\sigma} = \\
+		&= \left( \frac1{2\sigma} \right)^2 \frac2{\sigma^2}
+		= \frac1{2\sigma^4}.
+	\end{align*}
+\end{solution}
+
+\begin{exercise}
+	Per la gaussiana, calcolare la varianza della varianza campione
+	\begin{equation*}
+		\hat V(\mathbf x) = \frac1{N-1} \sum_{i=1}^N (x_i - \bar x)^2
+	\end{equation*}
+	e confrontarla con l'informazione di Fisher per la varianza.
+\end{exercise}
+
+\begin{solution}
+	La varianza di $\hat V$ non dipende da $\mu$ e scala come $\sigma^4$,
+	quindi fissiamo la distribuzione delle $x_i$ a media nulla e varianza unitaria:
+	\begin{equation*}
+		p(x) = \frac1{\sqrt{2\pi}} e^{-\frac12 x^2}.
+	\end{equation*}
+	Innanzitutto ricaviamo alcune utili proprietà della varianza:
+	\begin{align*}
+		\var[\lambda a] &= \lambda^2 \var[a], \\
+		\var[a]
+		&= E[(a-E[a])^2] = \\
+		&= E[a^2] - E[2aE[a]] + E[E[a]^2] = \\
+		&= E[a^2] - 2E[a]^2 + E[a]^2 = \\
+		&= E[a^2] - E[a]^2, \\
+		\var[a+b]
+		&= E[(a+b)^2] - E[a+b]^2 = \\
+		&= E[a^2 + b^2 + 2ab] - E[a]^2 - E[b]^2 - 2E[a]E[b] = \\
+		&= \var[a] + \var[b] + 2(E[ab] - E[a]E[b]) \\
+		\intertext{che, se $a$ e $b$ sono indipendenti, diventa}
+		\var[a+b] &= \var[a] + \var[b].
+	\end{align*}
+	Adesso calcolare la varianza di $\hat V$ è semplice:
+	\begin{align*}
+		\sum_i (x_i-\bar x)^2
+		&= \sum_ix_i^2 - 2\bar x\sum_ix_i + N\bar x^2 = \\
+		&= \sum_ix_i^2 - N\bar x^2, \\
+		\var[\hat V]
+		&= \frac1{(N-1)^2} \left( \sum_i\var[x_i^2] - \var[N\bar x^2] \right) = \\
+		&= \frac1{(N-1)^2} \big( N\var[x^2] - N^2\var[\bar x^2] \big);
+	\end{align*}
+	la media è gaussiana con varianza $1/N$, quindi
+	\begin{align*}
+		\var[\bar x^2]
+		= \var \left[ \frac{x^2}N \right ]
+		= \frac{\var[x^2]}{N^2};
+	\end{align*}
+	alla fine dobbiamo calcolare solo $\var[x^2]$:
+	\begin{align*}
+		E[x^4]
+		&= \frac1{\sqrt{2\pi}} \int\de x\, x^4 e^{-\frac12 x^2} = \\
+		&= \frac1{\sqrt{2\pi}} \int\de x\, x^3 \left (-\frac{\de}{\de x} e^{-\frac12 x^2} \right) = \\
+		&= \frac1{\sqrt{2\pi}} \int\de x\, 3x^2 e^{-\frac12 x^2} = \\
+		&= 3E[x^2] = 3, \\
+		\var[x^2]
+		&= E[x^4] - E[x^2]^2
+		= 2,
+	\end{align*}
+	dunque infine
+	\begin{align*}
+		\var[\hat V]
+		&= \frac1{(N-1)^2} \left( 2N - N^2 \frac2{N^2} \right) = \\
+		&= \frac2{N-1}
+	\end{align*}
+	che, per varianza qualunque, diventa
+	\begin{equation*}
+		\var[\hat V]
+		= \frac{2\sigma^4}{N-1}.
+	\end{equation*}
+	L'informazione di Fisher per la varianza è
+	\begin{equation*}
+		I(\sigma^2)
+		= \frac N{2\sigma^4},
+	\end{equation*}
+	viene dunque spontaneo calcolare il prodotto delle due:
+	\begin{equation*}
+		\var[\hat V]I(\sigma^2)
+		= \frac N{N-1}.
+	\end{equation*}
+\end{solution}
