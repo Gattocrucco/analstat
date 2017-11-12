@@ -1,0 +1,81 @@
+% Giacomo Petrillo
+% lezione di Punzi
+
+\begin{definition}[Stima]
+	Dato un modello con parametro $\theta$,
+	una \emph{stima di $\theta$} è una statistica a valori nello spazio di $\theta$.
+\end{definition}
+
+\begin{definition}[Consistenza]
+	Dato un modello con parametro $\theta$ per $N$ estrazioni di $x$
+	e una stima $\hat\theta_N$ di $\theta$,
+	la stima è \emph{consistente} per un valore $\theta_0$ del parametro
+	se per $N\to\infty$ converge debolmente a $\theta_0$:
+	\begin{equation*}
+		\forall\epsilon\, \lim_{N\to\infty} P(|\hat\theta_N(\mathbf x)-\theta_0| > \epsilon) = 0.
+	\end{equation*}
+\end{definition}
+
+\begin{definition}[Bias]
+	Dato un modello con parametro $\theta$ e una stima $\hat\theta$ di $\theta$,
+	il \emph{bias} per un valore $\theta_0$ del parametro è la differenza tra la media della stima e $\theta_0$:
+	\begin{equation*}
+		b(\theta_0) \is E[\hat\theta] - \theta_0.
+	\end{equation*}
+	Una stima si dice \emph{corretta} se il bias è nullo;
+	\emph{asintoticamente corretta} se il modello è per $N$ estrazioni
+	e nel limite $N\to\infty$ il bias tende a zero.
+\end{definition}
+
+\begin{theorem}[Disuguaglianza di Cramer-Rao]
+	Consideriamo un modello con parametro $\theta\in\R$.
+	Sia $\hat\theta$ una stima con bias~$b$
+	la cui pdf ha supporto che non dipende da $\theta$.
+	Allora c'è un limite inferiore alla varianza della stima:
+	\begin{equation*}
+		\var[\hat\theta] \ge \frac{\left( 1 + \frac{\partial b}{\partial\theta} \right)^2}{I(\theta)},
+	\end{equation*}
+	dove $I$ è l'informazione di Fisher.
+\end{theorem}
+
+\begin{proof}
+	Useremo il logaritmo della pdf quindi adottiamo la convenzione di restringere il dominio al supporto.
+	\begin{align*}
+		L &\is p(\hat\theta;\theta)
+	\end{align*}
+	\begin{align*}
+		\int \de\hat\theta\,
+		L \cdot \hat\theta \pdv{\log L}\theta 
+		&= \int \de\hat\theta\,
+		\pdv L\theta \hat\theta = \\
+		&= \int \de\hat\theta\,
+		\pdv{}\theta (\hat\theta L) = \\
+		&= \pdv{}\theta \int \de\hat\theta\, \hat\theta L = \\
+		&= \pdv{}\theta E[\hat\theta] = \\
+		&= \pdv{}\theta (\theta + b(\theta)) = \\
+		&= 1 + \pdv b\theta
+	\end{align*}
+	\begin{align*}
+		\int \de\hat\theta\,
+		L \cdot E[\hat\theta] \pdv{\log L}\theta
+		&= E[\hat\theta] \int \de\hat\theta\, \pdv L\theta = \\
+		&= E[\hat\theta] \pdv{}\theta \int \de\hat\theta\, L = \\
+		&= 0
+	\end{align*}
+	\begin{align*}
+		E \left[ (\hat\theta - E[\hat\theta]) \pdv{\log L}\theta \right]
+		&= \int \de\hat\theta\, L \cdot
+		(\hat\theta - E[\hat\theta]) \pdv{\log L}\theta = \\
+		&= 1 + \pdv b\theta.
+	\end{align*}
+	Scriviamo la disuguaglianza di Schwartz in termini di valori attesi
+	e applichiamola a quello appena calcolato:
+	\begin{align*}
+		E[fg]^2 &\le E[f^2]E[g^2] \\
+		\left( 1 + \pdv b\theta \right)^2
+		&= E \left[ (\hat\theta - E[\hat\theta]) \pdv{\log L}\theta \right]^2 \le \\
+		&\le E[(\hat\theta - E[\hat\theta])^2]
+		\cdot E \left[ \left( \pdv{\log L}\theta \right)^2 \right] = \\
+		&= \var[\hat\theta] I(\theta). \qedhere
+	\end{align*}
+\end{proof}
