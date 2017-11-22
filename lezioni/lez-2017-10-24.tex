@@ -28,12 +28,13 @@
 \end{definition}
 
 \begin{theorem}[Disuguaglianza di Cramer-Rao]
+	\label{th:cramerrao}
 	Consideriamo un modello con parametro $\theta\in\R$.
 	Sia $\hat\theta$ una stima con bias~$b$
 	la cui pdf ha supporto che non dipende da $\theta$.
 	Allora c'è un limite inferiore alla varianza della stima:
 	\begin{equation*}
-		\var[\hat\theta] \ge \frac{\left( 1 + \frac{\partial b}{\partial\theta} \right)^2}{I(\theta)},
+		\var[\hat\theta] \ge \frac{\left( 1 + \frac{\partial b}{\partial\theta} \right)^2}{I_{\hat\theta}(\theta)},
 	\end{equation*}
 	dove $I$ è l'informazione di Fisher.
 \end{theorem}
@@ -76,6 +77,115 @@
 		&= E \left[ (\hat\theta - E[\hat\theta]) \pdv{\log L}\theta \right]^2 \le \\
 		&\le E[(\hat\theta - E[\hat\theta])^2]
 		\cdot E \left[ \left( \pdv{\log L}\theta \right)^2 \right] = \\
-		&= \var[\hat\theta] I(\theta). \qedhere
+		&= \var[\hat\theta] I_{\hat\theta}(\theta). \qedhere
 	\end{align*}
 \end{proof}
+
+Per il \autoref{th:fishstat} l'informazione di Fisher di $x$ è maggiore o uguale a quella di $\hat\theta$,
+quindi si ha il corollario che
+\begin{equation*}
+	\var[\hat\theta] \ge \frac{\left( 1 + \frac{\partial b}{\partial\theta} \right)^2}{I_x(\theta)};
+\end{equation*}
+nel caso di bias che dipende poco dal parametro ($|\partial b/\partial\theta| \ll 1$)
+questo limite inferiore non dipende dallo stimatore.
+
+Nel caso di informazione di Fisher proporzionale al numero di estrazioni otteniamo
+\begin{equation*}
+	\var[\hat\theta] \ge O \left(\frac1N\right),
+\end{equation*}
+questa è la forma generale dell'osservazione che comunemente
+<<l'errore cala con la radice del numero di misure>>.
+
+\begin{definition}[Efficienza]
+	Con la notazione del \autoref{th:cramerrao} e con $x$ variabile del modello,
+	l'\emph{efficienza di $\hat\theta$} è
+	\begin{equation*}
+		\frac{\left( 1 + \frac{\partial b}{\partial\theta} \right)^2}{I_x(\theta)\var[\hat\theta]},
+	\end{equation*}
+	che nelle ipotesi del teorema è minore o uguale a~1.
+\end{definition}
+
+\begin{theorem}
+	Con la notazione del \autoref{th:cramerrao} e con $x$ variabile del modello,
+	se $\hat\theta$ è sufficiente per $\theta$ allora ha efficienza unitaria.
+\end{theorem}
+
+\begin{proof}
+	Per il \autoref{th:darmois},
+	la pdf di $x$ si scrive come
+	\begin{equation*}
+		p(x;\theta)
+		= \exp \left( \hat\theta(x)a(\theta) + \beta(x) + \gamma(\theta) \right).
+	\end{equation*}
+	Per il \autoref{th:suffatt}, la pdf di $x$ si fattorizza con quella di $\hat\theta$:
+	\begin{equation*}
+		p(x;\theta)
+		= f(x) p(\hat\theta(x);\theta), \quad f > 0,
+	\end{equation*}
+	quindi, per qualsiasi $x\in\hat\theta^{-1}(\hat\theta_0)$, si ha
+	\begin{align*}
+		p(\hat\theta_0;\theta)
+		&= \frac{p(x;\theta)}{f(x)} = \\
+		&= \exp \left( \hat\theta_0 a(\theta) + \beta(x) + \gamma(\theta) - \log f(x) \right).
+	\end{align*}
+	Poiché l'espressione dipende solo da $\theta_0$ (e $\theta$),
+	possiamo definire $B(\hat\theta_0)\is\beta(x)-\log f(x)$,
+	quindi infine
+	\begin{equation*}
+		p(\hat\theta;\theta)
+		= \exp \left( \hat\theta a(\theta) + B(\hat\theta) + \gamma(\theta) \right).
+	\end{equation*}
+	Sia $g(\theta)\is a'(\theta)$.
+	Cerchiamo una relazione tra $\gamma$ e $g$:
+	\begin{align*}
+		\gamma(\theta)
+		&= \int_{\theta_0}^\theta \de\vartheta\, \gamma'(\vartheta) + \gamma(\theta_0) = \\
+		&= \int_{\theta_0}^\theta \de\vartheta\,
+		\gamma'(\vartheta) e^{-\gamma(\vartheta)} e^{\gamma(\vartheta)}
+		+ \gamma(\theta_0) = \\
+		&= - \int_{\theta_0}^\theta \de\vartheta\,
+		\pdv{}{\vartheta}\big(e^{-\gamma(\vartheta)}\big) e^{\gamma(\vartheta)}
+		+ \gamma(\theta_0) = \\
+		&= - \int_{\theta_0}^\theta \de\vartheta\,
+		\pdv{}{\vartheta} \left( \int\de\hat\theta\, p(\hat\theta;\vartheta) e^{-\gamma(\vartheta)} \right)
+		e^{\gamma(\vartheta)} + \gamma(\theta_0) = \\
+		&= - \int_{\theta_0}^\theta \de\vartheta \int\de\hat\theta\,
+		\pdv{}{\vartheta} \big( e^{\hat\theta a(\vartheta) + B(\hat\theta)} \big) e^{\gamma(\vartheta)}
+		+ \gamma(\theta_0) = \\
+		&= - \int_{\theta_0}^\theta \de\vartheta \int\de\hat\theta\,
+		\hat\theta a'(\vartheta) e^{\hat\theta a(\vartheta) + B(\hat\theta) + \gamma(\vartheta)}
+		+ \gamma(\theta_0) = \\
+		&= - \int_{\theta_0}^\theta \de\vartheta\, a'(\vartheta)
+		\int\de\hat\theta\, p(\hat\theta;\vartheta) \hat\theta
+		+ \gamma(\theta_0) = \\
+		&= - \int_{\theta_0}^\theta \de\vartheta\, g(\vartheta) E[\hat\theta]\big|_{\vartheta}
+		+ \gamma(\theta_0),
+	\end{align*}
+	e inoltre abbiamo per definizione:
+	\begin{equation*}
+		a(\theta)
+		= \int_{\theta_0}^\theta \de\vartheta\, g(\vartheta) + a(\theta_0),
+	\end{equation*}
+	quindi:
+	\begin{align*}
+		\log p(\hat\theta;\theta)
+		&= \left( \int_{\theta_0}^\theta \de\vartheta\, g(\vartheta) + a(\theta_0) \right) \hat\theta
+		+ B(\hat\theta) + {}\\
+		&\phantom{{}={}}- \int_{\theta_0}^\theta \de\vartheta\, g(\vartheta) E[\hat\theta]\big|_{\vartheta} + \gamma(\theta_0) = \\
+		&= \int_{\theta_0}^\theta \de\vartheta\, g(\vartheta) \big(\hat\theta-E[\hat\theta]\big|_{\vartheta}\big)
+		+ a(\hat\theta_0)\hat\theta + B(\hat\theta) + \gamma(\theta_0).
+	\end{align*}
+	Deriviamo rispetto al parametro:
+	\begin{equation*}
+		\pdv{}{\theta} \log p(\hat\theta;\theta)
+		= g(\theta) \cdot \big(\hat\theta-E[\hat\theta]\big|_{\theta}\big).
+	\end{equation*}
+	Riguardando la dimostrazione del \autoref{th:cramerrao},
+	vediamo che la disuguaglianza di Schwartz è saturata perché le due funzioni sono proporzionali.
+	Poiché $\hat\theta$ è sufficiente, $I_x(\theta)=I_{\hat\theta}(\theta)$,
+	quindi l'efficienza è unitaria.
+\end{proof}
+
+Questo teorema non dice nulla sul bias di $\hat\theta$,
+però ha bias nullo se lo consideriamo come stimatore della sua media,
+che è una funzione del parametro.
