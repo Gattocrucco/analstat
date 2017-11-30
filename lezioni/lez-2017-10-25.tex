@@ -1,0 +1,32 @@
+% Giacomo Petrillo
+% non c'ero a lezione quindi uso gli appunti di Francesco Serra
+% lezione di Punzi
+
+Consideriamo la statistica $s_k(x)\is x^k$.
+Il valore atteso è per definizione il momento $k$-esimo
+\marginpar{quale lettera usavamo per i momenti?}%
+$E[s_k]=\mu_k$,
+quindi $s_k$ è uno stimatore con bias nullo di $\mu_k$.
+Verifichiamo che sia consistente;
+per $N$ estrazioni lo estendiamo alla media aritmetica (che lascia invariato il bias):
+\begin{align*}
+	s_k(\mathbf x)
+	\is \frac{\sum_i x_i^k}N, \quad
+	E[s_k(\mathbf x)]
+	= \frac1N \sum_i E[x_i^k]
+	= \mu_k,
+\end{align*}
+e calcoliamo la varianza:
+\begin{align*}
+	E[s_k^2]
+	&= \frac1{N^2} E \left[ \sum_{ij} x_i^k x_j^k \right] = \\
+	&= \frac1{N^2} \sum_{ij} E[x_i^k x_j^k] = \\
+	&= \frac1{N^2} \left( \sum_{i=j} E[x_i^{2k}] + \sum_{i\neq j} E[x_i^k] E[x_j^k] \right) = \\
+	&= \frac1{N^2} (N\mu_{2k} + N(N-1)\mu_k^2), \\
+	\var[s_k]
+	&= E[s_k^2] - E[s_k]^2 = \\
+	&= \frac{\mu_{2k} - \mu_k^2}N
+	\propto \frac1N.
+\end{align*}
+I momenti sono quindi un modo generale di parametrizzare una distribuzione in modo che esista uno stimatore corretto, consistente e semplice da calcolare.
+Tuttavia tipicamente il problema specifico fisserà quali sono i parametri che vogliamo stimare.
