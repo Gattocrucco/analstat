@@ -30,3 +30,67 @@ e calcoliamo la varianza:
 \end{align*}
 I momenti sono quindi un modo generale di parametrizzare una distribuzione in modo che esista uno stimatore corretto, consistente e semplice da calcolare.
 Tuttavia tipicamente il problema specifico fisserà quali sono i parametri che vogliamo stimare.
+
+Consideriamo un modello $p(x;\theta)$.
+Fissiamo un ``valore vero'' $\theta_0$ per il parametro.
+\marginpar{Probabilmente prima che qui bisogna dire che per valore vero intendiamo quello su cui implicitamente calcoliamo la probabilità es. nei valori attesi.}%
+Sia $f(x,\theta)$ tale che la funzione
+\begin{equation*}
+	h(\theta)\is E[f(x,\theta)]
+\end{equation*}
+si annulla solo in $\theta_0$.
+Consideriamo $N$ estrazioni.
+Per il \autoref{th:grossnum},
+la media aritmetica $\sum_i f(x_i,\theta)/N$ converge in probabilità a $h(\theta)$.
+Sia $s_N(\mathbf x)$ una statistica tale che
+\begin{equation*}
+	\forall N \,\forall\mathbf x: \frac{\sum_i f(x_i,s_N(\mathbf x))}N = 0,
+\end{equation*}
+allora $s_N$ converge in probabilità a $\theta_0$.
+\marginpar{Ipotesi tecniche su $f$?}%
+Ora esibiamo una $f$ e una $s_N$ con queste proprietà.
+\begin{align*}
+	1
+	&= \int\de x\, p(x;\theta) \implies \\
+	\implies 0
+	&= \pdv{}{\theta} \int\de x\, p(x;\theta) = \\
+	&= \int\de x\, \pdv{}{\theta} p(x;\theta) = \\
+	&= \int\de x\, p(x;\theta) \pdv{}{\theta} \log p(x;\theta) \implies \\
+	\implies 0
+	&= E \left[ \pdv{}{\theta} \log p(x;\theta) \big|_{\theta_0} \right],
+\end{align*}
+quindi $\partial_\theta \log p(x;\theta)$ ha le proprietà richieste per $f$,
+assumendo che lo zero del valore atteso sia unico.
+Definiamo
+\begin{equation*}
+	K_{\mathbf x}(\theta)
+	\is \frac{\sum_i \pdv{}{\theta} \log p(x;\theta)} N.
+\end{equation*}
+Sia $\hat\theta$ un punto stazionario di $p(\mathbf x,\theta)$.
+Allora
+\begin{align*}
+	0
+	&= \pdv{}{\theta} \log p(\mathbf x;\theta) \big|_{\hat\theta} = \\
+	&= \pdv{}{\theta} \sum_i \log p(x_i;\theta) \big|_{\hat\theta} \implies \\
+	\implies 0
+	&= K_{\mathbf x}(\hat\theta),
+\end{align*}
+quindi $\hat\theta$ soddisfa le proprietà richieste per $s_N$.
+Supponiamo ora che il valore atteso di
+$\partial_\theta \log p(x;\theta)$
+abbia più di uno zero.
+Tuttavia
+\begin{align*}
+	E \left[ K_{\mathbf x}'(\theta_0) \right]
+	&= E \left[ \Pdv{}{\theta} \log p(\mathbf x;\theta) \big|_{\theta_0} \right] = \\
+	&= -I_{\mathbf x}(\theta_0)
+	\le 0,
+\end{align*}
+quindi se $\hat\theta$ è una statistica che fa convergere $K_{\mathbf x}(\hat\theta)$ a $0$,
+deve essere necessariamente un massimo di $\log p(\mathbf x;\theta)$.
+\marginpar{Non ho capito.}%
+Allora se il massimo è unico, essendo un punto stazionario,
+converge a $\theta_0$.
+Per la convergenza è sufficiente che il massimo sia asintoticamente unico.
+Abbiamo dunque lo \emph{stimatore di massima likelihood},
+che è consistente.
