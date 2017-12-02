@@ -112,3 +112,50 @@ con media $\theta_0$ e varianza $1/(IN)$.
 Il termine all'ordine quadratico converge a un ordine della varianza,
 quindi il bias è $O(1/N)$.
 Notiamo che il rapporto tra il bias e la deviazione standard va a zero come $1/\sqrt{N}$.
+
+\begin{example}
+	Consideriamo la gaussiana
+	\begin{equation*}
+		p(\mathbf x;\mu,\sigma)
+		= \frac1{(\sqrt{2\pi}\sigma)^N} \exp \left( -\frac12\sum_i\left(\frac{x_i-\mu}\sigma\right)^2 \right).
+	\end{equation*}
+	Calcoliamo lo stimatore di massima likelihood:
+	\begin{align*}
+		L \is \log p(\mathbf x;\mu,\sigma)
+		&= (\dots) - N\log\sigma - \frac12 \sum_i \left( \frac{x_i-\mu}\sigma \right)^2 \\
+		0 = \pdv L\mu
+		&= -\frac1{\sigma^2}\sum_i (x_i-\mu) \implies \\
+		\implies \mu
+		&= \bar x \\
+		0 = \pdv L\sigma
+		&= -\frac N\sigma + \frac1{\sigma^3}\sum_i (x_i-\mu)^2 \implies \\
+		\implies \sigma^2
+		&= \frac1N \sum_i (x_i-\bar x)^2.
+	\end{align*}
+	Le proprietà di $\hat\mu$ sono ovvie.
+	Calcoliamo il bias di $\hat\sigma^2$:
+	\begin{align*}
+		E[\hat\sigma^2]
+		&= \frac{\sum_i}N E[x_i^2 - 2x_i\bar x + \bar x^2] = \\
+		\Bigg[ E[x_i]^2
+		&= \var[x_i] + E[x_i]^2
+		= \mu^2 + \sigma^2 \\
+		E[x_i\bar x]
+		&= \frac 1N E \left[ x_i^2 + x_i \sum_{j\neq i} x_j \right] = \\
+		&= \frac{\mu^2 + \sigma^2 + (N-1)\mu^2}N
+		= \mu^2 + \frac{\sigma^2}N \\
+		E[\bar x^2]
+		&= \mu^2 + \frac{\sigma^2}N \Bigg] \\
+		&= \mu^2 + \sigma^2 - \mu^2 - \frac{\sigma^2}N = \\
+		&= \frac{N-1}N \sigma^2,
+	\end{align*}
+	quindi per avere uno stimatore unbiased devo usare il noto
+	\begin{equation*}
+		\hat V(\mathbf x)
+		= \frac{\sum_i (x_i-\bar x)^2}{N-1}.
+	\end{equation*}
+	Notiamo che nel conto non abbiamo usato il fatto che la distribuzione è gaussiana,
+	quindi $\hat V$ è uno stimatore con bias nullo della varianza per qualunque distribuzione.
+\end{example}
+
+
