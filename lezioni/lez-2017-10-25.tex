@@ -158,4 +158,34 @@ Notiamo che il rapporto tra il bias e la deviazione standard va a zero come $1/\
 	quindi $\hat V$ è uno stimatore con bias nullo della varianza per qualunque distribuzione.
 \end{example}
 
+Sia $\hat\theta(x)$ uno stimatore con bias $b(\theta)$.
+Lo stimatore
+\begin{equation*}
+	\hat\theta^{(u)}(x)
+	\is \hat\theta(x) - b(\theta)
+\end{equation*}
+ha bias nullo in $\theta$,
+però questa formula non si può usare in pratica perché dipende da $\theta$.
+Si può tuttavia cercare uno stimatore del bias $\hat b(x)$.
 
+Consideriamo un modello per $N$ estrazioni di $x$
+e uno stimatore $\hat\theta_N(\mathbf x)$
+con bias che ha sviluppo in serie
+\begin{equation*}
+	b_N(\theta)
+	= \frac{\alpha(\theta)}N + O(N^{-2}).
+\end{equation*}
+Stimiamo il bias di $\hat\theta$ con il suo valore meno la media artimetica su due sottoinsiemi dei dati:
+\begin{equation*}
+	\hat\theta^{(u)}_N(\mathbf x)
+	\is 2\hat\theta_N(\mathbf x)
+	- \frac12 \left( \hat\theta_{N/2}(x_1,\dots,x_{N/2}) + \hat\theta_{N/2}(x_{1+N/2},\dots,x_N) \right).
+\end{equation*}
+Calcoliamo il nuovo bias:
+\begin{align*}
+	E[\hat\theta^{(u)}_N]
+	&= 2 \left( \theta + \frac{\alpha(\theta)}N + O(N^{-2}) \right)
+	- \frac12 \left( 2\theta + 2 \frac{\alpha(\theta)}{N/2} + O(N^{-2}) \right) = \\
+	&= \theta + O(N^{-2}).
+\end{align*}
+Quindi il bias di $\hat\theta^{(u)}$ è all'ordine successivo in $N$.
