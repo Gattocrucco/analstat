@@ -4,14 +4,27 @@
 \begin{example}
 	Calcoliamo lo stimatore di massima likelihood per la poissoniana:
 	\begin{align*}
-		L \is \log p(\mathbf x;\mu)
+		L \is \log p(\mathbf k;\mu)
 		&= -\sum_i \log k_i! + \log\mu \sum_i k_i - N\mu \\
 		0 = \pdv L\mu
 		&= \sum_i k_i - N\mu \implies \\
 		\implies \mu
 		&= \bar k.
 	\end{align*}
-	Risulta la media artimetica che già sappiamo essere uno stimatore unbiased e efficiente.
+	Risulta la media aritmetica che già sappiamo essere uno stimatore unbiased e efficiente.
 \end{example}
 
+\begin{exercise}
+	Calcolare lo stimatore di massima likelihood per $p$ della binomiale.
+\end{exercise}
 
+\begin{solution}
+	\begin{align*}
+		L \is \log p(\mathbf k;p)
+		&= \sum_i\log\binom n{k_i} + \log p\sum_i k_i + \log(1-p) \sum_i(n-k_i) \\
+		0 = \pdv Lp
+		&= \frac{N\bar k}{p} - \frac{N(n-\bar k)}{1-p} \implies \\
+		\implies p
+		&= \frac{\bar k}n.
+	\end{align*}
+\end{solution}
