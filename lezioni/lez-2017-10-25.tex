@@ -88,9 +88,27 @@ Tuttavia
 \end{align*}
 quindi se $\hat\theta$ è una statistica che fa convergere $K_{\mathbf x}(\hat\theta)$ a $0$,
 deve essere necessariamente un massimo di $\log p(\mathbf x;\theta)$.
-\marginpar{Non ho capito.}%
+\marginpar{Non ho capito bene.}%
 Allora se il massimo è unico, essendo un punto stazionario,
 converge a $\theta_0$.
 Per la convergenza è sufficiente che il massimo sia asintoticamente unico.
 Abbiamo dunque lo \emph{stimatore di massima likelihood},
 che è consistente.
+
+Consideriamo l'espansione in serie di $K$:
+\begin{align*}
+	0 = K(\hat\theta)
+	&= K(\theta_0) + K'(\theta_0)(\hat\theta-\theta_0) + O\big((\hat\theta-\theta_0)^2\big) \implies \\
+	\implies \hat\theta
+	&= \theta_0 + \frac{K(\hat\theta)}{-K'(\theta_0)} + O\big((\hat\theta-\theta_0)^2\big)
+\end{align*}
+Per il \autoref{th:limitecentrale} (limite centrale),
+per $N\to\infty$
+la distribuzione di $K(\hat\theta)$ converge a una gaussiana
+con media 0 e varianza $I/N$.
+Inoltre abbiamo visto che $K'(\theta_0)$ converge in probabilità a $-I$,
+quindi la distribuzione di $\hat\theta$ converge a una gaussiana
+con media $\theta_0$ e varianza $1/(IN)$.
+Il termine all'ordine quadratico converge a un ordine della varianza,
+quindi il bias è $O(1/N)$.
+Notiamo che il rapporto tra il bias e la deviazione standard va a zero come $1/\sqrt{N}$.
