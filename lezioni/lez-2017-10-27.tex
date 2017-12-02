@@ -53,3 +53,46 @@
 		&= \frac1{\sum_i \frac1{\sigma_i^2}}.
 	\end{align*}
 \end{example}
+
+\begin{example}
+	Consideriamo $N$ estrazioni della distribuzione esponenziale
+	\begin{equation*}
+		p(t;\tau)
+		= \frac1\tau e^{-t/\tau}
+	\end{equation*}
+	e calcoliamone lo stimatore di massima likelihood per $\tau$:
+	\begin{align*}
+		L \is \log p(\mathbf t;\tau)
+		&= -N\log\tau - \frac{N\bar t}\tau \\
+		0 = \pdv L\tau
+		&= -\frac N\tau + \frac{N\bar t}{\tau^2} \implies \\
+		\implies \tau
+		&= \bar t.
+	\end{align*}
+	Le proprietà di $\hat\tau$ ci sono già note.
+	Se vogliamo ricavare lo stimatore di massima likelihood per $\lambda=1/\tau$,
+	essendo che il massimo non dipende dalla parametrizzazione,
+	la trasformazione è banale:
+	\begin{equation*}
+		\hat\lambda = \frac1{\hat\tau} = \frac1{\bar t}.
+	\end{equation*}
+	Calcoliamo il bias di $\hat\lambda$.
+	La distribuzione della somma di esponenziali\footnote{Vedi \autoref{th:salvexp}.} è
+	\begin{equation*}
+		p(s;\lambda)
+		= \frac{\lambda^N}{(N-1)!}s^{N-1}e^{-\lambda s},
+	\end{equation*}
+	calcoliamo il valore atteso di $\hat\lambda$:
+	\begin{align*}
+		E \left[\frac1{\bar t}\right]
+		&= N E \left[\frac1{\sum_i t_i}\right] = \\
+		&= N \int_0^\infty \de s\, \frac{\lambda^N}{(N-1)!}s^{N-1}e^{-\lambda s} \frac 1s = \\
+		&= \frac{N\lambda}{(N-1)!} \int_0^\infty \lambda\de s\, (\lambda s)^{N-2} e^{-\lambda s} = \\
+		&= \frac{N\lambda}{(N-1)!} (N-2)! = \\
+		&= \frac N{N-1} \lambda.
+	\end{align*}
+\end{example}
+
+% la somma di esponenziali è già in un esercizio del 4 ottobre
+
+
