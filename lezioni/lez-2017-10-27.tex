@@ -28,3 +28,28 @@
 		&= \frac{\bar k}n.
 	\end{align*}
 \end{solution}
+
+\begin{example}[Media pesata]
+	Consideriamo due variabili gaussiane indipendenti con la stessa media e calcoliamo lo stimatore di massima likelihood per la media:
+	\begin{align*}
+		L \is \log p(x_1,x_2;\mu)
+		&= -\log(2\pi\sigma_1\sigma_2)
+		-\frac12 \left(\frac{x_1-\mu}{\sigma_1}\right)^2
+		- \frac12 \left(\frac{x_2-\mu}{\sigma_2}\right)^2 \\
+		0 = \pdv L\mu
+		&= \frac{x_1-\mu}{\sigma_1^2} + \frac{x_2-\mu}{\sigma_2^2} \implies \\
+		\implies \mu
+		&= \frac {\frac{x_1}{\sigma_1^2} + \frac{x_2}{\sigma_2^2}} {\frac1{\sigma_1^2} + \frac1{\sigma_2^2}}.
+	\end{align*}
+	Per $N$ variabili si generalizza immediatamente alla media pesata con $1/\sigma_i^2$:
+	\begin{equation*}
+		\hat\mu
+		= \frac {\sum_i \frac{x_i}{\sigma_i^2}} {\sum_i \frac1{\sigma_i^2}}.
+	\end{equation*}
+	Calcoliamo la varianza:
+	\begin{align*}
+		\var[\hat\mu]
+		&= \frac {\sum_i \frac{\sigma_i^2}{\sigma_i^4}} {\left(\sum_i \frac1{\sigma_i^2}\right)^2} = \\
+		&= \frac1{\sum_i \frac1{\sigma_i^2}}.
+	\end{align*}
+\end{example}
