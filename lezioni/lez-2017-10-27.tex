@@ -93,6 +93,35 @@
 	\end{align*}
 \end{example}
 
-% la somma di esponenziali è già in un esercizio del 4 ottobre
-
-
+\begin{example}
+	Consideriamo $N$ estrazioni della distribuzione uniforme
+	\begin{equation*}
+		p(x;m) = \frac 1m \chi_{(0,m)}(x)
+	\end{equation*}
+	e calcoliamo lo stimatore di massima likelihood:
+	\marginpar{Mi sa che per la uniforme non valgono le ipotesi (implicite) con cui abbiamo dimostrato le proprietà di ML, andrebbe accennato.}%
+	\begin{align*}
+		p(\mathbf x;m)
+		&= \frac1{m^N} \chi_{(0,m)}(\max\mathbf x) = \\
+		&= \frac1{m^N} \chi_{(\max\mathbf x,\infty)}(m) \implies \\
+		\implies \hat m=\max\mathbf x.
+	\end{align*}
+	Abbiamo già calcolato\footnote{Vedi \autoref{th:unifmaxpdf}.} la distribuzione di $\hat m$
+	\begin{equation*}
+		p(\hat m;m)
+		= \frac Nm \left(\frac{\hat m}m\right)^{N-1} \chi_{(0,m)}(\hat m).
+	\end{equation*}
+	Calcoliamo media e varianza, fissando $m=1$ per fare il conto:
+	\begin{align*}
+		E[\hat m]
+		&= \int_0^1 \de\hat m\, N \hat m^{N-1} \hat m = \\
+		&= \frac N{N+1} \\
+		E[\hat m^2]
+		&= \int_0^1 \de\hat m\, N \hat m^{N-1} \hat m^2 = \\
+		&= \frac N{N+2} \\
+		\var[\hat m]
+		&= E[\hat m^2] - E[\hat m]^2 = \\
+		&= \frac{N(N+1)^2 - N^2(N+2)}{(N+2)(N+1)^2} = \\
+		&= \frac N{(N+2)(N+1)^2}.
+	\end{align*}
+\end{example}
