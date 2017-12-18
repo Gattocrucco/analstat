@@ -1,0 +1,96 @@
+% Giacomo Petrillo
+% lezione di Punzi
+
+Consideriamo un istogramma, ovvero:
+sia $\{S_j\}$ una partizione della variabile $x$;
+date $N$ estrazioni di $x$, i \emph{conteggi} $k_j$ dei \emph{bin} $S_j$
+sono il numero di estrazioni che cadono nel bin:
+\begin{equation*}
+	k_j \is \# (S_j \cap \{\mathbf x\}).
+\end{equation*}
+Per ogni $x$, la probabilità di cadere in un bin è per definizione la probabilità del bin
+\begin{equation*}
+	p_j \is P(S_j) = \int_{S_j} \de x\,p(x).
+\end{equation*}
+La distribuzione dei conteggi è allora la multinomiale:
+\begin{equation*}
+	P(\mathbf k)
+	= \delta_{\sum_jk_j,N} \frac{N!}{\prod_jk_j!}\prod_j p_j^{k_j},
+\end{equation*}
+mentre la distribuzione di un singolo conteggio è binomiale:
+\begin{equation*}
+	P(k_j) = \binom N{k_j} p_j^{k_j} (1-p_j)^{N-k_j}.
+\end{equation*}
+
+Poniamo che il numero di estrazioni sia anch'esso una variabile e abbia distribuzione poissoniana:
+\begin{equation*}
+	P(N)
+	= \frac{\mu^N}{N!}e^{-\mu}.
+\end{equation*}
+Reinterpretiamo la distribuzione di $\mathbf k$ come probabilità condizionata e calcoliamo la nuova distribuzione\footnote{Questo conto è già stato fatto nell'\autoref{th:taxi}.}:
+\begin{align*}
+	P(k_j)
+	&= \sum_N P(k_j,N) = \\
+	&= \sum_{N\ge k_j} P(k_j|N) P(N) = \\
+	&= \left(\frac{p_j}{1-pj}\right)^{k_j} \frac{e^{-\mu}}{k_j!}
+	\sum_{N\ge k_j} \frac{\mu^N (1-p_j)^N}{(N-k_j)!} = \\
+	&= \left(\frac{p_j}{1-pj}\right)^{k_j} \frac{e^{-\mu}}{k_j!}
+	\big(\mu(1-p_j)\big)^{k_j} \sum_{M\ge 0} \frac{\big(\mu(1-p_j)\big)^M}{M!} = \\
+	&= \frac{(p_j\mu)^{k_j} e^{-\mu}}{k_j!} e^{(1-p_j)\mu} = \\
+	&= \frac{(p_j\mu)^{k_j}}{k_j!} e^{-p_j\mu}.
+\end{align*}
+Quindi la distribuzione dei singoli conteggi è poissoniana con media $p_j\mu$.
+
+Poniamo un modello per $x$ con parametro $\theta$.
+Le probabilità dei bin dipendono allora da $\theta$:
+\begin{equation*}
+	p_j = \int_{S_j} \de x\, p(x;\theta).
+\end{equation*}
+Scriviamo il logaritmo della likelihood,
+costruita a partire dall'istogramma,
+sia nel caso di $N$ fisso che poissoniano.
+\begin{align*}
+	\log P(\mathbf k|N;\theta)
+	&= f_1(\mathbf k) + \sum_j k_j\log p_j \\
+	\log P(\mathbf k;\theta,\mu)
+	&= f_2(\mathbf k) + \sum_j k_j\log p_j
+	+ \log\mu\sum_jk_j - \mu\underbrace{\sum_jp_j}\limits_{=1} = \\
+	&= f_3(\mathbf k,\mu) + \log P(\mathbf k|N;\theta).
+\end{align*}
+Per calcolare lo stimatore di massima likelihood per $\theta$ le due likelihood sono equivalenti.
+La differenza diventa rilevante se usiamo un modello più complesso in cui $\mu$ dipende da $\theta$.
+In questo ambito la likelihood con il termine in $\mu$ si chiama \emph{extended likelihood}.
+
+\begin{fact}
+	Nel caso di $N$ fisso lo stimatore di massima likelihood per $\theta$ ha asintoticamente varianza
+	\begin{equation*}
+		\var[\hat\theta]
+		= \frac1{NA} + O\left(\frac1{N^2}\right)
+	\end{equation*}
+	e bias
+	\begin{equation*}
+		b(\theta)
+		= -\frac B{2NA^2} + O\left(\frac1{N^2}\right),
+	\end{equation*}
+	dove $A$ e $B$ sono
+	\begin{align*}
+		A
+		&\is \sum_j \frac1{p_j} \left(\pdv{p_j}{\theta}\right)^2 \\
+		B
+		&\is \sum_j \frac1{p_j} \pdv{p_j}{\theta} \Pdv[2]{p_j}{\theta}.
+	\end{align*}
+\end{fact}
+
+Esponiamo una stima della varianza dello stimatore di massima likelihood.
+Sappiamo che asintoticamente la varianza tende a $1/(IN)$:
+\begin{align*}
+	\frac1{IN}
+	&= -\frac1N E \left[ \left.\Pdv[2]{}{\theta} \log p(x;\theta) \right|\theta \right]^{-1} \approx \\
+	\intertext{sostituiamo il valore atteso con la media aritmetica}
+	&\approx -\frac1N \left( \frac1N \sum_i \Pdv[2]{}{\theta} \log p(x_i;\theta) \right)^{-1} = \\
+	&= - \left( \Pdv[2]{}{\theta} \log p(\mathbf x;\theta) \right)^{-1} \approx \\
+	\intertext{sostituiamo il parametro con il suo stimatore}
+	&\approx - \left( \Pdv[2]{}{\theta} \log p(\mathbf x;\theta) \right)^{-1}_{\theta=\hat\theta}.
+\end{align*}
+Le sostituzioni fatte valgono asintoticamente quindi questo stimatore è consistente.
+I programmi numerici comunemente usati per calcolare gli stimatori di massima likelihood calcolano questa stima della varianza.

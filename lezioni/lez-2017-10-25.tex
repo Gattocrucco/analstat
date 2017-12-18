@@ -64,7 +64,7 @@ assumendo che lo zero del valore atteso sia unico.
 Definiamo
 \begin{equation*}
 	K_{\mathbf x}(\theta)
-	\is \frac{\sum_i \pdv{}{\theta} \log p(x;\theta)} N.
+	\is \frac{\sum_i \pdv{}{\theta} \log p(x_i;\theta)} N.
 \end{equation*}
 Sia $\hat\theta$ un punto stazionario di $p(\mathbf x,\theta)$.
 Allora
@@ -82,8 +82,8 @@ abbia più di uno zero.
 Tuttavia
 \begin{align*}
 	E \left[ K_{\mathbf x}'(\theta_0) \right]
-	&= E \left[ \Pdv{}{\theta} \log p(\mathbf x;\theta) \big|_{\theta_0} \right] = \\
-	&= -I_{\mathbf x}(\theta_0)
+	&= E \left[ \Pdv{}{\theta} \log p(x;\theta) \big|_{\theta_0} \right] = \\
+	&= -I(\theta_0)
 	\le 0,
 \end{align*}
 quindi se $\hat\theta$ è una statistica che fa convergere $K_{\mathbf x}(\hat\theta)$ a $0$,

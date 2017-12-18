@@ -104,13 +104,15 @@
 		p(\mathbf x;m)
 		&= \frac1{m^N} \chi_{(0,m)}(\max\mathbf x) = \\
 		&= \frac1{m^N} \chi_{(\max\mathbf x,\infty)}(m) \implies \\
-		\implies \hat m=\max\mathbf x.
+		\implies \hat m&=\max\mathbf x.
 	\end{align*}
 	Abbiamo già calcolato\footnote{Vedi \autoref{th:unifmaxpdf}.} la distribuzione di $\hat m$
 	\begin{equation*}
 		p(\hat m;m)
-		= \frac Nm \left(\frac{\hat m}m\right)^{N-1} \chi_{(0,m)}(\hat m).
+		= \frac Nm \left(\frac{\hat m}m\right)^{N-1} \chi_{(0,m)}(\hat m),
 	\end{equation*}
+	da cui si vede subito che è consistente
+	e che ha bias negativo.
 	Calcoliamo media e varianza, fissando $m=1$ per fare il conto:
 	\begin{align*}
 		E[\hat m]
