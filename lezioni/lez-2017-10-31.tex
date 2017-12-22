@@ -94,3 +94,89 @@ Sappiamo che asintoticamente la varianza tende a $1/(IN)$:
 \end{align*}
 Le sostituzioni fatte valgono asintoticamente quindi questo stimatore è consistente.
 I programmi numerici comunemente usati per calcolare gli stimatori di massima likelihood calcolano questa stima della varianza.
+
+Consideriamo un modello gaussiano per $N$ variabili indipendenti $y_i$
+con deviazioni standard fissate $\sigma_i$
+e medie date da $\mu(x_i,\theta)$ dove $x_i$ sono fissati e $\theta$ è il parametro.
+Scriviamo il logaritmo della likelihood:
+\begin{align*}
+	\log p(\mathbf y;\theta)
+	&= -\frac N2\log(2\pi)
+	- \sum_i\log\sigma_i
+	- \frac12 \sum_i \left( \frac{y_i - \mu(x_i,\theta)}{\sigma_i} \right)^2.
+\end{align*}
+Per fare inferenza su $\theta$, l'unica parte che ci interessa è l'ultimo termine.
+In particolare, per calcolare lo stimatore di massima likelihood, dobbiamo minimizzare
+\begin{equation*}
+	\frac12 \sum_i \left( \frac{y_i - \mu(x_i,\theta)}{\sigma_i} \right)^2;
+\end{equation*}
+questo è noto come \emph{metodo dei minimi quadrati}.
+
+Se abbiamo un modello con distribuzioni non gaussiane ma che riteniamo siano approssimabili con gaussiane,
+allora possiamo approssimare lo stimatore di massima likelihood con quello dei minimi quadrati.
+Ad esempio, se abbiamo un istogramma\footnote{Vedi sezione sugli istogrammi per la notazione.}
+(poniamo con numero totale di eventi poissoniano)
+con abbastanza eventi in tutti i bin da poter approssimare le distribuzioni dei conteggi come gaussiane,
+stimando la varianza di un conteggio $k$ con $k$ stesso e $\mu$ con $N$,
+possiamo approssimare la stima di massima likelihood con il minimo di
+\begin{equation*}
+	\sum_j \frac{(k_j - Np_j(\theta))^2}{k}.
+\end{equation*}
+Nel caso dell'istogramma, un'ulteriore utile approssimazione può essere sostituire l'integrale
+\begin{equation*}
+	p_j(\theta) = \int_{S_j} \de x\, p(x;\theta)
+\end{equation*}
+con $p(x_j;\theta)$ per un qualche $x_j\in S_j$, allora l'espressione da minimizzare diventa
+\begin{equation*}
+	\sum_j \frac{(k_j - Np(x_j;\theta))^2}{k}.
+\end{equation*}
+Questa espressione definisce in ogni caso uno stimatore,
+anche se non riteniamo che tutte le distribuzioni dei conteggi siano approssimabili con gaussiane.
+Se $N$ non è abbastanza grande, le proprietà di questo stimatore andranno studiate ad hoc,
+eventualmente con Monte Carlo.
+È stato studiato ampiamente e risulta che tipicamente è peggiore di massima likelihood.
+Bisogna quindi nella pratica fare attenzione a software di fit di istogrammi che senza dichiararlo usano questo metodo.
+
+Torniamo all'origine del metodo dei minimi quadrati e estendiamolo a un caso più generale.
+Consideriamo una variabile gaussiana $\mathbf y$ con matrice di covarianza fissata $V$ e media data da $\boldsymbol\mu(\theta)$.
+Il termine del logaritmo della likelihood che dipende da $\theta$ è la forma quadratica
+\begin{equation*}
+	Q \is -\frac 12 (\mathbf y - \boldsymbol\mu(\theta))^\transp V^{-1} (\mathbf y - \boldsymbol\mu(\theta)).
+\end{equation*}
+Dimostriamo che il massimo di questa espressione è uno stimatore consistente anche se la distribuzione non è gaussiana e $V$ non è la matrice di covarianza (ma è comunque definita positiva).
+Consideriamo le derivate rispetto al parametro:
+\begin{align*}
+	\pdv Q\theta
+	&= (\mathbf y - \boldsymbol\mu(\theta))^\transp V^{-1} \pdv{\boldsymbol\mu}\theta, \\
+	\Pdv Q\theta
+	&= - \pdv{\boldsymbol\mu}\theta^\transp V^{-1} \pdv{\boldsymbol\mu}\theta
+	+ (\mathbf y - \boldsymbol\mu(\theta))^\transp V^{-1} \Pdv{\boldsymbol\mu}\theta.
+\end{align*}
+Il valore atteso della derivata prima nel valore vero è nullo:
+\begin{equation*}
+	E\left[\pdv Q\theta;\theta\right]
+	\propto E[\mathbf y - \boldsymbol\mu(\theta);\theta] = 0
+\end{equation*}
+mentre il valore atteso della derivata seconda è negativo perché $V$ è definita positiva.
+Allora $\pdv Q\theta$ soddisfa le proprietà della funzione implicita viste per massima likelihood,
+\marginpar{migliorare riferimento}%
+e il massimo di $Q$ definisce uno stimatore consistente.
+
+Consideriamo il caso particolare in cui la media è lineare nel parametro:
+\begin{equation*}
+	\mu_i(\boldsymbol\theta) = A_{ik} \theta_k.
+\end{equation*}
+Allora il massimo della forma quadratica si ottiene per
+\begin{equation*}
+	\hat{\boldsymbol\theta} = (A^\transp V^{-1} A)^{-1} (A^\transp V^{-1}) \mathbf y.
+\end{equation*}
+Questo stimatore ha bias nullo:
+\begin{equation*}
+	E[\hat{\boldsymbol\theta}]
+	= (A^\transp V^{-1} A)^{-1} (A^\transp V^{-1}) A \boldsymbol\theta
+	= \boldsymbol\theta.
+\end{equation*}
+\begin{fact}[Teorema di Gauss-Markov]
+	Se $V$ è effettivamente la matrice di covarianza,
+	$\hat{\boldsymbol\theta}$ è lo stimatore lineare e con bias nullo di minima varianza\footnote{Anche detto BLUE ovvero Best Linear Unbiased Estimator.}.
+\end{fact}
