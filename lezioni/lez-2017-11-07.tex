@@ -1,0 +1,95 @@
+% Giacomo Petrillo
+% lezione di Punzi
+
+Supponiamo di avere un libro che contiene un elenco di numeri.
+Si possono considerare questi numeri come estrazioni di una variabile casuale?
+Riformulando la domanda come
+<<si può applicare la teoria della probabilità a quella sequenza di numeri?>>
+appare più evidente che la risposta è che in definitiva è arbitrario e,
+se si fissa un criterio,
+che dovrebbe essere lo stesso che useremmo per delle prove in un esperimento,
+ad esempio per stabilire che l'uscita di un dado è ``casuale''.
+
+Una sequenza prestabilita di numeri che consideriamo casuali,
+detti \emph{pseudocasuali},
+può essere utile innanzitutto per fare simulazioni di fenomeni che consideriamo casuali,
+ma anche per fare calcoli numerici.
+Se dimostriamo che una certa statistica converge in probabilità a una quantità che vogliamo calcolare,
+possiamo raggiungere la precisione di calcolo desiderata aumentando la lunghezza della sequenza pseudocasuale.
+I metodi di calcolo e simulazione basati su sequenze pseudocasuali si chiamano \emph{Monte Carlo}.
+
+Supponiamo di voler calcolare l'integrale di una funzione valutandola numericamente in numero finito $N$ di punti.
+Il lettore conoscerà già il metodo dei trapezi e di Simpson (parabole),
+che si generalizzano ad approssimare con polinomi di grado $m-1$ (\emph{$m$-sampling}).
+Il metodo Monte Carlo più semplice per fare questo calcolo
+è valutare la funzione su una sequenza pseudocasuale con distribuzione uniforme
+e moltiplicare la media aritmetica dei valori per la lunghezza dell'intervallo.
+Infatti per definizione l'integrale della funzione è il valore di aspettazione su una variabile uniforme:
+\begin{align*}
+	\int_a^b \de x\,f(x)
+	&= (b-a)\int_a^b \frac{\de x\,f(x)}{b-a} = \\
+	&= (b-a) E[f(x)], \quad p(x) = \frac{\chi_{(a,b)}(x)}{b-a}.
+\end{align*}
+La stima dell'errore del risultato è la deviazione standard campione sulla media,
+quindi ha andamento asintotico $1/\sqrt N$.
+Si può dimostrare che l'errore dell'$m$-sampling ha andamento $1/N^{2(m-1)}$,
+quindi sembra che non abbiamo ottenuto nulla con il Monte Carlo.
+Tuttavia, se l'integrale è in $d$ dimensioni, l'$m$-sampling ha un andamento $1/N^{2(m-1)/d}$,
+cioè l'$N$ necessario per ottenere una certa precisione va come $e^{\lambda d}$.
+Quindi aumentando il numero di dimensioni diventa rapidamente impossibile in pratica usare l'$m$-sampling.
+Inoltre, supponiamo di aver eseguito un integrale e di non essere soddisfatti della precisione:
+con l'$m$-sampling bisogna riprocedere da capo aumentando $N$,
+mentre con Monte Carlo si può concatenare una nuova sequenza pseudocasuale e riutilizzare i calcoli precedenti.
+
+È comodo non dover scrivere esplicitamente un'intera sequenza pseudocasuale per usarla.
+Esistono algoritmi ciclici che generano buone sequenze pseudocasuali molto più lunghe dell'algoritmo.
+Tipicamente si studiano algoritmi che generano distribuzioni uniformi e poi si ricavano le altri distribuzioni a partire da quella uniforme con opportune statistiche.
+Ad esempio un modo stupido di ottenere una variabile gaussiana è sommarne tante uniformi.
+
+Esiste una statistica definita tutte per le distribuzioni a supporto compatto,
+detta \emph{metodo di Von Neumann},
+che manda una sequenza di variabili uniformi in una sequenza (di lunghezza casuale e minore) con la distribuzione desiderata:
+sia $x$ uniforme con lo stesso supporto della distribuzione obiettivo~$p$
+e $y$ uniforme in $(0,\max p)$, \emph{accetto} $x$ se $y<p(x)$ e la \emph{rigetto} altrimenti.
+La sequenza delle $x$ accettate è distribuita secondo $p$.
+
+Un altro metodo ancora più generico è il \emph{Markov Chain Monte Carlo} (MCMC).
+Una catena di Markov è una sequenza in cui ogni elemento si ottiene a partire da quello precedente.
+A causa di questa dipendenza,
+in una catena di Markov pseudocasuale gli elementi sono correlati,
+quindi la catena va usata sempre tutta insieme e senza fare riferimento all'ordine degli elementi.
+
+L'esempio più semplice di MCMC è \emph{Metropolis}.
+Consideriamo una \emph{proposal distribution} $\operatorname{PD}(x;y)$ simmetrica,
+cioè $\operatorname{PD}(x;y) = \operatorname{PD}(y;x)$,
+con lo stesso supporto della distribuzione obiettivo $p_0$.
+Fissiamo l'elemento iniziale della catena $x_0$.
+Otteniamo $x_{i+1}$ da $x_i$ estraendo $x$ da $\operatorname{PD}(x;x_i)$ e $u$ uniforme in $(0,1)$ finché non si verifica
+\begin{equation*}
+	\frac{p_0(x)}{p_0(x_i)} > u.
+\end{equation*}
+La probabilità di passare da $x_A$ a $x_B$ in un'iterazione è
+\begin{equation*}
+	p(x_A\rightarrow x_B)
+	= \operatorname{PD}(x_B;x_A) \cdot \min\left\{1,\frac{p_0(x_B)}{p_0(x_A)}\right\},
+\end{equation*}
+quindi il rapporto tra le probabilità nei due versi è
+\begin{equation*}
+	\frac {p(x_A\rightarrow x_B)} {p(x_B\rightarrow x_A)}
+	= \frac{p_0(x_B)}{p_0(x_A)}.
+\end{equation*}
+Allora si ha una situazione stazionaria stabile quando,
+detta $f$ la densità mesoscopica dei punti nella catena,
+$f(x)\propto p_0(x)$.
+Quindi la catena è una buona sequenza pseudocasuale solo asintoticamente.
+Notiamo che nell'algoritmo $p_0$ è usato a meno di una costante moltiplicativa;
+questo è molto utile quando si usa il teorema di Bayes: basta scrivere
+\begin{equation*}
+	p(x|y) \propto p(y|x) \cdot p(x)
+\end{equation*}
+senza calcolare
+\begin{equation*}
+	p(y) = \int \de x\, p(y|x)\cdot p(x).
+\end{equation*}
+
+% la parte sulla funzione psicometrica la salto perché è tutta inclusa nella lezione di Francavilla
