@@ -89,6 +89,7 @@ Il minimo necessario è o calcolare la moda
 (che in qualche modo corrisponde alla stima puntuale),
 oppure calcolare la probabilità di una certa regione (che corrisponde alla stima intervallare).
 \begin{definition}[Credibilità]
+	\label{th:cred}
 	Dato un modello per $x\in X$ con parametro $\theta\in\Theta$
 	e una funzione $\fundef[f]X\Theta$,
 	la \emph{credibilità} di un dato $x_0$ rispetto a $f$ è
@@ -100,7 +101,7 @@ oppure calcolare la probabilità di una certa regione (che corrisponde alla stim
 La questione è come scegliere $f$.
 Il criterio comune è chiedere che la credibilità abbia almeno un certo valore,
 chiamato \emph{livello di confidenza} (CL).
-Fissato CL, scegliere una $f$ che abbia $\cred_f(x_0)=\mathrm{CL}$
+Fissato CL, scegliere una $f$ che abbia $\cred_f(x_0)\ge\mathrm{CL}$
 equivale a scegliere una \emph{funzione di ordinamento} $O(\theta,x)$ e porre
 \begin{equation*}
 	f(x) \is \{\theta\,|\,O(\theta,x)>q(\mathrm{CL})\},
@@ -118,6 +119,7 @@ Tuttavia notiamo che se cambiamo parametro l'intervallo del posterior ordering t
 quindi quale sia l'intervallo più ``corto'' è in realtà un concetto vago.
 
 \begin{example}
+	\label{th:poissbayes}
 	Consideriamo la poissoniana.
 	Con un priore improprio uniforme sulla media, si ottiene
 	\begin{equation*}
