@@ -1,0 +1,69 @@
+% Giacomo Petrillo
+% lezione di Punzi
+
+Quando, riportando il risultato di un'inferenza, si scrive
+\begin{equation*}
+	\text{<<}\theta = a \pm b\text{>>},
+\end{equation*}
+convenzionalmente si intende che $a$ è una stima di $\theta$ con varianza che vale $b^2$ se calcolata in $a$,
+e bias trascurabile rispetto a $b$.
+Tipicamente si da anche per scontato che,
+se non specificato esplicitamente,
+la distribuzione dello stimatore sia approssimabile con una gaussiana.
+A volte si riporta un terzo numero:
+\begin{equation*}
+	\text{<<}\theta = a \pm b \pm c\text{>>},
+\end{equation*}
+dove $c$ quantifica in qualche modo l'incertezza sistematica.
+A volte si trovano incertezze \emph{asimmetriche}
+\begin{equation*}
+	\text{<<}\theta = a^{+b}_{-c}\text{>>}
+\end{equation*}
+che per adesso lasciamo da parte.
+
+\begin{example}
+	Consideriamo la poissoniana.
+	Vogliamo stimare la media $\mu$ da un conteggio $k$.
+	Sappiamo che il conteggio stesso è lo stimatore di massima likelihood,
+	ha bias nullo ed è sufficiente quindi anche efficiente,
+	allora lo usiamo senza indugio.
+	La varianza di $k$ è $\mu$,
+	quindi scriveremo
+	\begin{equation*}
+		\text{<<}\mu = k \pm \sqrt k\text{>>}.
+	\end{equation*}
+	Notiamo che, se $k=0$, otteniamo
+	\begin{equation*}
+		\text{<<}\mu = 0 \pm 0\text{>>};
+	\end{equation*}
+	questo modo di scrivere il risultato non ci piace perché sembra dire che $\mu$ è sicuramente nullo.
+	In generale quello che vorremmo è una stima della varianza con una certa incertezza relativa,
+	perché è uso riportare l'incertezza con un certo numero di cifre significative.
+	L'incertezza relativa sulla stima della varianza è $\sqrt\mu / k$,
+	quindi per $\mu$ piccolo (e quindi $k$ piccoli) la notazione ha un significato molto meno forte.
+\end{example}
+
+Ancor più in generale,
+quando la deviazione stadard dello stimatore varia sensibilmente
+(ad esempio, se vogliamo riportare l'incertezza con due cifre, più dell'\SI1\%)
+in un'intorno del valore vero di larghezza dell'ordine della deviazione standard stessa,
+riportare la deviazione standard calcolata nel valore dello stimatore ottenuto è poco utile.
+Sono stati studiati metodi ad hoc per riportare l'incertezza in questi casi,
+ma non sono definitivamente soddisfacenti e comunque non sono applicabili in generale.
+Passando al primo ordine, vorremmo che:
+\begin{align*}
+	\dv{\sigma_{\hat\theta}}{\theta} \cdot \sigma_{\hat\theta}
+	&\ll \sigma_{\hat\theta} \implies \\
+	\implies \dv{\sigma_{\hat\theta}}{\theta}
+	&\ll 1.
+\end{align*}
+Un caso specifico in cui bisogna conoscere con precisione la varianza è la media pesata\footnote{Vedi \autoref{th:wavg}.}:
+in questo caso la varianza entra direttamente del valore del nuovo stimatore.
+
+C'è un altro problema con questa notazione,
+in questo caso non intrinseco ma di errata interpretazione.
+Al risultato
+<<$\theta=a\pm b$>>
+non è in generale associato in alcun modo l'intervallo $(a-b,a+b)$.
+Purtroppo è d'uso riportare l'incertezza nei grafici proprio con una ``barra d'errore''
+che raffigura questo intervallo.
