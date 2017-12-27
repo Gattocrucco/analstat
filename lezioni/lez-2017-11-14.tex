@@ -67,3 +67,100 @@ Al risultato
 non è in generale associato in alcun modo l'intervallo $(a-b,a+b)$.
 Purtroppo è d'uso riportare l'incertezza nei grafici proprio con una ``barra d'errore''
 che raffigura questo intervallo.
+
+La soluzione generale a questi problemi è la \emph{stima intervallare}.
+Anziché usare uno stimatore a valori nello spazio del parametro,
+si ottiene un elemento dell'insieme delle parti.
+Ovviamente la stima intervallare non è limitata a intervalli monodimensionali,
+tuttavia è il caso tipico.
+Riassumiamo i motivi per preferire una stima intervallare piuttosto che una puntuale:
+\begin{itemize}
+	\item la varianza dello stimatore varia sensibilmente nella regione di interesse;
+	\item la distribuzione dello stimatore è molto diversa da una gaussiana.
+\end{itemize}
+
+Prima di trattare la stima intervallare,
+vediamo concetti analoghi nel caso bayesiano,
+che è più semplice.
+Nell'analisi bayesiana il posteriore è il risultato dell'inferenza.
+Tuttavia scrivere la formula di un posteriore non aiuta a capire il risultato;
+è necessario in qualche modo visualizzare il posteriore.
+Il minimo necessario è o calcolare la moda
+(che in qualche modo corrisponde alla stima puntuale),
+oppure calcolare la probabilità di una certa regione (che corrisponde alla stima intervallare).
+\begin{definition}[Credibilità]
+	Dato un modello per $x\in X$ con parametro $\theta\in\Theta$
+	e una funzione $\fundef[f]X\Theta$,
+	la \emph{credibilità} di un dato $x_0$ rispetto a $f$ è
+	\begin{equation*}
+		\cred_f(x_0)
+		\is \int_{f(x_0)} \de \theta\, p(\theta|x_0).
+	\end{equation*}
+\end{definition}
+La questione è come scegliere $f$.
+Il criterio comune è chiedere che la credibilità abbia almeno un certo valore,
+chiamato \emph{livello di confidenza} (CL).
+Fissato CL, scegliere una $f$ che abbia $\cred_f(x_0)=\mathrm{CL}$
+equivale a scegliere una \emph{funzione di ordinamento} $O(\theta,x)$ e porre
+\begin{equation*}
+	f(x) \is \{\theta\,|\,O(\theta,x)>q(\mathrm{CL})\},
+\end{equation*}
+dove $q(\mathrm{CL})$ è il massimo $q$ che soddisfi
+\begin{equation*}
+	\int_{O(\theta,x)>q} \de\theta\, p(\theta|x) \ge \mathrm{CL}.
+\end{equation*}
+Ad esempio se scegliamo $O(\theta,x)=\theta$ (e $\theta\in\R$),
+otterremo la semiretta che comincia più a destra possibile la cui probabilità è almeno CL.
+Un modo intuitivo di scegliere la funzione di ordinamento è il \emph{posterior ordering}:
+$O(\theta,x) = p(\theta|x)$.
+Se $\theta\in\R$, il posterior ordering dà l'intervallo più corto possibile.
+Tuttavia notiamo che se cambiamo parametro l'intervallo del posterior ordering trasforma in modo non banale,
+quindi quale sia l'intervallo più ``corto'' è in realtà un concetto vago.
+
+\begin{example}
+	Consideriamo la poissoniana.
+	Con un priore improprio uniforme sulla media, si ottiene
+	\begin{equation*}
+		p(\mu|k=0)
+		= e^{-\mu}.
+	\end{equation*}
+	Usiamo il posterior ordering:
+	$e^{-\mu}$ è decrescente quindi trovare un valore minimo equivale a trovare un $\mu$ massimo:
+	\begin{align*}
+		\mathrm{CL}
+		&= \int_0^{\mu_\text{max}} \de\mu\, e^{-\mu} = \\
+		&= 1 - e^{-\mu_\text{max}} \implies \\
+		\implies \mu_\text{max}
+		&= -\log(1-\mathrm{CL}).
+	\end{align*}
+	Per $\mathrm{CL}=\SI{90}\%$,
+	otteniamo $\mu_\text{max}=2.3$.
+	Allora scriveremo il risultato come
+	\begin{equation*}
+		\text{<<$\mu < 2.3$ (\SI{90}\%)>>.}
+	\end{equation*}
+	Ricordiamo che con la stima puntuale $k$ avremmo ottenuto
+	\begin{equation*}
+		\text{<<}\mu = 0 \pm 0\text{>>.}
+	\end{equation*}
+\end{example}
+
+\begin{example}
+	Consideriamo la uniforme $p(x|m)=m^{-1}\chi_{(0,m)}(x)$.
+	Prendiamo un priore improprio uniforme per $m$;
+	con almeno due estrazioni il posteriore è normalizzabile, e si ottiene:
+	\begin{equation*}
+		p(m|\mathbf x)
+		= \frac{(\max\mathbf x)^{N-1}}{(N-1)m^N}\chi_{(\max\mathbf x,\infty)}(m).
+	\end{equation*}
+	Usiamo il posterior ordering:
+	\begin{align*}
+		\mathrm{CL}
+		&= \int_{\max\mathbf x}^{m_\mathrm{max}} \de m\,p(m|\mathbf x) = \\
+		&= (\max\mathbf x)^{N-1}
+		\left( \frac1{(\max\mathbf x)^{N-1}} - \frac1{m_\mathrm{max}^{N-1}} \right) \implies \\
+		\implies m_\mathrm{max}
+		&= \frac {\max\mathbf x} {\sqrt[N-1]{1-\mathrm{CL}}}.
+	\end{align*}
+	Con due estrazioni e $\mathrm{CL}=\SI{90}\%$ si ottiene $m_\mathrm{max}=10\cdot\max\{x_1,x_2\}$.
+\end{example}
