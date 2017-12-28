@@ -1,0 +1,74 @@
+% Giacomo Petrillo
+% lezione di Punzi
+
+Supponiamo di aver costruito una banda di confidenza per la poissoniana che ci dà limiti superiori a $\mu$.
+Se poi nell'esperimento otteniamo, ad esempio, $k=10$,
+tipicamente preferiremo usare una stima puntuale oppure un intervallo il più corto possibile.
+Il problema è che in questo modo, quando usiamo il limite superiore,
+il confidence level non è quello che ci aspettiamo.
+Infatti, se in base a $k$ scegliamo una stima intervallare diversa,
+non stiamo veramente usando quelle stime intervallari,
+bensì una nuova statistica definita a tratti,
+che avrà proprietà diverse (tipicamente peggiori).
+L'errore di scegliere la statistica da usare \emph{dopo}
+aver visto i dati è chiamato \emph{flip-flopping}.
+In generale, in un'inferenza frequentista,
+è necessario scegliere quale statistica calcolare \emph{prima}
+di guardare i dati (o una funzione dei dati).
+Se usiamo i dati per decidere quale metodo usare,
+allora dobbiamo raccogliere nuovi dati su cui applicarlo.
+
+\begin{example}
+	Consideriamo una poissoniana \emph{con fondo}
+	\begin{equation*}
+		p(k;\mu)
+		= \frac{(\mu+b)^k}{k!}e^{-(\mu+b)}
+	\end{equation*}
+	con $b>0$ e $\mu>0$.
+	Se, per mettere un limite superiore a $\mu$,
+	facciamo una stima intervallare di $\mu+b$ come nell'\autoref{th:poisssup} e poi sottraiamo $b$,
+	possiamo ottenere delle stime intervallari vuote.
+	Ad esempio, prendiamo $b=5$, $\mathrm{CL}=\SI{90}\%$ e $k=0$,
+	si ottiene l'intervallo $(0,2.3)$ per $\mu+b$ che,
+	ricordando che $\mu>0$, sottraendo $b$ è vuoto.
+\end{example}
+
+L'esempio evidenzia il problema che si possono costruire bande di confidenza
+che soddisfano tutte le richieste fatte e che tuttavia non sono soddisfacenti.
+Facciamo un altro esempio.
+
+\begin{example}
+	Prendiamo una gaussiana con media positiva
+	\begin{equation*}
+		p(x;\mu)
+		= \frac1{\sqrt{2\pi}} e^{-\frac12(x-\mu)}, \quad \mu>0.
+	\end{equation*}
+	Costruiamo la banda di confidenza con il probability ordering a $\mathrm{CL}=\SI{68}\%$,
+	che corrisponde a intervalli lungo $x$ di $\pm1$ intorno a $\mu$,
+	allora per $x<1$ otteniamo una stima intervallare vuota.
+	Notiamo che questo problema non dipende dal fatto di avere un \emph{bound} a sinistra,
+	basta cambiare parametro a $\log\mu$ per usare tutto $\R$ e il problema persiste perché
+	le stime intervallari trasformano in modo banale per cambio di parametro.
+\end{example}
+
+\begin{example}
+	Una persona pensa un numero a caso,
+	vogliamo stimarlo con un livello di confidenza del \SI{95}\%.
+	Tiriamo un dado a 20 facce,
+	se esce 1 diciamo $\emptyset$ altrimenti~$\R$.
+\end{example}
+
+Fortunatamente esiste un ordinamento che non genera stime vuote e che è invariante per cambio di variabile,
+è il \emph{likelihood ratio}\footnote{Vedi Gary J. Feldman, Robert D. Cousins, \emph{A Unified Approach to the Classical Statistical Analysis of Small Signals},  Phys.Rev.D57:3873-3889,1998 (\url{https://arxiv.org/abs/physics/9711021}).}:
+\begin{equation*}
+	O(\theta,x) = \lambda
+	\is -2\log\frac {\sup\limits_{\theta'} p(x;\theta')} {p(x;\theta)}.
+\end{equation*}
+Inoltre con questo ordinamento la stima intervallare contiene sempre,
+se esiste,
+la stima di massima likelihood.
+
+Notiamo che per i dati in cui probability ordering avrebbe dato una stima vuota,
+il likelihood ratio tenderà a dare regioni piccole.
+Può essere desiderabile gonfiare a mano la banda di confidenza in queste regioni
+per evitare di triggerare molestatori che vogliono discutere della validità del modello.
