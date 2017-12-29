@@ -59,7 +59,7 @@ Facciamo un altro esempio.
 \end{example}
 
 Fortunatamente esiste un ordinamento che non genera stime vuote e che è invariante per cambio di variabile,
-è il \emph{likelihood ratio}\footnote{Vedi Gary J. Feldman, Robert D. Cousins, \emph{A Unified Approach to the Classical Statistical Analysis of Small Signals},  Phys.Rev.D57:3873-3889,1998 (\url{https://arxiv.org/abs/physics/9711021}).}:
+è il \emph{likelihood ratio}\footnote{Vedi Gary J. Feldman, Robert D. Cousins, \emph{A Unified Approach to the Classical Statistical Analysis of Small Signals},  Phys.Rev.D57:3873-3889, 1998 (\url{https://arxiv.org/abs/physics/9711021}).}:
 \begin{equation*}
 	O(\theta,x) = \lambda
 	\is -2\log\frac {\sup\limits_{\theta'} p(x;\theta')} {p(x;\theta)}.
@@ -72,3 +72,48 @@ Notiamo che per i dati in cui probability ordering avrebbe dato una stima vuota,
 il likelihood ratio tenderà a dare regioni piccole.
 Può essere desiderabile gonfiare a mano la banda di confidenza in queste regioni
 per evitare di triggerare molestatori che vogliono discutere della validità del modello.
+
+\begin{definition}[Pivot]
+	Dato un modello $p(x;\theta)$,
+	una statistica $g_\theta(x)$ è un \emph{pivot}
+	se $p(g_\theta;\theta)$ non dipende da $\theta$.
+\end{definition}
+
+\begin{example}
+	Consideriamo un \emph{parametro di localizzazione},
+	cioè tale che $p(x;\theta)=f(x-\theta)$.
+	Allora $g_\theta=x-\theta$ è un pivot:
+	$p(g_\theta;\theta) = p(x=g_\theta;0)$.
+\end{example}
+
+\begin{fact}[Teorema di Wilks]
+	\label{th:wilks}
+	Consideriamo un modello per $N$ estrazioni di $x$ con parametro $\theta\in\R^d$,
+	e supporto che non dipende da $\theta$.
+	Allora il likelihood ratio
+	\begin{equation*}
+		\lambda_\theta(\mathbf x)
+		= -2\log\frac {\sup\limits_{\theta'} p(\mathbf x;\theta')} {p(\mathbf x;\theta)}
+	\end{equation*}
+	è un pivot nel limite $N\to\infty$,
+	con distribuzione del $\chi^2$ a $d$ gradi di libertà:
+	\begin{equation*}
+		p(\lambda)
+		= \frac1{2^{d/2}\Gamma(d/2)} \lambda^{d/2-1} e^{-\lambda/2}.
+	\end{equation*}
+\end{fact}
+
+I pivot servono a semplificare il calcolo della banda di confidenza a partire dalla funzione di ordinamento.
+In generale per una statistica $g_\theta(x)$ vale
+\begin{align*}
+	\int\limits_{O(\theta,x)>q_\theta(\mathrm{CL})} \de x\, p(x;\theta)
+	&= \int\limits_{g_\theta\big(O(\theta,x)>q_\theta(\mathrm{CL})\big)} \de g_\theta\, p(g_\theta;\theta) \\
+	\intertext{se $g_\theta$ è un pivot, allora}
+	&= \int\limits_{g_\theta\big(O(\theta,x)>q_\theta(\mathrm{CL})\big)} \de g\, p(g) \\
+	\intertext{e se la funzione di ordinamento è proprio $O(\theta,x)=g_\theta(x)$}
+	&= \int\limits_{g>q(\mathrm{CL})} \de g\, p(g),
+\end{align*}
+con cui troviamo $q(\mathrm{CL})$ indipendentemente da $\theta$.
+Per il \autoref{th:wilks} il likelihood ratio è asintoticamente un pivot,
+quindi non solo ha delle buone proprietà,
+ma è anche spesso facile da calcolare.
