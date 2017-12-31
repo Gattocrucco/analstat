@@ -1,0 +1,50 @@
+% Giacomo Petrillo
+% lezione di Francavilla
+
+\begin{exercise}
+	Applicare likelihood ratio all'esponenziale.
+\end{exercise}
+
+\begin{solution*}
+	Scriviamo l'esponenziale in funzione della media:
+	\begin{equation*}
+		p(t;\tau)
+		= \frac1\tau e^{-t/\tau}.
+	\end{equation*}
+	La funzione di ordinamento che usiamo è
+	\begin{align*}
+		R_\tau(t)
+		&\is \log \frac {p(t;\tau)} {\sup\limits_{\tau'} p(t;\tau')} = \\
+		\intertext{(la stima di massima likelihood è $\tau=t$)}
+		&= \log \frac {\frac1\tau e^{-t/\tau}} {\frac1t e^{-1}} = \\
+		&= \log\frac t\tau + 1 - \frac t\tau.
+	\end{align*}
+	La funzione $\log x - x$ è convessa,
+	quindi la regione $R_\tau(t)>R_\mathrm{min}$ è un intervallo,
+	che scriviamo come $(q_\mathrm{min}\tau, q_\mathrm{max}\tau)$.
+	Scriviamo l'equazione del coverage:
+	\begin{align*}
+		\mathrm{CL}
+		&= \int_{q_\mathrm{min}\tau}^{q_\mathrm{max}\tau} \frac{\de t}\tau e^{-t/\tau} = \\
+		&= e^{-q_\mathrm{min}} - e^{-q_\mathrm{max}}.
+	\end{align*}
+	Ricordando che vale
+	\begin{align*}
+		R_\mathrm{min} = R_\tau(q_\mathrm{min}\tau)
+		&= R_\tau(q_\mathrm{max}\tau) \implies \\
+		\implies q_\mathrm{min} e^{1-q_\mathrm{min}}
+		&= q_\mathrm{max} e^{1-q_\mathrm{max}},
+	\end{align*}
+	abbiamo due equazioni per $q_\mathrm{min}$ e $q_\mathrm{max}$,
+	che vanno risolte numericamente.
+	Notiamo che abbiamo ottenuto le sezioni lungo $t$ della banda di confidenza
+	indipendentemente da $\tau$
+	usando implicitamente il pivot $t/\tau$.
+	La stima intervallare è infine
+	\begin{align*}
+		\tau_\mathrm{min}
+		&= \frac t {q_\mathrm{max}}, \\
+		\tau_\mathrm{max}
+		&= \frac t {q_\mathrm{min}}.
+	\end{align*}
+\end{solution*}
