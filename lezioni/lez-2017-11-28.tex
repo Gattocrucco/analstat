@@ -1,0 +1,163 @@
+% Giacomo Petrillo
+% lezione di Punzi
+
+Finora abbiamo trattato l'inferenza con stime puntuali e stime intervallari.
+Per le stime puntuali, tuttavia,
+ci siamo concentrati solo sui casi in cui si può scegliere la stima migliore in base al bias e alla varianza.
+Ci sono casi in cui lo spazio del parametro non ha un'operazione di somma
+e non si può neanche calcolare il valore atteso di uno stimatore.
+Esiste un'altro insieme di metodi generali di ottimizzazione degli stimatori
+per i casi in cui c'è un valore privilegiato del parametro che ci interessa confermare o escludere,
+questi metodi vanno sotto il nome di \emph{test di ipotesi}.
+
+\begin{example}
+	Vogliamo sapere se la media di una poissoniana è nulla.
+	Se $k\neq 0$ allora sicuramente $\mu\neq 0$.
+	Se $k=0$ cosa possiamo dire?
+\end{example}
+
+\begin{example}
+	Abbiamo una gaussiana e vogliamo stabilire se la media è $\mu_1$ o $\mu_2$.
+\end{example}
+
+Esponiamo la notazione e le definizioni di base.
+Il valore privilegiato del parametro è chiamato \emph{ipotesi nulla} e indicato con $H_0$.
+Gli altri valori (le \emph{ipotesi alternative}) vengono indicati con un indice diverso da zero: $H_i$.
+Lo stimatore si chiama \emph{test} e propriamente è una stima intervallare
+con solo due risultati possibili: l'ipotesi nulla oppure tutto il resto.
+Il risultato del test si dice \emph{positivo} se è diverso dall'ipotesi nulla,
+\emph{negativo} altrimenti.
+
+\begin{definition}[Falso positivo]
+	Si chiama \emph{falso positivo} o \emph{errore di tipo I}
+	il caso in cui il valore vero è $H_0$ e il risultato del test è positivo.
+	La probabilità di falso positivo, detta \emph{taglia}, si indica con $\alpha$:
+	\begin{equation*}
+		\alpha
+		\is P(\neg H_0;H_0) = 1 - P(H_0;H_0).
+	\end{equation*}
+	Il \emph{livello di significatività} è $1-\alpha = P(H_0;H_0)$.
+\end{definition}
+
+\begin{definition}[Falso negativo]
+	Si chiama \emph{falso negativo} o \emph{errore di tipo II}
+	il caso in cui il valore vero è diverso da $H_0$ e il risultato del test è negativo.
+	La probabilità di falso negativo si indica con $\beta$:
+	\begin{equation*}
+		\beta_i
+		\is P(H_0;H_i), \quad i \neq 0.
+	\end{equation*}
+	La \emph{potenza} è $1-\beta$.
+\end{definition}
+
+\begin{definition}[Consistenza]
+	Un test definito per $N$ estrazioni è \emph{consistente}
+	se per $N\to\infty$ la potenza tende a~1:
+	\begin{equation*}
+		\forall i\neq0:
+		\lim_{N\to\infty} \beta_i = 0.
+	\end{equation*}
+\end{definition}
+
+\begin{definition}[Unbiasedness]
+	Un test è \emph{unbiased}
+	se la potenza è maggiore della taglia:
+	\begin{equation*}
+		\forall i\neq0:
+		1-\beta_i \ge \alpha.
+	\end{equation*}
+\end{definition}
+
+L'unbiasedness si può riformulare come $P(H_0;H_0)\ge P(H_0;H_i)$,
+cioè: nei casi in cui il risultato del test è negativo,
+il risultato deve coincidere con la stima di massima likelihood.
+Osserviamo anche che,
+se lo spazio del parametro è finito,
+la consistenza implica la unbiasedness per $N$ abbastanza grande.
+
+\begin{definition}[Regione critica]	
+	Un qualunque test può essere scomposto come una \emph{statistica del test $t$}
+	dallo spazio della variabile a uno spazio qualsiasi (tipicamente~$\R$ oppure $t$ è l'identità)
+	combinata con una statistica $T$ da questo spazio al risultato del test.
+	I~valori per cui $T$ dà risultato positivo si chiamano \emph{regione critica $C$}.
+\end{definition}
+
+Vediamo ora qual è il modo convenzionale di confrontare i test.
+Consideriamo il caso in cui ci sono solo due ipotesi.
+Allora, a parità di taglia,
+il test migliore è quello che ha potenza maggiore cioè minimo $\beta$.
+Se le ipotesi sono più d'ue,
+questo criterio ha senso solo se accade che la potenza è maggiore per ogni ipotesi alternativa.
+Se esiste, il test con la potenza maggiore di tutti gli altri per ogni ipotesi alternativa è detto
+\emph{UMP} (uniformly most powerful).
+
+\begin{theorem}[Lemma di Neyman-Pearson]
+	\label{th:np}
+	Per due ipotesi esiste il test UMP
+	ed è definito da una regione critica del tipo
+	\begin{equation*}
+		C = \Setdef[x]{\frac{p(x;H_0)}{p(x;H_1)} < q(\alpha)}.
+	\end{equation*}
+\end{theorem}
+
+\begin{proof}
+	Indichiamo con le variabili non primate il test dell'enunciato
+	e con le variabili primate un test qualunque.
+	Dobbiamo mostrare che se $\alpha'\le\alpha$ allora $\beta'\ge\beta$,
+	ovvero
+	\begin{align*}
+		P(\comp C';H_1)
+		&\ge P(\comp C;H_1) \iff \\
+		\iff P(C;H_1)
+		&\ge P(C';H_1). \\
+		\intertext{Scomponiamo le regioni critiche in intersezione e differenza:}
+		P(C)
+		&= P(C\cap C') + P(C\cap\comp C'), \\
+		P(C')
+		&= P(C'\cap C) + P(C'\cap\comp C). \\
+		\intertext{Quindi la disequazione da dimostrare si riscrive come:}
+		P(C\cap\comp C';H_1)
+		&\ge P(C'\cap\comp C;H_1). \\
+		\intertext{Mostriamo che il primo termine è maggiore del secondo:}
+		P(C\cap\comp C';H_1)
+		&= \int_{C\cap\comp C'} \de x\, p(x;H_1) \ge \\
+		\intertext{(per definizione di $C$)}
+		&\ge \int_{C\cap\comp C'} \de x\, \frac{p(x;H_0)}q = \\
+		&= \frac1q P(C\cap\comp C';H_0) \isis @ \\
+		0
+		&\le \alpha - \alpha' = \\
+		&= P(C;H_0) - P(C';H_0) = \\
+		&= P(C\cap\comp C';H_0) - P(C'\cap\bar C;H_0) \implies \\
+		\implies P(C\cap\comp C';H_0)
+		&\ge P(C'\cap\comp C;H_0) \implies \\
+		\implies @
+		&\ge \frac1q P(C'\cap\comp C;H_0) = \\
+		&= \int_{C'\cap\comp C} \de x\, \frac{p(x;H_0)}q \ge \\
+		\intertext{(per definizione di $\comp C$)}
+		&\ge \int_{C'\cap\comp C} \de x\, p(x;H_1) = \\
+		&= P(C'\cap\comp C;H_1). \qedhere
+	\end{align*}
+\end{proof}
+
+\begin{fact}
+	\label{th:umpge}
+	Per un modello con parametro $\theta\in[\theta_0,\infty)$
+	esiste il test UMP per l'ipotesi nulla $\theta_0$
+	se e solo se il modello è nella forma
+	\begin{equation*}
+		p(x;\theta)
+		= F(x) G(\theta) \exp\big(A(x) B(\theta)\big)
+	\end{equation*}
+	con $B(\theta)$ monotona.
+	Cambiando il segno di $A$, $B$ può sempre essere presa crescente,
+	nel qual caso il test è dato dalla regione critica
+	\begin{equation*}
+		C = \setdef[x]{A(x) \ge q(\alpha)}.
+	\end{equation*}
+\end{fact}
+
+\marginpar{Negli appunti ho segnato che ha dimostrato la freccia facile,
+però non ho scritto la dimostrazione e non sono riuscito a riinventarmela.}
+
+A parte il \autoref{th:np} e il \autoref{th:umpge},
+non esistono casi generali in cui si conosce il test UMP.
