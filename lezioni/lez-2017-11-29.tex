@@ -2,6 +2,7 @@
 % lezione di Francavilla
 
 \begin{exercise}
+	\label{th:lrexp}
 	Applicare likelihood ratio all'esponenziale.
 \end{exercise}
 
@@ -48,3 +49,58 @@
 		&= \frac t {q_\mathrm{min}}.
 	\end{align*}
 \end{solution*}
+
+\begin{exercise}
+	\label{th:lrtri}
+	Applicare likelihood ratio alla triangolare
+	\begin{equation*}
+		p(x;m)
+		= \frac2m\left(1-\frac xm\right),
+		\quad x \in (0,m).
+	\end{equation*}
+\end{exercise}
+
+\begin{solution}
+	Troviamo la massima likelihood:
+	\begin{align*}
+		\log p(x;m)
+		&= \log2 - \log m + \log\left(1-\frac xm\right) \\
+		\pdv{}{m} \log p(x;m)
+		&= -\frac1m + \frac1{1-\frac xm} \frac x{m^2} = \\
+		&= \frac 1m \left( -1 + \frac x{m-x} \right) = 0 \implies \\
+		\implies m
+		&= 2x \implies \\
+		\implies \sup\limits_m p(x;m)
+		&= \frac1x \left(1-\frac12\right) = \\
+		&= \frac1{2x}.
+	\end{align*}
+	Calcoliamo il likelihood ratio:
+	\begin{align*}
+		R_m(x)
+		&\is \log \frac {\frac2m\left(1-\frac xm\right)} {\frac1{2x}} = \\
+		&= \log\frac xm + \log\left(1-\frac xm\right) + \log4.
+	\end{align*}
+	La funzione $\log x + \log(1-x)$ è convessa,
+	quindi l'integrale di coverage è
+	\begin{align*}
+		\mathrm{CL}
+		&= \int_{u_\mathrm{min}m}^{u_\mathrm{max}m} \de x\, \frac2m\left(1-\frac xm\right) = \\
+		&= \big[2u-u^2\big]_{u_\mathrm{min}m}^{u_\mathrm{max}m} = \\
+		&= \big[1-(1-u)^2\big]_{u_\mathrm{min}m}^{u_\mathrm{max}m}.
+	\end{align*}
+	Vale anche
+	\begin{align*}
+		R_m(u_\mathrm{min}m)
+		&= R_m(u_\mathrm{max}m) \implies \\
+		\implies \log u_\mathrm{min} + \log(1-u_\mathrm{min})
+		&= \log u_\mathrm{max} + \log(1-u_\mathrm{max}).
+	\end{align*}
+\end{solution}
+
+Notiamo che nell'\autoref{th:lrexp} e nell'\autoref{th:lrtri}
+il parametro del modello è un \emph{parametro di scala},
+cioè $p(x/\theta;\theta)$ non dipende da $\theta$,
+ovvero la pdf è nella forma
+\begin{equation*}
+	p(x;\theta) = \frac {f(x/\theta)} \theta.
+\end{equation*}
