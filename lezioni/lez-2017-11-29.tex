@@ -104,3 +104,96 @@ ovvero la pdf è nella forma
 \begin{equation*}
 	p(x;\theta) = \frac {f(x/\theta)} \theta.
 \end{equation*}
+
+\begin{example}
+	Consideriamo la gaussiana
+	\begin{equation*}
+		p(x;\mu,\sigma)
+		= \frac1{\sqrt{2\pi}\sigma} e^{-\frac12\left(\frac{x-\mu}\sigma\right)^2}.
+	\end{equation*}
+	Calcoliamo il likelihood ratio:
+	\begin{align*}
+		\lambda_\mu(x)
+		&= 2\log\frac {\sup\limits_{\mu'} p(x;\mu')} {p(x;\mu)} = \\
+		&= 2\log e^{\frac12\left(\frac{x-\mu}\sigma\right)^2} = \\
+		&= \left(\frac{x-\mu}\sigma\right)^2.
+	\end{align*}
+	La variabile $(x-\mu)/\sigma$ è una gaussiana con media nulla e varianza unitaria,
+	quindi la distribuzione di $\lambda$ non dipende da $(\mu,\sigma)$ ed è
+	\begin{align*}
+		p(\lambda)
+		&= 2\cdot\frac {\frac1{\sqrt{2\pi}} e^{-\frac12 \lambda}} {\dv{\lambda}{\sqrt\lambda}} = \\
+		&= \frac{\lambda^{-1/2}}{\sqrt{2\pi}}e^{-\lambda/2}.
+	\end{align*}
+	Notiamo che questa è la distribuzione $\chi^2$ con 1 grado di libertà\footnote{Vedi \autoref{th:wilks}.}.
+	In generale si può mostrare che la somma dei quadrati di $N$ variabili gaussiane
+	con media nulla e varianza unitaria
+	ha la distribuzione $\chi^2$ con $N$ gradi di libertà.
+	In particolare il likelihood ratio di $N$ estrazioni della gaussiana
+	ha esattamente la distribuzione $\chi^2$ anziché solo asintoticamente.
+\end{example}
+
+\begin{exercise}
+	Applicare likelihood ratio a $N$ estrazioni della uniforme
+	\begin{equation*}
+		p(x;m)
+		= \frac 1m,
+		\quad x \in (0,m)
+	\end{equation*}
+	e calcolare la distribuzione del likelihood ratio.
+\end{exercise}
+
+\begin{solution}
+	Usiamo il massimo che è sufficiente\footnote{Vedi \autoref{th:unifmaxpdf}.}.
+	La distribuzione di $X\is\max\mathbf x$ è
+	\begin{equation*}
+		p(X;m)
+		= \frac Nm \left(\frac Xm\right)^{N-1},
+		\quad X \in (0,m).
+	\end{equation*}
+	Calcoliamo il likelihood ratio:
+	\begin{align*}
+		\lambda_m(X)
+		&= 2\log\frac {\frac NX} {\frac Nm \left(\frac Xm\right)^{N-1}} = \\
+		&= -2N\log\frac Xm.
+	\end{align*}
+	Calcoliamo la distribuzione di $\lambda$:
+	\begin{align*}
+		u
+		&\is \frac Xm \\
+		p(u)
+		&= N u^{N-1} \\
+		v
+		&\is \log u \\
+		p(v)
+		&= \frac{Nu^{N-1}}{\dv{}u\log u}
+		= \frac{Ne^{(N-1)v}}{e^{-v}}
+		= N e^{Nv} \\
+		\lambda
+		&= -2Nv \\
+		p(\lambda)
+		&= \frac 12 e^{-\lambda/2}.
+	\end{align*}
+	Anche se $\lambda$ non ha la distribuzione asintotica del \autoref{th:wilks}
+	(infatti è violata l'ipotesi che il supporto di $p(x;m)$ non dipenda da $m$),
+	è comunque un pivot.
+	Calcoliamo il coverage:
+	\begin{align*}
+		\mathrm{CL}
+		&= \int_{\lambda<q} \de\lambda\, p(\lambda) = \\
+		&= \int_0^{q/2} \de y\, e^{-y} = \\
+		&= 1 - e^{-q/2}.
+	\end{align*}
+	Troviamo il confine non banale (l'altro è $m>X$) della banda:
+	\begin{align*}
+		\lambda
+		&< q \iff \\
+		\iff -2N\log\frac Xm
+		&< q \iff \\
+		\iff m
+		&< Xe^{q/(2N)} = \\
+		&= X\left(e^{-q/2}\right)^{-1/N} = \\
+		&= \frac X {\sqrt[N]{1-\mathrm{CL}}}.
+	\end{align*}
+	Notiamo che otteniamo lo stesso risultato dell'\autoref{th:unifsup}.
+\end{solution}
