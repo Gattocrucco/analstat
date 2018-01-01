@@ -138,3 +138,23 @@ la distribuzione $\chi^2$ con $d-n$ gradi di libertà.
 		P(x<m_0;m_1).
 	\end{equation*}
 \end{example}
+
+\begin{exercise}
+	Fare un test UMP sulla media della poissoniana con l'ipotesi nulla $\mu=b$ e le ipotesi alternative $\mu>b$.
+\end{exercise}
+
+\begin{solution}
+	Possiamo applicare il \autoref{th:umpge},
+	perché la poissoniana si può scrivere come
+	\begin{align*}
+		p(k;\mu)
+		&= \frac1{k!} \cdot e^{-\mu} \cdot e^{k \cdot \log\mu} = \\
+		&= F(k) \cdot G(\mu) \cdot e^{A(k) \cdot B(\mu)},
+	\end{align*}
+	con $A(k)=k$ e $B(\mu)=\log\mu$ monotona crescente.
+	Allora il test UMP è definito dalla regione critica
+	\begin{equation*}
+		C = \setdef[k]{k \ge k_\mathrm{min}},
+	\end{equation*}
+	che in effetti era il test più intuitivo.
+\end{solution}
