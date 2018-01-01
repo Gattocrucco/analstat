@@ -1,0 +1,65 @@
+% Giacomo Petrillo
+% lezione di Punzi la prima ora, poi Morello
+
+Poiché in generale non esiste il test UMP,
+bisogna cercare richieste più deboli per scegliere il test.
+Una possibilità è privilegiare un'ipotesi alternativa
+e usare Neyman-Pearson su quella.
+
+Un caso tipico è quando ci sono alcune ipotesi alternative
+per le quali è facile avere una potenza alta,
+mentre altre per cui è invece importante scegliere bene il test.
+Ad esempio, prendiamo una gaussiana e facciamo il test con l'ipotesi nulla di una certa media:
+per medie alternative più lontane di quattro-cinque sigma,
+ci aspettiamo che qualunque test sensato useremo rigetterà con buona potenza l'ipotesi nulla.
+Il problema è per le medie vicine all'ipotesi nulla.
+Introduciamo allora il concetto di \emph{LMP} (locally most powerful test).
+
+Costruiamo un test LMP generale:
+sviluppiamo in serie il logaritmo della likelihood intorno all'ipotesi nulla
+\begin{align*}
+	\log p(x;\theta)
+	&= \log p(x;\theta_0)
+	+ \left.\pdv{}{\theta} \log p(x;\theta)\right|_{\theta_0} (\theta-\theta_0)
+	+ O\big((\theta-\theta_0)^2\big) \\
+	\implies p(x;\theta)
+	&= p(x;\theta_0)
+	e^{\left.\pdv{}{\theta} \log p(x;\theta)\right|_{\theta_0} (\theta-\theta_0)}
+	e^{O\left((\theta-\theta_0)^2\right)}.
+\end{align*}
+Vediamo che, a meno del termine all'ordine quadratico,
+la distribuzione è nella forma del \autoref{th:umpge},
+quindi restringendo il parametro a un intorno destro dell'ipotesi nulla,
+il test UMP è definito dalla regione critica
+\begin{equation*}
+	C = \Setdef[x]{\left.\pdv{}{\theta} \log p(x;\theta)\right|_{\theta_0} > q(\alpha)}.
+\end{equation*}
+
+Un altro test generale che non è garantito funzionare ma spesso funziona bene
+è il \emph{likelihood ratio test}, che è un'estensione del test di Neyman-Pearson.
+Nel test di Neyman-Pearson la regione critica è
+\begin{equation*}
+	C = \Setdef[x]{\frac{p(x;H_1)}{p(x;H_0)} > q},
+\end{equation*}
+la estendiamo a un numero arbitrario di ipotesi alternative prendendo il limite superiore:
+\begin{equation*}
+	C = \Setdef[x]{\frac {\sup\limits_{\theta\neq\theta_0} p(x;\theta)} {p(x;\theta_0)} > q}.
+\end{equation*}
+Se l'ipotesi nulla è \emph{composta},
+cioè è un'insieme di valori del parametro,
+possiamo estendere ulteriormente prendendo il limite superiore anche a denominatore:
+\begin{equation*}
+	C = \Setdef[x]{\frac {\sup\limits_{\theta\not\in H_0} p(x;\theta)} {\sup\limits_{\theta\in H_0} p(x;\theta)} > q}.
+\end{equation*}
+Se $\boldsymbol\theta\in\R^d$
+e l'ipotesi nulla composta sono le prime $n$ componenti di $\boldsymbol\theta$,
+al numeratore prendiamo il limite superiore su tutto lo spazio
+per poter applicare il \autoref{th:wilks} (teorema di Wilks):
+\begin{equation*}
+	C = \Setdef[x]{\frac
+	{\sup\limits_{\boldsymbol\theta} p(x;\boldsymbol\theta)}
+	{\sup\limits_{\theta_1,\dotsc,\theta_n} p(x;\boldsymbol\theta)} > q}.
+\end{equation*}
+Per il teorema di Wilks (esteso rispetto a come l'abbiamo enunciato),
+questo likelihood ratio ($2\log$) ha asintoticamente nel numero di estrazioni
+la distribuzione $\chi^2$ con $d-n$ gradi di libertà.
