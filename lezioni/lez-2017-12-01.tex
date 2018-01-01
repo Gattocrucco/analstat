@@ -63,3 +63,52 @@ per poter applicare il \autoref{th:wilks} (teorema di Wilks):
 Per il teorema di Wilks (esteso rispetto a come l'abbiamo enunciato),
 questo likelihood ratio ($2\log$) ha asintoticamente nel numero di estrazioni
 la distribuzione $\chi^2$ con $d-n$ gradi di libertà.
+
+% ———————— parte di Morello ————————
+
+\begin{exercise}
+	Fare un test UMP per due medie della gaussiana.
+\end{exercise}
+
+\begin{solution*}
+	Consideriamo la gaussiana
+	\begin{equation*}
+		p(\mathbf x;\mu)
+		= (2\pi)^{-1/(2N)}
+		\exp \left( -\frac12 \sum_{i=1}^N (x_i-\mu)^2 \right).
+	\end{equation*}
+	Abbiamo solo due ipotesi,
+	l'ipotesi nulla $\mu=\mu_0$ e $\mu=\mu_1\neq\mu_0$,
+	quindi usiamo il test di Neyman-Pearson (\autoref{th:np}).
+	Possiamo liberamente usare una funzione monotona del rapporto delle probabilità,
+	quindi prendiamo il logaritmo:
+	\begin{align*}
+		2\log \frac {p(\mathbf x;\mu_1)} {p(\mathbf x;\mu_0)}
+		&= \sum_i \big((x_i-\mu_0)^2 - (x_i-\mu_1)^2\big) = \\
+		&= 2(\mu_1-\mu_0)N\bar x + N(\mu_0^2-\mu_1^2),
+	\end{align*}
+	che possiamo ulteriormente ridurre a
+	\begin{equation*}
+		\sgn(\mu_1-\mu_0)\cdot \bar x
+		\isis t(\mathbf x).
+	\end{equation*}
+	Fissiamo $\mu_1 > \mu_0$.
+	Falso positivo e falso negativo si possono calcolare direttamente con $t$,
+	di cui conosciamo la distribuzione:
+	\begin{align*}
+		p(t;\mu)
+		&= \operatorname{gauss}\big(t;\mu,1/\sqrt N\big) \\
+		\alpha
+		&= \int_q^\infty \de t\, p(t;\mu_0) \\
+		\beta
+		&= \int_{-\infty}^q \de t\, p(t;\mu_1).
+	\end{align*}
+	Questi integrali si calcolano numericamente,
+	tipicamente usando la \emph{error function}:
+	\begin{align*}
+		\erf(x)
+		&\is \frac2{\sqrt\pi} \int_0^x \de y\,e^{-y^2} \\
+		\int_x^\infty \de y\, \operatorname{gauss}(y;\mu,\sigma)
+		&= \frac12 \left( 1 - \erf\left(\frac{x-\mu}{\sqrt2\sigma}\right) \right).
+	\end{align*}
+\end{solution*}
