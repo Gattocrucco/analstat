@@ -11,3 +11,7 @@ Usare `pdflatex`. Ci sono tre versioni possibili:
 * `appunti_print_a4_hor.tex` versione finale da stampa (usa meno carta), serif A4 orizzontale due colonne senza note a margine.
 
 In tutte e tre le versioni la larghezza della colonna di testo è la stessa.
+
+### Figure
+
+Alcune figure vanno generate eseguendo i corrispondenti script python nella cartella `figure`.
