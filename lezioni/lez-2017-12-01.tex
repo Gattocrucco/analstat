@@ -112,3 +112,29 @@ la distribuzione $\chi^2$ con $d-n$ gradi di libertà.
 		&= \frac12 \left( 1 - \erf\left(\frac{x-\mu}{\sqrt2\sigma}\right) \right).
 	\end{align*}
 \end{solution*}
+
+\begin{example}
+	Consideriamo due distribuzioni che parametrizziamo con le loro mediane $m_0$, $m_1$.
+	Fissiamo $m_1>m_0$.
+	Consideriamo la statistica definita su $N$ estrazioni
+	\begin{equation*}
+		N^+(\mathbf x)
+		\is \#\setdef[x_i]{x_i\ge m_0},
+		\quad N^- \is N - N^+.
+	\end{equation*}
+	Facciamo un test con una regione critica definita da
+	\begin{equation*}
+		N^+ \ge q(\alpha).
+	\end{equation*}
+	La taglia si può calcolare senza conoscere più in dettaglio l'ipotesi nulla:
+	\begin{align*}
+		\alpha
+		&= P(N^+\ge q(\alpha);m_0) \\
+		P(N^+;m_0)
+		&= \binom N{N^+} \frac1{2^N},
+	\end{align*}
+	invece per la potenza è necessario conoscere
+	\begin{equation*}
+		P(x<m_0;m_1).
+	\end{equation*}
+\end{example}
