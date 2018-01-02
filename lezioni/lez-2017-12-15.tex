@@ -69,3 +69,40 @@ con $\nu=N-1$.
 Notiamo che per $\nu=1$ è la Cauchy.
 In generale sono definiti i momenti solo fino a $\mu_{\nu-1}$.
 Per $\nu\to\infty$, la distribuzione diventa gaussiana.
+
+Supponiamo di voler fare un test di ipotesi e una stima intervallare sugli stessi dati\footnote{Questa parte è principalmente tratta da: Giovanni Punzi, \emph{Sensitivity of searches for new signals and its optimization}, 	arXiv:physics/0308063 (\url{https://arxiv.org/abs/physics/0308063}).}.
+È perfettamente lecito che il test dia risultato positivo
+e che tuttavia la stima intervallare contenga l'ipotesi nulla, o viceversa,
+però è poco elegante e pone il problema di quale dei due risultati vada usato:
+se scegliamo quale risultato usare a seconda dei casi,
+non conosciamo più le proprietà statistiche di quello che stiamo facendo;
+allora dobbiamo combinarli, ma va deciso a priori in che modo.
+Ma soprattutto dobbiamo convincere numerosi molestatori che non è un risultato errato.
+
+La soluzione più semplice è coordinare il test di ipotesi con la stima intervallare:
+il risultato del test deve essere negativo/positivo
+se la stima intervallare rispettivamente contiene/non contiene l'ipotesi nulla.
+Questo avviene se e solo se
+la sezione della banda di confidenza sull'ipotesi nulla
+coincide con la regione di accettazione.
+In particolare il livello di significatività del test è pari al coverage sull'ipotesi nulla,
+quindi $1-\alpha\ge\mathrm{CL} \implies \alpha\le1-\mathrm{CL}$.
+
+A questo punto bisogna simultaneamente ottimizzare la potenza del test e la banda di confidenza.
+Un oggetto utile per farlo è la \emph{regione di sensibilità} del parametro,
+cioè la regione in cui la potenza è maggiore del livello di confidenza:
+\begin{equation*}
+	S \is \setdef[\theta]{1-\beta(\theta) \ge \mathrm{CL}},
+\end{equation*}
+ovvero, se $\alpha\ge1-\mathrm{CL}$, i valori del parametro per i quali il test è unbiased.
+La regione di sensibilità ha anche questa proprietà:
+sono i valori del parametro per i quali è possibile
+che la banda di confidenza non contenga la regione di accettazione.
+Se scegliamo una banda di confidenza con questa proprietà,
+si verificherà necessariamente una di queste due possibilità:
+\begin{itemize}
+	\item il test dà risultato negativo, oppure
+	\item la regione $S$ è esclusa dalla stima intervallare.
+\end{itemize}
+\marginpar{A questo punto ci sarebbe un esempio sulla poissoniana con fondo,
+però ero distratto e non ho preso appunti.}
