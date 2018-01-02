@@ -69,6 +69,8 @@ Versione del documento: \today}
 \tableofcontents
 \clearpage
 
+\input{introduzione.tex}
+
 % \mainmatter
 
 \fancyhf{}
@@ -76,6 +78,7 @@ Versione del documento: \today}
 \fancyhead[RO]{{\small\headcmacro}\hspace{2cm}\thepage}
 \fancyhead[LE]{\thepage\hspace{2cm}{\small\headcmacro}}
 
+\chapter{Probabilità}
 % manca la prima lezione (19 settembre) di Punzi a cui non c'ero
 \includelesson{2017}{09}{20}{Morello}
 \includelesson{2017}{09}{22}{Morello}
@@ -121,5 +124,6 @@ ha fatto proprietà asintotiche di mediana e cdf.}%
 
 \renewcommand*\listtheoremname{Definizioni, fatti, teoremi, esercizi, esempi}
 \listoftheorems[onlynamed]
+\addcontentsline{toc}{chapter}{Indice di definizioni e proposizioni}
 
 \end{document}
