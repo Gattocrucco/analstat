@@ -1,0 +1,83 @@
+% Giacomo Petrillo
+% lezione di Punzi
+
+Consideriamo un istogramma con bin $S_j$ e conteggi $k_j$
+di $N$ estrazioni di una distribuzione $p_0(x)$,
+con $N$ poissoniano.
+I $k_j$ sono poissoniani con medie
+\begin{equation*}
+	\mu p_j = \mu \int_{S_j} \de x\, p_0(x)
+\end{equation*}
+dove $\mu$ è la media di $N$.
+Qualunque distribuzione $p_0$ viene tradotta in un elenco di medie di poissoniane.
+Scriviamo il likelihood ratio con l'ipotesi nulla delle medie ottenute da $p_0$
+e come ipotesi alternative tutte le altre medie possibili,
+cioè le medie ottenibili da tutte le distribuzioni possibili sullo stesso spazio di $p_0$:
+\begin{align*}
+	\lambda_{p_0}(\mathbf x)
+	&= 2\log \frac
+	{\sup\limits_{\boldsymbol\mu} p(\mathbf k;\boldsymbol\mu)}
+	{p(\mathbf k;\mu \mathbf p)} = \\
+	&= 2\log \frac
+	{\prod_j \frac {k_j^{k_j}} {k_j!} e^{-k_j}}
+	{\prod_j \frac {(\mu p_j)^{k_j}} {k_j!} e^{-\mu p_j}} = \\
+	&= 2\log \prod_j \left(\frac{k_j}{\mu p_j}\right)^{k_j} e^{-(k_j-\mu p_j)} = \\
+	&= 2\sum_j \left( k_j\left(\log\frac{k_j}{\mu p_j}-1\right) + \mu p_j \right).
+\end{align*}
+Dunque abbiamo ridotto un test tra una distribuzione e tutte le altre ditribuzioni possibili
+a un test su poissoniane con medie diverse.
+
+Per la gaussiana,
+il logaritmo della likelihood è, a meno di termini che non contano, il $\chi^2$,
+che sappiamo essere una buona statistica per un test.
+In analogia con questo caso,
+si può pensare di usare in generale il massimo del logaritmo della likelihood
+come statistica per un test di goodness of fit.
+E invece non funziona bene.
+Basta pensare che, cambiando variabile,
+la likelihood cambia di un termine che dipende dalla variabile.
+
+\begin{example}
+	Prendiamo la distribuzione uniforme
+	\begin{equation*}
+		p(\mathbf x) = \frac1{m^N},
+		\quad \mathbf x \in (0,m)^N.
+	\end{equation*}
+	Il massimo della likelihood è $m^{-N}$ che non dipende da $\mathbf x$,
+	quindi è perfettamente inutile come statistica per un test.
+\end{example}
+
+Consideriamo una distribuzione $p(x)$ per $x\in\R$.
+Costruiamo la \emph{cumulante empirica} 
+\begin{equation*}
+	S_{\mathbf x}(x)
+	\is \frac {\#\setdef[x_i]{x_i\le x}} N.
+\end{equation*}
+Sia $F$ la cumulante di $p$.
+Definiamo la statistica
+\begin{equation*}
+	D(\mathbf x)
+	\is \sup|S_\mathbf x-F|
+\end{equation*}
+che, per la monotonicità di $F$, si riscrive come
+\begin{equation*}
+	D = \max_{i=1,\dotsc,N} \Set{\left|\frac iN-F(x_i)\right|, \left|\frac{i-1}N-F(x_i)\right|},
+\end{equation*}
+quindi è facile da calcolare.
+Si dimostra che la distribuzione di $D$ è la stessa per ogni $N$ e per ogni $p$,
+e ha survival function asintotica
+\begin{equation*}
+	\lim_{N\to\infty} P(\sqrt N D>z)
+	= z \sum_{k=0}^\infty (-1)^{k+1} e^{-2k^2z^2}.
+\end{equation*}
+Il test fatto con la survival function di $D$ come p-value si chiama \emph{test di Kolmogorov-Smirnov}.
+Poiché il test KS è molto usato,
+facciamo una lista di controllo:
+\begin{itemize}
+	\item controllare se si sta usando la distribuzione asintotica o quella per $N$ finito;
+	\item controllare che l'ipotesi sia semplice,
+	cioè che $p(x)$ è fissata e non è stata ottenuta dagli $x_i$ con un fit;
+	\item se si approssima $p(x)$ con un istogramma, controllare che sia abbastanza fine.
+\end{itemize}
+Si può anche usare $D$ per stimare un parametro minimizzandola,
+però è stato studiato e tipicamente funziona peggio di massima likelihood.
