@@ -1,0 +1,95 @@
+% Giacomo Petrillo
+% lezione di Punzi
+
+Supponiamo di voler decidere se assegnare o no una certa distribuzione a un osservabile.
+Con i metodi visti fin'ora,
+per trattare statisticamente la questione dobbiamo fissare quali siano le distribuzioni alternative.
+Il problema di decidere se un osservabile segue o no una distribuzione
+senza fissare altre distribuzioni va sotto il nome di \emph{goodness of fit}.
+Non c'è una soluzione definitiva,
+perché rimane vero che per trattare il problema in modo fondato
+bisogna fissare un modello cioè una famiglia di distribuzioni.
+Tuttavia esistono vari metodi convenzionali che
+\begin{itemize}
+	\item trattano modelli standard molto ampi;
+	\item riconducono una distribuzione qualunque a una distribuzione fissata;
+	\item pur senza specificare quali siano le distribuzioni alternative,
+	in pratica funzionano per le distribuzioni che avrebbe senso specificare.
+\end{itemize}
+È comunque opportuno che un test di goodness of fit
+non sia l'unico risultato di un'analisi.
+
+Per i test di goodness of fit si usano le stesse notazioni di un test d'ipotesi,
+però è comune usare come statistica del test un \emph{p-value}.
+
+\begin{definition}[p-value]
+	Un \emph{p-value} è una statistica che,
+	sotto l'ipotesi nulla,
+	ha distribuzione uniforme in $(0,1)$.
+\end{definition}
+
+\noindent È anche comune che la regione critica del p-value sia $(0,\alpha)$.
+Tipicamente si riporta non solo il risultato del test ma anche il p-value,
+perché in questo modo è possibile combinare più test.
+Per combinare due p-value bisogna costruire una statistica uniforme di due uniformi.
+Un modo comune è prendere la cumulante del prodotto:
+\begin{align*}
+	P(p_1p_2<q)
+	&= \int_{p_1p_2<q}\de p_1\,\de p_2 = \\
+	&= \int_0^1\de p_1\, \int_0^{\min\Set{1,q/p_1}} \de p_2 = \\
+	&= \int_0^q\de p_1\, \int_0^1 \de p_2
+	+ \int_q^1 \de p_1\, \int_0^{q/p_1} \de p_2 = \\
+	&= q + q\int_q^1 \frac{\de p_1}{p_1} = \\
+	&= q(1-\log q),
+\end{align*}
+quindi il p-value combinato è $p_{12} = p_1p_2(1-\log(p_1p_2))$.
+Il modo comune di combinare più di due p-value è prendere la cumulante di
+\begin{equation*}
+	p = -2 \sum_{i=1}^n \log p_i.
+\end{equation*}
+La distribuzione di $-2\log p_i$ è $\chi^2$ a 2 gradi libertà,
+quindi la distribuzione di $p$ è $\chi^2$ a $2n$ gradi di libertà.
+
+Prendiamo un modello gaussiano con varianza fissata e medie arbitrarie
+\begin{equation*}
+	p(\mathbf x;\boldsymbol\mu)
+	= \prod_{i=1}^N \frac1{\sqrt{2\pi}\sigma_i}
+	\exp\left(-\frac12\left(\frac{x_i-\mu_i}{\sigma_i}\right)^2\right).
+\end{equation*}
+Calcoliamo il likelihood ratio:
+\begin{align}
+	\lambda_{\boldsymbol\mu}(\mathbf x)
+	&= 2\log \frac
+	{\sup\limits_{\boldsymbol\mu'} p(\mathbf x;\boldsymbol\mu')}
+	{p(\mathbf x;\boldsymbol\mu)} = \notag \\
+	&= \sum_{i=1}^N \left(\frac{x_i-\mu_i}{\sigma_i}\right)^2. \label{eq:chi2}
+\end{align}
+Questa statistica si chiama $\chi^2$,
+e infatti\footnote{Vedi \autoref{th:lrgauss}.} ha la distribuzione $\chi^2$ a $N$ gradi di libertà.
+Usare come p-value la survival function ($1-\text{cdf}$) della \eqref{eq:chi2}
+è a tutti gli effetti un test likelihood ratio,
+e si chiama \emph{test del $\chi^2$}.
+Poiché in molti casi comuni la distribuzione della \eqref{eq:chi2} tende alla distribuzione $\chi^2$
+per $N\to\infty$ anche se il modello non è gaussiano,
+il test funziona bene con ipotesi alternative molto più vaste che il modello gaussiano con cui l'abbiamo ricavato.
+
+Prendiamo ora un modello gaussiano con varianza fissata e medie che dipendono dal parametro $\theta\in\R^d$:
+\begin{equation*}
+	p(\mathbf x;\theta)
+	= \prod_{i=1}^N \frac1{\sqrt{2\pi}\sigma_i}
+	\exp\left(-\frac12\left(\frac{x_i-\mu_i(\theta)}{\sigma_i}\right)^2\right).
+\end{equation*}
+Si può dimostrare che,
+detta $\hat\theta$ la stima di massima likelihood,
+l'espressione analoga alla \eqref{eq:chi2}
+\begin{equation*}
+	\sum_{i=1}^N \left( \frac {x_i-\mu_i(\hat\theta(\mathbf x))} {\sigma_i} \right)^2
+\end{equation*}
+\marginpar{Ha esattamente la distribuzione a $N-d$ gradi di libertà o è asintotico anche per la gaussiana?}%
+sotto l'ipotesi $\theta=\hat\theta$ ha la distribuzione del $\chi^2$ a $N-d$ gradi di libertà.
+Anche in questo caso si parla di test del $\chi^2$.
+
+\begin{exercise}
+	Scrivere il likelihood ratio di un modello per $N$ poissoniane con medie arbitrarie,
+	e verificare (eventualmente numericamente) se asintoticamente ha la distribuzione $\chi^2$.
+\end{exercise}
