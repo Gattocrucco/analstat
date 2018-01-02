@@ -1,0 +1,71 @@
+% Giacomo Petrillo
+% lezione di Punzi
+
+Facciamo il test likelihood ratio per $N$ estrazioni di una gaussiana
+con l'ipotesi nulla composta di varianza arbitraria e media fissata.
+La distribuzione è
+\begin{align*}
+	p(\mathbf x;\mu,\sigma)
+	&= \left(\frac1{\sqrt{2\pi}\sigma}\right)^N
+	\exp \left( -\frac12 \sum_i \left(\frac{x_i-\mu}{\sigma}\right)^2 \right),
+\end{align*}
+il likelihood ratio è
+\begin{align*}
+	\lambda_\mu(\mathbf x)
+	&= 2\log \frac
+	{\sup\limits_{\mu',\sigma} p(\mathbf x;\mu',\sigma)}
+	{\sup\limits_{\sigma} p(\mathbf x;\mu,\sigma)}.
+\end{align*}
+Per calcolare i limiti superiori,
+sappiamo già che la stima di massima likelihood con media e varianza libere è
+\begin{align*}
+	\hat\mu
+	&= \bar x, \\
+	\hat\sigma^2
+	&= \frac 1N \sum_i (x_i-\bar x)^2;
+\end{align*}
+mentre con media fissata è
+\begin{align*}
+	\hat\sigma_2^2
+	&= \frac 1N \sum_i (x_i-\mu)^2.
+\end{align*}
+Calcoliamo il likelihood ratio:
+\begin{align*}
+	\lambda_\mu(\mathbf x)
+	&= 2\log \frac
+	{\left(\frac1{\sqrt{2\pi}\hat\sigma}\right)^N
+	\exp \left( -\frac12 \sum_i \left(\frac{x_i-\bar x}{\hat\sigma}\right)^2 \right)}
+	{\left(\frac1{\sqrt{2\pi}\hat\sigma_2}\right)^N
+	\exp \left( -\frac12 \sum_i \left(\frac{x_i-\mu}{\hat\sigma_2}\right)^2 \right)} = \\
+	&= N \log \frac{\hat\sigma_2^2}{\hat\sigma^2}
+	+ \frac{\sum_i (x_i-\mu)^2}{\hat\sigma_2^2}
+	- \frac{\sum_i (x_i-\bar x)^2}{\hat\sigma^2} = \\
+	&= N \log \frac
+	{\sum_i (x_i - \mu)^2}
+	{\sum_i (x_i - \bar x)^2} \simeq \\
+	\intertext{(a meno di una funzione crescente)}
+	&\simeq \frac
+	{\sum_i (x_i - \mu)^2}
+	{\sum_i (x_i - \bar x)^2} = \\
+	&= \frac
+	{\sum_i (x_i - \bar x)^2 + \sum_i (\bar x-\mu)^2}
+	{\sum_i (x_i - \bar x)^2} = \\
+	&= 1 + N \frac {(\bar x-\mu)^2} {\sum_i (x_i-\bar x)^2} \simeq \\
+	\intertext{(a meno di una funzione crescente)}
+	&\simeq \frac{\bar x - \mu}{S/\sqrt N} \isis t,
+\end{align*}
+dove $S$ è la varianza campione unbiased
+\begin{equation*}
+	S(\mathbf x)
+	\is \frac {\sum_i (x_i-\bar x)^2} {N-1}.
+\end{equation*}
+La $t$ si chiama \emph{$t$ di Student} e ha distribuzione
+\begin{equation*}
+	p(t;\nu)
+	= \frac {\Gamma\left(\frac{\nu+1}2\right)} {\sqrt{\pi\nu}\, \Gamma\left(\frac\nu2\right)}
+	\left(1+\frac{t^2}\nu\right)^{-(\nu+1)/2}
+\end{equation*}
+con $\nu=N-1$.
+Notiamo che per $\nu=1$ è la Cauchy.
+In generale sono definiti i momenti solo fino a $\mu_{\nu-1}$.
+Per $\nu\to\infty$, la distribuzione diventa gaussiana.
