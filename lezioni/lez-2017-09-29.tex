@@ -4,7 +4,11 @@
 \begin{definition}[Covarianza]
 	Date due variabili, si chiama \emph{covarianza} il valore di aspettazione
 	\begin{equation*}
-		\sigma_{xy} \is E[(x-\langle x\rangle)(y-\langle y\rangle)].
+		\sigma_{xy} \is \cov[x,y] \is E[(x-\langle x\rangle)(y-\langle y\rangle)].
+	\end{equation*}
+	La \emph{correlazione} è la covarianza normalizzata con le varianze:
+	\begin{equation*}
+		\corr[x,y] \is \frac{\cov[x,y]}{\sqrt{\var[x]\cdot\var[y]}}.
 	\end{equation*}
 	Le variabili si dicono \emph{scorrelate} o \emph{correlate} se rispettivamente la covarianza è nulla o non nulla.
 \end{definition}
@@ -42,21 +46,25 @@ quindi basta scegliere una distribuzione pari per $x$ affinché siano scorrelate
 	\includegraphics[width=5cm]{mitragliatrice}
 	\caption{\label{fig:mitr} Una mitragliatrice spara con mira casuale contro un muro.}
 \end{figure}
-Considerare \autoref{fig:mitr}. $\theta$ ha una probabilità uniforme in $\left(-\frac\pi2,\frac\pi2\right)$, calcoliamo la pdf di $x(\theta)$:
-\begin{align*}
-	x(\theta) &= L \tan\theta \rightarrow \frac{\de x}{\de\theta} = \frac L {\cos^2\theta}, \\
-	p(x) &= \frac1\pi \frac{\cos^2\theta} L = \frac1\pi\frac1{L(1+\tan^2\theta)} = \frac1{L\pi}\frac1{1+\left(\frac xL\right)^2}.
-\end{align*}
-La pdf che abbiamo ottenuto si chiama \emph{Cauchy}, è identica alla Breit-Wigner
-\begin{equation*}
-	\frac1\pi \frac {\frac\Gamma2} {\left(\frac\Gamma2\right)^2 + (x-x_0)^2}.
-\end{equation*}
-La distribuzione di Cauchy non ammette momenti dispari, perché l'integrale
-\begin{equation*}
-	\int_{-\infty}^\infty \de x\,\frac {x^n} {1+x^2}
-\end{equation*}
-non esiste; lo si vede dal fatto che gli integrali parziali $\int_{0}^\infty$ e $\int_{-\infty}^{0}$ divergono con segno opposto per $n \ge 1$ e dispari, quindi facendo il limite in modo diverso cambia il risultato.
-Invece i momenti pari divergono, quindi la varianza rispetto a~0 (la media non esiste) è infinita.
+
+\begin{example}
+	Considerare \autoref{fig:mitr}.
+	$\theta$ ha una probabilità uniforme in $\left(-\frac\pi2,\frac\pi2\right)$, calcoliamo la pdf di $x(\theta)$:
+	\begin{align*}
+		x(\theta) &= L \tan\theta \rightarrow \frac{\de x}{\de\theta} = \frac L {\cos^2\theta}, \\
+		p(x) &= \frac1\pi \frac{\cos^2\theta} L = \frac1\pi\frac1{L(1+\tan^2\theta)} = \frac1{L\pi}\frac1{1+\left(\frac xL\right)^2}.
+	\end{align*}
+	La pdf che abbiamo ottenuto si chiama \emph{Cauchy}, è identica alla Breit-Wigner
+	\begin{equation*}
+		\frac1\pi \frac {\frac\Gamma2} {\left(\frac\Gamma2\right)^2 + (x-x_0)^2}.
+	\end{equation*}
+	La distribuzione di Cauchy non ammette momenti dispari, perché l'integrale
+	\begin{equation*}
+		\int_{-\infty}^\infty \de x\,\frac {x^n} {1+x^2}
+	\end{equation*}
+	non esiste; lo si vede dal fatto che gli integrali parziali $\int_{0}^\infty$ e $\int_{-\infty}^{0}$ divergono con segno opposto per $n \ge 1$ e dispari, quindi facendo il limite in modo diverso cambia il risultato.
+	Invece i momenti pari divergono, quindi la varianza rispetto a~0 (la media non esiste) è infinita.
+\end{example}
 
 \begin{exercise}[Somma di variabili]
 	Date due variabili indipendenti $x$ e $y$, qual è la pdf di $x+y$?
@@ -85,8 +93,8 @@ Invece i momenti pari divergono, quindi la varianza rispetto a~0 (la media non e
 	dove $\star$ indica la convoluzione.
 	Avremmo potuto scrivere intuitivamente l'integrale in questo modo:
 	\begin{align*}
-		p(s) &= \int\limits_{x+y = s} \de x\de y\, p_x(x) p_y(y) = \\
-		&= \int \de x\de y\, p_x(x) p_y(y) \delta(s - x - y) = \\
+		p(s) &= \int\limits_{x+y = s} \de x\,\de y\, p_x(x) p_y(y) = \\
+		&= \int \de x\,\de y\, p_x(x) p_y(y) \delta(s - x - y) = \\
 		&= \int \de x\, p_x(x) p_y(s-x).
 	\end{align*}
 \end{solution*}

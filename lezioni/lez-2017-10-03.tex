@@ -1,10 +1,12 @@
 % Giacomo Petrillo
 % lezione di Punzi
 
+\subtitlet{Espansione in serie}
+
 \begin{definition}[Matrice di covarianza]
-	Date $n$ variabili $x_i$ si definisce \emph{matrice di covarianza}
+	Date $n$ variabili $x_i$ si definisce \emph{matrice di covarianza} la matrice $n\times n$
 	\begin{equation*}
-		A_{ij} = \cov[x_i,x_j] \is E[(x_i-\avg{x_i})(x_j-\avg{x_j})].
+		V_{ij} \is \cov[x_i,x_j].
 	\end{equation*}
 	Gli elementi diagonali sono le varianze e quelli fuori diagonale sono le covarianze.
 \end{definition}
@@ -41,7 +43,7 @@ Calcoliamo la media e la varianza, ricordando che il valore atteso è lineare:
 	\left.\frac{\partial s}{\partial x_j}\right|_{\boldsymbol\mu}
 	\cov[x_i,x_j].
 \end{align*}
-Nel caso che le $x_i$ siano indipendenti, questa approssimazione della varianza diventa
+Nel caso che le $x_i$ siano scorrelate, questa approssimazione della varianza diventa
 \begin{equation*}
 	\var[s] \approx \sum_i
 	\left( \left.\frac{\partial s}{\partial x_i}\right|_{\boldsymbol\mu} \right)^2
@@ -50,12 +52,14 @@ Nel caso che le $x_i$ siano indipendenti, questa approssimazione della varianza 
 Probabilmente avrete già incontrato questa formula come ``formula di propagazione degli errori'';
 sottolineiamo che è una del tutto generale approssimazione di un momento di una statistica e che non è detto sia sempre una buona approssimazione quando la usiamo per la propagazione degli errori (o, come preferiamo chiamarle, incertezze).
 
+\subtitlet{Generatrice}
+
 \begin{definition}[Funzione generatrice]
 	Data la pdf $p(x)$, la sua \emph{funzione generatrice} è
-		$M(t) = E[e^{tx}]$.
+		$M(t) \is E[e^{tx}]$.
 \end{definition}
 
-La funzione generatrice è utile per calcolare i momenti, infatti:
+\noindent La funzione generatrice è utile per calcolare i momenti, infatti:
 \begin{align*}
 	M^{(n)}(t) &=
 	\frac{\partial^n}{\partial t^n} E[e^{tx}] =
@@ -77,9 +81,9 @@ Per due variabili indipendenti $x$, $y$ vale che
 inoltre ovviamente $M_{\alpha x}(t) = M_x(\alpha t)$.
 
 \begin{example}
-	Consideriamo una distribuzione uniforme in $[0,m]$:
+	Consideriamo una distribuzione uniforme in $(0,m)$:
 	\begin{equation*}
-		p(x) = \begin{cases}
+		p(x) = \frac1m \chi_{(0,m)}(x) = \begin{cases}
 			\frac 1m & 0 \le x \le m \\
 			0  & \text{altrimenti.}
 		\end{cases}
@@ -89,7 +93,7 @@ inoltre ovviamente $M_{\alpha x}(t) = M_x(\alpha t)$.
 		M(t) &= 
 		\int \de x\, p(x) e^{tx} =
 		\int_0^m \de x\, \frac{e^{tx}}{m} =
-		\frac 1m \left[ \frac{e^{tx}}{t} \right]_{t=0}^m = \\
+		\frac 1m \left[ \frac{e^{tx}}{t} \right]_{x=0}^m = \\
 		&= \frac{e^{mt} - 1}{mt}.
 	\end{align*}
 	Sviluppiamo $M$ in serie:
@@ -111,6 +115,8 @@ inoltre ovviamente $M_{\alpha x}(t) = M_x(\alpha t)$.
 	\end{equation*}
 \end{example}
 
+\titlet{Bernoulli, binomiale, poisson, esponenziale}
+
 La distribuzione di una variabile che può assumere solo due valori si chiama \emph{distribuzione di Bernoulli}.
 Fissiamo la notazione:
 \begin{equation*}
@@ -119,10 +125,10 @@ Fissiamo la notazione:
 		1-p & x = 0.
 	\end{cases}
 \end{equation*}
-Date $n$ variabili di Bernoulli indipendenti calcoliamo la probabilità che $k$ siano 1.
+Date $n$ variabili di Bernoulli indipendenti calcoliamo la probabilità che $k$ siano~1.
 Il modo di disporre $k$ oggetti identici in $n$ posti è $\binom nk$, quindi
 \begin{equation*}
-	P(k;n,p) = \binom nk p^{k} (1-p)^{n-k};
+	P(k) = P(k;n,p) = \binom nk p^{k} (1-p)^{n-k};
 \end{equation*}
 questa distribuzione si chiama \emph{binomiale}.
 Calcoliamone la generatrice:
@@ -140,40 +146,46 @@ e $k$ può essere scritto come $\sum_ix_i$, quindi deve essere $M_k = M_x^n$.
 
 Calcoliamo ora la probabilità che in un intervallo di tempo $T$ si verifichino $k$ eventi se per il singolo evento è definita una probabilità per unità di tempo $\lambda$.
 Dividiamo l'intervallo $T$ in $N$ sottointervalli uguali.
-Nel limite $N\to\infty$, la probabilità che in un sottointervallo si verifichi un solo evento è
+<<Probabilità per unità di tempo>> significa che
+la probabilità che in un sottointervallo si verifichi un solo evento è
 \begin{equation*}
-	p \is \lambda \frac TN,
+	p_1 = \lambda \frac TN + O\left(\frac1{N^2}\right),
 \end{equation*}
-quindi la probabilità $p_q$ che in un sottointervallo si verifichino $q>0$ eventi è $p^q$,
-\marginpar{invece dovrebbe essere $p^q/q!$}
-mentre la probabilità che si verifichino 0 eventi è
+quindi la probabilità $p_q$ che in un sottointervallo si verifichino $q>0$ eventi è
 \begin{equation*}
-	p_0 = 1 - \sum_{q\ge1} p^q = 1 - \left(\frac1{1-p} - 1\right) = \frac{1-2p}{1-p}.
+	p_q = O\left(\frac1{N^q}\right),
 \end{equation*}
-Sia $k_q$ il numero di sottointervalli in cui si verificano $q$ eventi,
+e la probabilità che si verifichino 0 eventi è
+\begin{equation*}
+	p_0 = 1 - \lambda \frac TN + O\left(\frac1{N^2}\right).
+\end{equation*}
+Sia $n_q$ il numero di sottointervalli in cui si verificano $q$ eventi,
 se $k$ è il numero totale di eventi vale ovviamente
 \begin{equation*}
-	k = \sum_{q\ge1} q k_q, \quad k_0 = N - \sum_{q\ge 1} k_q \isis N - s.
+	k = \sum_{q\ge1} q n_q, \quad n_0 = N - \sum_{q\ge 1} n_q \isis N - s.
 \end{equation*}
-La distribuzione dei $k_q$ è la multinomiale
+La distribuzione degli $n_q$ è la \emph{multinomiale}
 \begin{align*}
-	P(k_1,k_2,\dotsc)
-	&= \frac{N!}{k_0!k_1!\dotsm} p_0^{k_0} p_1^{k_1} \dotsm = \\
-	&= \frac{N!}{(N - s)!} \left(\frac{1-2p}{1-p}\right)^{N-s} \prod_{q\ge1} \frac{p^{qk_q}}{k_q!} = \\
-	&= \frac{N!}{(N - s)!} \left(\frac{1-2\frac{\lambda T}{N}}{1-\frac{\lambda T}{N}}\right)^{N-s} \left(\frac{\lambda T}{N}\right)^k \prod_{q\ge1} \frac1{k_q!}.
+	P(n_1,n_2,\dotsc)
+	&= \frac{N!}{n_0!n_1!\dotsm} p_0^{n_0} p_1^{n_1} \dotsm = \\
+	&= \frac{N!}{(N - s)!}
+	\left(1 - \lambda \frac TN + O\left(\frac1{N^2}\right)\right)^{N-s}
+	\prod_{q\ge1} \frac{p_q^{n_q}}{n_q!} = \\
+	&= O(N^s) e^{-\lambda T + O(1/N)}
+	O\left(\frac1{N^k}\right) \prod_{q\ge1} \frac1{n_q!} = \\
+	&= O\left(N^{\sum_{q\ge1} n_q - \sum_{q\ge1} qn_q}\right)
 \end{align*}
-Facendo il limite per $N\to\infty$, risulta
-\begin{equation*}
-	P(k_1,k_2,\dotsc)
-	= N^s e^{-\lambda T} \left(\frac{\lambda T}{N}\right)^k \prod_{q\ge1} \frac1{k_q!}
-	= O\left(N^{\sum_{q\ge1} k_q - \sum_{q\ge1} qk_q}\right)
-\end{equation*}
-che non va a zero solo se $k_q=0$ per $q > 1$ ovvero se $k=k_1$,
+che non va a zero solo se $n_q=0$ per $q > 1$ ovvero se $k=n_1$,
 quindi alla fine la probabilità di avere $k$ eventi è data semplicemente da
-\begin{equation*}
-	P(k) = e^{-\lambda T} (\lambda T)^k \frac1{k!};
-\end{equation*}
-definendo $\mu\is\lambda T$, abbiamo
+\begin{align*}
+	P(k)
+	&= \frac{N!}{n_0!n_1!}p_0^{n_0}p_1^{n_1} = \\
+	&= \frac{N!}{(N-k)!k!}
+	\left(1 - \lambda \frac TN + O\left(\frac1{N^2}\right)\right)^{N-k}
+	\left(\lambda \frac TN + O\left(\frac1{N^2}\right)\right)^k = \\
+	&= \frac1{k!}e^{-\lambda T}(\lambda T)^k.
+\end{align*}
+Definendo $\mu\is\lambda T$, abbiamo
 \begin{equation*}
 	P(k;\mu) = \frac{\mu^k}{k!} e^{-\mu}.
 \end{equation*}

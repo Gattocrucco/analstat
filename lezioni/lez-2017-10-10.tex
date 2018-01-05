@@ -1,6 +1,8 @@
 % Giacomo Petrillo
 % lezione di Punzi
 
+\titlet{Limite centrale}
+
 Consideriamo la media aritmetica di $n$ variabili identiche:
 \begin{equation*}
 	\bar x \is \frac1n \sum_{i=1}^n x_i.
@@ -54,19 +56,20 @@ otteniamo che
 \end{align*}
 quindi abbiamo il limite
 \begin{equation*}
-	\phi_{y_\infty}(t) = e^{-\frac{t^2}2}.
+	\phi_{y_\infty}(t) = e^{-t^2/2}.
 \end{equation*}
 Ricaviamo la pdf con la trasformata inversa:
 \marginpar{andrebbe chiarito il passaggio dal limite sulle caratteristiche a quello sulle pdf}
 \begin{align*}
 	p(y)
-	&= \frac1{2\pi} \int_{-\infty}^\infty \de t\, e^{-ity} e^{-\frac{t^2}2} = \\
+	&= \frac1{2\pi} \int_{-\infty}^\infty \de t\, e^{-ity} e^{-t^2/2} = \\
 	&= \frac1{2\pi} \int_{-\infty}^\infty \de t\,
-	e^{-\left(\frac t{\sqrt 2} + \frac{iy}{\sqrt 2}\right)^2 - \frac{y^2}2} = \\
-	&= \frac1{2\pi} \sqrt{2\pi} e^{-\frac{y^2}2} = \\
-	&= \frac1{\sqrt{2\pi}} e^{-\frac{y^2}2};
+	\exp\left( -\left(\frac t{\sqrt 2} + \frac{iy}{\sqrt 2}\right)^2 - \frac{y^2}2 \right) = \\
+	&= \frac1{2\pi} \sqrt{2\pi} e^{-y^2/2} = \\
+	&= \frac1{\sqrt{2\pi}} e^{-y^2/2};
 \end{align*}
-abbiamo quindi dimostrato il
+questa distribuzione si chiama \emph{gaussiana} (o \emph{normale}).
+Abbiamo quindi dimostrato il
 \begin{theorem}[del limite centrale]
 	\label{th:limitecentrale}
 	Sia $x$ variabile che ammette media e varianza e con funzione caratteristica sviluppabile in serie di potenze su $\R$,

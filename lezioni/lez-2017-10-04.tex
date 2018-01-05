@@ -84,14 +84,14 @@ Noi la calcoliamo invece con la funzione generatrice:
 \end{exercise}
 
 \begin{solution*}
-	Calcoliamo la generatrice
+	Calcoliamo la generatrice:
 	\begin{align*}
 		M(t) &= E[e^{tk}] = \\
 		&= \sum_k e^{tk} \frac{\mu^k}{k!} e^{-\mu} =
 		e^{-\mu} \sum_k \frac{(\mu e^t)^k}{k!} = \\
 		&= e^{-\mu} e^{\mu e^t} = e^{\mu(e^t - 1)}.
 	\end{align*}
-	Dalla generatrice ricaviamo la media e la varianza
+	Dalla generatrice ricaviamo la media e la varianza:
 	\begin{align*}
 		\frac{\de M}{\de t} &= e^{\mu(e^t-1)}\mu e^t = \mu e^{\mu(e^t-1) + t} \\
 		\frac{\de^2 M}{\de t^2} &= \mu e^{\mu(e^t-1) + t} (\mu e^t + 1) \\
@@ -183,7 +183,7 @@ Noi la calcoliamo invece con la funzione generatrice:
 
 \begin{exercise}
 	\label{th:salvexp}
-	Ho un rate di eventi alto abbastanza da non poterli salvare tutti. Posso scegliere di salvare un evento ogni $n$ oppure di decidere casualmente per ogni evento di salvarlo con probabilità $1/n$. La distribuzione temporale degli eventi salvati è la stessa nei due casi?
+	Ho un tasso di eventi alto abbastanza da non poterli salvare tutti. Posso scegliere di salvare un evento ogni $n$ oppure di decidere casualmente per ogni evento di salvarlo con probabilità $1/n$. La distribuzione temporale degli eventi salvati è la stessa nei due casi?
 \end{exercise}
 
 \begin{solution}

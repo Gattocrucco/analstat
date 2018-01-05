@@ -1,8 +1,10 @@
 % Giacomo Petrillo
 % lezione di Morello
 
+\titlet{Assiomi e proprietà elementari}
+
 \begin{definition}[Probabilità]
-	Definiamo in astratto la probabilità $\fundef[P]{\pset(S)}\R$ come funzione dai sottoinsiemi di un insieme universo $S$ a valori reali, che soddisfa i seguenti \emph{assiomi di Kolmogorov}:
+	Definiamo in astratto la probabilità $\fundef[P]{\pset(S)}\R$ come funzione dai sottoinsiemi di un \emph{insieme universo} $S$ a valori reali, che soddisfa i seguenti \emph{assiomi di Kolmogorov}:
 	\begin{enumerate}
 		\item $\forall A\subseteq S:P(A) \ge 0$;
 		\item $\forall A,B\subseteq S: A\cap B=\emptyset \rightarrow P(A)+P(B)=P(A\cup B)$; \label{kolm2}
@@ -11,14 +13,17 @@
 \end{definition}
 
 \begin{theorem}[Probabilità dell'unione]
-	$P(A\cup B) = P(A) + P(B) - P(A\cap B)$
+	$P(A\cup B) = P(A) + P(B) - P(A\cap B)$.
 \end{theorem}
 
 \begin{proof}
-	Scrivo $B$ come l'unione di due insiemi disgiunti
+	Scrivo $B$ come l'unione di due insiemi disgiunti:
 	\[B = (A\cap B) \cup (\comp A \cap B)\]
 	dove $\comp A\is S\setminus A$; per l'assioma \ref{kolm2} segue
-	\[P(B) = P(A\cap B) + P(\comp A \cap B).\]
+	\begin{equation}
+		\label{eq:pdib}
+		P(B) = P(A\cap B) + P(\comp A \cap B).
+	\end{equation}
 	Scrivo $A\cup B$ come l'intersezione di se stesso con $S=A\cup\comp A$
 	\[A\cup B = (A\cup\comp A) \cap (A\cup B)\]
 	e applico la proprietà distributiva
@@ -28,8 +33,13 @@
 		&= A \cup (\comp A\cap B)
 	\end{align*}
 	che sono disgiunti, da cui segue
-	\[P(A\cup B) =  P(A) + P(\comp A\cap B)\]
-	sostituendo nell'equazione per $P(B)$ ottengo la tesi.
+	\begin{align}
+		P(A\cup B)
+		&= P(A) + P(\comp A\cap B) \implies \notag \\
+		\implies P(\comp A\cap B)
+		&= -P(A) + P(A\cup B). \label{eq:pdicacb}
+	\end{align}
+	Sostituendo la \eqref{eq:pdicacb} nella \eqref{eq:pdib} ottengo la tesi.
 \end{proof}
 
 \begin{definition}[Probabilità condizionata]
@@ -37,7 +47,8 @@
 	\[P(A|C) \is \frac{P(A\cap C)}{P(C)}.\]
 \end{definition}
 
-Il senso della probabilità condizionata è che se $C$ diventa certo, devo modificare le probabilità degli altri insiemi in modo che il nuovo insieme universo sia $C$.
+\noindent Il senso della probabilità condizionata è che se $C$ diventa certo
+devo modificare le probabilità degli altri insiemi in modo che il nuovo insieme universo sia $C$.
 
 \begin{exercise}
 	Verificare che gli assiomi di Kolmogorov continuano a valere se, per fissato $C$, sostituisco in generale $P(X)$ con $P(X|C)$.

@@ -1,6 +1,8 @@
 % Giacomo Petrillo
 % lezione di Punzi
 
+\titlet{Interpretazione della probabilità}
+
 Interpretazioni della probabilità:
 \begin{description}
 	\item[``Classica'']
@@ -20,10 +22,20 @@ Esempio con il dado:
 		Prima di lanciare il dado considero le facce equiprobabili perché questa distribuzione rispetta la simmetria che vedo nel sistema se l'unica cosa che so è che ci sono sei facce, quindi è la distribuzione che rappresenta la mia conoscenza a priori; lanciato il dado applico la teoria della probabilità per modificare la distribuzione a priori.
 \end{description}
 
+\titlet{Variabili e pdf}
+
 \begin{definition}[Distribuzione di probabilità]
-	Consideriamo una famiglia $F\subseteq\pset(S)$ di sottoinsiemi di $S$ disgiunti tra a due a due.
-	Diciamo che gli elementi di $F$ sono i valori di una \emph{variabile aleatoria}
-	e che la \emph{distribuzione} della variabile è la probabilità ristretta a $F$.
+	Consideriamo una partizione dell'insieme universo,
+	ovvero una famiglia $V\subseteq\pset(S)$ di sottoinsiemi di $S$ disgiunti a due a due.
+	Diciamo che gli elementi di $V$ sono i valori di una \emph{variabile aleatoria}
+	e che la \emph{distribuzione} della variabile è la probabilità
+	ristretta agli insiemi ottenibili unendo elementi di $V$:
+	\begin{align*}
+		v &\in V, \\
+		P_v &\is P\big|_{\Setdef[\bigcup V']{V'\subseteq V}};
+	\end{align*}
+	cioè $P_v$ ha gli stessi valori di $P$
+	però stabiliamo di calcolarla solo su una sottofamiglia, chiusa per unione, delle parti dell'universo.
 \end{definition}
 
 \begin{definition}[Osservabile]
@@ -31,7 +43,7 @@ Esempio con il dado:
 \end{definition}
 
 \begin{definition}[Variabili indipendenti]
-	Due variabili aleatorie $x$ e $y$ sono indipendenti se ogni valore di $x$ è indipendente da ogni valore di $y$.
+	Due variabili aleatorie $x$ e $y$ sono indipendenti se ogni insieme di $x$ è indipendente da ogni insieme di $y$.
 \end{definition}
 
 \begin{example}[Variabili reali]
@@ -47,12 +59,24 @@ Esempio con il dado:
 	\end{align*}
 	formano due variabili aleatorie.
 	Sono indipendenti se vale
-	\begin{equation*}
-		P(X(x) \cap Y(y)) = P(X(x))P(Y(y))
-	\end{equation*}
-	per ogni coppia $(x,y)\in S$.
-	Tipicamente si usa implicitamente un solo simbolo scrivendo <<la variabile $x$>>, $P(x)$, $P(x,y)$.
+	\begin{align*}
+		&\phantom{{}={}} P\left( \bigcup_{x\in A} X(x) \cap \bigcup_{y\in B} Y(y) \right) = \\
+		&= P\left( \bigcup_{x\in A} X(x) \right) \cdot P\left( \bigcup_{y\in B} Y(y) \right)
+	\end{align*}
+	per ogni coppia di sottoinsiemi $A,B\subseteq\R$.
+	Tipicamente si usa implicitamente un solo simbolo scrivendo
+	<<la variabile $x$>>, $P(x)$, $P(x\in A)$.
+	Quando si scrive <<$P(x)$>> si intende con $x$ sia la variabile che il valore.
 \end{example}
+
+\begin{definition}[Distribuzione congiunta]
+	La \emph{distribuzione congiunta} di due variabili non è altro che
+	la probabilità dell'intersezione:
+	\begin{equation*}
+		P(x\in A,y\in B)
+		\is P(A\cap B).
+	\end{equation*}
+\end{definition}
 
 \begin{definition}[Marginalizzazione]
 	Usando le definizioni si verifica subito che, data la distribuzione congiunta di due variabili $P(x,y)$,
@@ -79,7 +103,7 @@ La definizione di densità implica due requisiti:
 	\item[Normalizzazione] $\int_S p = 1$.
 \end{description}
 Le proprietà dell'integrale di Lebesgue fanno sì che in ogni caso una densità con queste proprietà genera una probabilità ben definita.
-Viceversa, ci sono probabilità che non hanno una densità, a meno di non usare le distribuzioni.
+Viceversa, ci sono probabilità che non hanno una densità, a meno di non usare le distribuzioni\footnote{Qui con ``distribuzioni'' si intende il concetto matematico che formalizza, ad esempio, la $\delta$ di Dirac.}.
 L'esempio più semplice è
 \begin{align*}
 	P(X) &= \begin{cases}
@@ -98,11 +122,13 @@ Scritta con la densità la marginalizzazione diventa
 \end{equation*}
 
 \begin{definition}[Cumulante]
-	Per una densità su $\R$, si definisce \emph{cumulante} o in breve \emph{cdf}
+	Per una densità su $\R$, si definisce \emph{cumulante} o in breve \emph{cdf} (Cumulative Density Function)
 	\begin{equation*}
 		F(x) = P(\setdef[x']{x'<x}) = \int_{-\infty}^x \de x'\,p(x').
 	\end{equation*}
 \end{definition}
+
+\titlet{Statistiche}
 
 \begin{definition}[Statistica]
 	Una funzione $\fundef[s]{S_1}{S_2}$ tra due insiemi dotati di probabilità è una \emph{statistica} se soddisfa
@@ -157,10 +183,11 @@ Se $s$ non è biunivoca bisogna dividere $S_1$ in sottodomini in cui lo è e ris
 	Detto anche \emph{valore di aspettazione} o \emph{speranza matematica},
 	è un funzionale sulle statistiche definito come
 	\begin{equation*}
-		\langle s \rangle \is E[s] \is \int_S sp
+		\langle s \rangle \is E[s] \is \int_S sp.
 	\end{equation*}
 \end{definition}
-Il valore atteso è lineare:
+
+\noindent Il valore atteso è lineare:
 \begin{equation*}
 	E[s_1+\alpha s_2] = E[s_1] + \alpha E[s_2],
 \end{equation*}
@@ -195,7 +222,7 @@ In generale se $P(A)=1$ si dice che $A$ è \emph{quasi certo}. Il <<quasi>> è p
 	\end{align*}
 \end{fact}
 
-Per certe distribuzioni che non ammettono $E[x]$ la legge debole continua a valere sostituendo $E[x]$ con un certo valore fissato.
+\noindent Per certe distribuzioni che non ammettono $E[x]$ la legge debole continua a valere sostituendo $E[x]$ con un certo valore fissato.
 
 \begin{definition}[Momenti]
 	Si definisce \emph{momento $n$-esimo centrato su $x_0$} il valore di aspettazione

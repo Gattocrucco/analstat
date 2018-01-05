@@ -25,13 +25,17 @@
 \end{solution}
 
 \begin{theorem}
-	$S=\bigcup_iH_i,\ H_i\cap H_j=\emptyset\implies P(A)=\sum_iP(A|H_i)P(H_i)$
+	Sia $\set{H_i}$ una partizione dell'insieme universo,
+	allora qualunque probabilità si scompone in probabilità condizionate rispetto alla partizione:
+	\begin{equation*}
+		S=\bigcup_iH_i,\ H_i\cap H_j=\emptyset\implies P(A)=\sum_iP(A|H_i)P(H_i).
+	\end{equation*}
 \end{theorem}
 
 \begin{proof}
 	$\begin{aligned}[t]
-		A &= A\cap S = A\cap \bigcup_iH_i = \bigcup_i(A\cap H_i) \\
-		\implies P(A) &= P\left(\bigcup_i(A\cap H_i)\right) = \sum_i P(A\cap H_i) \\
-		&= \sum_i P(A|H_i)P(H_i)
+		A &= A\cap S = A\cap \bigcup_iH_i = \bigcup_i(A\cap H_i) \implies \\
+		\implies P(A) &= P\left(\bigcup_i(A\cap H_i)\right) = \sum_i P(A\cap H_i) = \\
+		&= \sum_i P(A|H_i)P(H_i).
 	\end{aligned}$\vspace{-1em}\\
 \end{proof}
