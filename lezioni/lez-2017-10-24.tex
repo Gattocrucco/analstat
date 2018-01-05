@@ -1,6 +1,8 @@
 % Giacomo Petrillo
 % lezione di Punzi
 
+\titlet{Stima puntuale}
+
 \begin{definition}[Stima]
 	Dato un modello con parametro $\theta$,
 	una \emph{stima di $\theta$} è una statistica a valori nello spazio di $\theta$.
@@ -9,23 +11,26 @@
 \begin{definition}[Consistenza]
 	Dato un modello con parametro $\theta$ per $N$ estrazioni di $x$
 	e una stima $\hat\theta_N$ di $\theta$,
-	la stima è \emph{consistente} per un valore $\theta_0$ del parametro
-	se per $N\to\infty$ converge debolmente a $\theta_0$:
+	la stima è \emph{consistente}
+	se per $N\to\infty$ converge debolmente al \emph{valore vero},
+	cioè il valore del parametro in cui calcoliamo la probabilità:
 	\begin{equation*}
-		\forall\epsilon\, \lim_{N\to\infty} P(|\hat\theta_N(\mathbf x)-\theta_0| > \epsilon) = 0.
+		\forall\epsilon\, \lim_{N\to\infty} P(|\hat\theta_N(\mathbf x)-\theta| > \epsilon;\theta) = 0.
 	\end{equation*}
 \end{definition}
 
 \begin{definition}[Bias]
 	Dato un modello con parametro $\theta$ e una stima $\hat\theta$ di $\theta$,
-	il \emph{bias} per un valore $\theta_0$ del parametro è la differenza tra la media della stima e $\theta_0$:
+	il \emph{bias} è la differenza tra la media della stima e il valore vero:
 	\begin{equation*}
-		b(\theta_0) \is E[\hat\theta] - \theta_0.
+		b(\theta) \is E[\hat\theta;\theta] - \theta.
 	\end{equation*}
 	Una stima si dice \emph{corretta} se il bias è nullo;
 	\emph{asintoticamente corretta} se il modello è per $N$ estrazioni
 	e nel limite $N\to\infty$ il bias tende a zero.
 \end{definition}
+
+\subtitlet{Efficienza}
 
 \begin{theorem}[Disuguaglianza di Cramer-Rao]
 	\label{th:cramerrao}
@@ -34,7 +39,7 @@
 	la cui pdf ha supporto che non dipende da $\theta$.
 	Allora c'è un limite inferiore alla varianza della stima:
 	\begin{equation*}
-		\var[\hat\theta] \ge \frac{\left( 1 + \frac{\partial b}{\partial\theta} \right)^2}{I_{\hat\theta}(\theta)},
+		\var[\hat\theta;\theta] \ge \frac{\left( 1 + \frac{\partial b}{\partial\theta} \right)^2}{I_{\hat\theta}(\theta)},
 	\end{equation*}
 	dove $I$ è l'informazione di Fisher.
 \end{theorem}
@@ -52,21 +57,21 @@
 		&= \int \de\hat\theta\,
 		\pdv{}\theta (\hat\theta L) = \\
 		&= \pdv{}\theta \int \de\hat\theta\, \hat\theta L = \\
-		&= \pdv{}\theta E[\hat\theta] = \\
+		&= \pdv{}\theta E[\hat\theta;\theta] = \\
 		&= \pdv{}\theta (\theta + b(\theta)) = \\
 		&= 1 + \pdv b\theta
 	\end{align*}
 	\begin{align*}
 		\int \de\hat\theta\,
-		L \cdot E[\hat\theta] \pdv{\log L}\theta
-		&= E[\hat\theta] \int \de\hat\theta\, \pdv L\theta = \\
-		&= E[\hat\theta] \pdv{}\theta \int \de\hat\theta\, L = \\
+		L \cdot E[\hat\theta;\theta] \pdv{\log L}\theta
+		&= E[\hat\theta;\theta] \int \de\hat\theta\, \pdv L\theta = \\
+		&= E[\hat\theta;\theta] \pdv{}\theta \int \de\hat\theta\, L = \\
 		&= 0
 	\end{align*}
 	\begin{align*}
-		E \left[ (\hat\theta - E[\hat\theta]) \pdv{\log L}\theta \right]
+		E \left[ (\hat\theta - E[\hat\theta;\theta]) \pdv{\log L}\theta;\theta \right]
 		&= \int \de\hat\theta\, L \cdot
-		(\hat\theta - E[\hat\theta]) \pdv{\log L}\theta = \\
+		(\hat\theta - E[\hat\theta;\theta]) \pdv{\log L}\theta = \\
 		&= 1 + \pdv b\theta.
 	\end{align*}
 	Scriviamo la disuguaglianza di Schwartz in termini di valori attesi
@@ -74,17 +79,17 @@
 	\begin{align*}
 		E[fg]^2 &\le E[f^2]E[g^2] \\
 		\left( 1 + \pdv b\theta \right)^2
-		&= E \left[ (\hat\theta - E[\hat\theta]) \pdv{\log L}\theta \right]^2 \le \\
-		&\le E[(\hat\theta - E[\hat\theta])^2]
-		\cdot E \left[ \left( \pdv{\log L}\theta \right)^2 \right] = \\
-		&= \var[\hat\theta] I_{\hat\theta}(\theta). \qedhere
+		&= E \left[ (\hat\theta - E[\hat\theta;\theta]) \pdv{\log L}\theta;\theta \right]^2 \le \\
+		&\le E[(\hat\theta - E[\hat\theta;\theta])^2;\theta]
+		\cdot E \left[ \left( \pdv{\log L}\theta \right)^2;\theta \right] = \\
+		&= \var[\hat\theta;\theta] I_{\hat\theta}(\theta). \qedhere
 	\end{align*}
 \end{proof}
 
 Per il \autoref{th:fishstat} l'informazione di Fisher di $x$ è maggiore o uguale a quella di $\hat\theta$,
 quindi si ha il corollario che
 \begin{equation*}
-	\var[\hat\theta] \ge \frac{\left( 1 + \frac{\partial b}{\partial\theta} \right)^2}{I_x(\theta)};
+	\var[\hat\theta;\theta] \ge \frac{\left( 1 + \frac{\partial b}{\partial\theta} \right)^2}{I_x(\theta)};
 \end{equation*}
 nel caso di bias che dipende poco dal parametro ($|\partial b/\partial\theta| \ll 1$)
 questo limite inferiore, detto \emph{minimum variance bound}, non dipende dallo stimatore.
@@ -100,7 +105,7 @@ questa è la forma generale dell'osservazione che comunemente
 	Con la notazione del \autoref{th:cramerrao} e con $x$ variabile del modello,
 	l'\emph{efficienza di $\hat\theta$} è
 	\begin{equation*}
-		\frac{\left( 1 + \frac{\partial b}{\partial\theta} \right)^2}{I_x(\theta)\var[\hat\theta]},
+		\frac{\left( 1 + \frac{\partial b}{\partial\theta} \right)^2}{I_x(\theta)\var[\hat\theta;\theta]},
 	\end{equation*}
 	che nelle ipotesi del teorema è minore o uguale a~1.
 \end{definition}
@@ -112,13 +117,13 @@ questa è la forma generale dell'osservazione che comunemente
 \end{theorem}
 
 \begin{proof}
-	Per il \autoref{th:darmois},
+	Per il \autoref{th:darmois} (teorema di Darmois),
 	la pdf di $x$ si scrive come
 	\begin{equation*}
 		p(x;\theta)
 		= \exp \left( \hat\theta(x)a(\theta) + \beta(x) + \gamma(\theta) \right).
 	\end{equation*}
-	Per il \autoref{th:suffatt}, la pdf di $x$ si fattorizza con quella di $\hat\theta$:
+	Per l'ipotesi di sufficienza, la pdf di $x$ si fattorizza con quella di $\hat\theta$:
 	\begin{equation*}
 		p(x;\theta)
 		= f(x) p(\hat\theta(x);\theta), \quad f > 0,
@@ -159,7 +164,7 @@ questa è la forma generale dell'osservazione che comunemente
 		&= - \int_{\theta_0}^\theta \de\vartheta\, a'(\vartheta)
 		\int\de\hat\theta\, p(\hat\theta;\vartheta) \hat\theta
 		+ \gamma(\theta_0) = \\
-		&= - \int_{\theta_0}^\theta \de\vartheta\, g(\vartheta) E[\hat\theta]\big|_{\vartheta}
+		&= - \int_{\theta_0}^\theta \de\vartheta\, g(\vartheta) E[\hat\theta;\vartheta]
 		+ \gamma(\theta_0),
 	\end{align*}
 	e inoltre abbiamo per definizione:
@@ -172,14 +177,14 @@ questa è la forma generale dell'osservazione che comunemente
 		\log p(\hat\theta;\theta)
 		&= \left( \int_{\theta_0}^\theta \de\vartheta\, g(\vartheta) + a(\theta_0) \right) \hat\theta
 		+ B(\hat\theta) + {}\\
-		&\phantom{{}={}}- \int_{\theta_0}^\theta \de\vartheta\, g(\vartheta) E[\hat\theta]\big|_{\vartheta} + \gamma(\theta_0) = \\
-		&= \int_{\theta_0}^\theta \de\vartheta\, g(\vartheta) \big(\hat\theta-E[\hat\theta]\big|_{\vartheta}\big)
-		+ a(\hat\theta_0)\hat\theta + B(\hat\theta) + \gamma(\theta_0).
+		&\phantom{{}={}}- \int_{\theta_0}^\theta \de\vartheta\, g(\vartheta) E[\hat\theta;\vartheta] + \gamma(\theta_0) = \\
+		&= \int_{\theta_0}^\theta \de\vartheta\, g(\vartheta) \big(\hat\theta-E[\hat\theta;\vartheta]\big)
+		+ a(\theta_0)\hat\theta + B(\hat\theta) + \gamma(\theta_0).
 	\end{align*}
 	Deriviamo rispetto al parametro:
 	\begin{equation*}
 		\pdv{}{\theta} \log p(\hat\theta;\theta)
-		= g(\theta) \cdot \big(\hat\theta-E[\hat\theta]\big|_{\theta}\big).
+		= g(\theta) \cdot \big(\hat\theta-E[\hat\theta;\theta]\big).
 	\end{equation*}
 	Riguardando la dimostrazione del \autoref{th:cramerrao},
 	vediamo che la disuguaglianza di Schwartz è saturata perché le due funzioni sono proporzionali.

@@ -40,39 +40,47 @@
 	quindi il massimo è una statistica sufficiente per $m$.
 \end{example}
 
+\titlet{Informazione di Fisher}
+
 \begin{definition}[Informazione di Fisher]
-	Dato un modello per $x$ con parametro $\boldsymbol\mu\in\R^n$,
+	Dato un modello per $x$ con parametro $\boldsymbol\theta\in\R^n$,
 	l'\emph{informazione di Fisher} è la matrice
 	\begin{equation*}
-		I_{ij}(\boldsymbol\mu) \is E \left[
-		\frac{\partial\log p(x;\boldsymbol\mu)}{\partial\mu_i}
-		\frac{\partial\log p(x;\boldsymbol\mu)}{\partial\mu_j} \right].
+		I_{ij}(\boldsymbol\theta) \is E \left[
+		\frac{\partial\log p(x;\boldsymbol\theta)}{\partial\theta_i}
+		\frac{\partial\log p(x;\boldsymbol\theta)}{\partial\theta_j};\boldsymbol\theta \right].
 	\end{equation*}
 \end{definition}
+
+Con la notazione <<$E[f;\theta]$>> intendiamo che
+il valore atteso è calcolato con la probabilità corrispondente a $\theta$:
+\begin{equation*}
+	E[f;\theta] = \int \de x\, f(x) p(x;\theta).
+\end{equation*}
 
 Poiché l'informazione di Fisher richiede di calcolare il logaritmo della probabilità,
 se ci sono degli $x$ per i quali la probabilità è nulla
 è necessario restringere il dominio.
-Espandiamo la definizione di $I$, abbreviando $p(x;\boldsymbol\mu)\isis L$:
+Espandiamo la definizione di $I$, abbreviando $p(x;\boldsymbol\theta)\isis L$:
 \begin{align*}
-	I_{ij}(\boldsymbol\mu)
+	I_{ij}(\boldsymbol\theta)
 	&= \int\de x\, L
-	\frac{\partial\log L}{\partial\mu_i}
-	\frac{\partial\log L}{\partial\mu_j} = \\
+	\frac{\partial\log L}{\partial\theta_i}
+	\frac{\partial\log L}{\partial\theta_j} = \\
 	&= \int\de x\,
-	\frac{\partial\log L}{\partial\mu_i}
-	\frac{\partial L}{\partial\mu_j} = \\
+	\frac{\partial\log L}{\partial\theta_i}
+	\frac{\partial L}{\partial\theta_j} = \\
 	&= \int\de x \left(
-	\frac{\partial}{\partial\mu_j} \left( L \frac{\partial\log L}{\partial\mu_i} \right)
-	- L \frac{\partial^2\log L}{\partial\mu_i\partial\mu_j} \right) = \\
+	\frac{\partial}{\partial\theta_j} \left( L \frac{\partial\log L}{\partial\theta_i} \right)
+	- L \frac{\partial^2\log L}{\partial\theta_i\partial\theta_j} \right) = \\
 	\intertext{(nei prossimi due passaggi portiamo fuori una derivata dall'integrale supponendo che il dominio non dipenda dal parametro)}
-	&= \frac{\partial}{\partial\mu_j} \int\de x\, L \frac{\partial\log L}{\partial\mu_i}
-	- \int\de x\, L \frac{\partial^2\log L}{\partial\mu_i\partial\mu_j} = \\
-	&= \frac{\partial^2}{\partial\mu_i\partial\mu_j} \int\de x\, L
-	- E \left[ \frac{\partial^2\log L}{\partial\mu_i\partial\mu_j} \right] = \\
-	&= E \left[ -\frac{\partial^2\log p(x;\boldsymbol\mu)}{\partial\mu_i\partial\mu_j} \right].
+	&= \frac{\partial}{\partial\theta_j} \int\de x\, L \frac{\partial\log L}{\partial\theta_i}
+	- \int\de x\, L \frac{\partial^2\log L}{\partial\theta_i\partial\theta_j} = \\
+	&= \frac{\partial^2}{\partial\theta_i\partial\theta_j} \int\de x\, L
+	- E \left[ \frac{\partial^2\log L}{\partial\theta_i\partial\theta_j} \right] = \\
+	&= E \left[ -\frac{\partial^2\log p(x;\boldsymbol\theta)}{\partial\theta_i\partial\theta_j};\boldsymbol\theta \right].
 \end{align*}
-Scritta $I(\boldsymbol\mu)$ in questa forma,
+Scritta $I(\boldsymbol\theta)$ in questa forma,
 si vede subito che se combino due variabili indipendenti le informazioni di Fisher si sommano.
 
 \begin{example}
@@ -128,11 +136,11 @@ si vede subito che se combino due variabili indipendenti le informazioni di Fish
 
 Consideriamo una statistica sufficiente:
 \begin{align*}
-	p(x;\mu)
-	&= f(x)p(s(x);\mu) \\
-	\frac{\partial}{\partial\mu}\log p(x;\mu)
-	&= \frac{\partial}{\partial\mu} \big( \log f(x) + \log p(s(x);\mu) \big) = \\
-	&= \frac{\partial}{\partial\mu}\log p(s(x);\mu),
+	p(x;\theta)
+	&= f(x)p(s(x);\theta) \\
+	\frac{\partial}{\partial\theta}\log p(x;\theta)
+	&= \frac{\partial}{\partial\theta} \big( \log f(x) + \log p(s(x);\theta) \big) = \\
+	&= \frac{\partial}{\partial\theta}\log p(s(x);\theta),
 \end{align*}
 quindi l'informazione di Fisher di una statistica sufficiente è uguale a quella originale.
 

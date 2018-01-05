@@ -2,9 +2,10 @@
 % non c'ero a lezione quindi uso gli appunti di Francesco Serra
 % lezione di Punzi
 
+\subtitlet{Metodo dei momenti}
+
 Consideriamo la statistica $s_k(x)\is x^k$.
 Il valore atteso è per definizione il momento $k$-esimo
-\marginpar{quale lettera usavamo per i momenti?}%
 $E[s_k]=\mu_k$,
 quindi $s_k$ è uno stimatore con bias nullo di $\mu_k$.
 Verifichiamo che sia consistente;
@@ -31,12 +32,12 @@ e calcoliamo la varianza:
 I momenti sono quindi un modo generale di parametrizzare una distribuzione in modo che esista uno stimatore corretto, consistente e semplice da calcolare.
 Tuttavia tipicamente il problema specifico fisserà quali sono i parametri che vogliamo stimare.
 
+\subtitlet{Massima likelihood}
+
 Consideriamo un modello $p(x;\theta)$.
-Fissiamo un ``valore vero'' $\theta_0$ per il parametro.
-\marginpar{Probabilmente prima che qui bisogna dire che per valore vero intendiamo quello su cui implicitamente calcoliamo la probabilità es. nei valori attesi.}%
 Sia $f(x,\theta)$ tale che la funzione
 \begin{equation*}
-	h(\theta)\is E[f(x,\theta)]
+	h(\theta)\is E[f(x,\theta);\theta_0]
 \end{equation*}
 si annulla solo in $\theta_0$.
 Consideriamo $N$ estrazioni.

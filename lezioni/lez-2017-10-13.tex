@@ -1,7 +1,43 @@
 % Giacomo Petrillo
 % lezione di Punzi
 
-Definiamo la gaussiana
+% parte sulle sistematiche spostata dalla lezione 10 ottobre
+\titlet{Sistematiche}
+
+Quando non siamo sicuri sul modello da usare,
+diciamo che abbiamo un'\emph{incertezza sistematica}.
+Per trattare statisticamente l'incertezza sistematica,
+bisogna fissare una famiglia di modelli.
+L'unione di una famiglia di modelli è ancora un modello,
+quindi a questo punto si può:
+\begin{itemize}
+	\item fare inferenza sul modello complessivo;
+	\item fare una famiglia di inferenze.
+\end{itemize}
+
+\begin{example}
+	Consideriamo un modello gaussiano di variabili $y_i$
+	con media $\mu_i(\theta)$ funzione del parametro e varianze $\sigma_i^2$:
+	\begin{equation*}
+		p(\mathbf y;\theta)
+		= \prod_i \frac1{\sqrt{2\pi}\sigma_i}
+		\exp\left(-\frac12\left(\frac{y_i-\mu_i(\theta)}{\sigma_i}\right)^2\right).
+	\end{equation*}
+	Supponiamo di avere un dubbio su quali siano le $\sigma_i$.
+	In generale il valore delle $\sigma_i$ influenzerà il risultato per $\theta$.
+	Allora possiamo considerare le $\sigma_i$ come un parametro
+	e fare inferenza sia su $\theta$ che sulle varianze:
+	\begin{equation*}
+		p(\mathbf y;\theta) \rightarrow p(\mathbf y;\theta,\boldsymbol\sigma).
+	\end{equation*}
+	Un modo più ``agnostico'' di risolvere la questione è tenere le $\sigma_i$ fissate
+	e dire quale risultato si ottiene per $\theta$ al variare delle $\sigma_i$
+	tra alcuni valori di interesse.
+\end{example}
+
+\titlet{Likelihood gaussiana}
+
+Consideriamo la gaussiana con media $\mu$ e deviazione standard $\sigma$:
 \begin{equation*}
 	g(x;\mu,\sigma) \is \frac1{\sqrt{2\pi}\sigma} e^{-\frac12 \left( \frac{x-\mu}\sigma \right)^2}.
 \end{equation*}
@@ -19,30 +55,38 @@ Notiamo che la distribuzione di $\bar x$ ha la stessa forma $g \big( \bar x;\mu,
 e che questo non vale in generale, si pensi ad esempio alla distribuzione uniforme
 in cui la somma di due variabili è triangolare mentre la likelihood per la media della distribuzione è un'iperbole troncata.
 
+\titlet{Sufficienza}
+
 \begin{definition}[Sufficienza]
 	\label{th:suff}
-	Consideriamo un modello per $x$ con parametro $\mu$ e una statistica $s$.
-	Si dice che $s$ è \emph{sufficiente} per $\mu$ se la distribuzione di $x$ si fattorizza come
-	$P(x;\mu) = f(x) P(s(x);\mu)$.
+	Consideriamo un modello per $x$ con parametro $\theta$ e una statistica $s$.
+	Si dice che $s$ è \emph{sufficiente} per $\theta$ se la distribuzione di $x$ si fattorizza come
+	$p(x;\theta) = f(x) p(s(x);\theta)$ con $f\ge0$.
 \end{definition}
 
-Con le notazioni della \autoref{th:suff}, calcoliamo $P(x|s)$:
+Il senso della definizione di sufficienza
+è che la likelihood calcolata con una statistica sufficiente
+è equivalente a quella calcolata direttamente con la variabile,
+cioè cambia di una costante moltiplicativa positiva:
 \begin{align*}
-	P(x|s_0)
-	&= \frac{P(x,s_0;\mu)}{P(s_0;\mu)} = \\
-	&= \frac{P(x;\mu) \delta(s(x)=s_0)}{\displaystyle \sum_{x'\in s^{-1}(s_0)} \frac{P(x';\mu)}{f(x')}} = \\
-	\intertext{(se $s$ è iniettiva)}
-	&= f(x) \delta(s(x)=s_0).
+	\mathcal L_{x_0}(\theta)
+	&= p(x_0;\theta) = f(x_0) p(s(x_0);\theta) \propto \\
+	\propto \mathcal L_{s(x_0)}(\theta)
+	&= p(s(x_0);\theta),
 \end{align*}
-Quindi, data una statistica sufficiente iniettiva, la probabilità di~$x$ non dipende da~$\mu$.
-Notiamo che per definizione
-\begin{equation*}
-	\mathcal L(\mu) = P(x_0;\mu) = f(x_0) P(s(x_0);\mu)
-\end{equation*}
-quindi, poiché la likelihood è definita a meno di costante moltiplicativa,
-per scrivere la likelihood è sufficiente conoscere $s_0 \is s(x_0)$.
-Perciò il principio di Likelihood si estende a un \emph{principio di sufficienza},
-cioè che l'inferenza su $\mu$ è equivalente se sostituisco le misure con una loro statistica sufficiente.
+quindi per scrivere la likelihood è sufficiente conoscere $s_0 \is s(x_0)$.
+
+% % Poiché alla fine serve che s sia iniettiva,
+% % la cosa seguente era banale
+% Calcoliamo $p(x|s)$:
+% \begin{align*}
+% 	p(x|s_0)
+% 	&= \frac{p(x,s_0;\mu)}{p(s_0;\mu)} = \\
+% 	&= \frac{p(x;\mu) \delta(s(x)=s_0)}{\displaystyle \sum_{x'\in s^{-1}(s_0)} \frac{p(x';\mu)}{f(x')}} = \\
+% 	\intertext{(se $s$ è iniettiva)}
+% 	&= f(x) \delta(s(x)=s_0).
+% \end{align*}
+% Quindi, data una statistica sufficiente iniettiva, la probabilità di~$x$ non dipende da~$\mu$.
 
 \begin{definition}
 	Una statistica sufficiente $s$ è \emph{minimale} se
@@ -51,46 +95,37 @@ cioè che l'inferenza su $\mu$ è equivalente se sostituisco le misure con una l
 		s(x) = f(\sigma(x)).
 	\end{equation*}
 \end{definition}
-Nota: non è detto che la statistica sufficiente minimale sia unica.
+\noindent Nota: non è detto che la statistica sufficiente minimale sia unica.
 
 \begin{theorem}
 	\label{th:suffatt}
-	Se la (densità di) probabilità di $x$ si fattorizza come
+	Se la probabilità di $x$ si fattorizza come
 	\begin{equation*}
-		P(x;\mu) = f(x) g(s(x);\mu)
+		p(x;\mu) = f(x)\cdot g(s(x);\theta)
 	\end{equation*}
-	e vale una delle seguenti:
-	\marginpar{Queste ipotesi non sono quelle minimali, ma sono quelle sensate.
-	Comunque, visto che a noi alla fine interessa che la likelihood cambi solo di una costante moltiplicativa positiva,
-	non possiamo definire direttamente la sufficienza in questo modo
-	ed evitare tutto il giro con l'altra definizione?}%
-	\begin{itemize}
-		\item $f \ge 0$, oppure
-		\item $s$ è iniettiva,
-	\end{itemize}
 	allora $s$ è sufficiente.
 \end{theorem}
 
 \begin{proof}
 	Calcoliamo la probabilità di $s(x)$:
 	\begin{align*}
-		P(s(x);\mu)
-		&= \sum_{x':s(x')=s(x)} \frac{P(x';\mu)}{J(x')} = \\
-		&= \sum_{x':s(x')=s(x)} \frac{f(x') g(s(x');\mu)}{J(x')} = \\
-		&= \left( \sum_{x':s(x')=s(x)} \frac{f(x')}{J(x')} \right) g(s(x);\mu),
+		p(s(x);\theta)
+		&= \sum_{x':s(x')=s(x)} \frac{p(x';\theta)}{J(x')} = \\
+		&= \sum_{x':s(x')=s(x)} \frac{f(x') g(s(x');\theta)}{J(x')} = \\
+		&= \left( \sum_{x':s(x')=s(x)} \frac{f(x')}{J(x')} \right) g(s(x);\theta),
 	\end{align*}
-	dove $J$ è il jacobiano se $P$ sono densità altrimenti~1.
+	dove $J$ è il jacobiano di $s$.
 	Se la somma su $x'$ è nulla,
-	nel caso $f\ge 0$ devono essere nulli tutti i termini quindi anche $f(x)$,
-	nel caso $s$ iniettiva la somma si riduce a $f(x)/J(x)$.
+	essendo $f\ge 0$ devono essere nulli tutti i termini quindi in particolare $f(x)$.
 	Allora posso scrivere
 	\begin{align*}
-		P(x;\mu)
-		&= F(x) P(s(x);\mu) \\
+		p(x;\theta)
+		&= F(x) p(s(x);\theta) \\
 		\intertext{dove}
 		F(x)
 		&= \begin{cases}
-			\displaystyle\frac{f(x)}{\sum_{x':s(x')=s(x)} \frac{f(x')}{J(x')}} & \sum_{x':s(x')=s(x)} \frac{f(x')}{J(x')} \neq 0 \\
+			\displaystyle\frac{f(x)}{\sum_{x':s(x')=s(x)} \frac{f(x')}{J(x')}}
+			& \text{se }\sum_{x':s(x')=s(x)} \frac{f(x')}{J(x')} \neq 0 \\
 			0 & \text{altrimenti.}
 		\end{cases} \qedhere
 	\end{align*}
@@ -98,11 +133,8 @@ Nota: non è detto che la statistica sufficiente minimale sia unica.
 
 \begin{fact}[Teorema di Darmois]
 	\label{th:darmois}
-	Sia $x$ variabile reale e $\fundef[\mathbf s_N]{\R^N}{\R^d}$ statistica sufficiente per $\theta$ di $N$ estrazioni di $x$ per ogni $N$,
-	\marginpar{Manca qualche ipotesi. Il controesempio della distribuzione uniforme si sistema con $p(x)>0$,
-	ma non so se è sufficiente in generale.\\
-	Forse l'ipotesi è che il supporto non dipenda dal parametro, anche se a prima vista è controintuitivo.}%
-	allora necessariamente
+	Sia $x$ variabile reale e $\fundef[\mathbf s_N]{\R^N}{\R^d}$ statistica sufficiente per $\theta$ di $N$ estrazioni di $x$ per ogni $N$.
+	Se il supporto di $p(x;\theta)$ non dipende da $\theta$, allora necessariamente
 	\begin{equation*}
 		p(x;\theta) =
 		\exp \left( \sum_{k=1}^d \alpha_k(x)a_k(\theta) + \beta(x) + \gamma(\theta) \right)

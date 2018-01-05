@@ -92,39 +92,58 @@ ad esempio se <<scelgo un modello poissoniano>> di solito intendo la famiglia di
 in cui il parametro è $\mu$.
 Il punto diventa allora dire quali siano i valori di $\mu$ ``giusti'' e in che senso siano ``giusti''.
 
+\begin{definition}[Modello]
+	Un \emph{modello} è una famiglia di distribuzioni di probabilità sulla stessa variabile.
+	Una \emph{parametrizzazione} del modello è una funzione iniettiva
+	da uno \emph{spazio del parametro} $\Theta$
+	al modello.
+	L'argomento della parametrizzazione si chiama \emph{parametro}.
+	Detta $x$ la variabile e $\theta$ il parametro,
+	gli elementi del modello, valutati in $x$, si indicano con $p(x;\theta)$.
+\end{definition}
+
+\titlet{Likelihood}
+
 \begin{definition}[Likelihood]
-	Dato un modello parametrizzato da $\mu$ (in uno spazio qualsiasi)
-	\marginpar{Per avere una notazione più chiara, non è meglio usare sempre $\theta$ quando parliamo di inferenza in generale?}%
-	e data una misura $x$ descritta dal modello,
-	la \emph{likelihood} o \emph{verosimiglianza} è la funzione di $\mu$
-	che restituisce la (densità di) probabilità in $x$ per l'elemento indicizzato da $\mu$ del modello:
+	Dato un modello per $x$ parametrizzato da $\theta$
+	e fissato un valore $x_0$ della variabile,
+	la \emph{likelihood} (o \emph{verosimiglianza}) è la funzione di $\theta$
+	che restituisce la distribuzione $\theta$ valutata in $x_0$:
 	\begin{equation*}
-		\mathcal L(\mu) = P(x;\mu).
+		\mathcal L(\theta) \is p(x_0;\theta).
 	\end{equation*}
 \end{definition}
 
-Notiamo che la likelihood non è in generale una distribuzione per $\mu$.
+Il senso di definire la likelihood
+è che in un esperimento il valore fissato della variabile è quello misurato.
+
+Notiamo che la likelihood non è in generale una distribuzione per $\theta$.
 Spesso ci interessa il caso di misure ripetute di una stessa quantità e di come vari l'inferenza all'aumentare del numero di misure, in questo caso la likelihood si scrive
 \begin{equation*}
-	\mathcal L(\mu) = P(x_1;\mu) P(x_2;\mu) \dotsm P(x_N;\mu).
+	\mathcal L(\theta) = p(x_1;\theta) p(x_2;\theta) \dotsm p(x_N;\theta).
 \end{equation*}
 
 \begin{example}
 	\begin{figure}
 		\centering
 		\includegraphics[width=9cm]{likelihood_uniforme}
-		\caption{Distribuzione uniforme e likelihood.}
+		\caption{\label{fig:likeunif}%
+		Distribuzione uniforme e likelihood.}
 	\end{figure}
 	Consideriamo una pdf uniforme
 	\begin{equation*}
-		p(x;m) = \begin{cases}
+		p(x;m)
+		= \frac1m \chi_{(0,m)}(x)
+		= \begin{cases}
 			\frac 1m & 0<x<m \\
 			0 & \text{altrimenti.}
 		\end{cases}
 	\end{equation*}
-	Fissata una misura $x_0$ la likelihood è
+	Fissata una misura $x_0$ la likelihood è (vedi \autoref{fig:likeunif})
 	\begin{equation*}
-		\mathcal L(m) = \begin{cases}
+		\mathcal L(m)
+		= \frac1m \chi_{(x_0,\infty)}(m)
+		= \begin{cases}
 			\frac 1m & m > x_0 \\
 			0 & 0 < m \le x_0.
 		\end{cases}
@@ -134,63 +153,53 @@ Spesso ci interessa il caso di misure ripetute di una stessa quantità e di come
 Se cambiamo variabile, la likelihood trasforma con una costante:
 \begin{align*}
 	y &= f(x) \\
-	p(y;\mu) &= \frac{p(x;\mu)}{|f'(x)|} \\
-	\mathcal L_y(\mu) &= \frac{\mathcal L_x(\mu)}{|f'(x)|}.
+	p(y;\theta) &= \frac{p(x;\theta)}{|f'(x)|} \\
+	\mathcal L_y(\theta) &= \frac{\mathcal L_x(\theta)}{|f'(x_0)|}.
 \end{align*}
 quindi diciamo che la likelihood è definita a meno di una costante moltiplicativa positiva.
-Se invece cambiamo parametrizzazione, la likelihood trasforma in modo banale:
+Se invece cambiamo parametro, la likelihood trasforma in modo banale:
 \begin{align*}
-	\eta &= g(\mu) \\
-	\mathcal L_\eta(\eta) &= \mathcal L_\mu(g^{-1}(\eta)).
+	\eta &= g(\theta) \\
+	\mathcal L_\eta(\eta) &= \mathcal L_\theta(g^{-1}(\eta)).
 \end{align*}
-In seguito a queste due osservazioni possiamo considerare la likelihood una proprietà ``intrinseca'' del modello.
-
 Se combino misure indipendenti, le likelihood si moltiplicano:
 \begin{align*}
-	p(x,y;\mu) &= p(x;\mu) p(y;\mu) \\
-	\rightarrow \mathcal L_{xy}(\mu) &= \mathcal L_x(\mu) \mathcal L_y(\mu).
+	p(x,y;\theta) &= p(x;\theta) p(y;\theta) \\
+	\rightarrow \mathcal L_{x,y}(\theta) &= \mathcal L_x(\theta) \mathcal L_y(\theta).
 \end{align*}
 
-Supponiamo che $\mu$ ammetta una probabilità. Allora possiamo porre
+\titlet{Inferenza bayesiana}
+
+Supponiamo di considerare il parametro come una variabile aleatoria.
+Allora possiamo porre
 \begin{equation*}
-	P(x|\mu) = P(x;\mu)
+	p(x|\theta) = p(x;\theta)
 \end{equation*}
-e applicare il teorema di Bayes per ricavare $P(\mu|x)$:
+e applicare il teorema di Bayes per ricavare $p(\theta|x)$:
 \begin{equation*}
-	P(\mu|x) = \frac{P(x|\mu)P(\mu)}{P(x)}
+	p(\theta|x) = \frac{p(x|\theta)p(\theta)}{p(x)}
 \end{equation*}
 che, fissata una misura $x_0$, diventa
 \begin{equation*}
-	P(\mu|x_0) = \frac{\mathcal L(\mu) P(\mu)}{P(x_0)}.
+	p(\theta|x_0) = \frac{\mathcal L(\theta) p(\theta)}{p(x_0)}.
 \end{equation*}
-Si chiamano $P(\mu|x_0)$ \emph{posteriore} e $P(\mu)$ \emph{priore}.
-Il termine $P(x_0)$ è un fattore di normalizzazione, in effetti
+Si chiamano $p(\theta|x_0)$ \emph{posteriore} e $p(\theta)$ \emph{priore}.
+Il termine $p(x_0)$ è un fattore di normalizzazione, in effetti
 \begin{equation*}
-	P(x_0) = \int \de \mu\, \mathcal L(\mu) P(\mu).
+	p(x_0) = \int \de \theta\, \mathcal L(\theta) p(\theta).
 \end{equation*}
 Il termine interessante è il priore, perché richiede in pratica di scegliere un'ulteriore distribuzione oltre al modello.
-Se abbiamo il priore, l'inferenza è finita, perché tutto quello che la teoria della probabilità ci può dire su $\mu$ in seguito alla misura è racchiuso in $P(\mu|x_0)$.
+Se abbiamo il priore, l'inferenza è finita, perché tutto quello che la teoria della probabilità ci può dire su $\theta$ in seguito alla misura è racchiuso in $p(\theta|x_0)$.
 
-Supponiamo di non essere in grado per qualche motivo di fare inferenza sul modello, ma di essere in grado di fare inferenza su ogni sottomodello di una partizione.
-Diciamo allora che abbiamo un'\emph{incertezza sistematica}.
-Il risultato sarà un qualche tipo di sintesi di una famiglia di inferenze.
-\marginpar{un esempio gioverebbe alla comprensione}
+% qui c'era una parte sulle sistematiche,
+% l'ho spostata all'inizio del 13 ottobre
 
 Secondo l'interpretazione frequentista della probabilità,
-per assegnare un priore a $\mu$ è richiesto che sia quantomeno possibile una verifica empirica della distribuzione di $\mu$.
+per assegnare un priore a $\theta$ è richiesto che sia quantomeno possibile una verifica empirica della distribuzione di $\theta$.
 Tuttavia questo restringe molto i casi in cui possiamo ricavare il posteriore.
-Esiste un'interpretazione \emph{bayesiana} della probabilità in cui si afferma semplicemente che una distribuzione di probabilità rappresenta la conoscenza soggettiva che abbiamo di una quantità.
+Nell'interpretazione bayesiana una distribuzione di probabilità rappresenta la conoscenza soggettiva che abbiamo di una quantità.
 Allora possiamo scegliere ad arbitrio il priore.
 Se questa scelta arbitraria sembra un problema fondamentale,
 ricordiamo al lettore che in definitiva anche il modello è arbitrario.
-Si vede subito che non esiste un priore privilegiato perché cambiando parametrizzazione il priore trasforma in modo non banale, a differenza della likelihood.
+Si vede subito che non esiste un priore privilegiato perché cambiando parametro il priore trasforma in modo non banale, a differenza della likelihood.
 
-Dal punto di vista computazionale, anche il termine di normalizzazione $P(x_0)$ può essere un problema.
-Ci sono quindi casi in cui si cerca di ricondursi a un rapporto di posteriori per due modelli diversi:
-\begin{equation*}
-	\frac{P(\mu_1|x_0)}{P(\mu_2|x_0)} = \frac{\mathcal L(\mu_1)}{\mathcal L(\mu_2)} \frac{P(\mu_1)}{P(\mu_2)}.
-\end{equation*}
-
-In statistica esiste un ``principio di Likelihood'' secondo cui tutta l'informazione della misura nell'inferenza dev'essere racchiusa nella likelihood.
-Come abbiamo visto questo è verificato per l'inferenza probabilistica completa in cui si ricava il posteriore.
-Tuttavia nel caso ad esempio di incertezze sistematiche già non è più definita una singola likelihood.
