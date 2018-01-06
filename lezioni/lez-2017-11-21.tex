@@ -1,6 +1,8 @@
 % Giacomo Petrillo
 % lezione di Punzi
 
+\subtitlet{Likelihood ratio}
+
 Supponiamo di aver costruito una banda di confidenza per la poissoniana che ci dà limiti superiori a $\mu$.
 Se poi nell'esperimento otteniamo, ad esempio, $k=10$,
 tipicamente preferiremo usare una stima puntuale oppure un intervallo il più corto possibile.
@@ -96,7 +98,7 @@ per evitare di triggerare molestatori che vogliono discutere della validità del
 		= 2\log\frac {\sup\limits_{\theta'} p(\mathbf x;\theta')} {p(\mathbf x;\theta)}
 	\end{equation*}
 	è un pivot nel limite $N\to\infty$,
-	con distribuzione del $\chi^2$ a $d$ gradi di libertà:
+	con distribuzione $\chi^2$ a $d$ gradi di libertà:
 	\begin{equation*}
 		p(\lambda)
 		= \frac1{2^{d/2}\Gamma(d/2)} \lambda^{d/2-1} e^{-\lambda/2}.
@@ -107,9 +109,11 @@ I pivot servono a semplificare il calcolo della banda di confidenza a partire da
 In generale per una statistica $g_\theta(x)$ vale
 \begin{align*}
 	\int\limits_{O(\theta,x)>q_\theta(\mathrm{CL})} \de x\, p(x;\theta)
-	&= \int\limits_{g_\theta\big(O(\theta,x)>q_\theta(\mathrm{CL})\big)} \de g_\theta\, p(g_\theta;\theta) \\
+	&= \int\limits_{g_\theta\big(\setdef[x]{O(\theta,x)>q_\theta(\mathrm{CL})}\big)}
+	\de g_\theta\, p(g_\theta;\theta) \\
 	\intertext{se $g_\theta$ è un pivot, allora}
-	&= \int\limits_{g_\theta\big(O(\theta,x)>q_\theta(\mathrm{CL})\big)} \de g\, p(g) \\
+	&= \int\limits_{g_\theta\big(\setdef[x]{O(\theta,x)>q_\theta(\mathrm{CL})}\big)}
+	 \de g\, p(g) \\
 	\intertext{e se la funzione di ordinamento è proprio $O(\theta,x)=g_\theta(x)$}
 	&= \int\limits_{g>q(\mathrm{CL})} \de g\, p(g),
 \end{align*}

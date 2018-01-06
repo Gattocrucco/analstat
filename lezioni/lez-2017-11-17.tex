@@ -1,6 +1,8 @@
 % Giacomo Petrillo
 % lezione di Punzi
 
+\subtitlet{Costruzione di Neyman}
+
 Ora passiamo alla stima intervallare vera e propria.
 Se non abbiamo un priore e quindi neanche un posteriore,
 non possiamo calcolare la probabilità di una regione nello spazio del parametro.
@@ -29,8 +31,15 @@ Osserviamo che,
 se cambiamo parametro,
 i coverage e quindi il livello di confidenza non cambiano.
 
+\begin{figure}
+	\centering
+	\includegraphics[width=18em]{banda}
+	\caption{\label{fig:neyman}%
+	Costruzione di Neyman: banda di confidenza.}
+\end{figure}
+
 Il problema ora è costruire $f$ in modo da avere un certo $\mathrm{CL}$.
-Esponiamo la \emph{costruzione di Neyman}.
+Esponiamo la \emph{costruzione di Neyman} (vedi \autoref{fig:neyman}).
 Consideriamo una \emph{banda di confidenza} $H\subseteq \Theta\times X$,
 tale che le probabilità delle sezioni a parametro fisso siano almeno $\mathrm{CL}$:
 \begin{equation}
@@ -89,6 +98,7 @@ quindi non è in qualche modo intrinseca.
 \end{example}
 
 \begin{example}
+	\label{th:unifunosup}
 	Consideriamo la distribuzione uniforme.
 	Usiamo la funzione di ordinamento $O(m,x)=x$.
 	\begin{align*}
@@ -106,7 +116,7 @@ quindi non è in qualche modo intrinseca.
 
 \begin{exercise}
 	\label{th:unifsup}
-	Calcolare la stima intervallare nel caso di $N$ estrazioni.
+	Estendere l'\autoref{th:unifunosup} al caso di $N$ estrazioni.
 \end{exercise}
 
 \begin{solution}
@@ -119,6 +129,8 @@ quindi non è in qualche modo intrinseca.
 		&= \frac{\max\mathbf x}{\sqrt[N]{1-\mathrm{CL}}}.
 	\end{align*}
 \end{solution}
+
+\paragraph{Relazione tra coverage e credibilità}
 
 In ambito bayesiano, calcoliamo il valore atteso della credibilità:
 \begin{align*}

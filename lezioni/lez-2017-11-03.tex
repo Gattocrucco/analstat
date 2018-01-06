@@ -18,7 +18,7 @@ La questione di quanto continui a funzionare bene uno stimatore se cambiamo mode
 	\begin{equation*}
 		\hat\sigma^2_A \is \frac1N \sum_i (x_i-\bar x)^2
 	\end{equation*}
-	ha un bias che non dipende dalla distribuzione (ma non $\hat\sigma_2$) e,
+	ha un bias che non dipende dalla distribuzione e,
 	nel caso della gaussiana,
 	è una statistica sufficiente e lo stimatore di massima likelihood.
 	Inoltre probabilmente il lettore l'avrà già incontrata e avrà imparato a usarla abitualmente.
@@ -66,9 +66,11 @@ La questione di quanto continui a funzionare bene uno stimatore se cambiamo mode
 Generalizziamo l'espressione a un esponente arbitrario:
 \begin{align*}
 	\hat\sigma_p
-	&\is \frac1N \sum_i (x_i - \hat m_p)^p
+	&\is \left(\frac1N \sum_i (x_i - \hat m_p)^p\right)^{1/p}
 \end{align*}
 dove $\hat m_p$ è definito come quello che minimizza l'espressione.
+
+\paragraph{Moda campione}
 
 Nel limite $p\to-\infty$ gli scarti che contano nella somma sono quelli più piccoli,
 quindi posso trovare $\hat m_{-\infty}$ con questa procedura:
@@ -76,6 +78,8 @@ prendo i due $x$ più vicini tra loro, poi dei due scelgo quello il cui secondo 
 $\hat m_{-\infty}$ è la \emph{moda campione} e in effetti stima bene la moda.
 La moda è utile per le distribuzioni che non hanno media definita,
 ad esempio la distribuzione di Landau.
+
+\paragraph{Semidispersione}
 
 Per $p\to\infty$ contano gli scarti più grossi,
 quindi si ottiene
@@ -103,6 +107,8 @@ che sono rispettivamente \emph{midrange} e \emph{semidispersione}.
 	Quindi $\hat\mu=\hat m_\infty$, $\hat m=2\hat\sigma_\infty$.
 \end{example}
 
+\paragraph{Mediana campione}
+
 Consideriamo il caso $p=1$.
 Siano $N_-$ gli $x_i$ minori di $\hat m_1$ e $N_+$ quelli maggiori.
 Se traslo $\hat m_1$ di $\Delta x$ abbastanza piccolo in modo da non cambiare $N_+$ e $N_-$,
@@ -124,7 +130,7 @@ perché la cumulante di una distribuzione non è in generale strettamente cresce
 \end{figure}
 La mediana e la mediana campione,
 a differenza della media,
-trasformano banalmente per cambiamento di variabili.
+trasformano banalmente per cambiamento di variabile.
 Inoltre la mediana campione (e quindi anche la mediana) ha la proprietà che non dista dalla media più di una deviazione standard:
 \begin{align*}
 	|\mu-\hat m_1|
@@ -191,9 +197,16 @@ Detta $p_x$ la pdf di $x$ e $F$ la cumulante, infine
 		= \frac1{4p_x^2\big(F^{-1}(1/2)\big)}\frac1N + O\left(\frac1{N^2}\right).
 	\end{equation*}
 \end{fact}
-Notiamo che la varianza asintotica non dipende dalla varianza della distribuzione di $x$,
+
+\noindent Notiamo che la varianza asintotica non dipende dalla varianza della distribuzione di $x$,
 infatti non è necessario che sia definita.
+
 \begin{exercise}
+	\marginpar{Ho letto in rete delle dimostrazioni che usano la cumulante empirica ma non le ho capite.
+	Sia $F_{\mathbf x}$ la cumulante empirica,
+	le dimostrazioni dicono che la variabile $F^{-1}(F_{\mathbf x}(F^{-1}(1/2)))$
+	ha la stessa distribuzione della mediana $F_{\mathbf x}^{-1}(1/2)$,
+	ma non capisco perché.}
 	Dimostrare che la distribuzione asintotica della mediana campione è gaussiana.
 \end{exercise}
 
@@ -217,6 +230,8 @@ infatti non è necessario che sia definita.
 		&= \frac12 e^{-|x-\mu|}.
 	\end{align*}
 \end{solution}
+
+\paragraph{Medie troncate}
 
 Consideriamo ora la robustezza della media aritmetica.
 Se come modelli consideriamo quelli con code maggiorate,

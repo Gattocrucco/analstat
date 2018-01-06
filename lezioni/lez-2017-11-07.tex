@@ -1,6 +1,8 @@
 % Giacomo Petrillo
 % lezione di Punzi
 
+\titlet{Monte Carlo}
+
 Supponiamo di avere un libro che contiene un elenco di numeri.
 Si possono considerare questi numeri come estrazioni di una variabile casuale?
 Riformulando la domanda come
@@ -17,6 +19,8 @@ ma anche per fare calcoli numerici.
 Se dimostriamo che una certa statistica converge in probabilità a una quantità che vogliamo calcolare,
 possiamo raggiungere la precisione di calcolo desiderata aumentando la lunghezza della sequenza pseudocasuale.
 I metodi di calcolo e simulazione basati su sequenze pseudocasuali si chiamano \emph{Monte Carlo}.
+
+\subtitlet{Integrali Monte Carlo}
 
 Supponiamo di voler calcolare l'integrale di una funzione valutandola numericamente in numero finito $N$ di punti.
 Il lettore conoscerà già il metodo dei trapezi e di Simpson (parabole),
@@ -41,10 +45,14 @@ Inoltre, supponiamo di aver eseguito un integrale e di non essere soddisfatti de
 con l'$m$-sampling bisogna riprocedere da capo aumentando $N$,
 mentre con Monte Carlo si può concatenare una nuova sequenza pseudocasuale e riutilizzare i calcoli precedenti.
 
+\subtitlet{Generazione di sequenze pseudocasuali}
+
 È comodo non dover scrivere esplicitamente un'intera sequenza pseudocasuale per usarla.
 Esistono algoritmi ciclici che generano buone sequenze pseudocasuali molto più lunghe dell'algoritmo.
 Tipicamente si studiano algoritmi che generano distribuzioni uniformi e poi si ricavano le altri distribuzioni a partire da quella uniforme con opportune statistiche.
 Ad esempio un modo stupido di ottenere una variabile gaussiana è sommarne tante uniformi.
+
+\paragraph{Von Neumann}
 
 Esiste una statistica definita tutte per le distribuzioni a supporto compatto,
 detta \emph{metodo di Von Neumann},
@@ -52,6 +60,8 @@ che manda una sequenza di variabili uniformi in una sequenza (di lunghezza casua
 sia $x$ uniforme con lo stesso supporto della distribuzione obiettivo~$p$
 e $y$ uniforme in $(0,\max p)$, \emph{accetto} $x$ se $y<p(x)$ e la \emph{rigetto} altrimenti.
 La sequenza delle $x$ accettate è distribuita secondo $p$.
+
+\paragraph{MCMC}
 
 Un altro metodo ancora più generico è il \emph{Markov Chain Monte Carlo} (MCMC).
 Una catena di Markov è una sequenza in cui ogni elemento si ottiene a partire da quello precedente.

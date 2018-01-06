@@ -1,6 +1,8 @@
 % Giacomo Petrillo
 % lezione di Punzi
 
+\titlet{Stima intervallare}
+
 Quando, riportando il risultato di un'inferenza, si scrive
 \begin{equation*}
 	\text{<<}\theta = a \pm b\text{>>},
@@ -43,7 +45,7 @@ che per adesso lasciamo da parte.
 	quindi per $\mu$ piccolo (e quindi $k$ piccoli) la notazione ha un significato molto meno forte.
 \end{example}
 
-Ancor più in generale,
+Detto più in generale,
 quando la deviazione stadard dello stimatore varia sensibilmente
 (ad esempio, se vogliamo riportare l'incertezza con due cifre, più dell'\SI1\%)
 in un'intorno del valore vero di larghezza dell'ordine della deviazione standard stessa,
@@ -79,6 +81,8 @@ Riassumiamo i motivi per preferire una stima intervallare piuttosto che una punt
 	\item la distribuzione dello stimatore è molto diversa da una gaussiana.
 \end{itemize}
 
+\subtitlet{Intervalli bayesiani}
+
 Prima di trattare la stima intervallare,
 vediamo concetti analoghi nel caso bayesiano,
 che è più semplice.
@@ -91,7 +95,7 @@ oppure calcolare la probabilità di una certa regione (che corrisponde alla stim
 \begin{definition}[Credibilità]
 	\label{th:cred}
 	Dato un modello per $x\in X$ con parametro $\theta\in\Theta$
-	e una funzione $\fundef[f]X\Theta$,
+	e una funzione $\fundef[f]X\pset(\Theta)$,
 	la \emph{credibilità} di un dato $x_0$ rispetto a $f$ è
 	\begin{equation*}
 		\cred_f(x_0)
@@ -100,8 +104,8 @@ oppure calcolare la probabilità di una certa regione (che corrisponde alla stim
 \end{definition}
 La questione è come scegliere $f$.
 Il criterio comune è chiedere che la credibilità abbia almeno un certo valore,
-chiamato \emph{livello di confidenza} (CL).
-Fissato CL, scegliere una $f$ che abbia $\cred_f(x_0)\ge\mathrm{CL}$
+chiamato \emph{livello di confidenza} ($\mathrm{CL}$).
+Fissato $\mathrm{CL}$, scegliere una $f$ che abbia $\cred_f(x_0)\ge\mathrm{CL}$
 equivale a scegliere una \emph{funzione di ordinamento} $O(\theta,x)$ e porre
 \begin{equation*}
 	f(x) \is \{\theta\,|\,O(\theta,x)>q(\mathrm{CL})\},
@@ -111,7 +115,7 @@ dove $q(\mathrm{CL})$ è il massimo $q$ che soddisfi
 	\int_{O(\theta,x)>q} \de\theta\, p(\theta|x) \ge \mathrm{CL}.
 \end{equation*}
 Ad esempio se scegliamo $O(\theta,x)=\theta$ (e $\theta\in\R$),
-otterremo la semiretta che comincia più a destra possibile la cui probabilità è almeno CL.
+otterremo la semiretta che comincia più a destra possibile la cui probabilità è almeno $\mathrm{CL}$.
 Un modo intuitivo di scegliere la funzione di ordinamento è il \emph{posterior ordering}:
 $O(\theta,x) = p(\theta|x)$.
 Se $\theta\in\R$, il posterior ordering dà l'intervallo più corto possibile.
