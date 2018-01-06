@@ -1,6 +1,8 @@
 % Giacomo Petrillo
 % lezione di Punzi
 
+\titlet{Goodness of fit}
+
 Supponiamo di voler decidere se assegnare o no una certa distribuzione a un osservabile.
 Con i metodi visti fin'ora,
 per trattare statisticamente la questione dobbiamo fissare quali siano le distribuzioni alternative.
@@ -18,6 +20,8 @@ Tuttavia esistono vari metodi convenzionali che
 \end{itemize}
 È comunque opportuno che un test di goodness of fit
 non sia l'unico risultato di un'analisi.
+
+\subtitlet{p-value}
 
 Per i test di goodness of fit si usano le stesse notazioni di un test d'ipotesi,
 però è comune usare come statistica del test un \emph{p-value}.
@@ -49,6 +53,8 @@ Il modo comune di combinare più di due p-value è prendere la cumulante di
 \end{equation*}
 La distribuzione di $-2\log p_i$ è $\chi^2$ a 2 gradi libertà,
 quindi la distribuzione di $p$ è $\chi^2$ a $2n$ gradi di libertà.
+
+\subtitlet{Test del $\chi^2$}
 
 Prendiamo un modello gaussiano con varianza fissata e medie arbitrarie
 \begin{equation*}
@@ -86,7 +92,7 @@ l'espressione analoga alla \eqref{eq:chi2}
 	\sum_{i=1}^N \left( \frac {x_i-\mu_i(\hat\theta(\mathbf x))} {\sigma_i} \right)^2
 \end{equation*}
 \marginpar{Ha esattamente la distribuzione a $N-d$ gradi di libertà o è asintotico anche per la gaussiana?}%
-sotto l'ipotesi $\theta=\hat\theta$ ha la distribuzione del $\chi^2$ a $N-d$ gradi di libertà.
+ha la distribuzione del $\chi^2$ a $N-d$ gradi di libertà.
 Anche in questo caso si parla di test del $\chi^2$.
 
 \begin{exercise}

@@ -109,7 +109,7 @@ ovvero la pdf è nella forma
 	\label{th:lrgauss}
 	Consideriamo la gaussiana
 	\begin{equation*}
-		p(x;\mu,\sigma)
+		p(x;\mu)
 		= \frac1{\sqrt{2\pi}\sigma} e^{-\frac12\left(\frac{x-\mu}\sigma\right)^2}.
 	\end{equation*}
 	Calcoliamo il likelihood ratio:
@@ -127,11 +127,9 @@ ovvero la pdf è nella forma
 		&= \frac{\lambda^{-1/2}}{\sqrt{2\pi}}e^{-\lambda/2}.
 	\end{align*}
 	Notiamo che questa è la distribuzione $\chi^2$ con 1 grado di libertà\footnote{Vedi \autoref{th:wilks}.}.
-	In generale si può mostrare che la somma dei quadrati di $N$ variabili gaussiane
+	In generale si può mostrare che la somma dei quadrati di $n$ variabili gaussiane
 	con media nulla e varianza unitaria
-	ha la distribuzione $\chi^2$ con $N$ gradi di libertà.
-	In particolare il likelihood ratio di $N$ estrazioni della gaussiana
-	ha esattamente la distribuzione $\chi^2$ anziché solo asintoticamente.
+	ha distribuzione $\chi^2$ con $n$ gradi di libertà.
 \end{example}
 
 \begin{exercise}

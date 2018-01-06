@@ -1,10 +1,13 @@
 % Giacomo Petrillo
 % lezione di Punzi la prima ora, poi Morello
 
-Poiché in generale non esiste il test UMP,
-bisogna cercare richieste più deboli per scegliere il test.
+A parte il \autoref{th:np} e il \autoref{th:umpge},
+non esistono casi generali in cui si conosce il test UMP.
+Bisogna allora cercare richieste più deboli per scegliere il test.
 Una possibilità è privilegiare un'ipotesi alternativa
 e usare Neyman-Pearson su quella.
+
+\subtitlet{Test LMP}
 
 Un caso tipico è quando ci sono alcune ipotesi alternative
 per le quali è facile avere una potenza alta,
@@ -13,7 +16,7 @@ Ad esempio, prendiamo una gaussiana e facciamo il test con l'ipotesi nulla di un
 per medie alternative più lontane di quattro-cinque sigma,
 ci aspettiamo che qualunque test sensato useremo rigetterà con buona potenza l'ipotesi nulla.
 Il problema è per le medie vicine all'ipotesi nulla.
-Introduciamo allora il concetto di \emph{LMP} (locally most powerful test).
+Introduciamo allora il concetto di test \emph{LMP} (locally most powerful).
 
 Costruiamo un test LMP generale:
 sviluppiamo in serie il logaritmo della likelihood intorno all'ipotesi nulla
@@ -34,6 +37,8 @@ il test UMP è definito dalla regione critica
 \begin{equation*}
 	C = \Setdef[x]{\left.\pdv{}{\theta} \log p(x;\theta)\right|_{\theta_0} > q(\alpha)}.
 \end{equation*}
+
+\subtitlet{Test likelihood ratio}
 
 Un altro test generale che non è garantito funzionare ma spesso funziona bene
 è il \emph{likelihood ratio test}, che è un'estensione del test di Neyman-Pearson.
@@ -65,6 +70,8 @@ questo likelihood ratio ($2\log$) ha asintoticamente nel numero di estrazioni
 la distribuzione $\chi^2$ con $d-n$ gradi di libertà.
 
 % ———————— parte di Morello ————————
+
+\subtitlet{Esercizi}
 
 \begin{exercise}
 	Fare un test UMP per due medie della gaussiana con varianza fissata.

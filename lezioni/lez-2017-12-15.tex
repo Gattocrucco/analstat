@@ -1,6 +1,8 @@
 % Giacomo Petrillo
 % lezione di Punzi
 
+\subtitlet{Student}
+
 Facciamo il test likelihood ratio per $N$ estrazioni di una gaussiana
 con l'ipotesi nulla composta di varianza arbitraria e media fissata.
 La distribuzione è
@@ -26,7 +28,7 @@ sappiamo già che la stima di massima likelihood con media e varianza libere è
 \end{align*}
 mentre con media fissata è
 \begin{align*}
-	\hat\sigma_2^2
+	\hat\sigma_\mu^2
 	&= \frac 1N \sum_i (x_i-\mu)^2.
 \end{align*}
 Calcoliamo il likelihood ratio:
@@ -35,10 +37,10 @@ Calcoliamo il likelihood ratio:
 	&= 2\log \frac
 	{\left(\frac1{\sqrt{2\pi}\hat\sigma}\right)^N
 	\exp \left( -\frac12 \sum_i \left(\frac{x_i-\bar x}{\hat\sigma}\right)^2 \right)}
-	{\left(\frac1{\sqrt{2\pi}\hat\sigma_2}\right)^N
-	\exp \left( -\frac12 \sum_i \left(\frac{x_i-\mu}{\hat\sigma_2}\right)^2 \right)} = \\
-	&= N \log \frac{\hat\sigma_2^2}{\hat\sigma^2}
-	+ \frac{\sum_i (x_i-\mu)^2}{\hat\sigma_2^2}
+	{\left(\frac1{\sqrt{2\pi}\hat\sigma_\mu}\right)^N
+	\exp \left( -\frac12 \sum_i \left(\frac{x_i-\mu}{\hat\sigma_\mu}\right)^2 \right)} = \\
+	&= N \log \frac{\hat\sigma_\mu^2}{\hat\sigma^2}
+	+ \frac{\sum_i (x_i-\mu)^2}{\hat\sigma_\mu^2}
 	- \frac{\sum_i (x_i-\bar x)^2}{\hat\sigma^2} = \\
 	&= N \log \frac
 	{\sum_i (x_i - \mu)^2}
@@ -70,7 +72,9 @@ Notiamo che per $\nu=1$ è la Cauchy.
 In generale sono definiti i momenti solo fino a $\mu_{\nu-1}$.
 Per $\nu\to\infty$, la distribuzione diventa gaussiana.
 
-Supponiamo di voler fare un test di ipotesi e una stima intervallare sugli stessi dati\footnote{Questa parte è principalmente tratta da: Giovanni Punzi, \emph{Sensitivity of searches for new signals and its optimization}, 	arXiv:physics/0308063 (\url{https://arxiv.org/abs/physics/0308063}).}.
+\titlet{Ricerca}
+
+Supponiamo di voler fare un test di ipotesi e una stima intervallare sugli stessi dati\footnote{Vedi Giovanni Punzi, \emph{Sensitivity of searches for new signals and its optimization}, 	arXiv:physics/0308063 (\url{https://arxiv.org/abs/physics/0308063}).}.
 È perfettamente lecito che il test dia risultato positivo
 e che tuttavia la stima intervallare contenga l'ipotesi nulla, o viceversa,
 però è poco elegante e pone il problema di quale dei due risultati vada usato:
