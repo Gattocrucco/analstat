@@ -100,7 +100,6 @@
 		p(x;m) = \frac 1m \chi_{(0,m)}(x)
 	\end{equation*}
 	e calcoliamo lo stimatore di massima likelihood:
-	\marginpar{Mi sa che per la uniforme non valgono le ipotesi (implicite) con cui abbiamo dimostrato le proprietà di ML, andrebbe accennato.}%
 	\begin{align*}
 		p(\mathbf x;m)
 		&= \frac1{m^N} \chi_{(0,m)}(\max\mathbf x) = \\
@@ -113,7 +112,8 @@
 		= \frac Nm \left(\frac{\hat m}m\right)^{N-1} \chi_{(0,m)}(\hat m),
 	\end{equation*}
 	da cui si vede subito che è consistente
-	e che ha bias negativo.
+	e che ha bias negativo,
+	ma anche che asintoticamente non ha distribuzione gaussiana.
 	Calcoliamo media e varianza, fissando $m=1$ per fare il conto:
 	\begin{align*}
 		E[\hat m]

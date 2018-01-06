@@ -33,8 +33,10 @@ I momenti sono quindi un modo generale di parametrizzare una distribuzione in mo
 Tuttavia tipicamente il problema specifico fisserà quali sono i parametri che vogliamo stimare.
 
 \subtitlet{Massima likelihood}
+\label{sec:ml}
 
 Consideriamo un modello $p(x;\theta)$.
+Fissiamo un valore vero $\theta_0$.
 Sia $f(x,\theta)$ tale che la funzione
 \begin{equation*}
 	h(\theta)\is E[f(x,\theta);\theta_0]
@@ -55,10 +57,11 @@ Ora esibiamo una $f$ e una $s_N$ con queste proprietà.
 	&= \int\de x\, p(x;\theta) \implies \\
 	\implies 0
 	&= \pdv{}{\theta} \int\de x\, p(x;\theta) = \\
+	\intertext{(supponiamo che il supporto in $x$ non dipenda da $\theta$)}
 	&= \int\de x\, \pdv{}{\theta} p(x;\theta) = \\
 	&= \int\de x\, p(x;\theta) \pdv{}{\theta} \log p(x;\theta) \implies \\
 	\implies 0
-	&= E \left[ \pdv{}{\theta} \log p(x;\theta) \big|_{\theta_0} \right],
+	&= E \left[ \pdv{}{\theta} \log p(x;\theta);\theta \right],
 \end{align*}
 quindi $\partial_\theta \log p(x;\theta)$ ha le proprietà richieste per $f$,
 assumendo che lo zero del valore atteso sia unico.
@@ -77,31 +80,22 @@ Allora
 	&= K_{\mathbf x}(\hat\theta),
 \end{align*}
 quindi $\hat\theta$ soddisfa le proprietà richieste per $s_N$.
-Supponiamo ora che il valore atteso di
-$\partial_\theta \log p(x;\theta)$
-abbia più di uno zero.
-Tuttavia
+Notiamo che
 \begin{align*}
 	E \left[ K_{\mathbf x}'(\theta_0) \right]
 	&= E \left[ \Pdv{}{\theta} \log p(x;\theta) \big|_{\theta_0} \right] = \\
 	&= -I(\theta_0)
 	\le 0,
 \end{align*}
-quindi se $\hat\theta$ è una statistica che fa convergere $K_{\mathbf x}(\hat\theta)$ a $0$,
-deve essere necessariamente un massimo di $\log p(\mathbf x;\theta)$.
-\marginpar{Non ho capito bene.}%
-Allora se il massimo è unico, essendo un punto stazionario,
-converge a $\theta_0$.
-Per la convergenza è sufficiente che il massimo sia asintoticamente unico.
-Abbiamo dunque lo \emph{stimatore di massima likelihood},
-che è consistente.
+quindi asintoticamente i punti stazionari possono solo essere massimi.
+Abbiamo dunque che lo \emph{stimatore di massima likelihood} è consistente.
 
 Consideriamo l'espansione in serie di $K$:
 \begin{align*}
 	0 = K(\hat\theta)
 	&= K(\theta_0) + K'(\theta_0)(\hat\theta-\theta_0) + O\big((\hat\theta-\theta_0)^2\big) \implies \\
 	\implies \hat\theta
-	&= \theta_0 + \frac{K(\hat\theta)}{-K'(\theta_0)} + O\big((\hat\theta-\theta_0)^2\big)
+	&= \theta_0 + \frac{K(\hat\theta)}{-K'(\theta_0)} + O\big((\hat\theta-\theta_0)^2\big).
 \end{align*}
 Per il \autoref{th:limitecentrale} (limite centrale),
 per $N\to\infty$
@@ -159,16 +153,17 @@ Notiamo che il rapporto tra il bias e la deviazione standard va a zero come $1/\
 	quindi $\hat V$ è uno stimatore con bias nullo della varianza per qualunque distribuzione.
 \end{example}
 
+\paragraph{Riduzione del bias}
+
 Sia $\hat\theta(x)$ uno stimatore con bias $b(\theta)$.
 Lo stimatore
 \begin{equation*}
 	\hat\theta^{(u)}(x)
 	\is \hat\theta(x) - b(\theta)
 \end{equation*}
-ha bias nullo in $\theta$,
-però questa formula non si può usare in pratica perché dipende da $\theta$.
+ha bias nullo,
+però questa formula non si può usare in pratica perché dipende dal valore vero $\theta$.
 Si può tuttavia cercare uno stimatore del bias $\hat b(x)$.
-
 Consideriamo un modello per $N$ estrazioni di $x$
 e uno stimatore $\hat\theta_N(\mathbf x)$
 con bias che ha sviluppo in serie
@@ -176,7 +171,7 @@ con bias che ha sviluppo in serie
 	b_N(\theta)
 	= \frac{\alpha(\theta)}N + O(N^{-2}).
 \end{equation*}
-Stimiamo il bias di $\hat\theta$ con il suo valore meno la media artimetica su due sottoinsiemi dei dati:
+Stimiamo il bias di $\hat\theta$ con la media artimetica su due sottoinsiemi dei dati meno lui stesso:
 \begin{equation*}
 	\hat\theta^{(u)}_N(\mathbf x)
 	\is 2\hat\theta_N(\mathbf x)

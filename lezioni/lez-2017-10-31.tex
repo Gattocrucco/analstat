@@ -1,6 +1,9 @@
 % Giacomo Petrillo
 % lezione di Punzi
 
+\subtitlet{Istogrammi}
+\label{sec:hist}
+
 Consideriamo un istogramma, ovvero:
 sia $\{S_j\}$ una partizione della variabile $x$;
 date $N$ estrazioni di $x$, i \emph{conteggi} $k_j$ dei \emph{bin} $S_j$
@@ -81,6 +84,8 @@ In questo ambito la likelihood con il termine in $\mu$ si chiama \emph{extended 
 	\end{align*}
 \end{fact}
 
+\subtitlet{Varianza di massima likelihood}
+
 Esponiamo una stima della varianza dello stimatore di massima likelihood.
 Sappiamo che asintoticamente la varianza tende a $1/(IN)$:
 \begin{align*}
@@ -94,6 +99,8 @@ Sappiamo che asintoticamente la varianza tende a $1/(IN)$:
 \end{align*}
 Le sostituzioni fatte valgono asintoticamente quindi questo stimatore è consistente.
 I programmi numerici comunemente usati per calcolare gli stimatori di massima likelihood calcolano questa stima della varianza.
+
+\subtitlet{Minimi quadrati}
 
 Consideriamo un modello gaussiano per $N$ variabili indipendenti $y_i$
 con deviazioni standard fissate $\sigma_i$
@@ -114,7 +121,7 @@ questo è noto come \emph{metodo dei minimi quadrati}.
 
 Se abbiamo un modello con distribuzioni non gaussiane ma che riteniamo siano approssimabili con gaussiane,
 allora possiamo approssimare lo stimatore di massima likelihood con quello dei minimi quadrati.
-Ad esempio, se abbiamo un istogramma\footnote{Vedi sezione sugli istogrammi per la notazione.}
+Ad esempio, se abbiamo un istogramma\footnote{Vedi sezione sugli istogrammi (\ref{sec:hist}) per la notazione.}
 (poniamo con numero totale di eventi poissoniano)
 con abbastanza eventi in tutti i bin da poter approssimare le distribuzioni dei conteggi come gaussiane,
 stimando la varianza di un conteggio $k$ con $k$ stesso e $\mu$ con $N$,
@@ -143,7 +150,9 @@ Il termine del logaritmo della likelihood che dipende da $\theta$ è la forma qu
 \begin{equation*}
 	Q \is -\frac 12 (\mathbf y - \boldsymbol\mu(\theta))^\transp V^{-1} (\mathbf y - \boldsymbol\mu(\theta)).
 \end{equation*}
-Dimostriamo che il massimo di questa espressione è uno stimatore consistente anche se la distribuzione non è gaussiana e $V$ non è la matrice di covarianza (ma è comunque definita positiva).
+Dimostriamo che il massimo di questa espressione è uno stimatore consistente
+anche se la distribuzione non è gaussiana (ma $\boldsymbol\mu$ è comunque la media)
+e $V$ non è la matrice di covarianza (ma è comunque definita positiva).
 Consideriamo le derivate rispetto al parametro:
 \begin{align*}
 	\pdv Q\theta
@@ -158,8 +167,7 @@ Il valore atteso della derivata prima nel valore vero è nullo:
 	\propto E[\mathbf y - \boldsymbol\mu(\theta);\theta] = 0
 \end{equation*}
 mentre il valore atteso della derivata seconda è negativo perché $V$ è definita positiva.
-Allora $\pdv Q\theta$ soddisfa le proprietà della funzione implicita viste per massima likelihood,
-\marginpar{migliorare riferimento}%
+Allora $\pdv Q\theta$ soddisfa le proprietà della funzione implicita viste per massima likelihood\footnote{Vedi sezione \ref{sec:ml}.},
 e il massimo di $Q$ definisce uno stimatore consistente.
 
 Consideriamo il caso particolare in cui la media è lineare nel parametro:
