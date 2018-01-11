@@ -66,17 +66,17 @@ Noi la calcoliamo invece con la funzione generatrice:
 	La probabilità di una sequenza è $p^k(1-p)^{n-k}$.
 	Quindi
 	\begin{equation*}
-		P(n;k) \propto \binom{n-1}{k-1} (1-p)^n.
+		P(n;p,k) = \binom{n-1}{k-1} p^k(1-p)^{n-k}.
 	\end{equation*}
-	La normalizzazione è
-	\begin{equation*}
-		\sum_{n=k}^\infty \binom{n-1}{k-1} (1-p)^n =
-		\sum_{n=k}^\infty O(n^k) (1-p)^n
-	\end{equation*}
-	che converge.
 	Nota: non è corretto il ragionamento
-	<<$P(k;n)$ è la binomiale, ricavo $P(n;k)$ usando Bayes>>
+	<<$P(k|n)$ è la binomiale, ricavo $P(n|k)$ usando Bayes>>
 	perché qui sappiamo che al $k$-esimo successo smettiamo di lanciare.
+	Questa distribuzione si chiama \emph{binomiale inversa}.
+	Il caso particolare $k=1$
+	\begin{equation*}
+		P(n;p,1) = p(1-p)^{n-1}
+	\end{equation*}
+	si chiama \emph{distribuzione geometrica}.
 \end{solution}
 
 \begin{exercise}

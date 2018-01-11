@@ -343,7 +343,8 @@
 		\var[a+b]
 		&= E[(a+b)^2] - E[a+b]^2 = \\
 		&= E[a^2 + b^2 + 2ab] - E[a]^2 - E[b]^2 - 2E[a]E[b] = \\
-		&= \var[a] + \var[b] + 2(E[ab] - E[a]E[b]) \\
+		&= \var[a] + \var[b] + 2(E[ab] - E[a]E[b]) = \\
+		&= \var[a] + \var[b] + 2\cov[a,b] \\
 		\intertext{che, se $a$ e $b$ sono indipendenti, diventa}
 		\var[a+b] &= \var[a] + \var[b].
 	\end{align*}

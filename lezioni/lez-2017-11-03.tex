@@ -1,7 +1,7 @@
 % Giacomo Petrillo
 % lezione di Punzi
 
-\subtitlet{Robustezza}
+\subsection{Robustezza}
 
 Fino a ora ci siamo occupati di ottimizzare uno stimatore per un certo modello,
 cioè dell'\emph{incertezza statistica}.
@@ -119,6 +119,7 @@ Nel caso di $N$ pari il minimo non è unico e per convenzione si sceglie la medi
 Nel caso di $N$ dispari il minimo è l'$x_i$ centrale.
 \begin{fact}
 	La mediana campione è una stima consistente della mediana.
+	\marginpar{Non abbiamo definito la mediana.}
 \end{fact}
 La mediana non è definita per tutte le distribuzioni (vedi ad esempio \autoref{fig:nomedian}),
 perché la cumulante di una distribuzione non è in generale strettamente crescente.
@@ -205,8 +206,9 @@ infatti non è necessario che sia definita.
 	\marginpar{Ho letto in rete delle dimostrazioni che usano la cumulante empirica ma non le ho capite.
 	Sia $F_{\mathbf x}$ la cumulante empirica,
 	le dimostrazioni dicono che la variabile $F^{-1}(F_{\mathbf x}(F^{-1}(1/2)))$
-	ha la stessa distribuzione della mediana $F_{\mathbf x}^{-1}(1/2)$,
-	ma non capisco perché.}
+	ha la stessa distribuzione della mediana campione $F_{\mathbf x}^{-1}(1/2)$,
+	ma non capisco perché. \\
+	\emph{Sul Del Prete alle pagine 159--160 c'è una dimostrazione con lo sviluppo in serie.}}
 	Dimostrare che la distribuzione asintotica della mediana campione è gaussiana.
 \end{exercise}
 
@@ -222,7 +224,7 @@ infatti non è necessario che sia definita.
 	se imponiamo che la likelihood sia una funzione monotona descrescente di questa espressione,
 	la stima di massima likelihood sarà uguale alla media campione.
 	Tuttavia vogliamo anche che la likelihood sia il prodotto di termini $p(x_i;\mu)$,
-	la somma sugli~$i$ suggerisce di prendere il logaritmo della likelihood proporzionale all'espressione:
+	la somma sugli~$i$ suggerisce di considerare l'espressione come il logaritmo della likelihood:
 	\begin{align*}
 		\log p(\mathbf x;\mu)
 		&= -\sum_i |x_i - \mu| + C \implies \\

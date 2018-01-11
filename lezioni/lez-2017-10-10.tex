@@ -1,7 +1,7 @@
 % Giacomo Petrillo
 % lezione di Punzi
 
-\titlet{Limite centrale}
+\section{Limite centrale}
 
 Consideriamo la media aritmetica di $n$ variabili identiche:
 \begin{equation*}
@@ -59,7 +59,8 @@ quindi abbiamo il limite
 	\phi_{y_\infty}(t) = e^{-t^2/2}.
 \end{equation*}
 Ricaviamo la pdf con la trasformata inversa:
-\marginpar{andrebbe chiarito il passaggio dal limite sulle caratteristiche a quello sulle pdf}
+\marginpar{Andrebbe chiarito il passaggio dal limite sulle caratteristiche a quello sulle pdf.
+Usare il \autoref{th:paullevy}.}
 \begin{align*}
 	p(y)
 	&= \frac1{2\pi} \int_{-\infty}^\infty \de t\, e^{-ity} e^{-t^2/2} = \\
@@ -95,6 +96,8 @@ Il punto diventa allora dire quali siano i valori di $\mu$ ``giusti'' e in che s
 \begin{definition}[Modello]
 	Un \emph{modello} è una famiglia di distribuzioni di probabilità sulla stessa variabile.
 	Una \emph{parametrizzazione} del modello è una funzione iniettiva
+	\marginpar{Nell'interpretazione bayesiana $p(x;\theta)=p(x|\theta)$
+	la richiesta di iniettività cade.}
 	da uno \emph{spazio del parametro} $\Theta$
 	al modello.
 	L'argomento della parametrizzazione si chiama \emph{parametro}.
@@ -102,7 +105,7 @@ Il punto diventa allora dire quali siano i valori di $\mu$ ``giusti'' e in che s
 	gli elementi del modello, valutati in $x$, si indicano con $p(x;\theta)$.
 \end{definition}
 
-\titlet{Likelihood}
+\section{Likelihood}
 
 \begin{definition}[Likelihood]
 	Dato un modello per $x$ parametrizzato da $\theta$
@@ -168,7 +171,7 @@ Se combino misure indipendenti, le likelihood si moltiplicano:
 	\rightarrow \mathcal L_{x,y}(\theta) &= \mathcal L_x(\theta) \mathcal L_y(\theta).
 \end{align*}
 
-\titlet{Inferenza bayesiana}
+\section{Inferenza bayesiana}
 
 Supponiamo di considerare il parametro come una variabile aleatoria.
 Allora possiamo porre

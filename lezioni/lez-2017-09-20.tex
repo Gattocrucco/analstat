@@ -1,13 +1,18 @@
 % Giacomo Petrillo
 % lezione di Morello
 
-\titlet{Assiomi e proprietà elementari}
+\section{Assiomi e proprietà elementari}
 
 \begin{definition}[Probabilità]
+	\marginpar{La probabilità è definita su una $\sigma$-algebra.
+	Si può vedere in ogni caso come un insieme delle parti?\\
+	\emph{No, controesempio: la $\sigma$-algebra generata dagli aperti di $\R$
+	contiene tutti i punti di $\R$ ma non è l'insieme delle parti.}}
 	Definiamo in astratto la probabilità $\fundef[P]{\pset(S)}\R$ come funzione dai sottoinsiemi di un \emph{insieme universo} $S$ a valori reali, che soddisfa i seguenti \emph{assiomi di Kolmogorov}:
 	\begin{enumerate}
 		\item $\forall A\subseteq S:P(A) \ge 0$;
 		\item $\forall A,B\subseteq S: A\cap B=\emptyset \rightarrow P(A)+P(B)=P(A\cup B)$; \label{kolm2}
+		\marginpar{L'assioma \ref{kolm2} va posto anche per le unioni numerabili?}
 		\item $P(S)=1$.
 	\end{enumerate}
 \end{definition}

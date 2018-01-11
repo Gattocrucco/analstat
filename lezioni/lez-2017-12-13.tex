@@ -1,7 +1,7 @@
 % Giacomo Petrillo
 % lezione di Punzi
 
-\subtitlet{Istogrammi}
+\subsection{Istogrammi}
 
 Consideriamo un istogramma con bin $S_j$ e conteggi $k_j$
 di $N$ estrazioni di una distribuzione $p_0(x)$,
@@ -29,7 +29,7 @@ cioè le medie ottenibili da tutte le distribuzioni possibili sullo stesso spazi
 Dunque abbiamo ridotto un test tra una distribuzione e tutte le altre ditribuzioni possibili
 a un test su poissoniane con medie diverse.
 
-\subtitlet{Massima likelihood}
+\subsection{Massima likelihood}
 
 Per la gaussiana,
 il logaritmo della likelihood è, a meno di termini che non contano, il $\chi^2$,
@@ -51,7 +51,7 @@ la likelihood cambia di un termine che dipende dalla variabile.
 	quindi è perfettamente inutile come statistica per un test.
 \end{example}
 
-\subtitlet{Kolmogorov-Smirnov}
+\subsection{Kolmogorov-Smirnov}
 
 Consideriamo una distribuzione $p(x)$ per $x\in\R$.
 Costruiamo la \emph{cumulante empirica} 
@@ -72,6 +72,7 @@ che, per la monotonicità di $F$, si riscrive come
 quindi è facile da calcolare.
 Si dimostra che la distribuzione di $D$ è la stessa per ogni $N$ e per ogni $p$,
 e ha survival function asintotica
+\marginpar{Controllare, sul Del Prete c'è scritto $2\sum_{k=1}^\infty (-1)^{k+1} e^{-2k^2z^2}$.}
 \begin{equation*}
 	\lim_{N\to\infty} P(\sqrt N D>z)
 	= z \sum_{k=0}^\infty (-1)^{k+1} e^{-2k^2z^2}.

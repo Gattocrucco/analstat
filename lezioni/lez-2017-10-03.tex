@@ -1,7 +1,7 @@
 % Giacomo Petrillo
 % lezione di Punzi
 
-\subtitlet{Espansione in serie}
+\subsection{Espansione in serie}
 
 \begin{definition}[Matrice di covarianza]
 	Date $n$ variabili $x_i$ si definisce \emph{matrice di covarianza} la matrice $n\times n$
@@ -52,11 +52,12 @@ Nel caso che le $x_i$ siano scorrelate, questa approssimazione della varianza di
 Probabilmente avrete già incontrato questa formula come ``formula di propagazione degli errori'';
 sottolineiamo che è una del tutto generale approssimazione di un momento di una statistica e che non è detto sia sempre una buona approssimazione quando la usiamo per la propagazione degli errori (o, come preferiamo chiamarle, incertezze).
 
-\subtitlet{Generatrice}
+\subsection{Generatrice}
 
 \begin{definition}[Funzione generatrice]
 	Data la pdf $p(x)$, la sua \emph{funzione generatrice} è
 		$M(t) \is E[e^{tx}]$.
+	\marginpar{Si chiama trasformata di Laplace?}
 \end{definition}
 
 \noindent La funzione generatrice è utile per calcolare i momenti, infatti:
@@ -115,7 +116,7 @@ inoltre ovviamente $M_{\alpha x}(t) = M_x(\alpha t)$.
 	\end{equation*}
 \end{example}
 
-\titlet{Bernoulli, binomiale, poisson, esponenziale}
+\section{Bernoulli, binomiale, poisson, esponenziale}
 
 La distribuzione di una variabile che può assumere solo due valori si chiama \emph{distribuzione di Bernoulli}.
 Fissiamo la notazione:
@@ -165,6 +166,8 @@ se $k$ è il numero totale di eventi vale ovviamente
 	k = \sum_{q\ge1} q n_q, \quad n_0 = N - \sum_{q\ge 1} n_q \isis N - s.
 \end{equation*}
 La distribuzione degli $n_q$ è la \emph{multinomiale}
+\marginpar{Bisogna fare anche la multinomiale dopo la binomiale,
+serve anche dopo per gli istogrammi.}
 \begin{align*}
 	P(n_1,n_2,\dotsc)
 	&= \frac{N!}{n_0!n_1!\dotsm} p_0^{n_0} p_1^{n_1} \dotsm = \\
@@ -207,9 +210,11 @@ Sia $F(t)$ la cumulante, si ha
 Questa distribuzione si chiama \emph{esponenziale}.
 
 Notiamo che la distribuzione esponenziale non ammette generatrice.
+\marginpar{Falso, la generatrice dell'esponenziale $e^{-x}$ è $(1-t)^{-1}$ con dominio $t<1$.}
 Esiste però~la
 \begin{definition}[Funzione caratteristica]
 	La \emph{funzione caratteristica} è la trasformata di Fourier della pdf:
+	\marginpar{Spostare a dopo la generatrice.}
 	\begin{equation*}
 		\phi(t) \is E[e^{itx}].
 	\end{equation*}
@@ -220,6 +225,7 @@ Dalla discussione sulle generatrici abbiamo immediatamente che
 \end{equation*}
 
 \begin{fact}[Teorema di Paul-Levy]
+	\label{th:paullevy}
 	Consideriamo una successione $F_n$ di cumulanti e la successione $\phi_n$ delle corrispondenti caratteristiche.
 	Se esiste il limite puntuale di $\phi_n$, cioè
 	\begin{equation*}

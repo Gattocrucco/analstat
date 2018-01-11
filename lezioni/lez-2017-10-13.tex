@@ -2,7 +2,7 @@
 % lezione di Punzi
 
 % parte sulle sistematiche spostata dalla lezione 10 ottobre
-\titlet{Sistematiche}
+\section{Sistematiche}
 
 Quando non siamo sicuri sul modello da usare,
 diciamo che abbiamo un'\emph{incertezza sistematica}.
@@ -35,7 +35,7 @@ quindi a questo punto si può:
 	tra alcuni valori di interesse.
 \end{example}
 
-\titlet{Likelihood gaussiana}
+\section{Likelihood gaussiana}
 
 Consideriamo la gaussiana con media $\mu$ e deviazione standard $\sigma$:
 \begin{equation*}
@@ -55,7 +55,7 @@ Notiamo che la distribuzione di $\bar x$ ha la stessa forma $g \big( \bar x;\mu,
 e che questo non vale in generale, si pensi ad esempio alla distribuzione uniforme
 in cui la somma di due variabili è triangolare mentre la likelihood per la media della distribuzione è un'iperbole troncata.
 
-\titlet{Sufficienza}
+\section{Sufficienza}
 
 \begin{definition}[Sufficienza]
 	\label{th:suff}
@@ -76,17 +76,22 @@ cioè cambia di una costante moltiplicativa positiva:
 \end{align*}
 quindi per scrivere la likelihood è sufficiente conoscere $s_0 \is s(x_0)$.
 
-% % Poiché alla fine serve che s sia iniettiva,
-% % la cosa seguente era banale
-% Calcoliamo $p(x|s)$:
-% \begin{align*}
-% 	p(x|s_0)
-% 	&= \frac{p(x,s_0;\mu)}{p(s_0;\mu)} = \\
-% 	&= \frac{p(x;\mu) \delta(s(x)=s_0)}{\displaystyle \sum_{x'\in s^{-1}(s_0)} \frac{p(x';\mu)}{f(x')}} = \\
-% 	\intertext{(se $s$ è iniettiva)}
-% 	&= f(x) \delta(s(x)=s_0).
-% \end{align*}
-% Quindi, data una statistica sufficiente iniettiva, la probabilità di~$x$ non dipende da~$\mu$.
+\begin{theorem}
+	Se $s(x)$ è sufficiente per $\theta$,
+	la probabilità condizionata $p(x|s)$ non dipende da $\theta$.
+\end{theorem}
+
+\begin{proof}
+	Basta calcolarla:
+	\begin{align*}
+		p(x|s_0;\theta)
+		&= \frac {p(x,s_0;\theta)} {p(s_0;\theta)} = \\
+		&= \frac {p(x;\theta) \delta(s_0-s(x))} {p(s_0;\theta)} = \\
+		&= \frac {f(x) p(s(x);\theta) \delta(s_0-s(x))} {p(s_0;\theta)} = \\
+		&= f(x) \delta(s_0-s(x)) = \\
+		&= f(x) \sum_{x'\in s^{-1}(s_0)} \frac {\delta(x-x')} {|s'(x')|}. \qedhere
+	\end{align*}
+\end{proof}
 
 \begin{definition}
 	Una statistica sufficiente $s$ è \emph{minimale} se
@@ -103,7 +108,7 @@ quindi per scrivere la likelihood è sufficiente conoscere $s_0 \is s(x_0)$.
 	\begin{equation*}
 		p(x;\mu) = f(x)\cdot g(s(x);\theta)
 	\end{equation*}
-	allora $s$ è sufficiente.
+	con $f\ge 0$, allora $s$ è sufficiente.
 \end{theorem}
 
 \begin{proof}

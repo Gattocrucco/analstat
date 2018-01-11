@@ -1,7 +1,7 @@
 % Giacomo Petrillo
 % lezione di Punzi
 
-\titlet{Interpretazione della probabilità}
+\section{Interpretazione della probabilità}
 
 Interpretazioni della probabilità:
 \begin{description}
@@ -22,7 +22,7 @@ Esempio con il dado:
 		Prima di lanciare il dado considero le facce equiprobabili perché questa distribuzione rispetta la simmetria che vedo nel sistema se l'unica cosa che so è che ci sono sei facce, quindi è la distribuzione che rappresenta la mia conoscenza a priori; lanciato il dado applico la teoria della probabilità per modificare la distribuzione a priori.
 \end{description}
 
-\titlet{Variabili e pdf}
+\section{Variabili e pdf}
 
 \begin{definition}[Distribuzione di probabilità]
 	Consideriamo una partizione dell'insieme universo,
@@ -120,6 +120,7 @@ Scritta con la densità la marginalizzazione diventa
 \begin{equation*}
 	p(x) = \int_{-\infty}^\infty \de y\,p(x,y).
 \end{equation*}
+\marginpar{Unità di misura della probabilità.}%
 
 \begin{definition}[Cumulante]
 	Per una densità su $\R$, si definisce \emph{cumulante} o in breve \emph{cdf} (Cumulative Density Function)
@@ -128,7 +129,7 @@ Scritta con la densità la marginalizzazione diventa
 	\end{equation*}
 \end{definition}
 
-\titlet{Statistiche}
+\section{Statistiche}
 
 \begin{definition}[Statistica]
 	Una funzione $\fundef[s]{S_1}{S_2}$ tra due insiemi dotati di probabilità è una \emph{statistica} se soddisfa
@@ -239,5 +240,7 @@ In generale se $P(A)=1$ si dice che $A$ è \emph{quasi certo}. Il <<quasi>> è p
 
 \begin{fact}
 	\label{th:pdfmom}
+	\marginpar{L'analiticità basta richiederla per la differenza delle pdf.
+	È equivalente a richiederla per entrambe o è più generale?}
 	Se per due pdf analitiche in un certo punto esistono tutti i momenti e sono uguali, allora le pdf sono uguali.
 \end{fact}

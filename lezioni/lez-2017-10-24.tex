@@ -1,7 +1,7 @@
 % Giacomo Petrillo
 % lezione di Punzi
 
-\titlet{Stima puntuale}
+\section{Stima puntuale}
 
 \begin{definition}[Stima]
 	Dato un modello con parametro $\theta$,
@@ -30,7 +30,7 @@
 	e nel limite $N\to\infty$ il bias tende a zero.
 \end{definition}
 
-\subtitlet{Efficienza}
+\subsection{Efficienza}
 
 \begin{theorem}[Disuguaglianza di Cramer-Rao]
 	\label{th:cramerrao}
@@ -114,6 +114,10 @@ questa è la forma generale dell'osservazione che comunemente
 	\label{th:suffeff}
 	Con la notazione del \autoref{th:cramerrao} e con $x$ variabile del modello,
 	se $\hat\theta$ è sufficiente per $\theta$ allora ha efficienza unitaria.
+	\marginpar{Il Del Prete a pagina 177 (in fondo)
+	dice che efficiente $\rightarrow$ sufficiente,
+	ma anche che non vale il viceversa. \\
+	\emph{Sì, e due pagine dopo <<stressa>> che la likelihood è il posteriore!}}
 \end{theorem}
 
 \begin{proof}
@@ -143,6 +147,8 @@ questa è la forma generale dell'osservazione che comunemente
 	\end{equation*}
 	Sia $g(\theta)\is a'(\theta)$.
 	Cerchiamo una relazione tra $\gamma$ e $g$:
+	\marginpar{Fare al contrario partendo dal fatto che dobbiamo saturare Schwartz
+	e mostrare che $a'(\theta)E[\hat\theta;\theta]=-\gamma'(\theta)$.}%
 	\begin{align*}
 		\gamma(\theta)
 		&= \int_{\theta_0}^\theta \de\vartheta\, \gamma'(\vartheta) + \gamma(\theta_0) = \\
@@ -246,8 +252,11 @@ che è una funzione del parametro.
 		= \frac{2\sigma^4}N.
 	\end{equation*}
 	Dunque $\hat\sigma^2$ è uno stimatore corretto ed efficiente di $\sigma^2$.
-	Si può calcolare invece che $\hat\sigma$ come stimatore di $\sigma$ ha bias non nullo;
-	comunque calcolato il bias lo si può sottrarre e per il \autoref{th:suffeff} rimane efficiente,
+	Si può mostrare invece che $\hat\sigma$ come stimatore di $\sigma$ ha bias non nullo
+	ma che non dipende da $\sigma$,
+	quindi calcolato il bias lo si può sottrarre e per il \autoref{th:suffeff} $\hat\sigma$ rimane efficiente,
 	quindi dall'informazione di Fisher e dal bias si ricava la varianza.
-	\marginpar{sul quaderno alla data 2017-11-23 ho scritto il conto del bias, magari metterlo in appendice}
+	\marginpar{Sul quaderno alla data 2017-11-23 ho scritto il conto del bias, magari metterlo in appendice.
+	Forse il conto è più veloce dando per buona la distribuzione del $\chi^2$. \\
+	\emph{Sul Del Prete a pagina 177 dice che non c'è uno stimatore efficiente di $\sigma$.}}
 \end{example}

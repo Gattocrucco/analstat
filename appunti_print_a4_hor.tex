@@ -39,8 +39,6 @@
 {Lezione \DTMusedate{thislessondate}}%
 }
 % -------------------
-\newcommand*\titlet[1]{\section{#1}}
-\newcommand*\subtitlet[1]{\subsection{#1}}
 
 % --- SOLUTIONS ---
 \definecollection{solfile}
@@ -49,6 +47,7 @@
 {\begingroup\edef\x{\endgroup\noexpand\mycollect{\theexercise}}\x}%
 {\endcollect}
 \newcommand\solutions{%
+\renewcommand*\headcmacro{}
 \appendix\chapter{Soluzioni degli esercizi}
 \includecollection{solfile}}
 % -----------------

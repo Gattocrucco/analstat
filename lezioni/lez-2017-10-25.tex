@@ -2,7 +2,7 @@
 % non c'ero a lezione quindi uso gli appunti di Francesco Serra
 % lezione di Punzi
 
-\subtitlet{Metodo dei momenti}
+\subsection{Metodo dei momenti}
 
 Consideriamo la statistica $s_k(x)\is x^k$.
 Il valore atteso è per definizione il momento $k$-esimo
@@ -32,8 +32,12 @@ e calcoliamo la varianza:
 I momenti sono quindi un modo generale di parametrizzare una distribuzione in modo che esista uno stimatore corretto, consistente e semplice da calcolare.
 Tuttavia tipicamente il problema specifico fisserà quali sono i parametri che vogliamo stimare.
 
-\subtitlet{Massima likelihood}
+\subsection{Massima likelihood}
 \label{sec:ml}
+
+\marginpar{Riformulare questa roba come:
+definizione di massima likelihood;
+teorema che è consistente e asintoticamente gaussiano.}%
 
 Consideriamo un modello $p(x;\theta)$.
 Fissiamo un valore vero $\theta_0$.
@@ -89,6 +93,16 @@ Notiamo che
 \end{align*}
 quindi asintoticamente i punti stazionari possono solo essere massimi.
 Abbiamo dunque che lo \emph{stimatore di massima likelihood} è consistente.
+
+\marginpar{Del Prete a pagina 183
+dice che se esiste uno stimatore sufficiente/efficiente,
+ML è sufficiente/efficiente (anche non asintoticamente),
+ma le dimostrazioni mi sembrano bacate. \\
+\emph{Controesempio alla sufficienza:
+prendiamo la combinazione di due gaussiane con media diversa
+$p(x;q)=qg(x;0,1)+(1-q)g(x;1,1)$, $q\in[0,1]$.
+Per una estrazione, $\hat q\in\set{0,1}$
+quindi non è possibile che $p(x;q)=f(x)g(\hat q,q)$.}}%
 
 Consideriamo l'espansione in serie di $K$:
 \begin{align*}
