@@ -35,92 +35,98 @@ Tuttavia tipicamente il problema specifico fisserà quali sono i parametri che v
 \subsection{Massima likelihood}
 \label{sec:ml}
 
-\marginpar{Riformulare questa roba come:
-definizione di massima likelihood;
-teorema che è consistente e asintoticamente gaussiano.}%
+\begin{definition}
+	Dato un modello $p(x;\theta)$,
+	se per ogni $x$ esiste un unico $\hat\theta(x)$ che massimizza $p(x;\theta)$,
+	allora è definito lo \emph{stimatore di massima likelihood} (\emph{MLE})~$\hat\theta(x)$.
+\end{definition}
 
-Consideriamo un modello $p(x;\theta)$.
-Fissiamo un valore vero $\theta_0$.
-Sia $f(x,\theta)$ tale che la funzione
-\begin{equation*}
-	h(\theta)\is E[f(x,\theta);\theta_0]
-\end{equation*}
-si annulla solo in $\theta_0$.
-Consideriamo $N$ estrazioni.
-Per il \autoref{th:grossnum},
-la media aritmetica $\sum_i f(x_i,\theta)/N$ converge in probabilità a $h(\theta)$.
-Sia $s_N(\mathbf x)$ una statistica tale che
-\begin{equation*}
-	\forall N \,\forall\mathbf x: \frac{\sum_i f(x_i,s_N(\mathbf x))}N = 0,
-\end{equation*}
-allora $s_N$ converge in probabilità a $\theta_0$.
-\marginpar{Ipotesi tecniche su $f$?}%
-Ora esibiamo una $f$ e una $s_N$ con queste proprietà.
-\begin{align*}
-	1
-	&= \int\de x\, p(x;\theta) \implies \\
-	\implies 0
-	&= \pdv{}{\theta} \int\de x\, p(x;\theta) = \\
-	\intertext{(supponiamo che il supporto in $x$ non dipenda da $\theta$)}
-	&= \int\de x\, \pdv{}{\theta} p(x;\theta) = \\
-	&= \int\de x\, p(x;\theta) \pdv{}{\theta} \log p(x;\theta) \implies \\
-	\implies 0
-	&= E \left[ \pdv{}{\theta} \log p(x;\theta);\theta \right],
-\end{align*}
-quindi $\partial_\theta \log p(x;\theta)$ ha le proprietà richieste per $f$,
-assumendo che lo zero del valore atteso sia unico.
-Definiamo
-\begin{equation*}
-	K_{\mathbf x}(\theta)
-	\is \frac{\sum_i \pdv{}{\theta} \log p(x_i;\theta)} N.
-\end{equation*}
-Sia $\hat\theta$ un punto stazionario di $p(\mathbf x,\theta)$.
-Allora
-\begin{align*}
-	0
-	&= \pdv{}{\theta} \log p(\mathbf x;\theta) \big|_{\hat\theta} = \\
-	&= \pdv{}{\theta} \sum_i \log p(x_i;\theta) \big|_{\hat\theta} \implies \\
-	\implies 0
-	&= K_{\mathbf x}(\hat\theta),
-\end{align*}
-quindi $\hat\theta$ soddisfa le proprietà richieste per $s_N$.
-Notiamo che
-\begin{align*}
-	E \left[ K_{\mathbf x}'(\theta_0) \right]
-	&= E \left[ \Pdv{}{\theta} \log p(x;\theta) \big|_{\theta_0} \right] = \\
-	&= -I(\theta_0)
-	\le 0,
-\end{align*}
-quindi asintoticamente i punti stazionari possono solo essere massimi.
-Abbiamo dunque che lo \emph{stimatore di massima likelihood} è consistente.
+\begin{theorem}
+	Dato un modello $p(x;\theta)$ il cui supporto non dipende dal parametro,
+	se è definito lo stimatore di massima likelihood
+	e il punto di massimo è anche un punto stazionario,
+	allora lo stimatore di massima likelihood è consistente
+	ed è asintoticamente (nel numero $N$ di estrazioni) gaussiano ed efficiente,
+	con bias all'ordine $N^{-1}$.
+\end{theorem}
 
-\marginpar{Del Prete a pagina 183
-dice che se esiste uno stimatore sufficiente/efficiente,
-ML è sufficiente/efficiente (anche non asintoticamente),
-ma le dimostrazioni mi sembrano bacate. \\
-\emph{Controesempio alla sufficienza:
-prendiamo la combinazione di due gaussiane con media diversa
-$p(x;q)=qg(x;0,1)+(1-q)g(x;1,1)$, $q\in[0,1]$.
-Per una estrazione, $\hat q\in\set{0,1}$
-quindi non è possibile che $p(x;q)=f(x)g(\hat q,q)$.}}%
-
-Consideriamo l'espansione in serie di $K$:
-\begin{align*}
-	0 = K(\hat\theta)
-	&= K(\theta_0) + K'(\theta_0)(\hat\theta-\theta_0) + O\big((\hat\theta-\theta_0)^2\big) \implies \\
-	\implies \hat\theta
-	&= \theta_0 + \frac{K(\hat\theta)}{-K'(\theta_0)} + O\big((\hat\theta-\theta_0)^2\big).
-\end{align*}
-Per il \autoref{th:limitecentrale} (limite centrale),
-per $N\to\infty$
-la distribuzione di $K(\hat\theta)$ converge a una gaussiana
-con media 0 e varianza $I/N$.
-Inoltre abbiamo visto che $K'(\theta_0)$ converge in probabilità a $-I$,
-quindi la distribuzione di $\hat\theta$ converge a una gaussiana
-con media $\theta_0$ e varianza $1/(IN)$.
-Il termine all'ordine quadratico converge a un ordine della varianza,
-quindi il bias è $O(1/N)$.
-Notiamo che il rapporto tra il bias e la deviazione standard va a zero come $1/\sqrt{N}$.
+\begin{proof}
+	Fissiamo un valore vero $\theta_0$.
+	Sia $f(x,\theta)$ tale che la funzione
+	\begin{equation*}
+		h(\theta)\is E[f(x,\theta);\theta_0]
+	\end{equation*}
+	si annulla solo in $\theta_0$.
+	Consideriamo $N$ estrazioni.
+	Per la legge dei grandi numeri (\autoref{th:grossnum}),
+	la media aritmetica $\sum_i f(x_i,\theta)/N$ converge in probabilità a $h(\theta)$.
+	Sia $s_N(\mathbf x)$ una statistica tale che
+	\begin{equation*}
+		\forall N \,\forall\mathbf x: \frac{\sum_i f(x_i,s_N(\mathbf x))}N = 0,
+	\end{equation*}
+	allora $s_N$ converge in probabilità a $\theta_0$.
+	\marginpar{Ipotesi tecniche su $f$?}%
+	Ora esibiamo una $f$ e una $s_N$ con queste proprietà:
+	\begin{align*}
+		0
+		&= \pdv{}{\theta} \int\de x\, p(x;\theta) = \\
+		&= \int\de x\, \pdv{}{\theta} p(x;\theta) = \\
+		&= \int\de x\, p(x;\theta) \pdv{}{\theta} \log p(x;\theta) = \\
+		&= E \left[ \pdv{}{\theta} \log p(x;\theta);\theta \right],
+	\end{align*}
+	quindi $\partial_\theta \log p(x;\theta)$ ha le proprietà richieste per $f$,
+	assumendo che lo zero del valore atteso sia unico.
+	\marginpar{Eh, è unico?}
+	Definiamo
+	\begin{equation*}
+		K_{\mathbf x}(\theta)
+		\is \frac{\sum_i \pdv{}{\theta} \log p(x_i;\theta)} N.
+	\end{equation*}
+	Per ipotesi lo stimatore ML $\hat\theta$ è un punto stazionario di $p(\mathbf x,\theta)$.
+	Allora
+	\begin{align*}
+		0
+		&= \pdv{}{\theta} \log p(\mathbf x;\theta) \big|_{\hat\theta} = \\
+		&= \pdv{}{\theta} \sum_i \log p(x_i;\theta) \big|_{\hat\theta} \implies \\
+		\implies 0
+		&= K_{\mathbf x}(\hat\theta),
+	\end{align*}
+	quindi $\hat\theta$ soddisfa le proprietà richieste per $s_N$.
+	Notiamo che
+	\begin{align*}
+		E \left[ K_{\mathbf x}'(\theta_0) \right]
+		&= E \left[ \Pdv{}{\theta} \log p(x;\theta) \big|_{\theta_0} \right] = \\
+		&= -I_x(\theta_0)
+		\le 0,
+	\end{align*}
+	che è coerente con il fatto che $\hat\theta$ è un massimo.
+	Abbiamo dunque che $\hat\theta$ è consistente.
+	\marginpar{Del Prete a pagina 183
+	dice che se esiste uno stimatore sufficiente/efficiente,
+	ML è sufficiente/efficiente (anche non asintoticamente),
+	ma le dimostrazioni mi sembrano bacate. \\
+	\emph{La dimostrazione della sufficienza non l'ho capita,
+	però si dimostra usando Darmois.
+	La dimostrazione dell'efficienza invece mi sembra richieda la sufficienza,
+	ma abbiamo già che sufficiente $\rightarrow$ efficiente.}}%
+	Consideriamo l'espansione in serie di $K$:
+	\begin{align*}
+		0 = K(\hat\theta)
+		&= K(\theta_0) + K'(\theta_0)(\hat\theta-\theta_0) + O\big((\hat\theta-\theta_0)^2\big) \implies \\
+		\implies \hat\theta
+		&= \theta_0 + \frac{K(\hat\theta)}{-K'(\theta_0)} + O\big((\hat\theta-\theta_0)^2\big).
+	\end{align*}
+	Per il teorema del limite centrale (\autoref{th:limitecentrale}),
+	per $N\to\infty$
+	la distribuzione di $K(\hat\theta)$ converge a una gaussiana
+	con media 0 e varianza $I/N$ dove $I\is I_x(\theta_0)$.
+	Inoltre abbiamo visto che $K'(\theta_0)$ converge in probabilità a $-I$,
+	quindi la distribuzione di $\hat\theta$ converge a una gaussiana
+	con media $\theta_0$ e varianza $1/(IN)$.
+	Il termine all'ordine quadratico converge a un ordine della varianza,
+	quindi il bias è $O(1/N)$.
+	Notiamo che il rapporto tra il bias e la deviazione standard va a zero come $1/\sqrt{N}$.
+\end{proof}
 
 \begin{example}
 	Consideriamo la gaussiana

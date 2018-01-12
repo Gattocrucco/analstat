@@ -59,8 +59,6 @@ quindi abbiamo il limite
 	\phi_{y_\infty}(t) = e^{-t^2/2}.
 \end{equation*}
 Ricaviamo la pdf con la trasformata inversa:
-\marginpar{Andrebbe chiarito il passaggio dal limite sulle caratteristiche a quello sulle pdf.
-Usare il \autoref{th:paullevy}.}
 \begin{align*}
 	p(y)
 	&= \frac1{2\pi} \int_{-\infty}^\infty \de t\, e^{-ity} e^{-t^2/2} = \\
@@ -70,10 +68,12 @@ Usare il \autoref{th:paullevy}.}
 	&= \frac1{\sqrt{2\pi}} e^{-y^2/2};
 \end{align*}
 questa distribuzione si chiama \emph{gaussiana} (o \emph{normale}).
+Per il \autoref{th:paullevy},
+la convergenza delle caratteristiche implica la convergenza delle distribuzioni.
 Abbiamo quindi dimostrato il
 \begin{theorem}[del limite centrale]
 	\label{th:limitecentrale}
-	Sia $x$ variabile che ammette media e varianza e con funzione caratteristica sviluppabile in serie di potenze su $\R$,
+	Sia $x$ variabile con funzione caratteristica sviluppabile in serie di potenze su $\R$,
 	allora la somma di $n$ variabili indipendenti identiche a $x$ normalizzata in modo da avere media nulla e varianza unitaria ha distribuzione gaussiana nel limite $n\to\infty$.
 \end{theorem}
 Questa è una forma debole del teorema del limite centrale, che sotto opportune ipotesi vale anche sommando variabili con distribuzioni diverse.
@@ -95,9 +95,7 @@ Il punto diventa allora dire quali siano i valori di $\mu$ ``giusti'' e in che s
 
 \begin{definition}[Modello]
 	Un \emph{modello} è una famiglia di distribuzioni di probabilità sulla stessa variabile.
-	Una \emph{parametrizzazione} del modello è una funzione iniettiva
-	\marginpar{Nell'interpretazione bayesiana $p(x;\theta)=p(x|\theta)$
-	la richiesta di iniettività cade.}
+	Una \emph{parametrizzazione} del modello è una funzione
 	da uno \emph{spazio del parametro} $\Theta$
 	al modello.
 	L'argomento della parametrizzazione si chiama \emph{parametro}.
@@ -129,7 +127,7 @@ Spesso ci interessa il caso di misure ripetute di una stessa quantità e di come
 \begin{example}
 	\begin{figure}
 		\centering
-		\includegraphics[width=9cm]{likelihood_uniforme}
+		\includegraphics[width=25em]{likelihood_uniforme}
 		\caption{\label{fig:likeunif}%
 		Distribuzione uniforme e likelihood.}
 	\end{figure}

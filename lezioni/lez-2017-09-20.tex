@@ -10,10 +10,18 @@
 	contiene tutti i punti di $\R$ ma non è l'insieme delle parti.}}
 	Definiamo in astratto la probabilità $\fundef[P]{\pset(S)}\R$ come funzione dai sottoinsiemi di un \emph{insieme universo} $S$ a valori reali, che soddisfa i seguenti \emph{assiomi di Kolmogorov}:
 	\begin{enumerate}
-		\item $\forall A\subseteq S:P(A) \ge 0$;
-		\item $\forall A,B\subseteq S: A\cap B=\emptyset \rightarrow P(A)+P(B)=P(A\cup B)$; \label{kolm2}
-		\marginpar{L'assioma \ref{kolm2} va posto anche per le unioni numerabili?}
-		\item $P(S)=1$.
+		\item La probabilità è non negativa:
+		\[\forall A\subseteq S:P(A) \ge 0;\]
+		\item La probabilità dell'unione di una famiglia numerabile di sottoinsiemi disgiunti due a due
+		è la somma delle probabilità:
+		\begin{align*}
+			\forall \mathcal F\subseteq \pset(S):
+			\#\mathcal F\le \#\N,\ 
+			\forall A,B\in\mathcal F: A\cap B=\emptyset \rightarrow \\
+			\rightarrow P\left(\bigcup\mathcal F\right)=\sum_{A\in\mathcal F}P(A);
+		\end{align*}\label{kolm2}
+		\item La probabilità di tutto è unitaria:
+		\[P(S)=1.\]
 	\end{enumerate}
 \end{definition}
 

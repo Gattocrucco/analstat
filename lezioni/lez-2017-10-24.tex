@@ -36,7 +36,7 @@
 	\label{th:cramerrao}
 	Consideriamo un modello con parametro $\theta\in\R$.
 	Sia $\hat\theta$ una stima con bias~$b$
-	la cui pdf ha supporto che non dipende da $\theta$.
+	la cui pdf ha supporto che non dipende da~$\theta$.
 	Allora c'è un limite inferiore alla varianza della stima:
 	\begin{equation*}
 		\var[\hat\theta;\theta] \ge \frac{\left( 1 + \frac{\partial b}{\partial\theta} \right)^2}{I_{\hat\theta}(\theta)},
@@ -45,44 +45,45 @@
 \end{theorem}
 
 \begin{proof}
-	Useremo il logaritmo della pdf quindi adottiamo la convenzione di restringere il dominio al supporto.
+	Sia la varianza che l'informazione di Fisher sono degli integrali, quindi,
+	se riusciamo a scrivere il termine $1+b'(\theta)$ come un integrale opportuno,
+	possiamo usare la disguaglianza di Schwartz,
+	che scritta con i valori attesi è
+	\begin{equation*}
+		E[fg]^2 \le E[f^2]E[g^2].
+	\end{equation*}
+	Scriviamo la varianza e l'informazione di Fisher,
+	definendo per comodità $L \is p(\hat\theta;\theta)$:
 	\begin{align*}
-		L &\is p(\hat\theta;\theta)
+		\var[\hat\theta;\theta]
+		&= \int\de\hat\theta\, L (\hat\theta-E[\hat\theta;\theta])^2, \\
+		I_{\hat\theta}(\theta)
+		&= \int\de\hat\theta\, L \left( \pdv{\log L}\theta \right)^2.
 	\end{align*}
+	Quindi per usare Schwartz dobbiamo mostrare che $1+b'(\theta)$ è uguale a
+	\begin{equation*}
+		\int\de\hat\theta\, L (\hat\theta-E[\hat\theta;\theta]) \pdv{\log L}\theta.
+	\end{equation*}
+	Calcoliamo il primo termine:
 	\begin{align*}
 		\int \de\hat\theta\,
-		L \cdot \hat\theta \pdv{\log L}\theta 
+		L \hat\theta \pdv{\log L}\theta 
 		&= \int \de\hat\theta\,
-		\pdv L\theta \hat\theta = \\
-		&= \int \de\hat\theta\,
-		\pdv{}\theta (\hat\theta L) = \\
-		&= \pdv{}\theta \int \de\hat\theta\, \hat\theta L = \\
-		&= \pdv{}\theta E[\hat\theta;\theta] = \\
-		&= \pdv{}\theta (\theta + b(\theta)) = \\
-		&= 1 + \pdv b\theta
+		\pdv L\theta \hat\theta
+		= \int \de\hat\theta\,
+		\pdv{}\theta (\hat\theta L)
+		= \pdv{}\theta \int \de\hat\theta\, \hat\theta L = \\
+		&= \pdv{}\theta E[\hat\theta;\theta]
+		= \pdv{}\theta (\theta + b(\theta)) = \\
+		&= 1 + b'(\theta),
 	\end{align*}
+	vediamo che il secondo termine è nullo:
 	\begin{align*}
 		\int \de\hat\theta\,
-		L \cdot E[\hat\theta;\theta] \pdv{\log L}\theta
+		L\cdot E[\hat\theta;\theta] \pdv{\log L}\theta
 		&= E[\hat\theta;\theta] \int \de\hat\theta\, \pdv L\theta = \\
 		&= E[\hat\theta;\theta] \pdv{}\theta \int \de\hat\theta\, L = \\
-		&= 0
-	\end{align*}
-	\begin{align*}
-		E \left[ (\hat\theta - E[\hat\theta;\theta]) \pdv{\log L}\theta;\theta \right]
-		&= \int \de\hat\theta\, L \cdot
-		(\hat\theta - E[\hat\theta;\theta]) \pdv{\log L}\theta = \\
-		&= 1 + \pdv b\theta.
-	\end{align*}
-	Scriviamo la disuguaglianza di Schwartz in termini di valori attesi
-	e applichiamola a quello appena calcolato:
-	\begin{align*}
-		E[fg]^2 &\le E[f^2]E[g^2] \\
-		\left( 1 + \pdv b\theta \right)^2
-		&= E \left[ (\hat\theta - E[\hat\theta;\theta]) \pdv{\log L}\theta;\theta \right]^2 \le \\
-		&\le E[(\hat\theta - E[\hat\theta;\theta])^2;\theta]
-		\cdot E \left[ \left( \pdv{\log L}\theta \right)^2;\theta \right] = \\
-		&= \var[\hat\theta;\theta] I_{\hat\theta}(\theta). \qedhere
+		&= 0. \qedhere
 	\end{align*}
 \end{proof}
 
@@ -112,16 +113,26 @@ questa è la forma generale dell'osservazione che comunemente
 
 \begin{theorem}
 	\label{th:suffeff}
-	Con la notazione del \autoref{th:cramerrao} e con $x$ variabile del modello,
+	Con la notazione e le ipotesi del \autoref{th:cramerrao},
 	se $\hat\theta$ è sufficiente per $\theta$ allora ha efficienza unitaria.
-	\marginpar{Il Del Prete a pagina 177 (in fondo)
-	dice che efficiente $\rightarrow$ sufficiente,
-	ma anche che non vale il viceversa. \\
+	\marginpar{Il Del Prete 2010-01-21 a pagina 177 (in fondo)
+	dice che efficiente $\rightarrow$ sufficiente e che non vale il viceversa. \\
 	\emph{Sì, e due pagine dopo <<stressa>> che la likelihood è il posteriore!}}
 \end{theorem}
 
 \begin{proof}
-	Per il \autoref{th:darmois} (teorema di Darmois),
+	Nella dimostrazione della disuguaglianza di Cramer-Rao (\autoref{th:cramerrao})
+	abbiamo usato la disuguaglianza di Schwartz,
+	che è saturata se le due funzioni sono proporzionali,
+	cioè se per una qualche funzione $g$
+	\begin{equation}
+		\label{eq:dethetalogp}
+		\pdv{}{\theta}\log p(\hat\theta;\theta) = g(\theta) (\hat\theta-E[\hat\theta;\theta]).
+	\end{equation}
+	Poiché $\hat\theta$ è sufficiente, $I_{\hat\theta}(\theta)=I_x(\theta)$,
+	quindi dalla saturazione di Cramer-Rao si ottiene l'efficienza unitaria.
+	Cerchiamo di calcolare $\partial_\theta\log p(\hat\theta;\theta)$.
+	Per il teorema di Darmois (\autoref{th:darmois}),
 	la pdf di $x$ si scrive come
 	\begin{equation*}
 		p(x;\theta)
@@ -145,57 +156,26 @@ questa è la forma generale dell'osservazione che comunemente
 		p(\hat\theta;\theta)
 		= \exp \left( \hat\theta a(\theta) + B(\hat\theta) + \gamma(\theta) \right).
 	\end{equation*}
-	Sia $g(\theta)\is a'(\theta)$.
-	Cerchiamo una relazione tra $\gamma$ e $g$:
-	\marginpar{Fare al contrario partendo dal fatto che dobbiamo saturare Schwartz
-	e mostrare che $a'(\theta)E[\hat\theta;\theta]=-\gamma'(\theta)$.}%
+	La derivata del logaritmo è
 	\begin{align*}
-		\gamma(\theta)
-		&= \int_{\theta_0}^\theta \de\vartheta\, \gamma'(\vartheta) + \gamma(\theta_0) = \\
-		&= \int_{\theta_0}^\theta \de\vartheta\,
-		\gamma'(\vartheta) e^{-\gamma(\vartheta)} e^{\gamma(\vartheta)}
-		+ \gamma(\theta_0) = \\
-		&= - \int_{\theta_0}^\theta \de\vartheta\,
-		\pdv{}{\vartheta}\big(e^{-\gamma(\vartheta)}\big) e^{\gamma(\vartheta)}
-		+ \gamma(\theta_0) = \\
-		&= - \int_{\theta_0}^\theta \de\vartheta\,
-		\pdv{}{\vartheta} \left( \int\de\hat\theta\, p(\hat\theta;\vartheta) e^{-\gamma(\vartheta)} \right)
-		e^{\gamma(\vartheta)} + \gamma(\theta_0) = \\
-		&= - \int_{\theta_0}^\theta \de\vartheta \int\de\hat\theta\,
-		\pdv{}{\vartheta} \big( e^{\hat\theta a(\vartheta) + B(\hat\theta)} \big) e^{\gamma(\vartheta)}
-		+ \gamma(\theta_0) = \\
-		&= - \int_{\theta_0}^\theta \de\vartheta \int\de\hat\theta\,
-		\hat\theta a'(\vartheta) e^{\hat\theta a(\vartheta) + B(\hat\theta) + \gamma(\vartheta)}
-		+ \gamma(\theta_0) = \\
-		&= - \int_{\theta_0}^\theta \de\vartheta\, a'(\vartheta)
-		\int\de\hat\theta\, p(\hat\theta;\vartheta) \hat\theta
-		+ \gamma(\theta_0) = \\
-		&= - \int_{\theta_0}^\theta \de\vartheta\, g(\vartheta) E[\hat\theta;\vartheta]
-		+ \gamma(\theta_0),
+		\pdv{}\theta \log p(\hat\theta;\theta)
+		&= \hat\theta a'(\theta) + \gamma'(\theta),
 	\end{align*}
-	e inoltre abbiamo per definizione:
+	quindi per far tornare la \eqref{eq:dethetalogp} bisogna che
 	\begin{equation*}
-		a(\theta)
-		= \int_{\theta_0}^\theta \de\vartheta\, g(\vartheta) + a(\theta_0),
+		\gamma'(\theta) = -a'(\theta) E[\hat\theta;\theta]
 	\end{equation*}
-	quindi:
+	con $g(\theta)=a'(\theta)$.
+	Calcoliamo:
 	\begin{align*}
-		\log p(\hat\theta;\theta)
-		&= \left( \int_{\theta_0}^\theta \de\vartheta\, g(\vartheta) + a(\theta_0) \right) \hat\theta
-		+ B(\hat\theta) + {}\\
-		&\phantom{{}={}}- \int_{\theta_0}^\theta \de\vartheta\, g(\vartheta) E[\hat\theta;\vartheta] + \gamma(\theta_0) = \\
-		&= \int_{\theta_0}^\theta \de\vartheta\, g(\vartheta) \big(\hat\theta-E[\hat\theta;\vartheta]\big)
-		+ a(\theta_0)\hat\theta + B(\hat\theta) + \gamma(\theta_0).
+		a'(\theta) E[\hat\theta;\theta]
+		&= a'(\theta) \int\de\hat\theta\, p(\hat\theta;\theta) \hat\theta = \\
+		&= \int\de\hat\theta\, \hat\theta a'(\theta) e^{\hat\theta a(\theta)+B(\hat\theta)+\gamma(\theta)} = \\
+		&= \int\de\hat\theta\, \pdv{}\theta \big(e^{\hat\theta a(\theta)+B(\hat\theta)}\big) e^{\gamma(\theta)} = \\
+		&= \pdv{}\theta \left( \int\de\hat\theta\, p(\hat\theta;\theta) e^{-\gamma(\theta)} \right) e^{\gamma(\theta)} = \\
+		&= \pdv{}\theta \big(e^{-\gamma(\theta)})e^{\gamma(\theta)} = \\
+		&= -\gamma'(\theta). \qedhere
 	\end{align*}
-	Deriviamo rispetto al parametro:
-	\begin{equation*}
-		\pdv{}{\theta} \log p(\hat\theta;\theta)
-		= g(\theta) \cdot \big(\hat\theta-E[\hat\theta;\theta]\big).
-	\end{equation*}
-	Riguardando la dimostrazione del \autoref{th:cramerrao},
-	vediamo che la disuguaglianza di Schwartz è saturata perché le due funzioni sono proporzionali.
-	Poiché $\hat\theta$ è sufficiente, $I_x(\theta)=I_{\hat\theta}(\theta)$,
-	quindi l'efficienza è unitaria.
 \end{proof}
 
 Questo teorema non dice nulla sul bias di $\hat\theta$,

@@ -56,8 +56,7 @@ sottolineiamo che è una del tutto generale approssimazione di un momento di una
 
 \begin{definition}[Funzione generatrice]
 	Data la pdf $p(x)$, la sua \emph{funzione generatrice} è
-		$M(t) \is E[e^{tx}]$.
-	\marginpar{Si chiama trasformata di Laplace?}
+	$M(t) \is E[e^{tx}]$.
 \end{definition}
 
 \noindent La funzione generatrice è utile per calcolare i momenti, infatti:
@@ -116,6 +115,34 @@ inoltre ovviamente $M_{\alpha x}(t) = M_x(\alpha t)$.
 	\end{equation*}
 \end{example}
 
+\subsection{Caratteristica}
+
+\begin{definition}[Funzione caratteristica]
+	La \emph{funzione caratteristica} è la trasformata di Fourier della pdf:
+	\begin{equation*}
+		\phi(t) \is E[e^{itx}].
+	\end{equation*}
+\end{definition}
+Dalla discussione sulle generatrici abbiamo immediatamente che
+\begin{equation*}
+	\phi_{x+y} = \phi_x\phi_y, \quad \mu_n = i^{-n} \phi^{(n)}(0).
+\end{equation*}
+
+\begin{fact}[Teorema di Paul-Levy]
+	\label{th:paullevy}
+	Consideriamo una successione $F_n$ di cumulanti e la successione $\phi_n$ delle corrispondenti caratteristiche.
+	Se esiste il limite puntuale di $\phi_n$, cioè
+	\begin{equation*}
+		\forall t \quad \exists \lim_{n\to\infty} \phi_n(t) \isis \phi(t),
+	\end{equation*}
+	e il limite $\phi$ è continuo in 0, allora
+	esiste una $F$ che è il limite puntuale di $F_n$ dove è continua, cioè
+	\begin{equation*}
+		\exists F \quad \forall x: \text{$F$ continua in $x$} \implies
+		\lim_{n\to\infty} F_n(x) = F(x).
+	\end{equation*}
+\end{fact}
+
 \section{Bernoulli, binomiale, poisson, esponenziale}
 
 La distribuzione di una variabile che può assumere solo due valori si chiama \emph{distribuzione di Bernoulli}.
@@ -127,7 +154,7 @@ Fissiamo la notazione:
 	\end{cases}
 \end{equation*}
 Date $n$ variabili di Bernoulli indipendenti calcoliamo la probabilità che $k$ siano~1.
-Il modo di disporre $k$ oggetti identici in $n$ posti è $\binom nk$, quindi
+I~modi di disporre $k$ oggetti identici in $n$ posti sono $\binom nk$, quindi
 \begin{equation*}
 	P(k) = P(k;n,p) = \binom nk p^{k} (1-p)^{n-k};
 \end{equation*}
@@ -144,6 +171,26 @@ ma in effetti la generatrice di una Bernoulli è
 	M_x(t) = pe^{1\cdot t} + (1-p)e^{0\cdot t} = pe^t + 1-p
 \end{equation*}
 e $k$ può essere scritto come $\sum_ix_i$, quindi deve essere $M_k = M_x^n$.
+Estendiamo al caso in cui $x$ possa assumere più di due valori:
+\begin{equation*}
+	x \in \set{0,1,\dotsc}, \quad P(x) \isis p_x.
+\end{equation*}
+Date $n$ variabili come $x$,
+calcoliamo la probabilità che $k_1$ siano $1$, che $k_2$ siano $2$ etc.
+Ovviamente vale $k_0=n - \sum_{x\ge 1} k_x$.
+I modi di estrarre degli insiemi di dimensione $k_x$ da un insieme di $n$ elementi sono contati dal \emph{coefficiente multinomiale}
+\begin{equation*}
+	\binom{n}{k_0,k_1,\dotsc} = \frac{n!}{k_0!k_1!\dotsm},
+\end{equation*}
+quindi la probabilità è
+\begin{align*}
+	P(k_1,k_2,\dotsc) = \frac{n!}{k_0!k_1!k_2!\dotsm} p_0^{k_0} p_1^{k_1} \dotsm.
+\end{align*}
+Notiamo che possiamo aggiungere $k_0$ alla probabilità usando una $\delta$ di Kronecker:
+\begin{equation*}
+	P(k_0,k_1,\dotsc) = \delta_{k_0,n-\sum_{x\ge 1}k_x} \frac{n!}{k_0!k_1!\dotsm} p_0^{k_0} p_1^{k_1} \dotsm.
+\end{equation*}
+Questa distribuzione si chiama \emph{multinomiale}.
 
 Calcoliamo ora la probabilità che in un intervallo di tempo $T$ si verifichino $k$ eventi se per il singolo evento è definita una probabilità per unità di tempo $\lambda$.
 Dividiamo l'intervallo $T$ in $N$ sottointervalli uguali.
@@ -165,9 +212,7 @@ se $k$ è il numero totale di eventi vale ovviamente
 \begin{equation*}
 	k = \sum_{q\ge1} q n_q, \quad n_0 = N - \sum_{q\ge 1} n_q \isis N - s.
 \end{equation*}
-La distribuzione degli $n_q$ è la \emph{multinomiale}
-\marginpar{Bisogna fare anche la multinomiale dopo la binomiale,
-serve anche dopo per gli istogrammi.}
+La distribuzione degli $n_q$ è la multinomiale
 \begin{align*}
 	P(n_1,n_2,\dotsc)
 	&= \frac{N!}{n_0!n_1!\dotsm} p_0^{n_0} p_1^{n_1} \dotsm = \\
@@ -209,32 +254,4 @@ Sia $F(t)$ la cumulante, si ha
 \end{align*}
 Questa distribuzione si chiama \emph{esponenziale}.
 
-Notiamo che la distribuzione esponenziale non ammette generatrice.
-\marginpar{Falso, la generatrice dell'esponenziale $e^{-x}$ è $(1-t)^{-1}$ con dominio $t<1$.}
-Esiste però~la
-\begin{definition}[Funzione caratteristica]
-	La \emph{funzione caratteristica} è la trasformata di Fourier della pdf:
-	\marginpar{Spostare a dopo la generatrice.}
-	\begin{equation*}
-		\phi(t) \is E[e^{itx}].
-	\end{equation*}
-\end{definition}
-Dalla discussione sulle generatrici abbiamo immediatamente che
-\begin{equation*}
-	\phi_{x+y} = \phi_x\phi_y, \quad \mu_n = i^{-n} \phi^{(n)}(0).
-\end{equation*}
-
-\begin{fact}[Teorema di Paul-Levy]
-	\label{th:paullevy}
-	Consideriamo una successione $F_n$ di cumulanti e la successione $\phi_n$ delle corrispondenti caratteristiche.
-	Se esiste il limite puntuale di $\phi_n$, cioè
-	\begin{equation*}
-		\forall t \quad \exists \lim_{n\to\infty} \phi_n(t) \isis \phi(t),
-	\end{equation*}
-	e il limite $\phi$ è continuo in 0, allora
-	esiste una $F$ che è il limite puntuale di $F_n$ dove è continua, cioè
-	\begin{equation*}
-		\exists F \quad \forall x: \text{$F$ continua in $x$} \implies
-		\lim_{n\to\infty} F_n(x) = F(x).
-	\end{equation*}
-\end{fact}
+% qui c'era la funzione caratteristica che ho spostato a dopo la generatrice

@@ -75,7 +75,8 @@ dove $\hat m_p$ è definito come quello che minimizza l'espressione.
 Nel limite $p\to-\infty$ gli scarti che contano nella somma sono quelli più piccoli,
 quindi posso trovare $\hat m_{-\infty}$ con questa procedura:
 prendo i due $x$ più vicini tra loro, poi dei due scelgo quello il cui secondo vicino è più vicino.
-$\hat m_{-\infty}$ è la \emph{moda campione} e in effetti stima bene la moda.
+$\hat m_{-\infty}$ è la \emph{moda campione} e in effetti stima bene la \emph{moda},
+il punto di massimo della distribuzione.
 La moda è utile per le distribuzioni che non hanno media definita,
 ad esempio la distribuzione di Landau.
 
@@ -110,7 +111,7 @@ che sono rispettivamente \emph{midrange} e \emph{semidispersione}.
 \paragraph{Mediana campione}
 
 Consideriamo il caso $p=1$.
-Siano $N_-$ gli $x_i$ minori di $\hat m_1$ e $N_+$ quelli maggiori.
+Sia $N_-$ il numero di $x_i$ strettamente minori di $\hat m_1$ e $N_+$ quelli strettamente maggiori.
 Se traslo $\hat m_1$ di $\Delta x$ abbastanza piccolo in modo da non cambiare $N_+$ e $N_-$,
 la somma degli scarti cambia di $\Delta x(N_- - N_+)$.
 Quindi il minimo si ha per $N_+ = N_-$.
@@ -119,10 +120,10 @@ Nel caso di $N$ pari il minimo non è unico e per convenzione si sceglie la medi
 Nel caso di $N$ dispari il minimo è l'$x_i$ centrale.
 \begin{fact}
 	La mediana campione è una stima consistente della mediana.
-	\marginpar{Non abbiamo definito la mediana.}
 \end{fact}
-La mediana non è definita per tutte le distribuzioni (vedi ad esempio \autoref{fig:nomedian}),
-perché la cumulante di una distribuzione non è in generale strettamente crescente.
+\noindent La mediana è $F^{-1}(1/2)$ dove $F$ è la cumulante.
+Non è definita per tutte le distribuzioni (vedi ad esempio \autoref{fig:nomedian}),
+perché la cumulante è crescente ma in generale non strettamente.
 \begin{figure}
 	\centering
 	\includegraphics[width=17em]{nomediana}
@@ -180,11 +181,11 @@ Detta $p_x$ la pdf di $x$ e $F$ la cumulante, infine
 		p_x(x)
 		&= \frac1\pi \frac1{1+x^2} \\
 		F(x)
-		&= \frac1\pi\arctan x + \frac12 \\
+		&= \frac1\pi\atan x + \frac12 \\
 		p(\hat m_1)
 		&= \frac 1\pi \frac1{1+\hat m_1^2}
-		\cdot \left(\frac12 - \frac1\pi\arctan(\hat m_1)\right)^k
-		\cdot \left(\frac12 + \frac1\pi\arctan(\hat m_1)\right)^k
+		\cdot \left(\frac12 - \frac1\pi\atan(\hat m_1)\right)^k
+		\cdot \left(\frac12 + \frac1\pi\atan(\hat m_1)\right)^k
 		\cdot \frac{N!}{(k!)^2} \propto \\
 		&\propto \hat m_1^{-(k+2)} + O\big(\hat m_1^{-(k+4)}\big) \text{ per $\hat m_1\to\pm\infty$},
 	\end{align*}

@@ -120,10 +120,14 @@ Scritta con la densità la marginalizzazione diventa
 \begin{equation*}
 	p(x) = \int_{-\infty}^\infty \de y\,p(x,y).
 \end{equation*}
-\marginpar{Unità di misura della probabilità.}%
+Notiamo che la pdf è omogenea di grado $-1$:
+\begin{equation*}
+	p(kx) = \frac1k\, p(x),
+\end{equation*}
+cioè l'unità di misura della pdf è l'inverso di quella di $x$.
 
 \begin{definition}[Cumulante]
-	Per una densità su $\R$, si definisce \emph{cumulante} o in breve \emph{cdf} (Cumulative Density Function)
+	Per una densità su $\R$, si definisce \emph{cumulante} o in breve \emph{cdf} (cumulative distribution function)
 	\begin{equation*}
 		F(x) = P(\setdef[x']{x'<x}) = \int_{-\infty}^x \de x'\,p(x').
 	\end{equation*}

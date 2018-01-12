@@ -90,18 +90,19 @@ per evitare di triggerare molestatori che vogliono discutere della validità del
 
 \begin{fact}[Teorema di Wilks]
 	\label{th:wilks}
-	Consideriamo un modello per $N$ estrazioni di $x$ con parametro $\theta\in\R^d$,
-	e supporto che non dipende da $\theta$.
-	Allora il likelihood ratio
+	Consideriamo un modello per $N$ estrazioni di $x$ con parametro $\boldsymbol\theta\in\R^d$,
+	e supporto che non dipende da $\boldsymbol\theta$.
+	Allora l'espressione
 	\begin{equation*}
-		\lambda_\theta(\mathbf x)
-		= 2\log\frac {\sup\limits_{\theta'} p(\mathbf x;\theta')} {p(\mathbf x;\theta)}
+		\Lambda \is
+		2\log\frac {\sup\limits_{\boldsymbol\theta'} p(\mathbf x;\boldsymbol\theta')}
+		{\sup\limits_{\theta_1',\dotsc,\theta_n'} p(\mathbf x;\theta_1',\dotsc,\theta_n',\theta_{n+1},\dots,\theta_d)}
 	\end{equation*}
 	è un pivot nel limite $N\to\infty$,
-	con distribuzione $\chi^2$ a $d$ gradi di libertà:
+	con distribuzione $\chi^2$ a $k\is d-n$ gradi di libertà:
 	\begin{equation*}
-		p(\lambda)
-		= \frac1{2^{d/2}\Gamma(d/2)} \lambda^{d/2-1} e^{-\lambda/2}.
+		p(\Lambda)
+		= \frac1{2^{k/2}\Gamma(k/2)} \Lambda^{k/2-1} e^{-\Lambda/2}.
 	\end{equation*}
 \end{fact}
 
