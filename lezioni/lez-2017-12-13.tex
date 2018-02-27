@@ -63,9 +63,10 @@ Sia $F$ la cumulante di $p$.
 Definiamo la statistica
 \begin{equation*}
 	D(\mathbf x)
-	\is \sup|S_\mathbf x-F|
+	\is \sup_x|S_\mathbf x(x)-F(x)|
 \end{equation*}
-che, per la monotonicità di $F$, si riscrive come
+ovvero la massima differenza tra la cumulante e la cumulante empirica.
+Per la monotonicità di $F$, si riscrive come
 \begin{equation*}
 	D = \max_{i=1,\dotsc,N} \Set{\left|\frac iN-F(x_i)\right|, \left|\frac{i-1}N-F(x_i)\right|},
 \end{equation*}

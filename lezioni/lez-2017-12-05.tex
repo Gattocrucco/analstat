@@ -47,7 +47,7 @@ Un modo comune è prendere la cumulante del prodotto:
 	&= q(1-\log q),
 \end{align*}
 quindi il p-value combinato è $p_{12} = p_1p_2(1-\log(p_1p_2))$.
-Il modo comune di combinare più di due p-value è prendere la survival function di
+Il modo comune di combinare più di due p-value è prendere la survival function ($1-\text{cdf}$) di
 \begin{equation*}
 	x = -2 \sum_{i=1}^n \log p_i.
 \end{equation*}
@@ -76,7 +76,7 @@ Calcoliamo il likelihood ratio:
 \end{align}
 Questa statistica si chiama $\chi^2$,
 e infatti\footnote{Vedi \autoref{th:lrgauss}.} ha la distribuzione $\chi^2$ a $N$ gradi di libertà.
-Usare come p-value la survival function ($1-\text{cdf}$) della \eqref{eq:chi2}
+Usare come p-value la survival function della \eqref{eq:chi2}
 è a tutti gli effetti un test likelihood ratio,
 e si chiama \emph{test del $\chi^2$}.
 Poiché in molti casi comuni la distribuzione della \eqref{eq:chi2} tende alla distribuzione $\chi^2$

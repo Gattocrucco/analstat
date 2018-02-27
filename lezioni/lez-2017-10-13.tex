@@ -35,6 +35,19 @@ quindi a questo punto si può:
 	tra alcuni valori di interesse.
 \end{example}
 
+\marginpar{Aggiungere questo esempio:
+misuro con un voltmetro una tensione,
+ho un macchinario il cui comportamento dipende da questa tensione.
+Faccio delle misure e uso un modello complicato per il macchinario,
+per trattare statisticamente la misura di tensione devo mettere
+un termine es. gaussiano per essa e aggiungerla come nuisance parameter,
+però poi se faccio il fit vedo che la stima della tensione viene molto
+diversa da quella misurata con il voltmetro.
+Poiché mi fido più della misura diretta del voltmetro
+che del modello complicato con cui sto fittando,
+elimino la tensione dalla trattazione statistica,
+e vedo come varia il risultato del fit variando di $\pm 1\sigma$ la tensione che impongo.}
+
 \section{Likelihood gaussiana}
 
 Consideriamo la gaussiana con media $\mu$ e deviazione standard $\sigma$:
@@ -104,9 +117,9 @@ quindi per scrivere la likelihood è sufficiente conoscere $s_0 \is s(x_0)$.
 
 \begin{theorem}
 	\label{th:suffatt}
-	Se la probabilità di $x$ si fattorizza come
+	Se, per una qualche funzione $g$, la probabilità di $x$ si fattorizza come
 	\begin{equation*}
-		p(x;\mu) = f(x)\cdot g(s(x);\theta)
+		p(x;\mu) = f(x)\cdot g(s(x),\theta)
 	\end{equation*}
 	con $f\ge 0$, allora $s$ è sufficiente.
 \end{theorem}
@@ -116,8 +129,8 @@ quindi per scrivere la likelihood è sufficiente conoscere $s_0 \is s(x_0)$.
 	\begin{align*}
 		p(s(x);\theta)
 		&= \sum_{x':s(x')=s(x)} \frac{p(x';\theta)}{J(x')} = \\
-		&= \sum_{x':s(x')=s(x)} \frac{f(x') g(s(x');\theta)}{J(x')} = \\
-		&= \left( \sum_{x':s(x')=s(x)} \frac{f(x')}{J(x')} \right) g(s(x);\theta),
+		&= \sum_{x':s(x')=s(x)} \frac{f(x') g(s(x'),\theta)}{J(x')} = \\
+		&= \left( \sum_{x':s(x')=s(x)} \frac{f(x')}{J(x')} \right) g(s(x),\theta),
 	\end{align*}
 	dove $J$ è il jacobiano di $s$.
 	Se la somma su $x'$ è nulla,
@@ -169,4 +182,5 @@ quindi per scrivere la likelihood è sufficiente conoscere $s_0 \is s(x_0)$.
 		&= f(\mathbf x) \cdot g(\mathbf s(\mathbf x);\mu), \quad f\ge0.
 	\end{align*}
 	Il \autoref{th:suffatt} conclude.
+	Notiamo che la dimostrazione vale anche se $x$ non è una variabile reale.
 \end{solution}
