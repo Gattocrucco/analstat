@@ -47,7 +47,7 @@ Facciamo un altro esempio.
 	\end{equation*}
 	Costruiamo la banda di confidenza con il probability ordering a $\mathrm{CL}=\SI{68}\%$,
 	che corrisponde a intervalli lungo $x$ di $\pm1$ intorno a $\mu$,
-	allora per $x<1$ otteniamo una stima intervallare vuota.
+	allora per $x<-1$ otteniamo una stima intervallare vuota.
 	Notiamo che questo problema non dipende dal fatto di avere un \emph{bound} a sinistra,
 	basta cambiare parametro a $\log\mu$ per usare tutto $\R$ e il problema persiste perché
 	le stime intervallari trasformano in modo banale per cambio di parametro.
@@ -57,7 +57,7 @@ Facciamo un altro esempio.
 	Una persona pensa un numero a caso,
 	vogliamo stimarlo con un livello di confidenza del \SI{95}\%.
 	Tiriamo un dado a 20 facce,
-	se esce 1 diciamo $\emptyset$ altrimenti~$\R$.
+	se esce 1 diciamo che l'intervallo è $\emptyset$, altrimenti~$\R$.
 \end{example}
 
 Fortunatamente esiste un ordinamento che non genera stime vuote e che è invariante per cambio di variabile,
