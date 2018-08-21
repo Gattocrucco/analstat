@@ -170,6 +170,8 @@ Il valore atteso della derivata prima nel valore vero è nullo:
 \end{equation*}
 mentre il valore atteso della derivata seconda è negativo perché $V$ è definita positiva.
 Allora $\pdv Q\theta$ soddisfa le proprietà della funzione implicita viste per massima likelihood\footnote{Vedi sezione \ref{sec:ml}.},
+\marginpar{Sistemare questa dimostrazione dopo aver sistemato quella di massima likelihood
+(\autoref{teo:mle}).}
 e il massimo di $Q$ definisce uno stimatore consistente.
 
 Consideriamo il caso particolare in cui la media è lineare nel parametro:
@@ -180,6 +182,7 @@ Allora il massimo della forma quadratica si ottiene per
 \begin{equation*}
 	\hat{\boldsymbol\theta} = (A^\transp V^{-1} A)^{-1} (A^\transp V^{-1}) \mathbf y.
 \end{equation*}
+\marginpar{Aggiungere formula per la varianza di $\hat{\boldsymbol\theta}$.}
 Questo stimatore ha bias nullo:
 \begin{equation*}
 	E[\hat{\boldsymbol\theta}]
