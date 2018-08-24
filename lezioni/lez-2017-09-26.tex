@@ -3,24 +3,43 @@
 
 \section{Interpretazione della probabilità}
 
-Interpretazioni della probabilità:
+Nella \autoref{sec:assiomi} abbiamo definito matematicamente la probabilità,
+però non abbiamo detto esplicitamente come si applica in pratica,
+anche se nell'\autoref{teo:sommadadi} abbiamo già dato per scontato
+come calcolare le probabilità del lancio di un dado.
+Come applicare la probabilità è in definitiva soggettivo ed esistono varie interpretazioni:
 \begin{description}
 	\item[``Classica'']
 		Vale il principio di equiprobabilità e i calcoli probabilistici sono in sostanza calcoli combinatori.
+		Questo è storicamente il primo approccio alla probabilità ed è il modo in cui si ragiona
+		nei tipici problemini con le carte e i dadi:
+		si prende un insieme di eventi ``fondamentali'' che hanno la stessa probabilità
+		e per un evento ``composto'' si contano gli eventi fondamentali che lo costituiscono,
+		ad esempio per due dadi gli eventi fondamentali sono le coppie ordinate di uscite dei dadi.
+		Il ``principio di equiprobabilità'' sposta il problema nel dire quali siano gli eventi fondamentali.
 	\item[Frequentista]
 		Le quantità di cui ha senso calcolare la probabilità sono quelle che almeno concettualmente potrei campionare nella realtà per verificare la probabilità assegnata.
+		Cioè, se dico che le uscite del dado sono equiprobabili,
+		e anche che le coppie ordinate di due uscite di un dado sono equiprobabili, etc.,
+		posso lanciare un dado un numero arbitrariamente grande di volte
+		e fare istogrammi delle singole uscite, delle coppie di uscite consecutive, etc.
+		per verificare l'ipotesi con accuratezza arbitraria.
 	\item[Bayesiana]
-		La probabilità formalizza la conoscenza soggettiva.
+		La probabilità formalizza la conoscenza soggettiva;
+		posso assegnare probabilità anche a quantità che non ha senso pensare di poter ``estrarre'' tante volte.
+		Nel caso del dado, potrei pormi la seguente domanda:
+		ottenute certe uscite lanciando un dado, qual è la \emph{probabilità che le facce siano equiprobabili}?
+		Notare che non stiamo intendendo magari la probabilità che fabbricando il dado
+		le facce vengano equiprobabili, ma della probabilità assegnata alla proposizione
+		<<questo fissato dado ha le facce equiprobabili>>.
+		Per come ho formulato la domanda,
+		il dado è fissato e quindi non posso in qualche senso riestrarlo,
+		quindi nell'approccio frequentista la domanda non ha senso.
+		Nell'approccio frequentista posso farmi solo domande del tipo
+		<<qual è la probabilità di aver ottenuto queste uscite se le probabilità delle facce sono\dots?>>.
 \end{description}
-Esempio con il dado:
-\begin{description}
-	\item[``Classica'']
-		I singoli eventi sono le uscite delle facce e li assumo equiprobabili.
-	\item[Frequentista]
-		Il fatto che le facce siano equiprobabili è una teoria la cui veridicità è in definitiva verificata lanciando il dado tante volte.
-	\item[Bayesiana]
-		Prima di lanciare il dado considero le facce equiprobabili perché questa distribuzione rispetta la simmetria che vedo nel sistema se l'unica cosa che so è che ci sono sei facce, quindi è la distribuzione che rappresenta la mia conoscenza a priori; lanciato il dado applico la teoria della probabilità per modificare la distribuzione a priori.
-\end{description}
+Non approfondiamo oltre il discorso
+perché sarà più chiaro dopo il \autoref{sec:cap2}.
 
 \section{Variabili e pdf}
 

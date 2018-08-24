@@ -52,6 +52,17 @@ Nel caso che le $x_i$ siano scorrelate, questa approssimazione della varianza di
 Probabilmente avrete già incontrato questa formula come ``formula di propagazione degli errori'';
 sottolineiamo che è una del tutto generale approssimazione di un momento di una statistica e che non è detto sia sempre una buona approssimazione quando la usiamo per la propagazione degli errori (o, come preferiamo chiamarle, incertezze).
 
+\begin{exercise}
+	Mostrare che
+	\begin{equation*}
+		\cov[s_1(\mathbf x), s_2(\mathbf x)] \approx
+		\sum_{ij}
+		\left.\frac{\partial s_1}{\partial x_i}\right|_{\boldsymbol\mu}
+		\left.\frac{\partial s_2}{\partial x_j}\right|_{\boldsymbol\mu}
+		\cov[x_i,x_j].
+	\end{equation*}
+\end{exercise}
+
 \subsection{Generatrice}
 
 \begin{definition}[Funzione generatrice]

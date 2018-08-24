@@ -2,13 +2,17 @@
 % lezione di Morello
 
 \section{Assiomi e proprietà elementari}
+\label{sec:assiomi}
 
 \begin{definition}[Probabilità]
-	\marginpar{La probabilità è definita su una $\sigma$-algebra.
-	Si può vedere in ogni caso come un insieme delle parti?\\
-	\emph{No, controesempio: la $\sigma$-algebra generata dagli aperti di $\R$
-	contiene tutti i punti di $\R$ ma non è l'insieme delle parti.}}
-	Definiamo in astratto la probabilità $\fundef[P]{\pset(S)}\R$ come funzione dai sottoinsiemi di un \emph{insieme universo} $S$ a valori reali, che soddisfa i seguenti \emph{assiomi di Kolmogorov}:
+	Definiamo in astratto la probabilità $\fundef[P]{\pset(S)}\R$ come funzione dai sottoinsiemi\footnote{%
+	In verità la probabilità è definita su una $\sigma$-algebra, non sull'insieme delle parti.
+	In generale non si può ricondurre una $\sigma$-algebra a un insieme delle parti;
+	ad esempio la $\sigma$-algebra generata dagli aperti di $\R$
+	contiene tutti i punti di $\R$ ma non è l'insieme delle parti.
+	Comunque per il livello di approfondimento che raggiungeremo
+	andrà sempre bene pensare alla probabilità come definita su un insieme delle parti.}
+	di un \emph{insieme universo} $S$ a valori reali, che soddisfa i seguenti \emph{assiomi di Kolmogorov}:
 	\begin{enumerate}
 		\item La probabilità è non negativa:
 		\[\forall A\subseteq S:P(A) \ge 0;\]
@@ -68,11 +72,12 @@ devo modificare le probabilità degli altri insiemi in modo che il nuovo insieme
 \end{exercise}
 
 \begin{definition}[Indipendenza]
-	$A$ e $B$ sono \emph{indipendenti} se $P(A|B) = P(A)$.
+	$A$ e $B$ sono \emph{indipendenti} se $P(A|B) = P(A)$,
+	oppure se almeno uno dei due è l'insieme vuoto.
 \end{definition}
 
 \begin{exercise}
-	Se $A$ e $B$ sono indipendenti allora $P(A\cap B) = P(A)P(B)$.
+	$A$ e $B$ sono indipendenti se e solo se $P(A\cap B) = P(A)P(B)$.
 \end{exercise}
 
 \begin{exercise}
@@ -85,7 +90,7 @@ devo modificare le probabilità degli altri insiemi in modo che il nuovo insieme
 		&1 \ge P(A\cup B) \ge P(B) = 1 \\
 		\implies &1 = P(A\cup B) = P(A) + P(B) - P(A\cap B) = \frac{11}{10} - P(A\cap B) \\
 		\implies &P(A\cap B) = \frac{1}{10} \\
-		&P(A|B) = \frac{P(A\cap B)}{P(B)} = \frac{\frac{1}{10}}{1} = P(A)
+		&P(A|B) = \frac{P(A\cap B)}{P(B)} = \frac{\frac{1}{10}}{1} = P(A).
 	\end{align*}
 \end{solution}
 

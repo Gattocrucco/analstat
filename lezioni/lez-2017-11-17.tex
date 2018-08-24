@@ -20,7 +20,7 @@ la probabilità che la regione contenga il valore vero è almeno $\mathrm{CL}$.
 		\cvg_f(\theta)
 		\is \int_{f(x)\ni\theta} \de x\, p(x;\theta);
 	\end{equation*}
-	il livello di confidenza\footnote{Purtroppo viene chiamato nello stesso modo che nel caso bayesiano.} è
+	il livello di confidenza\footnote{Purtroppo il livello di confidenza viene indicato con lo stesso simbolo del livello di credibilità ($\mathrm{CL}$).} è
 	\begin{equation*}
 		\mathrm{CL}
 		= \inf_\theta \cvg_f(\theta).
@@ -45,8 +45,9 @@ tale che le probabilità delle sezioni a parametro fisso siano almeno $\mathrm{C
 \begin{equation}
 	\label{eq:neycov}
 	\forall\theta:
-	\int_{H\cap \{\theta\}} \de x\, p(x;\theta) \ge \mathrm{CL}.
+	\int_{H\cap\set\theta} \de x\, p(x;\theta) \ge \mathrm{CL},
 \end{equation}
+dove con $\set\theta$ intendiamo $\setdef[(\theta,x)]{x\in X}$.
 Se definiamo la stima intervallare come le sezioni di $H$ a variabile costante
 \begin{equation*}
 	f(x) \is H \cap \{x\}
@@ -121,7 +122,16 @@ quindi non è in qualche modo intrinseca.
 
 \begin{solution}
 	Usare il fatto che $\max \mathbf x$ è una statistica sufficiente.
-	\marginpar{Spiegare in che modo basta usare una statistica sufficiente.}
+	\marginpar{Spiegare in che modo basta usare una statistica sufficiente.\\
+	\emph{In generale posso sempre fare la costruzione di Neyman con una statistica.
+	Il punto è se in qualche senso usando una statistica sufficiente sono sicuro
+	di non perdere le stime intervallari ``migliori''.
+	Nel caso delle stime puntuali ottimizzate con la varianza e anche nel caso bayesiano
+	mi è chiaro perché la sufficienza è utile,
+	mentre per le stime intervallari non ho mai visto un ragionamento generale
+	per dimostrare che le statistiche sufficienti hanno buone proprietà.
+	Tuttavia sono convinto che ci sia un collegamento.}\\
+	Nel caso di likelihood ratio, la statistica sufficiente in effetti è sufficiente.}
 	Risulta
 	\begin{align*}
 		m_\mathrm{min}

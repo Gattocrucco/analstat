@@ -84,23 +84,8 @@ In questo ambito la likelihood con il termine in $\mu$ si chiama \emph{extended 
 	\end{align*}
 \end{fact}
 
-\subsection{Varianza di massima likelihood}
-
-Esponiamo una stima della varianza dello stimatore di massima likelihood.
-\marginpar{Magari spostare questa parte subito dopo massima likelihood.}
-Sappiamo che asintoticamente la varianza tende a $1/(IN)$:
-\begin{align*}
-	\frac1{IN}
-	&= -\frac1N E \left[ \Pdv[2]{}{\theta} \log p(x;\theta); \theta \right]^{-1} \approx \\
-	\intertext{sostituiamo il valore atteso con la media aritmetica}
-	&\approx -\frac1N \left( \frac1N \sum_i \Pdv[2]{}{\theta} \log p(x_i;\theta) \right)^{-1} = \\
-	&= - \left( \Pdv[2]{}{\theta} \log p(\mathbf x;\theta) \right)^{-1} \approx \\
-	\intertext{sostituiamo il parametro con il suo stimatore}
-	&\approx - \left( \Pdv[2]{}{\theta} \log p(\mathbf x;\theta) \right)^{-1}_{\theta=\hat\theta}.
-\end{align*}
-Le sostituzioni fatte valgono asintoticamente quindi questo stimatore è consistente.
-I programmi numerici comunemente usati per calcolare gli stimatori di massima likelihood calcolano questa stima della varianza.
-\marginpar{Nel caso di minimi quadrati non lineari credo che di solito utilizzino la stima Gauss-Newton dell'hessiana cioè la varianza del caso lineare linearizzando il modello non lineare nel minimo.}
+% qui c'era la stima della varianza di massima likelihood
+% spostata nella lezione 27 ottobre
 
 \subsection{Minimi quadrati}
 

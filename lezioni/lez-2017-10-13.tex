@@ -35,18 +35,64 @@ quindi a questo punto si può:
 	tra alcuni valori di interesse.
 \end{example}
 
-\marginpar{Aggiungere questo esempio:
-misuro con un voltmetro una tensione,
-ho un macchinario il cui comportamento dipende da questa tensione.
-Faccio delle misure e uso un modello complicato per il macchinario,
-per trattare statisticamente la misura di tensione devo mettere
-un termine es. gaussiano per essa e aggiungerla come nuisance parameter,
-però poi se faccio il fit vedo che la stima della tensione viene molto
-diversa da quella misurata con il voltmetro.
-Poiché mi fido più della misura diretta del voltmetro
-che del modello complicato con cui sto fittando,
-elimino la tensione dalla trattazione statistica,
-e vedo come varia il risultato del fit variando di $\pm 1\sigma$ la tensione che impongo.}
+\begin{figure}
+	\centering
+	\includegraphics[width=20em]{macchinario}
+	\caption{\label{fig:macchinario}
+	Esempio generico di un apparato di misura il cui risultato,
+	oltre che dalle cose che vogliamo misurare,
+	dipende da altre condizioni che quindi vanno altresì misurate.
+	Ad esempio un macchinario la cui calibrazione dipende dalla tensione di alimentazione.}
+\end{figure}
+
+\begin{example}
+	Consideriamo un esperimento in cui abbiamo un macchinario dal funzionamento complicato
+	da cui otteniamo dei numeri (i nostri dati),
+	e in cui per ricavare il risultato che ci interessa dai dati
+	dobbiamo anche misurare il potenziale elettrico di un certo punto del macchinario
+	(vedi \autoref{fig:macchinario}).
+	Ad esempio potrebbe essere un oscilloscopio la cui calibrazione dipende dalla tensione di alimentazione.
+	Supponiamo di misurare questa tensione con un multimetro.
+	Per trattare statisticamente l'incertezza della misura del multimetro,
+	combiniamo il modello del macchinario con una gaussiana
+	che ha per deviazione standard l'incertezza del multimetro:
+	\begin{align*}
+		\mathcal L
+		&= P_\text{macchinario}(\text{dati}|\text{parametri, tensione}) \cdot \\
+		&\cdot P_\text{multimetro}(\text{tensione misurata}|\text{tensione}), \\
+		P_\text{multimetro}(V_\text{mis}|V)
+		&= \frac 1 {\sqrt{2\pi}\sigma_\text{multimetro}}
+		\exp \left( -\frac12 \left( \frac{V_\text{mis} - V} {\sigma_\text{multimetro}} \right)^2 \right).
+	\end{align*}
+	Quindi, se facciamo un fit, oltre ai parametri che ci interessano
+	otterremo anche un risultato per la tensione
+	(in generale i parametri che non ci interessano vengono chiamati \emph{nuisance parameters},
+	letteralmente parametri fastidiosi).
+	Supponiamo che, facendo un fit con il modello,
+	il risultato per la tensione venga diverso di molte sigma rispetto a quello misurato.
+	Poiché la misura della tensione è molto semplice,
+	supponiamo che sia corretta,
+	e riteniamo invece che il modello del macchinario abbia dei problemi, es. troppe approssimazioni.
+	Allora facciamo il fit fissando la tensione a quella misurata:
+	\begin{equation*}
+		\mathcal L = P_\text{macchinario}(\text{dati}|\text{parametri, tensione misurata}),
+	\end{equation*}
+	e ripetiamo il fit variando la tensione che mettiamo di $\pm 1\sigma_\text{multimetro}$.
+	La corrispondente variazione che otteniamo nel risultato la aggiungiamo in quadratura all'errore
+	statistico del fit e diciamo che è una componente sistematica dell'incertezza.
+	Questa procedura non è ben fondata statisticamente ma ci permette di riportare un risultato
+	abbastanza sensato quando non sappiamo come procedere altrimenti.
+\end{example}
+
+Nota: spesso nei \emph{counting experiments},
+cioè quelli in cui si contano degli eventi supposti poissoniani,
+si intende con incertezza statistica la componente dell'incertezza dovuta alla varianza della poissoniana
+e con incertezza sistematica tutto il resto,
+anche se i nuisance parameters sono stati trattati statisticamente.
+Questo perché tipicamente l'incertezza statistica scenderà come $1/\sqrt T$
+dove $T$ è il tempo per cui lascio acceso l'esperimento,
+mentre l'incertezza sistematica cambierà poco con la durata,
+e questo è utile per sapere quanto tempo vale la pena continuare a prendere dati.
 
 \section{Likelihood gaussiana}
 
@@ -119,7 +165,7 @@ quindi per scrivere la likelihood è sufficiente conoscere $s_0 \is s(x_0)$.
 	\label{th:suffatt}
 	Se, per una qualche funzione $g$, la probabilità di $x$ si fattorizza come
 	\begin{equation*}
-		p(x;\mu) = f(x)\cdot g(s(x),\theta)
+		p(x;\theta) = f(x)\cdot g(s(x),\theta)
 	\end{equation*}
 	con $f\ge 0$, allora $s$ è sufficiente.
 \end{theorem}

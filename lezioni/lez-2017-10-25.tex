@@ -9,8 +9,6 @@ Il valore atteso è per definizione il momento $k$-esimo
 $E[s_k]=\mu_k$,
 quindi $s_k$ è uno stimatore con bias nullo di $\mu_k$.
 Verifichiamo che sia consistente;
-\marginpar{Spiegare perché se la varianza va a zero allora è consistente
-(disuguaglianza di Čebichev).}
 per $N$ estrazioni lo estendiamo alla media aritmetica (che lascia invariato il bias):
 \begin{align*}
 	s_k(\mathbf x)
@@ -31,6 +29,22 @@ e calcoliamo la varianza:
 	&= \frac{\mu_{2k} - \mu_k^2}N
 	\propto \frac1N.
 \end{align*}
+In base al seguente teorema, se la varianza tende a zero lo stimatore è consistente:
+\begin{theorem}[Disuguaglianza di Čebyšëv]
+	Per una variabile $x$ con media $\mu$ e varianza $\sigma^2$ definite, per $k$ qualsiasi vale
+	\begin{equation*}
+		P(|x-\mu| \ge k\sigma) \le \frac1{k^2}.
+	\end{equation*}
+\end{theorem}
+\begin{proof}
+	\begin{align*}
+		P(|x-\mu| \ge k\sigma)
+		&= \int_{|x-\mu| \ge k\sigma} \de x\, p(x) = \\
+		&= \int_{\left( \frac {x-\mu} {k\sigma} \right)^2 \ge 1} \de x\, p(x) \le \\
+		&\le \int \de x\, p(x) \left( \frac {x-\mu} {k\sigma} \right)^2 = \\
+		&= \frac 1{k^2} \frac{E[(x-\mu)^2]}{\sigma^2} = \frac 1 {k^2}. \qedhere
+	\end{align*}
+\end{proof}
 I momenti sono quindi un modo generale di parametrizzare una distribuzione in modo che esista uno stimatore corretto, consistente e semplice da calcolare.
 Tuttavia tipicamente il problema specifico fisserà quali sono i parametri che vogliamo stimare.
 
@@ -178,35 +192,4 @@ Tuttavia tipicamente il problema specifico fisserà quali sono i parametri che v
 	quindi $\hat V$ è uno stimatore con bias nullo della varianza per qualunque distribuzione.
 \end{example}
 
-\paragraph{Riduzione del bias}
-
-Sia $\hat\theta(x)$ uno stimatore con bias $b(\theta)$.
-Lo stimatore
-\begin{equation*}
-	\hat\theta^{(u)}(x)
-	\is \hat\theta(x) - b(\theta)
-\end{equation*}
-ha bias nullo,
-però questa formula non si può usare in pratica perché dipende dal valore vero $\theta$.
-Si può tuttavia cercare uno stimatore del bias $\hat b(x)$.
-Consideriamo un modello per $N$ estrazioni di $x$
-e uno stimatore $\hat\theta_N(\mathbf x)$
-con bias che ha sviluppo in serie
-\begin{equation*}
-	b_N(\theta)
-	= \frac{\alpha(\theta)}N + O(N^{-2}).
-\end{equation*}
-Stimiamo il bias di $\hat\theta$ con la media artimetica su due sottoinsiemi dei dati meno lui stesso:
-\begin{equation*}
-	\hat\theta^{(u)}_N(\mathbf x)
-	\is 2\hat\theta_N(\mathbf x)
-	- \frac12 \left( \hat\theta_{N/2}(x_1,\dots,x_{N/2}) + \hat\theta_{N/2}(x_{1+N/2},\dots,x_N) \right).
-\end{equation*}
-Calcoliamo il nuovo bias:
-\begin{align*}
-	E[\hat\theta^{(u)}_N]
-	&= 2 \left( \theta + \frac{\alpha(\theta)}N + O(N^{-2}) \right)
-	- \frac12 \left( 2\theta + 2 \frac{\alpha(\theta)}{N/2} + O(N^{-2}) \right) = \\
-	&= \theta + O(N^{-2}).
-\end{align*}
-Quindi il bias di $\hat\theta^{(u)}$ è all'ordine successivo in $N$.
+% parte sulla riduzione del bias spostata al 24 ottobre

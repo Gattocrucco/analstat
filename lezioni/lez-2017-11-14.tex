@@ -2,6 +2,7 @@
 % lezione di Punzi
 
 \section{Stima intervallare}
+\label{sec:intervallare}
 
 Quando, riportando il risultato di un'inferenza, si scrive
 \begin{equation*}
@@ -9,7 +10,9 @@ Quando, riportando il risultato di un'inferenza, si scrive
 \end{equation*}
 convenzionalmente si intende che $a$ è una stima di $\theta$ con varianza che vale $b^2$ se calcolata in $a$,
 e bias trascurabile rispetto a $b$.
-Tipicamente si da anche per scontato che,
+\marginpar{Più in generale $b^2$ deve essere una buona stima della varianza.
+Calcolare la varianza nella stima è usuale e asintoticamente funziona.}
+Tipicamente si dà anche per scontato che,
 se non specificato esplicitamente,
 la distribuzione dello stimatore sia approssimabile con una gaussiana.
 A volte si riporta un terzo numero:
@@ -70,7 +73,9 @@ non è in generale associato in alcun modo l'intervallo $(a-b,a+b)$.
 Purtroppo è d'uso riportare l'incertezza nei grafici proprio con una ``barra d'errore''
 che raffigura questo intervallo.
 
-La soluzione generale a questi problemi è la \emph{stima intervallare}.
+La soluzione generale a questi problemi è la \emph{stima intervallare}
+(che forse andrebbe chiamata qualcosa del tipo \emph{stima regionale},
+visto che non si usano necessariamente solo intervalli).
 Anziché usare uno stimatore a valori nello spazio del parametro,
 si ottiene un elemento dell'insieme delle parti.
 Ovviamente la stima intervallare non è limitata a intervalli monodimensionali,
@@ -104,10 +109,7 @@ oppure calcolare la probabilità di una certa regione (che corrisponde alla stim
 \end{definition}
 La questione è come scegliere $f$.
 Il criterio comune è chiedere che la credibilità abbia almeno un certo valore,
-chiamato \emph{livello di confidenza} ($\mathrm{CL}$).
-\marginpar{Qui $\mathrm{CL}$ non sta per <<confidence level>>
-bensì per <<credibility level>>;
-l'ambiguità citata dopo è sul simbolo, non sul nome.}
+chiamato \emph{livello di credibilità} ($\mathrm{CL}$).
 Fissato $\mathrm{CL}$, scegliere una $f$ che abbia $\cred_f(x_0)\ge\mathrm{CL}$
 equivale a scegliere una \emph{funzione di ordinamento} $O(\theta,x)$ e porre
 \begin{equation*}
