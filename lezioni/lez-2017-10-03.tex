@@ -14,6 +14,11 @@
 Data una statistica abbiamo visto come ricavarne esattamente la distribuzione;
 può però essere utile ricavare solo alcuni momenti in modo approssimato.
 Sia $\mathbf x\in\R^n$, sviluppiamo $s(\mathbf x)$ in serie intorno alla media:
+\marginpar{C'è il problema che per calcolare la nuova media devo usare
+la formula che c'è qui cioè $f(\mu) + \frac12f''(\mu)\sigma^2$, mentre se ho
+fatto una misura $x$ che è uno stimatore unbiased di $\mu$ e voglio ottenere
+una stima unbiased di $f(\mu)$ (cioè quello che serve in pratica la maggior
+parte delle volte) devo usare $f(x) - \frac12f''(x)\sigma^2$.}
 \begin{align*}
 	s(\mathbf x) &= s(\boldsymbol \mu) + {}\\
 	&+ \sum_i \left.\frac{\partial s}{\partial x_i}\right|_{\boldsymbol\mu} (x_i - \mu_i) + {}\\
