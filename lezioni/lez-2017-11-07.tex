@@ -47,10 +47,12 @@ mentre con Monte Carlo si può concatenare una nuova sequenza pseudocasuale e ri
 
 \subsection{Generazione di sequenze pseudocasuali}
 
-È comodo non dover scrivere esplicitamente un'intera sequenza pseudocasuale per usarla.
-Esistono algoritmi ciclici che generano buone sequenze pseudocasuali molto più lunghe dell'algoritmo.
-Tipicamente si studiano algoritmi che generano distribuzioni uniformi e poi si ricavano le altri distribuzioni a partire da quella uniforme con opportune statistiche.
-Ad esempio un modo stupido di ottenere una variabile gaussiana è sommarne tante uniformi.
+È comodo non dover scrivere esplicitamente un'intera sequenza pseudocasuale per
+usarla. Esistono algoritmi ciclici che generano buone sequenze pseudocasuali
+molto più lunghe dell'algoritmo. Tipicamente si studiano algoritmi che generano
+distribuzioni uniformi e poi si ricavano le altri distribuzioni a partire da
+quella uniforme con opportune statistiche. Ad esempio un modo stupido di
+ottenere una variabile gaussiana è sommarne tante uniformi.
 
 \paragraph{Cumulante}
 
@@ -69,35 +71,76 @@ La sequenza delle $x$ accettate è distribuita secondo $p$.
 
 \paragraph{MCMC}
 
-Un altro metodo ancora più generico è il \emph{Markov Chain Monte Carlo} (MCMC).
-Una catena di Markov è una sequenza in cui ogni elemento si ottiene a partire da quello precedente.
-A causa di questa dipendenza,
-in una catena di Markov pseudocasuale gli elementi sono correlati,
-quindi la catena va usata sempre tutta insieme e senza fare riferimento all'ordine degli elementi.
+Un altro metodo ancora più generico è il \emph{Markov Chain Monte Carlo}
+(MCMC). Una catena di Markov è una sequenza casuale in cui la distribuzione di
+probabilità di un elemento dipende solo dall'elemento precedente ed è sempre la
+stessa. Detto meglio: sia $\mathbf x = (x_1,\dots,x_N)$ una sequenza
+distribuita secondo una pdf $p(\mathbf x)$. In generale se calcolo la
+probabilità condizionata di un elemento $x_k$ rispetto al precedente $x_{k-1}$
+essa dipenderà ancora dagli altri $x_i$, $i \neq k$, $i \neq k-1$, e dipenderà
+anche da $k$:
+\begin{equation}
+    p(x_k|x_{k-1}) = \frac {p(x_k, x_{k-1})} {p(x_{k-1})} = \frac
+    {\int \prod_{q \neq k, k-1} \de x_q\, p(\mathbf x)}
+    {\int \prod_{q \neq k-1} \de x_q\, p(\mathbf x)}.
+\end{equation}
+La $p(\mathbf x)$ è una catena di Markov se invece
+$p(x_k|x_{k-1})$ dipende solo da $x_{k-1}$ ed è la stessa per tutti i $k$.
 
-L'esempio più semplice di MCMC è \emph{Metropolis}.
-Consideriamo una \emph{proposal distribution} $\operatorname{PD}(x;y)$ simmetrica,
-cioè $\operatorname{PD}(x;y) = \operatorname{PD}(y;x)$,
-con lo stesso supporto della distribuzione obiettivo $p_0$.
-Fissiamo l'elemento iniziale della catena $x_0$.
-Otteniamo $x_{i+1}$ da $x_i$ estraendo $x$ da $\operatorname{PD}(x;x_i)$ e $u$ uniforme in $(0,1)$ finché non si verifica
-\begin{equation*}
-	\frac{p_0(x)}{p_0(x_i)} > u.
-\end{equation*}
-La probabilità di passare da $x_A$ a $x_B$ in un'iterazione è
-\begin{equation*}
-	p(x_A\rightarrow x_B)
-	= \operatorname{PD}(x_B;x_A) \cdot \min\left\{1,\frac{p_0(x_B)}{p_0(x_A)}\right\},
-\end{equation*}
-quindi il rapporto tra le probabilità nei due versi è
-\begin{equation*}
-	\frac {p(x_A\rightarrow x_B)} {p(x_B\rightarrow x_A)}
-	= \frac{p_0(x_B)}{p_0(x_A)}.
-\end{equation*}
-Allora si ha una situazione stazionaria stabile quando,
-detta $f$ la densità mesoscopica dei punti nella catena,
-$f(x)\propto p_0(x)$.
-Quindi la catena è una buona sequenza pseudocasuale solo asintoticamente.
+Detto dal punto di vista delle sequenze pseudocasuali, le catene di Markov sono
+le sequenze in cui per generare l'elemento successivo mi basta sapere
+l'elemento precedente. Possiamo chiederci se nel limitarci a studiare questo
+tipo di sequenze ci stiamo perdendo qualcosa di utile. Le aggiunte possibili
+sono due: potremmo usare $M$ campioni precedenti per generare il prossimo
+anziché solo uno, e potremmo far dipendere $p(x_k|x_{k-1},\dots,x_{k-M})$ anche
+da $k$. Possiamo ricondurre questi casi a una catena di Markov: basta
+considerare la sequenza $y_k$ dove ogni elemento è una $(M+1)$-pla così
+definita: $y_k = (k, x_k, x_{k-1}, \dots, x_{k-M+1})$. Quindi le catene di
+Markov descrivono nel modo più generale possibile le sequenze casuali
+generabili in pratica.
+
+Supponiamo ora di voler usare MCMC per campionare una distribuzione data $p_0$,
+ovvero vorremmo che $p(x_k) = p_0(x_k)$. Per prima cosa osserviamo che la
+catena di Markov non è caratterizzata solo da $p(x_k|x_{k-1})$: bisogna anche
+specificare $p(x_1)$. Questo però vuole anche dire che è impossibile campionare
+esattamente $p_0$ con la catena: infatti se fosse $p(x_1) = p_0(x_1)$ allora
+dovremmo essere già in grado di campionare $p_0$. In qualche modo bisogna
+scegliere una $p(x_k|x_{k-1})$ che sappiamo campionare e tale che, per $k$
+abbastanza grande, $p(x_k) \approx p_0(x_k)$. Inoltre anche se da un certo punto
+in poi otteniamo $p(x_k) \approx p_0(x_k)$, in generale non è detto che
+$x_k$ e $x_{k-1}$ siano indipendenti.
+
+Non approfondiamo oltre la teoria e forniamo il più semplice esempio
+funzionante di catena di Markov, l'\emph{algoritmo di Metropolis}. Consideriamo
+una \emph{proposal distribution} $p_D(x;y)$ simmetrica, cioè $p_D(x;y) =
+p_D(y;x)$. Fissato l'elemento di partenza $x_1$, l'algoritmo per generare
+$x_k$ partendo da $x_{k-1}$ è:
+\begin{enumerate}
+    \item Estrarre $\tilde x$ secondo $p_D(\tilde x;x_{k-1})$.
+    \item Sia $p_A = \min(1, p_0(\tilde x)/p_0(x_{k-1}))$. Scegliere con
+    probabilità $p_A$ di usare $x_k = \tilde x$ e con probabilità $1-p_A$
+    di usare $x_k = x_{k-1}$.
+\end{enumerate}
+Detto a parole, stiamo proponendo un candidato $\tilde x$ per $x_k$ e
+lo accettiamo con probabilità $p_A$. Abbiamo
+\begin{equation}
+	p(x_k|x_{k-1})
+	= p_D(x_k;x_{k-1}) \cdot \min\left(1,\frac{p_0(x_k)}{p_0(x_{k-1})}\right).
+\end{equation}
+Come al solito siamo stati sloppy chiamando tutte le probabilità $p$, adesso per
+non fare confusione nel prossimo passaggio definiamo la funzione $f$
+\begin{equation}
+    f(x_k, x_{k-1}) = p(x_k|x_{k-1})
+\end{equation}
+e osserviamo che
+\begin{equation}
+    \label{eq:db}
+    \frac {f(b, a)} {f(a, b)} = \frac {p_0(b)} {p_0(a)}.
+\end{equation}
+Questa condizione è detta \emph{bilancio dettagliato} e si può dimostrare che,
+insieme a opportune ipotesi su $p_D$, porta la catena a campionare
+asintoticamente la $p_0$.
+
 Notiamo che nell'algoritmo $p_0$ è usato a meno di una costante moltiplicativa;
 questo è molto utile quando si usa il teorema di Bayes: basta scrivere
 \begin{equation*}
