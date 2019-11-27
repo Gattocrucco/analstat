@@ -53,16 +53,16 @@ la likelihood cambia di un termine che dipende dalla variabile.
 
 \subsection{Kolmogorov-Smirnov}
 
-Consideriamo una distribuzione $p(x)$ per $x\in\R$, e $N$ estrazioni
+Consideriamo una distribuzione $p(x)$ per $x\in\R$, con comulante $F$ continua
+(ovvero $p$ non contiene $\delta$ di Dirac), e $N$ estrazioni
 $\mathbf x = (x_1, \dots, x_N)$ di $p$. Costruiamo la \emph{cumulante empirica} 
 \begin{equation*}
 	S_{\mathbf x}(x)
 	\is \frac {\#\setdef[x_i]{x_i\le x}} N,
 \end{equation*}
-ovvero $S_{\mathbf x}$ è una funzione crescente a gradini che parte da zero a $-\infty$,
-sale di $1/N$ ogni volta che incontra un $x_i$ e arriva a 1.
-
-Sia $F$ la cumulante di $p$. Definiamo la statistica
+ovvero $S_{\mathbf x}$ è una funzione crescente a gradini che parte da zero a
+$-\infty$, sale di $1/N$ ogni volta che incontra un $x_i$ e arriva a 1.
+Definiamo la statistica
 \begin{equation*}
 	D(\mathbf x)
 	\is \sup_x|S_\mathbf x(x)-F(x)|
