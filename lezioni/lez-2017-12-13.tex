@@ -53,38 +53,46 @@ la likelihood cambia di un termine che dipende dalla variabile.
 
 \subsection{Kolmogorov-Smirnov}
 
-Consideriamo una distribuzione $p(x)$ per $x\in\R$.
-Costruiamo la \emph{cumulante empirica} 
+Consideriamo una distribuzione $p(x)$ per $x\in\R$, e $N$ estrazioni
+$\mathbf x = (x_1, \dots, x_N)$ di $p$. Costruiamo la \emph{cumulante empirica} 
 \begin{equation*}
 	S_{\mathbf x}(x)
-	\is \frac {\#\setdef[x_i]{x_i\le x}} N.
+	\is \frac {\#\setdef[x_i]{x_i\le x}} N,
 \end{equation*}
-Sia $F$ la cumulante di $p$.
-Definiamo la statistica
+ovvero $S_{\mathbf x}$ è una funzione crescente a gradini che parte da zero a $-\infty$,
+sale di $1/N$ ogni volta che incontra un $x_i$ e arriva a 1.
+
+Sia $F$ la cumulante di $p$. Definiamo la statistica
 \begin{equation*}
 	D(\mathbf x)
 	\is \sup_x|S_\mathbf x(x)-F(x)|
 \end{equation*}
-ovvero la massima differenza tra la cumulante e la cumulante empirica.
-Per la monotonicità di $F$, si riscrive come
+ovvero la massima differenza tra la cumulante e la cumulante empirica. Poiché
+$S_{\mathbf x}$ è a gradini e $F$ è monotona, la massima differenza può solo
+essere in corrispondenza delle salite dei gradini, quindi $D$ si riscrive come
 \begin{equation*}
-	D = \max_{i=1,\dotsc,N} \Set{\left|\frac iN-F(x_i)\right|, \left|\frac{i-1}N-F(x_i)\right|},
+	D(\mathbf x) = \max_{i=1,\dotsc,N}
+    \Set{\left|\frac iN-F(x_i)\right|, \left|\frac{i-1}N-F(x_i)\right|},
 \end{equation*}
 quindi è facile da calcolare.
-Si dimostra che la distribuzione di $D$ è la stessa per ogni $N$ e per ogni $p$,
+Si dimostra che la distribuzione di $D$, fissato $N$, è la stessa per ogni $p$,
 e ha survival function asintotica
+\marginpar{Non può essere la stessa per ogni $N$ perché il minimo di $D$ è
+$1/(2N)$.}
 \begin{equation*}
 	\lim_{N\to\infty} P(\sqrt N D>z)
 	= 2 \sum_{k=1}^\infty (-1)^{k+1} e^{-2k^2z^2}.
 \end{equation*}
-Il test fatto con la survival function di $D$ come p-value si chiama \emph{test di Kolmogorov-Smirnov}.
-Poiché il test KS è molto usato,
-facciamo una lista di controllo:
+Il test fatto con la survival function di $D$ come p-value (analogamente a come
+si fa per il $\chi^2$) si chiama \emph{test di Kolmogorov-Smirnov}.
+Il test di Kolmogorov-Smirnov è implementato in vari software, quindi
+probabilmente il lettore lo userà da una libreria anziché implementarlo a mano.
+Facciamo una lista di cose da verificare quando si usa il test:
 \begin{itemize}
-	\item controllare se si sta usando la distribuzione asintotica o quella per $N$ finito;
+	\item controllare se l'implementazione usa la distribuzione asintotica di $D$ o quella per $N$ finito;
 	\item controllare che l'ipotesi sia semplice,
 	cioè che $p(x)$ è fissata e non è stata ottenuta dagli $x_i$ con un fit;
 	\item se si approssima $p(x)$ con un istogramma, controllare che sia abbastanza fine.
 \end{itemize}
-Si può anche usare $D$ per stimare un parametro minimizzandola,
+Si potrebbe anche usare $D$ per stimare un parametro minimizzandola,
 però è stato studiato e tipicamente funziona peggio di massima likelihood.
