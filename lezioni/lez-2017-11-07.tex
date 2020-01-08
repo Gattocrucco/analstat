@@ -76,16 +76,23 @@ Un altro metodo ancora più generico è il \emph{Markov Chain Monte Carlo}
 probabilità di un elemento dipende solo dall'elemento precedente ed è sempre la
 stessa. Detto meglio: sia $\mathbf x = (x_1,\dots,x_N)$ una sequenza
 distribuita secondo una pdf $p(\mathbf x)$. In generale se calcolo la
-probabilità condizionata di un elemento $x_k$ rispetto al precedente $x_{k-1}$
-essa dipenderà ancora dagli altri $x_i$, $i \neq k$, $i \neq k-1$, e dipenderà
-anche da $k$:
+probabilità condizionata di un elemento $x_k$ rispetto ai precedenti $x_1,
+\dots, x_{k-1}$, essa dipenderà da questi elementi, e in particolare da $k$:
 \begin{equation}
-    p(x_k|x_{k-1}) = \frac {p(x_k, x_{k-1})} {p(x_{k-1})} = \frac
-    {\int \prod_{q \neq k, k-1} \de x_q\, p(\mathbf x)}
-    {\int \prod_{q \neq k-1} \de x_q\, p(\mathbf x)}.
+    p(x_k|x_1,\ldots,x_{k-1})
+    = \frac {p(x_1,\ldots,x_k)} {p(x_1,\ldots,x_{k-1})}
+    = \frac
+    {\int \prod_{q > k} \de x_q\, p(\mathbf x)}
+    {\int \prod_{q \ge k} \de x_q\, p(\mathbf x)}.
 \end{equation}
-La $p(\mathbf x)$ è una catena di Markov se invece
-$p(x_k|x_{k-1})$ dipende solo da $x_{k-1}$ ed è la stessa per tutti i $k$.
+La $p(\mathbf x)$ è una catena di Markov se invece $p(x_k|x_1,\ldots,x_{k-1})$
+dipende solo da $x_{k-1}$ ed è la stessa per tutti i $k$, che in particolare
+implica $p(x_k|x_1,\ldots,x_{k-1}) = p(x_k|x_{k-1})$.
+\marginpar{L'implicazione si dimostra così: sia $A=x_k$, $B=x_{k-1}$,
+$C=(x_1,\dots,x_{k-2})$. $p(A|B) = \frac{p(A,B)}{p(B)} = \frac{\sum_C p(A,B,C)}
+{\sum_C p(B,C)} = \frac{\sum_C p(A,B,C)} {\sum_C p(A,B,C) / p(A|B,C)}$, ma
+per ipotesi $p(A|B,C)$ non dipende da $C$, quindi le somme si semplificano e
+viene $p(A|B) = p(A|B,C)$.}
 
 Detto dal punto di vista delle sequenze pseudocasuali, le catene di Markov sono
 le sequenze in cui per generare l'elemento successivo mi basta sapere
