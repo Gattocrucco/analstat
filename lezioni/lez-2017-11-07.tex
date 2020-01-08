@@ -69,6 +69,8 @@ sia $x$ uniforme con lo stesso supporto della distribuzione obiettivo~$p$
 e $y$ uniforme in $(0,\max p)$, \emph{accetto} $x$ se $y<p(x)$ e la \emph{rigetto} altrimenti.
 La sequenza delle $x$ accettate è distribuita secondo $p$.
 
+% questa parte sul MCMC l'ho completamente riscritta dopo averla studiata per
+% un altro corso
 \paragraph{MCMC}
 
 Un altro metodo ancora più generico è il \emph{Markov Chain Monte Carlo}
@@ -157,5 +159,32 @@ senza calcolare
 \begin{equation*}
 	p(y) = \int \de x\, p(y|x)\cdot p(x).
 \end{equation*}
+
+% questo esercizio l'ho inventato io perché è una cosa che mi è servita in
+% pratica. mi aspetto tuttavia che sia un esempio standard.
+\begin{exercise}
+    Considerare la sequenza definita da $x_k = \lambda x_{k-1} + (1-\lambda)
+    r_k$, con $\lambda \in (0, 1)$, dove gli $r_k$ sono indipendenti e
+    identicamente distribuiti. Dimostrare che $\mathbf x$ è una catena di
+    Markov. Calcolare la correlazione tra $x_k$ e $x_{k+t}$, assumendo che la
+    distribuzione di $x_k$ converga a una certa distribuzione fissata, e
+    assumendo per comodità che $p(x_1) = p(x_\infty)$, in modo che tutte le
+    $x_k$ abbiano già esattamente la distribuzione asintotica.
+\end{exercise}
+
+\begin{solution}
+    Senza perdita di generalità facciamo che $E[r_k] = E[x_1] = 0$, che implica
+    $E[x_k] = 0$ (anche senza le ipotesi di convergenza che abbiamo messo).
+    Allora
+    \begin{align*}
+        \operatorname{Corr}[x_k, x_{k+t}]
+        &= \frac {E[x_k x_{k+t}]} {\sqrt{E[x_k^2] E[x_{k+t}^2]}} = \\
+        &= \frac {E[x_k (\lambda^t x_k + \text{roba con gli $r$})]}
+        {E[x_\infty^2]} = \\
+        &= \lambda^t.
+    \end{align*}
+    Questo esempio è utile perché essendo così semplice si riesce a calcolare
+    tutto analiticamente e quindi si possono testare gli algoritmi generici.
+\end{solution}
 
 % la parte sulla funzione psicometrica la salto perché è tutta inclusa nella lezione di Francavilla
