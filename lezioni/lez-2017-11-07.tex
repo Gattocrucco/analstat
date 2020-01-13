@@ -90,11 +90,23 @@ probabilità condizionata di un elemento $x_k$ rispetto ai precedenti $x_1,
 La $p(\mathbf x)$ è una catena di Markov se invece $p(x_k|x_1,\ldots,x_{k-1})$
 dipende solo da $x_{k-1}$ ed è la stessa per tutti i $k$, che in particolare
 implica $p(x_k|x_1,\ldots,x_{k-1}) = p(x_k|x_{k-1})$.
-\marginpar{L'implicazione si dimostra così: sia $A=x_k$, $B=x_{k-1}$,
-$C=(x_1,\dots,x_{k-2})$. $p(A|B) = \frac{p(A,B)}{p(B)} = \frac{\sum_C p(A,B,C)}
-{\sum_C p(B,C)} = \frac{\sum_C p(A,B,C)} {\sum_C p(A,B,C) / p(A|B,C)}$, ma
-per ipotesi $p(A|B,C)$ non dipende da $C$, quindi le somme si semplificano e
-viene $p(A|B) = p(A|B,C)$.}
+
+\begin{exercise}
+    Dimostrare l'ultima affermazione.
+\end{exercise}
+
+\begin{solution}
+    Sia $A=x_k$, $B=x_{k-1}$, $C=(x_1,\dots,x_{k-2})$. L'ipotesi è che
+    $p(A|B,C)$ non dipende da $C$, la tesi che $p(A|B,C)=p(A|B)$.
+    \begin{align*}
+        p(A|B)
+        &= \frac{p(A,B)}{p(B)} = \\
+        &= \frac {\int \de C\, p(A,B,C)} {\int \de C\, p(B,C)} = \\
+        &= \frac {\int \de C\, p(A,B,C)} {\int \de C\, \frac {p(A,B,C)} {p(A|B,C)}} = \\
+        \intertext{per ipotesi possiamo portare fuori $p(A|B,C)$ dall'integrale}
+        &= p(A|B,C).
+    \end{align*}
+\end{solution}
 
 Detto dal punto di vista delle sequenze pseudocasuali, le catene di Markov sono
 le sequenze in cui per generare l'elemento successivo mi basta sapere
@@ -173,9 +185,10 @@ senza calcolare
 \end{exercise}
 
 \begin{solution}
-    Senza perdita di generalità facciamo che $E[r_k] = E[x_1] = 0$, che implica
-    $E[x_k] = 0$ (anche senza le ipotesi di convergenza che abbiamo messo).
-    Allora
+    È una catena di Markov perché per costruire $x_k$ usiamo solo $x_{k-1}$ più
+    una variabile che non dipende dagli $\mathbf x$. Senza perdita di
+    generalità facciamo che $E[r_k] = E[x_1] = 0$, che implica $E[x_k] = 0$
+    (anche senza le ipotesi di convergenza che abbiamo messo). Allora
     \begin{align*}
         \operatorname{Corr}[x_k, x_{k+t}]
         &= \frac {E[x_k x_{k+t}]} {\sqrt{E[x_k^2] E[x_{k+t}^2]}} = \\
