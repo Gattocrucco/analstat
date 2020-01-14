@@ -199,12 +199,21 @@ ovvero la pdf è nella forma
 
 \subsection{Stime puntuali e intervallari}
 
-Adesso che abbiamo definito e studiato la stima intervallare,
-ritorniamo al discorso lasciato in sospeso all'inizio di questa sezione (\ref{sec:intervallare}),
-cioè quando usare una stima puntuale piuttosto che una intervallare.
+Adesso che abbiamo definito e studiato la stima intervallare, ritorniamo al
+discorso lasciato in sospeso all'inizio di questa sezione
+(\ref{sec:intervallare}), cioè quando usare una stima puntuale piuttosto che
+una intervallare.
 
-Il criterio che avevamo dato perché una stima puntuale fosse ``buona''
-era che la varianza dello stimatore rimanesse abbastanza costante intorno alla stima,
-in modo che avesse senso riportarne una stima e usarla per confrontarla con altri risultati
-o per fare medie pesate.
-DA SCRIVERE: parametro di localizzazione e varianza costante -> stima puntuale genera stime intervallari a qualsiasi CL.
+Il criterio che avevamo dato perché una stima puntuale fosse ``buona'' era che
+la varianza dello stimatore rimanesse abbastanza costante intorno alla stima,
+in modo che avesse senso riportarne una stima e usarla per confrontarla con
+altri risultati o per fare medie pesate. Inoltre avevamo richiesto che il bias
+fosse piccolo, e che la distribuzione fosse approssimativamente gaussiana.
+
+Adesso possiamo fare un'ulteriore considerazione: se la varianza è costante al
+variare del valore vero e il bias è nullo, e conosciamo la forma della
+distribuzione, allora possiamo generare intervalli di confidenza a partire
+dalla stima: infatti probabilmente avrete già visto costruire intervalli
+di confidenza dicendo che l'intervallo di $\pm 1 \sigma$ intorno alla stima è
+un intervallo di confidenza con $\mathrm{CL} = 68\,\%$. Bene, adesso sapete
+quali sono le ipotesi necessarie per dirlo.

@@ -48,6 +48,12 @@ In base al seguente teorema, se la varianza tende a zero lo stimatore è consist
 I momenti sono quindi un modo generale di parametrizzare una distribuzione in modo che esista uno stimatore corretto, consistente e semplice da calcolare.
 Tuttavia tipicamente il problema specifico fisserà quali sono i parametri che vogliamo stimare.
 
+\marginpar{spiegare che poi in pratica non si usa perché la varianza esplode al
+crescere di $k$ (fare grafico per la gaussiana di $N(k)$ necessario per avere
+un errore del 10 \% su $\mu_k$), e menzionare che se voglio ridisegnare una
+distribuzione a partire dai momenti devo usare massima entropia, citare
+Abramov.}
+
 \subsection{Massima likelihood}
 \label{sec:ml}
 
@@ -191,5 +197,8 @@ Tuttavia tipicamente il problema specifico fisserà quali sono i parametri che v
 	Notiamo che nel conto non abbiamo usato il fatto che la distribuzione è gaussiana,
 	quindi $\hat V$ è uno stimatore con bias nullo della varianza per qualunque distribuzione.
 \end{example}
+
+\marginpar{Mettere come esercizio il conto della varianza della varianza fatto
+nel modo furbo che c'è su mathexchange.}
 
 % parte sulla riduzione del bias spostata al 24 ottobre
