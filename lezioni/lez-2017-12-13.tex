@@ -47,8 +47,14 @@ la likelihood cambia di un termine che dipende dalla variabile.
 		p(\mathbf x) = \frac1{m^N},
 		\quad \mathbf x \in (0,m)^N.
 	\end{equation*}
-	Il massimo della likelihood è $m^{-N}$ che non dipende da $\mathbf x$,
-	quindi è perfettamente inutile come statistica per un test.
+	La massima likelihood si ottiene mettendo $m = \max\{x_1,\ldots,x_n\}$,
+    quindi vale $1/(\max\mathbf x)^N$. In analogia con il $\chi^2$, prendiamo
+    meno il logaritmo, ottenendo $N \log\max\mathbf x$. Quindi dovremmo
+    dire che il modello uniforme non fitta bene se $N \log\max\mathbf x$ viene
+    più grande di tot. È intuitivo che questo non ha senso, per controllare
+    se la distribuzione è uniforme bisogna in qualche modo vedere se gli $x_i$
+    sono sparsi in giro un po' ovunque tra zero e il massimo, non quanto vale
+    il massimo.
 \end{example}
 
 \subsection{Kolmogorov-Smirnov}
