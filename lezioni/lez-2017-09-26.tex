@@ -47,6 +47,11 @@ perché sarà più chiaro dopo il \autoref{sec:cap2}.
 	Consideriamo una partizione dell'insieme universo,
 	ovvero una famiglia $V\subseteq\pset(S)$ di sottoinsiemi di $S$ disgiunti a due a due.
 	Diciamo che gli elementi di $V$ sono i valori di una \emph{variabile aleatoria}
+    \marginpar{Gli statistici e i matematici definiscono le variabili come funzioni applicate
+    a uno spazio misurabile comune. Questa definizione credo sia comoda per
+    definire le cose e fare le dimostrazioni ma secondo me ti fa capire meno il
+    senso. Ho notato che anche Pearl definisce le variabili nel modo che ho
+    usato io.}
 	e che la \emph{distribuzione} della variabile è la probabilità
 	ristretta agli insiemi ottenibili unendo elementi di $V$:
 	\begin{align*}
@@ -157,6 +162,9 @@ cioè l'unità di misura della pdf è l'inverso di quella di $x$.
 \begin{definition}[Statistica]
 	Una funzione $\fundef[s]{S_1}{S_2}$ tra due insiemi dotati di probabilità è una \emph{statistica} se soddisfa
 	\marginpar{Nota: la definizione con $\forall A\subseteq S_1:P(s(A))=P(A)$ è sbagliata.}
+    \marginpar{La definizione standard di statistica è una funzione che
+    viene applicata a variabili osservabili e non a parametri incogniti, qui
+    invece la sto usando per indicare il pushforward.}
 	\begin{equation*}
 		\forall A\subseteq S_2 : P(A) = P(s^{-1}(A)).
 	\end{equation*}
@@ -239,6 +247,7 @@ In generale se $P(A)=1$ si dice che $A$ è \emph{quasi certo}. Il <<quasi>> è p
 	\label{th:grossnum}
 	\footnotetext{Ci sono una dozzina di proposizioni che vengono chiamate <<leggi dei grandi numeri>>.}
 	Considero sequenze di $N$ variabili indipendenti con la stessa densità (ovvero, detto intuitivamente, $N$ \emph{estrazioni} di una variabile $x$) per la quale esiste il valore atteso $E[x]$.
+    \marginpar{Mi sa che serve anche che $E[|x|] < \infty$.}
 	Allora la media aritmetica $\frac1N\sum_ix_i$ converge sia debolmente che fortemente a $E[x]$ per $N\to\infty$.
 	Esplicitamente:
 	\begin{align*}

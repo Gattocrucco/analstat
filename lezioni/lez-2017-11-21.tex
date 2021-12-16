@@ -61,6 +61,11 @@ Facciamo un altro esempio.
 \end{example}
 
 Fortunatamente esiste un ordinamento che non genera stime vuote e che è invariante per cambio di variabile,
+\marginpar{Però non credo sia l'unico invariante per cambio di variabile, nel
+caso discreto tutti i cambi (biunivoci) lasciano invariate le stime
+intervallari, nel caso continuo posso ad esempio fare una cosa simile al
+likelihood ratio ma usando un altro funzionale lineare della likelihood anziché
+$\sup_{\theta'} p(x;\theta')$.}
 è il \emph{likelihood ratio}\footnote{Vedi Gary J. Feldman, Robert D. Cousins, \emph{A Unified Approach to the Classical Statistical Analysis of Small Signals},  Phys.Rev.D57:3873-3889, 1998 (\url{https://arxiv.org/abs/physics/9711021}).}:
 \begin{equation*}
 	O(\theta,x) = -\lambda_\theta(x)
