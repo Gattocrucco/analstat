@@ -32,7 +32,7 @@
 
 \subsection{Efficienza}
 
-\begin{theorem}[Disuguaglianza di Cramer-Rao]
+\begin{theorem}[Disuguaglianza di Cramér-Rao]
 	\label{th:cramerrao}
 	Consideriamo un modello con parametro $\theta\in\R$.
 	Sia $\hat\theta$ una stima con bias~$b$
@@ -121,7 +121,7 @@ questa è la forma generale dell'osservazione che comunemente
 \end{theorem}
 
 \begin{proof}
-	Nella dimostrazione della disuguaglianza di Cramer-Rao (\autoref{th:cramerrao})
+	Nella dimostrazione della disuguaglianza di Cramér-Rao (\autoref{th:cramerrao})
 	abbiamo usato la disuguaglianza di Schwartz,
 	che è saturata se le due funzioni sono proporzionali,
 	cioè se per una qualche funzione $g$
@@ -130,7 +130,7 @@ questa è la forma generale dell'osservazione che comunemente
 		\pdv{}{\theta}\log p(\hat\theta;\theta) = g(\theta) (\hat\theta-E[\hat\theta;\theta]).
 	\end{equation}
 	Poiché $\hat\theta$ è sufficiente, $I_{\hat\theta}(\theta)=I_x(\theta)$,
-	quindi dalla saturazione di Cramer-Rao si ottiene l'efficienza unitaria.
+	quindi dalla saturazione di Cramér-Rao si ottiene l'efficienza unitaria.
 	Cerchiamo di calcolare $\partial_\theta\log p(\hat\theta;\theta)$.
 	Per il teorema di Darmois (\autoref{th:darmois}),
 	la pdf di $x$ si scrive come
