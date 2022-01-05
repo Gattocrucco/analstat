@@ -157,6 +157,132 @@ cioè l'unità di misura della pdf è l'inverso di quella di $x$.
 	\end{equation*}
 \end{definition}
 
+% esercizi seguenti aggiunti 2022-01-05
+\begin{exercise}
+    %
+    Scrivere una formula per la probabilità condizionata con le variabili
+    anziché con gli insiemi.
+    %
+\end{exercise}
+%
+\begin{solution}
+    %
+    La definizione di probabilità condizionata è
+    %
+    \begin{equation*}
+        %
+        P(A|B) = \frac{P(A \cap B)}{P(B)}.
+        %
+    \end{equation*}
+    %
+    Se $A$ è un insieme di valori di una variabile $x$ e $B$ di una variabile
+    $y$, con le definizioni di distribuzione e probabilità congiunta
+    l'equazione diventa
+    %
+    \begin{equation*}
+        %
+        P(x \in A|y \in B) = \frac{P(x \in A, y \in B)}{P(y \in B)}.
+        %
+    \end{equation*}
+    %
+\end{solution}
+%
+\begin{exercise}
+    %
+    Come si calcola la \emph{densità} di probabilità condizionata, supponendo
+    di condizionare su un insieme di probabilità finita non nulla?
+    %
+\end{exercise}
+%
+\begin{solution}
+    %
+    Provo a sparare a naso una formula simile a quella della probabilità
+    condizionata senza densità:
+    %
+    \begin{equation*}
+        %
+        p(x|y \in B) = \frac{p(x, y \in B)}{P(y \in B)}.
+        %
+    \end{equation*}
+    %
+    Il termine $p(x, y \in B)$ diciamo che è una densità solo su $x$, cioè
+    per un qualsiasi insieme $A$ di valori di $x$ e $B$ di valori di $y$ vale
+    $P(x \in A, y \in B) = \int_A \mathrm dx\, p(x, y \in B)$.
+    %
+    La formula che ho sparato è giusta se integrando su $x$ viene fuori la
+    probabilità condizionata normale. Verifichiamo:
+    %
+    \begin{align*}
+        %
+        \int_A \mathrm dx\, p(x|y \in B) &=
+        \int_A \mathrm dx\, \frac{p(x, y \in B)}{P(y \in B)} = \\
+        %
+        &= \frac1{P(y \in B)} \int_A \mathrm dx\, p(x, y \in B) = \\
+        %
+        &= \frac{P(x \in A, y \in B)}{P(y \in B)} = \\
+        %
+        &= P(x \in A|y \in B).
+        %
+    \end{align*}
+    %
+\end{solution}
+%
+\begin{exercise}
+    %
+    Come l'esercizio precedente, ma condizionare sul singolo valore di una
+    variabile reale che di per sé ha probabilità nulla.
+    %
+\end{exercise}
+%
+\begin{solution}
+    %
+    Anche in questo caso proviamo a scrivere la prima formula che viene in
+    mente e a vedere se ha senso:
+    %
+    \begin{equation*}
+        %
+        p(x|y) = \frac{p(x,y)}{p(y)},
+        %
+    \end{equation*}
+    %
+    cioè ho diviso per la densità di $y$ non avendo un insieme di valori di
+    cui prendere la probabilità, e $p(x, y)$ è una densità sia su $x$ che $y$
+    cioè per qualsiasi $A$, $B$ vale $P(x \in A, y \in B) = \int_A \mathrm dx\,
+    \int_B \mathrm dy\, p(x, y)$.
+    %
+    Questa formula può essere interpretata come una procedura di limite: prendo
+    una famiglia di intorni concentrici di $y$, $\{B_n\}_{n\in N}$, dove con
+    concentrici intendo che se $i > j$ allora $B_i \subseteq B_j$, e che
+    convergono a $y$, ovvero $\bigcap_n B_n = \{y\}$. Con opportune ipotesi di
+    regolarità su $p(y)$ (non so se basti continuità o se serva la continuità
+    assoluta), il limite della probabilità condizionata su $B_n$ per $n \to
+    \infty$ viene
+    %
+    \begin{align*}
+        %
+        \lim_{n \to \infty} p(x|y \in B_n) &=
+        \lim_{n \to \infty} \frac{p(x, y \in B_n)}{p(y \in B_n)} = \\
+        %
+        &= \lim_{n \to \infty}
+        \frac {\int_{B_n} \mathrm dy'\, p(x, y')}
+        {\int_{B_n} \mathrm dy'\, p(y')} = \\
+        %
+        \intertext{Man mano che $B_n$ si restringe, $p(y')$ sarà arbitrariamente
+        vicina a $p(y)$ per continuità, e $p(x, y')$ a $p(x, y)$, quindi}
+        %
+        &= \lim_{n \to \infty}
+        \frac {\int_{B_n} \mathrm dy'\, p(x, y)}
+        {\int_{B_n} \mathrm dy'\, p(y)} = \\
+        %
+        &= \lim_{n \to \infty}
+        \frac {\mu(B_n) p(x, y)} {\mu(B_n) p(y)} = \\
+        %
+        &= \frac{p(x,y)}{p(y)}.
+        %
+    \end{align*}
+    %
+\end{solution}
+
 \section{Statistiche}
 
 \begin{definition}[Statistica]
