@@ -299,8 +299,8 @@ cioè l'unità di misura della pdf è l'inverso di quella di $x$.
 Tipicamente ho la funzione $s$ e definisco la probabilità su $S_2$ in modo che sia una statistica.
 Passando alle densità, se $s$ è biunivoca e derivabile, basta fare un cambio di variabili nell'integrale:
 \begin{align*}
-	P(s(A)) &= \int_{s(A)} p_2 = \int_A p_2 J[s] = \int_A p_1 = P(A) \\
-	\implies p_2 &= \frac{p_1}{J[s]}
+	P(s(A)) &= \int_{s(A)} p_2 = \int_A p_2 J[s] = \int_A p_1 = P(A) \implies \\
+	\implies p_2 &= \frac{p_1}{J[s]},
 \end{align*}
 dove $J[s]$ è il modulo del determinante jacobiano di $s$.
 Se $s$ non è biunivoca bisogna dividere $S_1$ in sottodomini in cui lo è e risommare.
@@ -373,7 +373,8 @@ In generale se $P(A)=1$ si dice che $A$ è \emph{quasi certo}. Il <<quasi>> è p
 	\label{th:grossnum}
 	\footnotetext{Ci sono una dozzina di proposizioni che vengono chiamate <<leggi dei grandi numeri>>.}
 	Considero sequenze di $N$ variabili indipendenti con la stessa densità (ovvero, detto intuitivamente, $N$ \emph{estrazioni} di una variabile $x$) per la quale esiste il valore atteso $E[x]$.
-    \marginpar{Mi sa che serve anche che $E[|x|] < \infty$.}
+    \marginpar{Forse serve anche che $E[|x|] < \infty$? Forse questa cosa
+    dipende dal tipo di integrale con cui faccio il valore atteso?}
 	Allora la media aritmetica $\frac1N\sum_ix_i$ converge sia debolmente che fortemente a $E[x]$ per $N\to\infty$.
 	Esplicitamente:
 	\begin{align*}

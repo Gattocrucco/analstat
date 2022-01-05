@@ -28,7 +28,7 @@ La covarianza di una variabile con sé stessa è la varianza: $\cov[x,x]=\var[x]
 	Qual è la probabilità che, lanciando $n$ dadi, il massimo dei valori ottenuti sia $c$?
 \end{exercise}
 
-\begin{solution*}
+\begin{solution}
 	Vogliamo calcolare
 	\begin{equation*}
 		P(\max(x_1,\dots,x_n) = c).
@@ -43,7 +43,7 @@ La covarianza di una variabile con sé stessa è la varianza: $\cov[x,x]=\var[x]
 		&= P(\max(x_i) \le c) - P(\max(x_i) \le c-1) = \\
 		&= \left (\frac c6 \right)^n - \left (\frac {c-1}6 \right)^n.
 	\end{align*}
-\end{solution*}
+\end{solution}
 
 \begin{figure}
 	\centering
@@ -74,7 +74,7 @@ La covarianza di una variabile con sé stessa è la varianza: $\cov[x,x]=\var[x]
 	Date due variabili indipendenti $x$ e $y$, qual è la pdf di $x+y$?
 \end{exercise}
 
-\begin{solution*}
+\begin{solution}
 	Formalmente dobbiamo calcolare la pdf della statistica $\fundef[s]{\R^2}\R$,
 	$s(x,y)=x+y$.
 	Per usare il jacobiano nel cambio di variabili estendiamo $s$ aggiungendo una dimensione:
@@ -101,7 +101,7 @@ La covarianza di una variabile con sé stessa è la varianza: $\cov[x,x]=\var[x]
 		&= \int \de x\,\de y\, p_x(x) p_y(y) \delta(s - x - y) = \\
 		&= \int \de x\, p_x(x) p_y(s-x).
 	\end{align*}
-\end{solution*}
+\end{solution}
 
 \begin{exercise}[Prodotto e rapporto di variabili]
 	Date $x$ e $y$ indipendenti calcolare le pdf di $xy$ e $\frac xy$.
