@@ -14,11 +14,7 @@
 Data una statistica abbiamo visto come ricavarne esattamente la distribuzione;
 può però essere utile ricavare solo alcuni momenti in modo approssimato.
 Sia $\mathbf x\in\R^n$, sviluppiamo $s(\mathbf x)$ in serie intorno alla media:
-\marginpar{C'è il problema che per calcolare la nuova media devo usare
-la formula che c'è qui cioè $f(\mu) + \frac12f''(\mu)\sigma^2$, mentre se ho
-fatto una misura $x$ che è uno stimatore unbiased di $\mu$ e voglio ottenere
-una stima unbiased di $f(\mu)$ (cioè quello che serve in pratica la maggior
-parte delle volte) devo usare $f(x) - \frac12f''(x)\sigma^2$.}
+%
 \begin{align*}
 	s(\mathbf x) &= s(\boldsymbol \mu) + {}\\
 	&+ \sum_i \left.\frac{\partial s}{\partial x_i}\right|_{\boldsymbol\mu} (x_i - \mu_i) + {}\\
@@ -32,7 +28,7 @@ Calcoliamo la media e la varianza, ricordando che il valore atteso è lineare:
 	&+ \frac12 \sum_{ij} \left.\frac{\partial^2 s}{\partial x_i \partial x_j}\right|_{\boldsymbol\mu} E[(x_i-\mu_i)(x_j-\mu_j)] = \\
 	&= s(\boldsymbol \mu) +
 	\frac12 \sum_{ij} \left.\frac{\partial^2 s}{\partial x_i \partial x_j}\right|_{\boldsymbol\mu}
-	\cov[x_i,x_j];
+	\cov[x_i,x_j]; \refstepcounter{equation}\tag{\theequation}\label{eq:meantaylor}
 \end{align*}
 \begin{align*}
 	\var[s(\mathbf x)] &= E[(s - \avg s)^2] \approx \\
@@ -67,6 +63,76 @@ sottolineiamo che è una del tutto generale approssimazione di un momento di una
 		\cov[x_i,x_j].
 	\end{equation*}
 \end{exercise}
+
+\begin{exercise}
+    %
+    La formula \eqref{eq:meantaylor} serve per stimare la media di $s(\mathbf
+    x)$ se so la media e la matrice di covarianza di $\mathbf x$. Supponiamo
+    che $\mathbf x$ sia una misura, cioè stiamo misurando una quantità
+    incognita $\mathbf x_0$ e $\mathbf x$ è una misura con un certo errore che
+    solo in media dà il risultato corretto, ovvero $E[\mathbf x] = \mathbf
+    x_0$. Se in questo senso vogliamo ottenere una misura di $s(\mathbf x_0)$ a
+    partire da quella di $\mathbf x_0$, ad esempio $\mathbf x_0$ potrebbe
+    essere la velocità e $s$ l'energia cinetica, che formula bisogna usare?
+    %
+\end{exercise}
+
+\begin{solution}
+    %
+    La formula per la propagazione della media al second'ordine
+    \eqref{eq:meantaylor} è
+    %
+    \begin{equation*}
+        %
+        E[s(\mathbf x)] \approx s(\boldsymbol\mu) +
+        \frac12 \sum_{ij}
+        \left.\frac{\partial^2 s}{\partial x_i \partial x_j}
+        \right|_{\boldsymbol\mu}
+        \operatorname{Cov}[x_i, x_j],
+        %
+    \end{equation*}
+    %
+    dove $\boldsymbol\mu = E[\mathbf x]$. Quindi, nella notazione
+    dell'esercizio, $\mathbf x_0 = \boldsymbol\mu$. Noi vogliamo una quantità
+    che si calcoli usando $\mathbf x$, e non $\mathbf x_0$ che è ignota,
+    e che misuri $s(\mathbf x_0)$, cioè in base alla definizione dell'esercizio
+    che abbia valore atteso uguale a $s(\mathbf x_0)$. Poiché quest'ultima
+    quantità compare nella formula di propagazione come $s(\boldsymbol\mu)$,
+    proviamo a portare dall'altra parte la sommatoria per isolarla:
+    %
+    \begin{equation*}
+        %
+        s(\boldsymbol\mu) \approx E[s(\mathbf x)] -
+        \frac12 \sum_{ij}
+        \left.\frac{\partial^2 s}{\partial x_i \partial x_j}
+        \right|_{\boldsymbol\mu}
+        \operatorname{Cov}[x_i, x_j].
+        %
+    \end{equation*}
+    %
+    Noi vogliamo $s(\boldsymbol\mu) = E[\text{funzione di $\mathbf x$}]$,
+    quindi cerchiamo di portare dentro la sommatoria. La derivata va calcolata
+    in $\boldsymbol\mu$, ma allo stesso modo in cui al primo ordine $E[f(x)]
+    \approx f(E[x])$, abbiamo $E[f''(x)] \approx f''(E[x])$, quindi la
+    possiamo valutare in~$\mathbf x$:
+    %
+    \begin{align*}
+        %
+        \hat s(\mathbf x) &\is s(\mathbf x) -
+        \frac12 \sum_{ij}
+        \left.\frac{\partial^2 s}{\partial x_i \partial x_j}
+        \right|_{\mathbf x}
+        \operatorname{Cov}[x_i, x_j], \\
+        %
+        E[\hat s(\mathbf x)] &\approx s(\boldsymbol\mu) = s(\mathbf x_0).
+        %
+    \end{align*}
+    %
+    In pratica la formula per $\hat s(\mathbf x)$ è simile a quella per
+    $E[s(\mathbf x)]$ però con il segno meno. Di conseguenza in base alla
+    situazione bisogna stare attenti a capire qual è il segno che serve.
+    %
+\end{solution}
 
 \subsection{Generatrice}
 
