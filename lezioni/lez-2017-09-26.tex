@@ -355,6 +355,32 @@ e per variabili indipendenti vale
 	\langle xy \rangle = \langle x \rangle \langle y \rangle.
 \end{equation*}
 
+\begin{exercise}
+    %
+    Dimostrare che il valore atteso è invariante per cambio di variabili,
+    cioè che se ho la statistica $y = f(x)$ è uguale calcolare $E[f(x)]$
+    usando $x$ come variabile o direttamente $E[y]$.
+    %
+\end{exercise}
+
+\begin{solution}
+    %
+    Basta cambiare variabile nell'integrale:
+    %
+    \begin{align*}
+        %
+        E[y] &= \int \mathrm dy\, y p(y)
+        = \int |f'(x)|\mathrm dx\, f(x) \frac{p(x)}{|f'(x)|} = \\
+        %
+        &= \int \mathrm dx\, f(x)p(x) = E[f(x)].
+        %
+    \end{align*}
+    %
+    La dimostrazione scritta così richiede un po' di ipotesi su $f$, però
+    in realtà l'invarianza funziona sempre in generale.
+    %
+\end{solution}
+
 \begin{definition}[Convergenza in probabilità]
 	Data una variabile $x$, si dice che $f(x)$ \emph{converge debolmente in probabilità} a $f_0$ per $x$ che tende a $x_0$ se
 	\begin{equation*}
