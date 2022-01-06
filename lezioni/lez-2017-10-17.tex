@@ -58,35 +58,97 @@ il valore atteso è calcolato con la probabilità corrispondente a $\theta$:
 	E[f;\theta] = \int \de x\, f(x) p(x;\theta).
 \end{equation*}
 
-Poiché l'informazione di Fisher richiede di calcolare il logaritmo della probabilità,
-se ci sono degli $x$ per i quali la probabilità è nulla
-è necessario restringere il dominio.
-Espandiamo la definizione di $I$, abbreviando $p(x;\boldsymbol\theta)\isis L$:
-\begin{align*}
-	I_{ij}(\boldsymbol\theta)
-	&= \int\de x\, L
-	\frac{\partial\log L}{\partial\theta_i}
-	\frac{\partial\log L}{\partial\theta_j} = \\
-	&= \int\de x\,
-	\frac{\partial\log L}{\partial\theta_i}
-	\frac{\partial L}{\partial\theta_j} = \\
-	&= \int\de x \left(
-	\frac{\partial}{\partial\theta_j} \left( L \frac{\partial\log L}{\partial\theta_i} \right)
-	- L \frac{\partial^2\log L}{\partial\theta_i\partial\theta_j} \right) = \\
-	\intertext{(nei prossimi due passaggi portiamo fuori una derivata dall'integrale supponendo che il dominio non dipenda dal parametro)}
-	&= \frac{\partial}{\partial\theta_j} \int\de x\, L \frac{\partial\log L}{\partial\theta_i}
-	- \int\de x\, L \frac{\partial^2\log L}{\partial\theta_i\partial\theta_j} = \\
-	&= \frac{\partial^2}{\partial\theta_i\partial\theta_j} \int\de x\, L
-	- E \left[ \frac{\partial^2\log L}{\partial\theta_i\partial\theta_j} \right] = \\
-	&= E \left[ -\frac{\partial^2\log p(x;\boldsymbol\theta)}{\partial\theta_i\partial\theta_j};\boldsymbol\theta \right].
-\end{align*}
+Poiché l'informazione di Fisher richiede di calcolare il logaritmo della
+probabilità, se ci sono degli $x$ per i quali la probabilità è nulla è
+necessario restringere il dominio.\marginpar{Forse introducendo la score
+function $S(\theta) = \nabla\log p$ le varie dimostrazioni verrebbero più
+pulite.}
+
+\begin{exercise}
+    %
+    Calcolare $E[\partial\log
+    p(x;\boldsymbol\theta)/\partial\theta_i;\boldsymbol\theta]$, assumendo che
+    il supporto (rispetto a $x$) di $p(x;\boldsymbol\theta)$ non dipenda da
+    $\boldsymbol\theta$.
+    %
+\end{exercise}
+
+\begin{solution}
+    %
+    Per brevità, definiamo $L \is p(x;\boldsymbol\theta)$:
+    %
+    \begin{align*}
+        %
+        E\left[\frac{\partial\log L}{\partial\theta_i};\boldsymbol\theta\right]
+        &= \int\mathrm dx\, L \frac{\partial\log L}{\partial\theta_i}
+        = \int\mathrm dx\, L\frac1L \frac{\partial L}{\partial\theta_i} = \\
+        %
+        \intertext{(poiché il dominio di integrazione non dipende da
+        $\theta_i$, portiamo fuori la derivata senza intoppi)}
+        %
+        &= \frac\partial{\partial\theta_i} \int\mathrm dx\, L
+        = \frac\partial{\partial\theta_i} 1
+        = 0.
+        %
+    \end{align*}
+    %
+\end{solution}
+
+\begin{exercise}
+    %
+    Dimostrare questa formula alternativa per l'informazione di Fisher, valida
+    se il supporto di $p(x;\boldsymbol\theta)$ non dipende da
+    $\boldsymbol\theta$:
+    %
+    \begin{equation*}
+        %
+        I_{ij}(\boldsymbol\theta) =
+        E \left[-\frac
+        {\partial^2\log p(x;\boldsymbol\theta)}
+        {\partial\theta_i\partial\theta_j};\boldsymbol\theta \right].
+        %
+    \end{equation*}
+    %
+\end{exercise}
+
+\begin{solution}
+    %
+    Espandiamo la definizione di $I$, abbreviando $p(x;\boldsymbol\theta)\isis
+    L$:
+    %
+    \begin{align*}
+    	I_{ij}(\boldsymbol\theta)
+    	&= \int\de x\, L
+    	\frac{\partial\log L}{\partial\theta_i}
+    	\frac{\partial\log L}{\partial\theta_j} = \\
+    	&= \int\de x\,
+    	\frac{\partial\log L}{\partial\theta_i}
+    	\frac{\partial L}{\partial\theta_j} = \\
+    	&= \int\de x \left(
+    	\frac{\partial}{\partial\theta_j} \left( L \frac{\partial\log L}{\partial\theta_i} \right)
+    	- L \frac{\partial^2\log L}{\partial\theta_i\partial\theta_j} \right) = \\
+    	\intertext{(nei prossimi due passaggi portiamo fuori una derivata dall'integrale supponendo che il dominio non dipenda dal parametro)}
+    	&= \frac{\partial}{\partial\theta_j} \int\de x\, L \frac{\partial\log L}{\partial\theta_i}
+    	- \int\de x\, L \frac{\partial^2\log L}{\partial\theta_i\partial\theta_j} = \\
+    	&= \frac{\partial^2}{\partial\theta_i\partial\theta_j} \int\de x\, L
+    	- E \left[ \frac{\partial^2\log L}{\partial\theta_i\partial\theta_j} \right] = \\
+    	&= E \left[ -\frac{\partial^2\log p(x;\boldsymbol\theta)}{\partial\theta_i\partial\theta_j};\boldsymbol\theta \right].
+    \end{align*}
+    %
+\end{solution}%
 %
 Scritta $I(\boldsymbol\theta)$ in questa forma, si vede subito che se combino
-due variabili indipendenti le informazioni di Fisher si
-sommano.
+due variabili indipendenti le informazioni di Fisher si sommano.
 
-\begin{example}
-	Consideriamo $N$ estrazioni dell'esponenziale e calcoliamo l'informazione di Fisher:
+\begin{exercise}
+    
+    Calcolare l'informazione di Fisher di $N$ estrazioni dell'esponenziale
+    per il parametro $\lambda$.
+
+\end{exercise}
+
+\begin{solution}
+    %
 	\begin{align*}
 		p(\mathbf t;\lambda)
 		&= \lambda^N e^{-\lambda\sum_{i=1}^N t_i}
@@ -98,11 +160,22 @@ sommano.
 		-\frac{\partial^2 \log p(\mathbf t;\lambda)}{\partial\lambda^2}
 		&= \frac N{\lambda^2}.
 	\end{align*}
-	Come prima detto, combinando $N$ esponenziali indipendenti ottengo la somma delle informazioni delle singole esponenziali.
-\end{example}
+    %
+    Come previsto, combinando $N$ esponenziali indipendenti ottengo la somma
+    delle informazioni delle singole esponenziali.
+    %
+\end{solution}
 
-\begin{example}
-	Consideriamo $N$ estrazioni della uniforme e calcoliamo l'informazione di Fisher sia con la definizione che con la formula con la derivata seconda:
+\begin{exercise}
+    
+    Calcolare l'informazione di Fisher di $N$ estrazioni dell'uniforme su
+    $(0,m)$ per il parametro $m$, sia con la definizione che con la formula
+    con la derivata seconda.
+    
+\end{exercise}
+
+\begin{solution}
+    %
 	\begin{align*}
 		p(\mathbf x;m)
 		&= \frac1{m^N}, \quad \mathbf x\in(0,m)^N \\
@@ -113,11 +186,22 @@ sommano.
 		-\frac{\partial^2\log p(\mathbf x;m)}{\partial m^2}
 		&= -\frac N{m^2}.
 	\end{align*}
-	Il conto con la seconda formula dà un risultato sbagliato, infatti il dominio dipende da~$m$.
-\end{example}
+    %
+    Il conto con la seconda formula dà un risultato sbagliato, infatti il
+    supporto dipende da~$m$.
+    %
+\end{solution}
 
-\begin{example}
-	Consideriamo una gaussiana multidimensionale con matrice di covarianza fissata $V$ (che è necessariamente simmetrica e definita positiva), e calcoliamo l'informazione di Fisher per la media:
+\begin{exercise}
+    %
+    Calcolare l'informazione di Fisher di una gaussiana multidimensionale per
+    la media $\boldsymbol\mu$, tenendo la matrice di covarianza fissata a $V$
+    senza considerarla come parametro.
+    %
+\end{exercise}
+
+\begin{solution}
+    %
 	\begin{align*}
 		p(\mathbf x;\boldsymbol \mu)
 		&= \frac1{\sqrt{\det(2\pi V)}}
@@ -134,17 +218,28 @@ sommano.
 		&= -V^{-1}_{ik}(-\delta_{il}) = V^{-1}_{lk} \\
 		\implies I(\boldsymbol\mu) &= V^{-1}.
 	\end{align*}
-\end{example}
+    %
+\end{solution}
 
-Consideriamo una statistica sufficiente:
-\begin{align*}
-	p(x;\theta)
-	&= f(x)p(s(x);\theta) \\
-	\frac{\partial}{\partial\theta}\log p(x;\theta)
-	&= \frac{\partial}{\partial\theta} \big( \log f(x) + \log p(s(x);\theta) \big) = \\
-	&= \frac{\partial}{\partial\theta}\log p(s(x);\theta),
-\end{align*}
-quindi l'informazione di Fisher di una statistica sufficiente è uguale a quella originale.
+\begin{exercise}
+    %
+    Dimostrare che l'informazione di Fisher di una statistica sufficiente è
+    uguale a quella della variabile di partenza, $I_{s(x)}(\theta) =
+    I_x(\theta)$.
+    %
+\end{exercise}
+
+\begin{solution}
+    %
+    \begin{align*}
+    	p(x;\theta)
+    	&= f(x)p(s(x);\theta) \\
+    	\frac{\partial}{\partial\theta}\log p(x;\theta)
+    	&= \frac{\partial}{\partial\theta} \big( \log f(x) + \log p(s(x);\theta) \big) = \\
+    	&= \frac{\partial}{\partial\theta}\log p(s(x);\theta).
+    \end{align*}
+    %
+\end{solution}
 
 \begin{fact}
 	\label{th:fishstat}
@@ -153,27 +248,75 @@ quindi l'informazione di Fisher di una statistica sufficiente è uguale a quella
 
 \noindent In generale il fatto che l'informazione di Fisher sia uguale non implica che la statistica sia sufficiente, tuttavia per vari esempi comuni è vero.
 
-\begin{example}
-	Calcoliamo l'informazione di Fisher di un istogramma ordinato di un'esponenziale.
-	Sia $\Delta$ la larghezza dei bin.
-	Per ogni estrazione, la probabilità di cadere nel $k$-esimo bin ($k\ge 0$) è
+\begin{exercise}
+    %
+    Calcolare l'informazione di Fisher dell'istogramma della distribuzione
+    esponenziale per il parametro $\lambda$, con i bin tutti della stessa
+    larghezza $\Delta$ e che coprono tutto il semiasse reale, e fare
+    l'espansione in serie rispetto a $\Delta = 0$ fino al primo ordine non
+    banale.
+    %
+\end{exercise}
+
+\begin{solution}
+    %
+    Consideriamo inizialmente il caso in cui c'è una sola variabile
+    esponenziale. La probabilità che cada nel $k$-esimo bin ($k\ge 0$) è
+    %
 	\begin{align*}
-		p(k;\lambda)
+		P(k;\lambda)
 		&= \int_{k\Delta}^{(k+1)\Delta}\de t\, \lambda e^{-\lambda t} = \\
 		&= \big[-e^{-\lambda t}\big]_{k\Delta}^{(k+1)\Delta} = \\
 		&= e^{-\lambda k\Delta}(1-e^{-\lambda\Delta}).
 	\end{align*}
-	L'istogramma ordinato è la $N$-upla $\mathbf k$ dei bin in cui cadono $N$ estrazioni.
-	Calcoliamo l'informazione di Fisher per $N=1$.
+    %
+    Con una sola variabile da mettere nell'istogramma, l'intero istogramma è
+    rapprensentato da questo $k$, quindi calcoliamo l'informazione di Fisher di
+    $k$:
+    %
 	\begin{align*}
-		\frac{\partial}{\partial\lambda} \log p(k;\lambda)
+		\frac{\partial}{\partial\lambda} \log P(k;\lambda)
 		&= -k\Delta + \frac{\Delta e^{-\lambda\Delta}}{1-e^{-\lambda\Delta}} \\
-		-\frac{\partial^2}{\partial\lambda^2} \log p(k;\lambda)
+		-\frac{\partial^2}{\partial\lambda^2} \log P(k;\lambda)
 		&= \frac{\partial^2}{\partial\lambda^2}
 		\left( \frac{\Delta}{1-e^{\lambda\Delta}} \right) = \\
 		&= \frac {\Delta^2 e^{\lambda\Delta}} {(e^{\lambda\Delta}-1)^2} = \\
-		&= \frac1{\lambda^2} \left( 1 - \frac{\lambda^2\Delta^2}{12} + o(\lambda^2\Delta^2) \right)
+		&= \frac1{\lambda^2} \left( 1 - \frac{\lambda^2\Delta^2}{12} + o(\lambda^2\Delta^2) \right).
 	\end{align*}
-	Il caso generale si ottiene moltiplicando per $N$.
-	Notiamo che nel limite $\Delta\to0$ riotteniamo l'informazione dell'esponenziale.
-\end{example}
+    %
+    Notiamo che nel limite $\Delta\to 0$ riotteniamo l'informazione
+    dell'esponenziale non istogrammata, e che la correzione è al ribasso.
+    
+    Vediamo il caso in cui facciamo l'istogramma con $N$ estrazioni. Se
+    $\mathbf k$ è una $N$-upla in cui $k_i$ è il bin in cui cade l'$i$-esima
+    variabile, l'informazione di Fisher di $\mathbf k$ è data semplicemente
+    dalla somma di quelle delle $k_i$ e quindi $N$ volte quella ottenuta nel
+    caso di singola variabile. Però nell'istogramma vero e proprio si tiene
+    solo conto di quante variabili sono cadute in un certo bin, cancellando
+    l'informazione su in quale bin fosse l'$i$-esima variabile. Intuitivamente
+    questo non dovrebbe davvero farci perdere informazioni su $\lambda$,
+    quindi proviamo a mostrare che l'istogramma non ordinato è sufficiente
+    partendo da quello ordinato. Sia $n_k$ il numero di $k_i$ che valgono $k$.
+    La distribuzione di $\mathbf k$ è
+    %
+    \begin{equation*}
+        %
+        P(\mathbf k;\lambda) = \prod_{i=1}^N P(k_i;\lambda)
+        = \prod_{k=0}^\infty P(k;\lambda)^{n_k},
+    \end{equation*}
+    %
+    mentre la distribuzione di $\mathbf n$ è la multinomiale
+    %
+    \begin{align*}
+        %
+        P(n_0,n_1,\ldots) &=
+        \delta\left(N, \sum_{k=0}^\infty n_k\right)
+        \frac{N!}{n_0!n_1!\cdots} \prod_{k=0}^\infty P(k;\lambda)^{n_k} = \\
+        %
+        &= f(n_0,n_1,\ldots) P(\mathbf k;\lambda),
+    \end{align*}
+    %
+    quindi $\mathbf n(\mathbf k)$ è una statistica sufficiente, e di
+    conseguenza l'informazione di Fisher rimane $N/\lambda^2(1-\ldots)$.
+    %
+\end{solution}
