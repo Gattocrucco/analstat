@@ -225,7 +225,7 @@ Dalla discussione sulle generatrici abbiamo immediatamente che
 	\end{equation*}
 \end{fact}
 
-\section{Bernoulli, binomiale, poisson, esponenziale}
+\section{Bernoulli, binomiale, Poisson, esponenziale}
 
 La distribuzione di una variabile che può assumere solo due valori si chiama \emph{distribuzione di Bernoulli}.
 Fissiamo la notazione:
@@ -274,62 +274,106 @@ Notiamo che possiamo aggiungere $k_0$ alla probabilità usando una $\delta$ di K
 \end{equation*}
 Questa distribuzione si chiama \emph{multinomiale}.
 
-Calcoliamo ora la probabilità che in un intervallo di tempo $T$ si verifichino $k$ eventi se per il singolo evento è definita una probabilità per unità di tempo $\lambda$.
-\marginpar{Modi alternativi di ricavare la Poisson (e poi l'esponenziale):
-1) chiedere l'invarianza per somma di variabili (lo fa Del Prete), 2) prendere $N$
-estrazioni di una uniforme su $(0,T)$ e fare il limite $N\to\infty$ con $N/T =
-\lambda$. Direi che queste due sono più chiare del poccio che sto facendo qui.
-La più chiara è la 2) perché è formale ma è anche costruttiva, la 1) è più
-elegante ma anche più astratta.}
-Dividiamo l'intervallo $T$ in $N$ sottointervalli uguali.
-<<Probabilità per unità di tempo>> significa che
-la probabilità che in un sottointervallo si verifichi un solo evento è
-\begin{equation*}
-	p_1 = \lambda \frac TN + O\left(\frac1{N^2}\right),
-\end{equation*}
-quindi la probabilità $p_q$ che in un sottointervallo si verifichino $q>0$ eventi è
-\begin{equation*}
-	p_q = O\left(\frac1{N^q}\right),
-\end{equation*}
-e la probabilità che si verifichino 0 eventi è
-\begin{equation*}
-	p_0 = 1 - \lambda \frac TN + O\left(\frac1{N^2}\right).
-\end{equation*}
-Sia $n_q$ il numero di sottointervalli in cui si verificano $q$ eventi,
-se $k$ è il numero totale di eventi vale ovviamente
-\begin{equation*}
-	k = \sum_{q\ge1} q n_q, \quad n_0 = N - \sum_{q\ge 1} n_q \isis N - s.
-\end{equation*}
-La distribuzione degli $n_q$ è la multinomiale
-\begin{align*}
-	P(n_1,n_2,\dotsc)
-	&= \frac{N!}{n_0!n_1!\dotsm} p_0^{n_0} p_1^{n_1} \dotsm = \\
-	&= \frac{N!}{(N - s)!}
-	\left(1 - \lambda \frac TN + O\left(\frac1{N^2}\right)\right)^{N-s}
-	\prod_{q\ge1} \frac{p_q^{n_q}}{n_q!} = \\
-	&= O(N^s) e^{-\lambda T + O(1/N)}
-	O\left(\frac1{N^k}\right) \prod_{q\ge1} \frac1{n_q!} = \\
-	&= O\left(N^{\sum_{q\ge1} n_q - \sum_{q\ge1} qn_q}\right)
-\end{align*}
-che non va a zero solo se $n_q=0$ per $q > 1$ ovvero se $k=n_1$,
-quindi alla fine la probabilità di avere $k$ eventi è data semplicemente da
-\begin{align*}
-	P(k)
-	&= \frac{N!}{n_0!n_1!}p_0^{n_0}p_1^{n_1} = \\
-	&= \frac{N!}{(N-k)!k!}
-	\left(1 - \lambda \frac TN + O\left(\frac1{N^2}\right)\right)^{N-k}
-	\left(\lambda \frac TN + O\left(\frac1{N^2}\right)\right)^k = \\
-	&= \frac1{k!}e^{-\lambda T}(\lambda T)^k.
-\end{align*}
-Definendo $\mu\is\lambda T$, abbiamo
-\begin{equation*}
-	P(k;\mu) = \frac{\mu^k}{k!} e^{-\mu}.
-\end{equation*}
-Questa distribuzione si chiama \emph{poissoniana}.
+%%%%%% vecchia derivazione della poissoniana %%%%%%
+% Calcoliamo ora la probabilità che in un intervallo di tempo $T$ si verifichino $k$ eventi se per il singolo evento è definita una probabilità per unità di tempo $\lambda$.
+% \marginpar{Modi alternativi di ricavare la Poisson (e poi l'esponenziale):
+% 1) chiedere l'invarianza per somma di variabili (lo fa Del Prete), 2) prendere $N$
+% estrazioni di una uniforme su $(0,T)$ e fare il limite $N\to\infty$ con $N/T =
+% \lambda$. Direi che queste due sono più chiare del poccio che sto facendo qui.
+% La più chiara è la 2) perché è formale ma è anche costruttiva, la 1) è più
+% elegante ma anche più astratta.}
+% Dividiamo l'intervallo $T$ in $N$ sottointervalli uguali.
+% <<Probabilità per unità di tempo>> significa che
+% la probabilità che in un sottointervallo si verifichi un solo evento è
+% \begin{equation*}
+%     p_1 = \lambda \frac TN + O\left(\frac1{N^2}\right),
+% \end{equation*}
+% quindi la probabilità $p_q$ che in un sottointervallo si verifichino $q>0$ eventi è
+% \begin{equation*}
+%     p_q = O\left(\frac1{N^q}\right),
+% \end{equation*}
+% e la probabilità che si verifichino 0 eventi è
+% \begin{equation*}
+%     p_0 = 1 - \lambda \frac TN + O\left(\frac1{N^2}\right).
+% \end{equation*}
+% Sia $n_q$ il numero di sottointervalli in cui si verificano $q$ eventi,
+% se $k$ è il numero totale di eventi vale ovviamente
+% \begin{equation*}
+%     k = \sum_{q\ge1} q n_q, \quad n_0 = N - \sum_{q\ge 1} n_q \isis N - s.
+% \end{equation*}
+% La distribuzione degli $n_q$ è la multinomiale
+% \begin{align*}
+%     P(n_1,n_2,\dotsc)
+%     &= \frac{N!}{n_0!n_1!\dotsm} p_0^{n_0} p_1^{n_1} \dotsm = \\
+%     &= \frac{N!}{(N - s)!}
+%     \left(1 - \lambda \frac TN + O\left(\frac1{N^2}\right)\right)^{N-s}
+%     \prod_{q\ge1} \frac{p_q^{n_q}}{n_q!} = \\
+%     &= O(N^s) e^{-\lambda T + O(1/N)}
+%     O\left(\frac1{N^k}\right) \prod_{q\ge1} \frac1{n_q!} = \\
+%     &= O\left(N^{\sum_{q\ge1} n_q - \sum_{q\ge1} qn_q}\right)
+% \end{align*}
+% che non va a zero solo se $n_q=0$ per $q > 1$ ovvero se $k=n_1$,
+% quindi alla fine la probabilità di avere $k$ eventi è data semplicemente da
+% \begin{align*}
+%     P(k)
+%     &= \frac{N!}{n_0!n_1!}p_0^{n_0}p_1^{n_1} = \\
+%     &= \frac{N!}{(N-k)!k!}
+%     \left(1 - \lambda \frac TN + O\left(\frac1{N^2}\right)\right)^{N-k}
+%     \left(\lambda \frac TN + O\left(\frac1{N^2}\right)\right)^k = \\
+%     &= \frac1{k!}e^{-\lambda T}(\lambda T)^k.
+% \end{align*}
+% Definendo $\mu\is\lambda T$, abbiamo
+% \begin{equation*}
+%     P(k;\mu) = \frac{\mu^k}{k!} e^{-\mu}.
+% \end{equation*}
+% Questa distribuzione si chiama \emph{poissoniana}.
 
-Nello stesso contesto in cui abbiamo ricavato la poissoniana,
-calcoliamo la pdf del tempo che intercorre tra un istante fissato $t=0$ e l'evento successivo.
-Sia $F(t)$ la cumulante, si ha
+Ora vogliamo studiare come si distribuiscono più variabili reali indipendenti
+e con probabilità uniforme ovunque, ovvero detto con il tempo, come si
+distribuiscono i tempi di avvenimenti indipendenti e casuali che hanno uguale
+probabilità di avvenire in qualsiasi momento. Formalizziamo questo concetto
+come $N$ estrazioni $(x_1,\ldots,x_N)$ indipendenti da una distribuzione
+uniforme sull'intervallo $(0,L)$, cioè $p(x_i) = \chi_{(0,L)}(x_i)/L$, nel
+limite in cui $L$ e $N$ vanno a infinito mantenendo un rapporto costante
+$\lambda \is N/L$, cioè $\lambda$ è il numero di eventi per unità di tempo.
+
+Vogliamo calcolare la probabilità che avvengano $k$ e solo $k$ eventi in un
+tempo $T$. La probabilità che una singola $x_i$ cada in un'intervallo lungo
+$T$ è $T/L$, quindi la probabilità che $k$ lo facciano è data dalla binomiale:
+%
+\begin{align*}
+    %
+    P(k) &= \binom Nk \left(\frac TL\right)^k \left(1-\frac TL\right)^{N-k}
+    = \binom Nk \left(\frac{\lambda T}N\right)^k \left(1-\frac{\lambda T}N\right)^{N-k} = \\
+    %
+    &= \binom Nk \left(\frac\mu N\right)^k \left(1-\frac\mu N\right)^{N-k},
+    %
+\end{align*}
+%
+definendo $\mu \is \lambda T$. Facendo il limite, viene
+%
+\begin{align*}
+    %
+    P(k;\mu) &= \lim_{N\to\infty}
+    \binom Nk \left(\frac\mu N\right)^k \left(1-\frac\mu N\right)^{N-k} = \\
+    %
+    &= \lim_{N\to\infty}
+    \frac NN \frac{N-1}N \cdots \frac{N-k+1}N
+    \frac{\mu^k}{k!}
+    \left(1-\frac\mu N\right)^{N-k} = \\
+    %
+    &= \frac{\mu^k}{k!} e^{-\mu}.
+    %
+\end{align*}
+%
+Questa distribuzione di chiama \emph{poissoniana}.
+
+Nello stesso contesto in cui abbiamo ricavato la poissoniana,\marginpar{Potrei
+ricavare l'esponenziale in modo pulito come distribuzione della differenza tra
+due $x_i$ successive, dovrebbe venire la distribuzione $\beta(1,N)$ riscalata.}
+calcoliamo la pdf del tempo che intercorre tra un istante fissato $t=0$ e
+l'evento successivo. Sia $F(t)$ la cumulante, si ha
+%
 \begin{align*}
 	1-F(t+\de t)
 	&= P(\text{$0$ eventi in $(0,t+\de t)$}) = \\

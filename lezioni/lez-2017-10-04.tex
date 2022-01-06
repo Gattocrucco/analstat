@@ -80,10 +80,10 @@ Noi la calcoliamo invece con la funzione generatrice:
 \end{solution}
 
 \begin{exercise}
-	Calcolare media e varianza della Poissoniana.
+	Calcolare media e varianza della poissoniana.
 \end{exercise}
 
-\begin{solution*}
+\begin{solution}
 	Calcoliamo la generatrice:
 	\begin{align*}
 		M(t) &= E[e^{tk}] = \\
@@ -98,7 +98,7 @@ Noi la calcoliamo invece con la funzione generatrice:
 		E[k] &= \left. \frac{\de M}{\de t} \right|_{t=0} = \mu \\
 		\var[k] &= \left. \frac{\de^2 M}{\de t^2} \right|_{t=0} - E[k]^2 = \mu.
 	\end{align*}
-\end{solution*}
+\end{solution}
 
 \begin{figure}
 	\centering
@@ -126,11 +126,11 @@ Noi la calcoliamo invece con la funzione generatrice:
 \begin{exercise}
 	\label{th:taxi}
 	Per un certo tempo osservo la strada e conto i taxi,
-	tuttavia ho una probabilità $1-\epsilon$ di distrarmi e non contare un taxi.
-	Qual è la distribuzione del mio conteggio?
+	tuttavia per ogni taxi ho una probabilità $1-\epsilon$ di distrarmi e
+    non contarlo. Qual è la distribuzione del mio conteggio?
 \end{exercise}
 
-\begin{solution*}
+\begin{solution}
 	Assumiamo che il flusso medio di taxi non cambi nell'intervallo di osservazione,
 	quindi il numero di taxi che passano è una poissoniana con media~$\mu$:
 	\begin{equation*}
@@ -151,13 +151,13 @@ Noi la calcoliamo invece con la funzione generatrice:
 		&= \frac{(\mu\epsilon)^k}{k!}e^{-\mu\epsilon},
 	\end{align*}
 	cioè poissoniana con media $\mu\epsilon$.
-\end{solution*}
+\end{solution}
 
 \begin{exercise}
 	Media e varianza della distribuzione esponenziale.
 \end{exercise}
 
-\begin{solution*}
+\begin{solution}
 	La distribuzione esponenziale è
 	\begin{equation*}
 		p(x) = e^{-x}, \quad x \ge 0;
@@ -179,7 +179,7 @@ Noi la calcoliamo invece con la funzione generatrice:
 	\begin{equation*}
 		E[x] = \lambda^{-1}, \quad \var[x] = \lambda^{-2}.
 	\end{equation*}
-\end{solution*}
+\end{solution}
 
 \begin{exercise}
 	\label{th:salvexp}
