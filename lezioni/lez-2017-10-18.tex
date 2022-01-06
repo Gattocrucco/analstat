@@ -12,7 +12,7 @@
 	Calcolare l'informazione di Fisher per $\lambda$.
 \end{exercise}
 
-\begin{solution*}
+\begin{solution}
 	\begin{align*}
 		\log p(t;\lambda)
 		&= \log\lambda - \lambda t - \log(1-e^{-\lambda T}) \\
@@ -39,10 +39,11 @@
 	\end{equation*}
 	delle misure di un'esponenziale,
 	la variazione relativa dell'informazione di Fisher è~$-\epsilon$
-	che per $\lambda T=5$ vale \SI{0.7}\percent.
-	\marginpar{Questa cosa non è chiarissima perché se immagino di misurare il tempo tra un evento e l'altro e non osservo un evento con probabilità $\epsilon$ (vedi \autoref{th:salvexp}) l'informazione di Fisher non cambia.
-	Quello che qui si intende è come se facessi le misure e poi ne buttassi via alcune (tipo trigger).}
-\end{solution*}
+	che per $\lambda T=5$ vale \SI{0.7}\percent, quindi sembra molto più
+    conveniente scartare casualmente alcune variabili piuttosto che
+    scartare tutte quelle maggiori di $T$ a parità di riduzione.
+    %
+\end{solution}
 
 \begin{exercise}
 	Calcolare l'informazione di Fisher di un'esponenziale troncata a sinistra.
@@ -60,10 +61,11 @@
 
 \begin{exercise}
 	\label{th:avgsuffgauss}
-	La media aritmetica è una statistica sufficiente per la media della gaussiana?
+	La media aritmetica è una statistica sufficiente per la media della gaussiana,
+    a varianza fissata?
 \end{exercise}
 
-\begin{solution*}
+\begin{solution}
 	Sì:
 	\begin{align*}
 		p(\mathbf x;\mu)
@@ -78,14 +80,15 @@
 		\cdot \exp \left( -\frac{N\mu^2-2\mu N\bar x}{2\sigma^2} \right) = \\
 		&= f(\mathbf x) \cdot g(\bar x,\mu).
 	\end{align*}
-\end{solution*}
+\end{solution}
 
 \begin{exercise}
 	\label{th:rmssuffgauss}
-	Lo scarto quadratico medio è una statistica sufficiente per la deviazione standard della gaussiana?
+	Lo scarto quadratico medio è una statistica sufficiente per la deviazione standard della gaussiana,
+    a media fissata?
 \end{exercise}
 
-\begin{solution*}
+\begin{solution}
 	È ancor più immediato dell'\autoref{th:avgsuffgauss}:
 	\begin{align*}
 		\hat\sigma^2(\mathbf x)
@@ -97,7 +100,7 @@
 		\exp \left( -\frac12 \frac{N\hat\sigma^2}{\sigma^2} \right) = \\
 		&= g(\hat\sigma,\sigma).
 	\end{align*}
-\end{solution*}
+\end{solution}
 
 \begin{exercise}
 	Verificare se la media aritmetica è sufficiente per la media delle distribuzioni
@@ -134,10 +137,11 @@
 \end{solution}
 
 \begin{exercise}
-	Applicare il teorema di Darmois (\autoref{th:darmois}) alla gaussiana separatamente per la media e per la varianza.
+	Applicare il teorema di Darmois (\autoref{th:darmois}) alla gaussiana separatamente per la media e per la varianza,
+    tenendo l'altro parametro fissato.
 \end{exercise}
 
-\begin{solution*}
+\begin{solution}
 	Dobbiamo scrivere la pdf nella forma:
 	\begin{equation*}
 		p(x;\theta)
@@ -181,7 +185,7 @@
 		&= -\sum_{i=1}^N (x_i-\mu)^2 + \mu^2 = \\
 		&= \mu^2 - N\hat\sigma^2.
 	\end{align*}
-\end{solution*}
+\end{solution}
 
 \begin{exercise}
 	Trovare una statistica sufficiente simultaneamente per media e varianza della gaussiana.
@@ -237,11 +241,11 @@
 \begin{solution}
 	Calcoliamo l'informazione di Fisher per una estrazione della poissoniana:
 	\begin{align*}
-		\log p(k;\mu)
+		\log P(k;\mu)
 		&= k\log\mu - \log(k!) - \mu \\
-		\frac{\partial}{\partial\mu} \log p(k;\mu)
+		\frac{\partial}{\partial\mu} \log P(k;\mu)
 		&= \frac k\mu - 1 \\
-		-\frac{\partial^2}{\partial\mu^2} \log p(k;\mu)
+		-\frac{\partial^2}{\partial\mu^2} \log P(k;\mu)
 		&= \frac k{\mu^2} \\
 		I(\mu)
 		&= \frac{E[k]}{\mu^2}
@@ -250,7 +254,7 @@
 	La statistica sufficiente è la somma.
 	La somma di poissoniane è poissoniana
 	\begin{equation*}
-		p(s;\mu)
+		P(s;\mu)
 		= \frac{(N\mu)^s}{s!}e^{-N\mu};
 	\end{equation*}
 	l'informazione di Fisher ha una derivata al quadrato nel parametro quindi
@@ -265,11 +269,11 @@
 	che è l'informazione di $N$ estrazioni della poissoniana.
 	Procediamo con la binomiale:
 	\begin{align*}
-		\log p(k;p)
+		\log P(k;p)
 		&= \log\binom nk + k\log p + (n-k)\log(1-p) \\
-		\frac{\partial}{\partial p} \log p(k;p)
+		\frac{\partial}{\partial p} \log P(k;p)
 		&= \frac kp - \frac{n-k}{1-p} \\
-		-\frac{\partial^2}{\partial p^2} \log p(k;p)
+		-\frac{\partial^2}{\partial p^2} \log P(k;p)
 		&= \frac k{p^2} + \frac{n-k}{(1-p)^2} \\
 		I(p)
 		&= \frac{np}{p^2} + \frac{n-np}{(1-p)^2} = \\
