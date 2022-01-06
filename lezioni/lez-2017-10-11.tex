@@ -11,7 +11,7 @@
 	$P(1|\pm)$. Calcolarlo conoscendo la frazione di popolazione che ha la malattia $P(1)$, anche numericamente con i valori: $P(+|0)=0.03$, $P(-|1)=0.02$, $P(1)=10^{-3}$.
 \end{exercise}
 
-\begin{solution*}
+\begin{solution}
 	È una semplice applicazione del teorema di Bayes:
 	\begin{align*}
 		P(1|\pm) &= \frac{P(\pm|1) P(1)}{P(\pm)} \\
@@ -22,7 +22,7 @@
 		P(1|+) &= 0.032 \\
 		P(1|-) &= \num{2.1e-5}.
 	\end{align*}
-\end{solution*}
+\end{solution}
 
 \begin{exercise}
 	Un rivelatore di particelle è composto da due contatori.
@@ -34,7 +34,7 @@
 	anche con i valori numerici $p=0.97$, $q=10^{-3}$, $P(e)=10^{-4}$.
 \end{exercise}
 
-\begin{solution*}
+\begin{solution}
 	È anche questa una semplice applicazione di Bayes.
 	\begin{align*}
 		P(\gamma|12) &= \frac{P(12|\gamma) P(\gamma)}{P(12)} \\
@@ -48,7 +48,7 @@
 		P(\gamma|1) &= 1 - \num{3e-3} \\
 		P(\gamma|2) &= 0.01.
 	\end{align*}
-\end{solution*}
+\end{solution}
 
 \begin{exercise}
 	Abbiamo un deposito di munizioni stipate in casse.
@@ -62,7 +62,7 @@
 	Calcolare $f$ in seguito a questa procedura.
 \end{exercise}
 
-\begin{solution*}
+\begin{solution}
 	Fissiamo la notazione:
 	$q$ è la frazione di proiettili difettosi in una cassa,
 	$n$ è il numero di munizioni che controlliamo in ogni cassa,
@@ -83,7 +83,7 @@
 		\Bigg[ P(k) &= \int \de q\, P(k|q) p(q) \Bigg].
 	\end{align*}
 	Si può rendere più realistico l'esercizio usando un priore su $q$ non discreto.
-\end{solution*}
+\end{solution}
 
 \marginpar{Qui manca un esercizio perché mi sono distratto,
 aveva a che fare con la temperatura e i taxi.}
