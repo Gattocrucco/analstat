@@ -98,15 +98,16 @@ e questo è utile per sapere quanto tempo vale la pena continuare a prendere dat
 
 Consideriamo la gaussiana con media $\mu$ e deviazione standard $\sigma$:
 \begin{equation*}
-	g(x;\mu,\sigma) \is \frac1{\sqrt{2\pi}\sigma} e^{-\frac12 \left( \frac{x-\mu}\sigma \right)^2}.
+	g(x;\mu,\sigma) \is \frac1{\sqrt{2\pi}\,\sigma}
+    \exp\left(-\frac12 \left( \frac{x-\mu}\sigma \right)^2\right).
 \end{equation*}
 Calcoliamo la likelihood per $\mu$ con due misure:
 \begin{align*}
 	\mathcal L(\mu)
 	&= g(x_1;\mu,\sigma) g(x_2;\mu,\sigma) = \\
 	&= \frac1{2\pi\sigma^2}
-	e^{\left( \frac{x_1-x_2}{2\sigma} \right)^2}
-	e^{-\frac2{2\sigma^2} \left( \frac{x_1+x_2}2 - \mu \right)^2} = \\
+	\exp\left(\left( \frac{x_1-x_2}{2\sigma} \right)^2\right)
+	\exp\left(-\frac2{2\sigma^2} \left( \frac{x_1+x_2}2 - \mu \right)^2\right) = \\
 	&= f(x_1,x_2) g \big( \mu;\bar x,\sigma/\sqrt2 \big).
 \end{align*}
 Dunque la likelihood per $\mu$ è gaussiana.
@@ -137,7 +138,7 @@ quindi per scrivere la likelihood è sufficiente conoscere $s_0 \is s(x_0)$.
 
 \begin{theorem}
 	Se $s(x)$ è sufficiente per $\theta$,
-	la probabilità condizionata $p(x|s)$ non dipende da $\theta$.
+	la probabilità condizionata $p(x|s;\theta)$ non dipende da $\theta$.
 \end{theorem}
 
 \begin{proof}
