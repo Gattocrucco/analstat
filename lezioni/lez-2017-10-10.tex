@@ -79,7 +79,92 @@ Abbiamo quindi dimostrato il
 	Sia $x$ variabile con funzione caratteristica sviluppabile in serie di potenze su $\R$,
 	allora la somma di $n$ variabili indipendenti identiche a $x$ normalizzata in modo da avere media nulla e varianza unitaria ha distribuzione gaussiana nel limite $n\to\infty$.
 \end{theorem}
-Questa è una forma debole del teorema, che sotto opportune ipotesi vale anche sommando variabili con distribuzioni diverse.
+%
+Questa è una forma debole del teorema, che sotto opportune ipotesi vale anche
+sommando variabili con distribuzioni diverse.
+
+%%%% sezione sulla gaussiana multidimensionale aggiunta 2022-01-06
+%%%% perché serve poi nel capitolo 2
+
+\subsection{Gaussiana multidimensionale}
+
+Come abbiamo visto, una gaussiana con media nulla e varianza unitaria ha pdf
+%
+\begin{equation*}
+    %
+    p(x) = \frac1{\sqrt{2\pi}}\exp\left(-\frac12 x^2\right).
+    %
+\end{equation*}
+%
+Se prendiamo $n$ variabili indipendenti come questa, $\mathbf x = (x_1, \ldots,
+x_n)$, la pdf è data dal prodotto:
+%
+\begin{align*}
+    %
+    p(\mathbf x) &= \prod_{i=1}^n p(x_i)
+    = \prod_{i=1}^n \frac1{\sqrt{2\pi}}\exp\left(-\frac12 x_i^2\right)
+    = (2\pi)^{-n/2} \exp\left(\frac12 \sum_{i=1}^n x_i^2 \right) = \\
+    %
+    &= (2\pi)^{-n/2} \exp\left(\frac12 \mathbf x^\top \mathbf x\right),
+    %
+\end{align*}
+%
+dove abbiamo considerato $\mathbf x$ come un vettore colonna per scrivere il
+prodotto scalare. Consideriamo una trasformazione lineare biunivoca di $\mathbf
+x$, ovvero $\mathbf y = A\mathbf x$, con $A$ matrice $n\times n$ non degenere,
+e calcoliamo la distribuzione di $\mathbf y$:
+%
+\begin{align*}
+    %
+    p(\mathbf y) &= \frac{p(\mathbf x(\mathbf y))}
+    {|\det [\partial y_i/\partial x_j]|}
+    = \frac{p_{\mathbf x}(A^{-1}\mathbf y)}{|\det A|} = \\
+    %
+    &= \frac1{(2\pi)^{n/2}|\det A|}
+    \exp\left(\frac12 \mathbf y^\top A^{-1,\top} A^{-1} \mathbf y\right).
+    %
+\end{align*}
+%
+Definendo $V \is AA^\top$, abbiamo che $\det V = \det A\det A^T = (\det A)^2$,
+inoltre $\det(aV) = a^n\det V$, quindi la formula diventa
+%
+\begin{equation*}
+    %
+    p(\mathbf y) = \frac1{\sqrt{\det(2\pi V)}}
+    \exp\left(\frac12 \mathbf y^\top V^{-1} \mathbf y\right).
+    %
+\end{equation*}
+%
+Cerchiamo di dare un significato a questa $V$. La matrice di covarianza di
+$\mathbf y$ è
+%
+\begin{align*}
+    %
+    C_{ij} &= \operatorname{Cov}[y_i, y_j]
+    = \operatorname{Cov}[A_{ik} x_k, A_{jl} x_l] = \\
+    %
+    &= A_{ik} A_{jl} \operatorname{Cov}[x_k, x_l]
+    = A_{ik} A_{jl} \delta_{kl}
+    = A_{ik} A_{jk} = \\
+    %
+    &= (AA^\top)_{ij} = V_{ij},
+    %
+\end{align*}
+%
+quindi $V$ è proprio la matrice di covarianza di $\mathbf y$. Facendo infine
+una traslazione, $\mathbf z = A\mathbf x + \boldsymbol\mu$, si ottiene
+$E[\mathbf z] = AE[\mathbf x] + \boldsymbol\mu = \boldsymbol\mu$ e
+%
+\begin{equation*}
+    %
+    p(\mathbf z) = \frac1{\sqrt{\det(2\pi V)}}
+    \exp\left(\frac12 (\mathbf z - \boldsymbol\mu)^\top
+    V^{-1} (\mathbf z - \boldsymbol\mu)\right).
+    %
+\end{equation*}
+%
+Questa è la distribuzione gaussiana multidimensionale, con media
+$\boldsymbol\mu$ e matrice di covarianza $V$.
 
 \chapter{Inferenza}
 \label{sec:cap2}
