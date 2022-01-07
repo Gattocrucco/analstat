@@ -1,0 +1,96 @@
+%%%% questa parte l'ho scritta il 2022-01-07
+%%%% la lezione originale era diversa, aveva fatto proprietà asintotiche
+%%%% dei quantili, ma non avevo dei buoni appunti quindi non l'avevo
+%%%% trascritta
+
+\subsection{Intervalli interquantile}
+
+Prima di studiare la stima intervallare in tutta la sua gloria, vediamo ancora
+un altro modo semplice di costruire intervalli a partire da una distribuzione.
+
+\begin{definition}[Quantile]
+    %
+    Sia $F$ la cdf di una variabile a valori reali. Il \emph{quantile} di
+    ordine $\alpha$ è $q_\alpha \is F^{-1}(\alpha)$.
+    %
+\end{definition}%
+%
+In altre parole il quantile di ordine $\alpha$ è il valore di $x$ tale che
+la probabilità che $x$ sia minore è $\alpha$. In particolare $q_{1/2}$ è la
+mediana.
+
+\begin{exercise}
+    %
+    Se trasformo $x$ con una funzione $\fundef{\mathbb R}{\mathbb R}$, come
+    trasformano i quantili?
+    %
+\end{exercise}
+
+\begin{solution}
+    %
+    Sia $y = f(x)$. Se $f$ è strettamente crescente, abbiamo che
+    %
+    \begin{equation*}
+        %
+        \alpha = P(x < q^x_\alpha)
+        = P(f(x) < f(q^x_\alpha))
+        = P(y < f(q^x_\alpha))
+        \implies q^y_\alpha = f(q^x_\alpha).
+        %
+    \end{equation*}
+    %
+    Se $f$ è strettamente descrescente, i quantili si invertono:
+    %
+    \begin{align*}
+        %
+        1 - \alpha &= P(x < q^x_{1-\alpha})
+        = P(f(x) > f(q^x_{1-\alpha}))
+        = 1 - P(y < f(q^x_{1-\alpha}))
+        \implies \\
+        %
+        \implies q^y_\alpha &= f(q^x_{1-\alpha}).
+        %
+    \end{align*}
+    %
+    Invece se $f$ non è biunivoca, o se comunque ``rimischia'' il dominio
+    di $x$, in generale i quantili possono cambiare arbitrariamente.
+    %
+\end{solution}
+
+\begin{definition}[Intervallo interquantile]
+    %
+    Un \emph{intervallo interquantile $\alpha$-$\beta$}, con $0 \le \alpha <
+    \beta \le 1$, è l'intervallo delimitato dai quantili di ordine $\alpha$
+    e $\beta$, $(q_\alpha, q_\beta)$.
+    %
+\end{definition}%
+%
+Ne segue che la probabilità che $x$ cada nell'intervallo $\alpha$-$\beta$ è
+%
+\begin{equation*}
+    %
+    P(q_\alpha < x < q_\beta)
+    = P(x < q_\beta) - P(x < q_\alpha)
+    = \beta - \alpha.
+    %
+\end{equation*}
+%
+Se si prende $\alpha = 0$, l'intervallo arriva fino al bordo sinistro del
+supporto della distribuzione di $x$; analogamente se $\beta = 1$ arriva fino
+al bordo destro.
+
+Se si ha un campione di dati $x_0, \ldots, x_{N-1}$, i quantili si possono
+stimare in questo modo: si mettono in ordine crescente le $x_i$, e si fa la
+proporzione $\alpha:i = 1:(N-1)$, ottenendo $i = \alpha (N-1)$. In questo modo
+$0 \le i \le N-1$. Si arrotonda $i$ e si prende l'$x_i$ corrispondente. Di
+conseguenza circa una frazione $\alpha$ dei dati sta a sinistra dell'$x_i$
+scelto.
+
+L'intervallo interquantile è comodo per riassumere con delle barre d'errore su
+un grafico le distribuzioni di vari campioni. Calcolare la deviazione standard
+funziona bene quando la distribuzione è circa gaussiana, ma se ci sono
+distribuzioni diverse, magari diverse per ogni barra da mostrare, la deviazione
+standard può essere fuorviante. Per la gaussiana l'intervallo
+$(-\sigma,\sigma)$ ha probabilità circa 68\,\%. Per mostrare delle barre
+d'errore che nel caso della gaussiana corrispondano a $\pm1\sigma$, si può
+allora usare l'intervallo interquantile 16--84\,\%.
