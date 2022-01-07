@@ -187,7 +187,7 @@
 	\end{align*}
 \end{solution}
 
-\begin{exercise}
+\begin{exercise} \label{ex:suffgauss}
 	Trovare una statistica sufficiente simultaneamente per media e varianza della gaussiana.
 \end{exercise}
 
@@ -322,7 +322,7 @@
 	\end{align*}
 \end{solution}
 
-\begin{exercise}
+\begin{exercise} \label{ex:varvar}
 	Per la gaussiana, calcolare la varianza della varianza campione
 	\begin{equation*}
 		\hat V(\mathbf x) = \frac1{N-1} \sum_{i=1}^N (x_i - \bar x)^2
@@ -336,23 +336,8 @@
 	\begin{equation*}
 		p(x) = \frac1{\sqrt{2\pi}} \exp\left(-\frac12x^2\right).
 	\end{equation*}
-	Innanzitutto ricaviamo alcune utili proprietà della varianza:
-	\begin{align*}
-		\var[\lambda a] &= \lambda^2 \var[a], \\
-		\var[a]
-		&= E[(a-E[a])^2] = \\
-		&= E[a^2] - E[2aE[a]] + E[E[a]^2] = \\
-		&= E[a^2] - 2E[a]^2 + E[a]^2 = \\
-		&= E[a^2] - E[a]^2, \\
-		\var[a+b]
-		&= E[(a+b)^2] - E[a+b]^2 = \\
-		&= E[a^2 + b^2 + 2ab] - E[a]^2 - E[b]^2 - 2E[a]E[b] = \\
-		&= \var[a] + \var[b] + 2(E[ab] - E[a]E[b]) = \\
-		&= \var[a] + \var[b] + 2\cov[a,b] \\
-		\intertext{che, se $a$ e $b$ sono indipendenti, diventa}
-		\var[a+b] &= \var[a] + \var[b].
-	\end{align*}
-	Adesso calcolare la varianza di $\hat V$ è semplice:
+    %
+    Calcoliamo la varianza di $\hat V$ usando le proprietà della varianza:
 	\begin{align*}
 		\sum_i (x_i-\bar x)^2
 		&= \sum_ix_i^2 - 2\bar x\sum_ix_i + N\bar x^2 = \\
@@ -389,7 +374,7 @@
 		\var[\hat V]
 		= \frac{2\sigma^4}{N-1}.
 	\end{equation*}
-	L'informazione di Fisher per la varianza è
+	L'informazione di Fisher per la varianza è (vedi \autoref{th:fishgauss})
 	\begin{equation*}
 		I(\sigma^2)
 		= \frac N{2\sigma^4},

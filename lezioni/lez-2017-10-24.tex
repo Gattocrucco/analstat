@@ -44,11 +44,17 @@
 	dove $I$ è l'informazione di Fisher.
 \end{theorem}
 
-\begin{proof}
-	Sia la varianza che l'informazione di Fisher sono degli integrali, quindi,
-	se riusciamo a scrivere il termine $1+b'(\theta)$ come un integrale opportuno,
+\begin{exercise}
+    %
+    Dimostrare la disuguaglianza di Cramér-Rao.
+    %
+\end{exercise}
+
+\begin{solution}
+	Sia la varianza che l'informazione di Fisher sono dei valori attesi, quindi,
+	se riusciamo a scrivere il termine $1+b'(\theta)$ come un opportuno valore atteso,
 	possiamo usare la disguaglianza di Schwartz,
-	che scritta con i valori attesi è
+	che scritta con i valori attesi è (vedi \autoref{ex:corrbound})
 	\begin{equation*}
 		E[fg]^2 \le E[f^2]E[g^2].
 	\end{equation*}
@@ -85,7 +91,7 @@
 		&= E[\hat\theta;\theta] \pdv{}\theta \int \de\hat\theta\, L = \\
 		&= 0. \qedhere
 	\end{align*}
-\end{proof}
+\end{solution}
 
 Per il \autoref{th:fishstat} l'informazione di Fisher di $x$ è maggiore o uguale a quella di $\hat\theta$,
 quindi si ha il corollario che
@@ -116,12 +122,14 @@ questa è la forma generale dell'osservazione che comunemente
 	Con la notazione e le ipotesi del \autoref{th:cramerrao},
 	se $\hat\theta$ è sufficiente per $\theta$ allora ha efficienza unitaria.
 	\marginpar{Il Del Prete 2010-01-21 a pagina 177 (in fondo)
-	dice che efficiente $\rightarrow$ sufficiente e che non vale il viceversa. \\
-	\emph{Sì, e due pagine dopo <<stressa>> che la likelihood è il posteriore!} \\
-    Questa cosa vale anche con la versione multidimensionale di Cramér-Rao?
-    Credo di no, non funziona per la Gaussiana con media e varianza libere.
+	dice che efficiente $\rightarrow$ sufficiente e che non vale il viceversa.
     Inoltre per applicare Darmois bisogna che lo stimatore sia sufficiente per
-    qualsiasi numero di estrazioni, non bastano le ipotesi del \autoref{th:cramerrao}.}
+    qualsiasi numero di estrazioni, non bastano le ipotesi del \autoref{th:cramerrao}.
+    Per la gaussiana con media e varianza libere questo teorema non vale,
+    perché la varianza campione e la media sono sufficienti e unbiased ma
+    la varianza campione non è efficiente (vedi \autoref{ex:varvar}), quindi
+    ipotizzo che il teorema valga solo per parametro 1D e non con la versione
+    generale.}
 \end{theorem}
 
 \begin{proof}
@@ -190,18 +198,18 @@ che è una funzione del parametro.
 	Consideriamo la gaussiana a varianza fissata
 	\begin{equation*}
 		p(x;\mu)
-		= \frac1{\sqrt{2\pi}} e^{-\frac12 (x-\mu)^2}.
+		= \frac1{\sqrt{2\pi}} \exp\left(-\frac12 (x-\mu)^2\right).
 	\end{equation*}
-	L'informazione di Fisher\footnote{Vedi \autoref{th:fishgauss}.} per $N$ estrazioni è $N$.
+	L'informazione di Fisher per $N$ estrazioni è $N$ (vedi \autoref{th:fishgauss}).
 	La media aritmetica è uno stimatore sufficiente e con bias nullo,
-	e infatti la sua deviazione standard è $1/N$.
+	e infatti la sua varianza è $1/N$.
 \end{example}
 
 \begin{example}
 	Consideriamo la gaussiana a media fissata
 	\begin{equation*}
 		p(x;\sigma)
-		= \frac1{\sqrt{2\pi}\sigma} e^{-\frac12 \frac{x^2}{\sigma^2}}.
+		= \frac1{\sqrt{2\pi}\sigma} \exp\left(-\frac12 \frac{x^2}{\sigma^2}\right).
 	\end{equation*}
 	Lo scarto quadratico medio
 	\begin{equation*}
@@ -246,6 +254,81 @@ che è una funzione del parametro.
     Forse Del Prete intende nel caso con media non fissata? Però allora
     bisogna prendere la versione multidimensionale di Cramér-Rao.}
 \end{example}
+
+%%%% esercizio aggiunto 2022-01-07
+%%%% per sottolineare che sufficienza==>efficienza non funziona in generale
+\begin{exercise}
+    %
+    La disuguaglianza di Cramér-Rao (\autoref{th:cramerrao}) ha anche una
+    versione multidimensionale cioè con parametro in $\mathbb R^n$, $n > 1$:
+    la matrice
+    %
+    \begin{equation*}
+        %
+        D_{ij} \is
+        \cov[\hat\theta_i, \hat\theta_j;\boldsymbol\theta] -
+        \frac{\partial E[\hat\theta_i;\theta]}{\partial\theta_k}
+        \frac{\partial E[\hat\theta_j;\theta]}{\partial\theta_l}
+        (I^{-1}(\boldsymbol\theta))_{kl}
+    \end{equation*}
+    %
+    è semidefinita positiva. L'efficienza si ha quando $D = 0$. Mostrare che
+    nel caso $n = 1$ è equivalente a quella già enunciata, e trovare un
+    controesempio a sufficienza $\implies$ efficienza (\autoref{th:suffeff})
+    quando $n > 1$ (aiuto: il controesempio è già comparso tra i vari esercizi
+    ed esempi del capitolo).
+    %
+\end{exercise}
+
+\begin{solution}
+    %
+    Una matrice $1\times1$ è semidefinita positiva se è $\ge 0$. Quindi viene
+    %
+    \begin{align*}
+        %
+        D &= \cov[\hat\theta,\hat\theta;\theta] -
+        \left(\frac{\partial E[\hat\theta;\theta]}{\partial\theta}\right)^2
+        I^{-1}(\theta) = \\
+        %
+        &= \var[\hat\theta;\theta] -
+        \left(\frac{\partial}{\partial\theta}(\theta + b(\theta))\right)^2
+        I^{-1}(\theta) = \\
+        %
+        &= \var[\hat\theta;\theta] - (1 + b'(\theta))/I(\theta) \ge 0.
+        %
+    \end{align*}
+    %
+    Consideriamo la gaussiana con media e varianza libere. La matrice di
+    informazione di Fisher è (vedi \autoref{th:fishgauss})
+    %
+    \begin{equation*}
+        %
+        I(\mu,\sigma^2) = \begin{pmatrix}
+            %
+            N/\sigma^2 & 0 \\
+            %
+            0 & N/(2\sigma^4)
+            %
+        \end{pmatrix}.
+        %
+    \end{equation*}
+    %
+    La media e la varianza campione
+    %
+    \begin{equation*}
+        %
+        \bar x(\mathbf x) = \frac 1N \sum_{i=1}^N x_i, \qquad
+        \hat V(\mathbf x) = \frac 1{N-1} \sum_{i=1}^N (x_i - \bar x)^2
+    \end{equation*}
+    %
+    sono uno stimatore unbiased e sufficiente di $(\mu,\sigma^2)$ (vedi
+    \autoref{ex:suffgauss}). Poiché $I$ è diagonale e il bias è nullo, per
+    applicare Cramér-Rao basta confrontare le varianze. La varianza di $\bar x$
+    è $\sigma^2/N = I_{\mu\mu}^{-1}$, mentre quella di $\hat V$ è
+    $2\sigma^4/(N-1)$ (vedi \autoref{ex:varvar}) diversa da
+    $I_{\sigma^2\sigma^2}^{-1}$.
+    %
+\end{solution}
 
 % parte spostata da 25 ottobre
 \subsection{Riduzione del bias}
