@@ -4,7 +4,7 @@
 \begin{example}
 	Calcoliamo lo stimatore di massima likelihood per la poissoniana:
 	\begin{align*}
-		L \is \log p(\mathbf k;\mu)
+		L \is \log P(\mathbf k;\mu)
 		&= -\sum_i \log k_i! + \log\mu \sum_i k_i - N\mu \\
 		0 = \pdv L\mu
 		&= \sum_i k_i - N\mu \implies \\
@@ -20,7 +20,7 @@
 
 \begin{solution}
 	\begin{align*}
-		L \is \log p(\mathbf k;p)
+		L \is \log P(\mathbf k;p)
 		&= \sum_i\log\binom n{k_i} + \log p\sum_i k_i + \log(1-p) \sum_i(n-k_i) \\
 		0 = \pdv Lp
 		&= \frac{N\bar k}{p} - \frac{N(n-\bar k)}{1-p} \implies \\
@@ -80,7 +80,7 @@
 		\hat\lambda = \frac1{\hat\tau} = \frac1{\bar t}.
 	\end{equation*}
 	Calcoliamo il bias di $\hat\lambda$.
-	La distribuzione della somma di esponenziali\footnote{Vedi \autoref{th:salvexp}.} è
+	La distribuzione della somma di esponenziali (vedi \autoref{th:salvexp}) è
 	\begin{equation*}
 		p(s;\lambda)
 		= \frac{\lambda^N}{(N-1)!}s^{N-1}e^{-\lambda s},
@@ -108,7 +108,7 @@
 		&= \frac1{m^N} \chi_{(\max\mathbf x,\infty)}(m) \implies \\
 		\implies \hat m&=\max\mathbf x.
 	\end{align*}
-	Abbiamo già calcolato\footnote{Vedi \autoref{th:unifmaxpdf}.} la distribuzione di $\hat m$
+	Abbiamo già calcolato la distribuzione di $\hat m$ (vedi \autoref{th:unifmaxpdf})
 	\begin{equation*}
 		p(\hat m;m)
 		= \frac Nm \left(\frac{\hat m}m\right)^{N-1} \chi_{(0,m)}(\hat m),
@@ -129,6 +129,10 @@
 		&= \frac{N(N+1)^2 - N^2(N+2)}{(N+2)(N+1)^2} = \\
 		&= \frac N{(N+2)(N+1)^2}.
 	\end{align*}
+    %
+    Notare che la varianza di $\hat m$ va giù come $1/N^2$ anziché $1/N$ come
+    al solito.
+    %
 \end{example}
 
 % parte spostata dal 31 ottobre

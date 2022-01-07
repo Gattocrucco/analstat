@@ -30,7 +30,7 @@ Poniamo che il numero di estrazioni sia anch'esso una variabile e abbia distribu
 	P(N)
 	= \frac{\mu^N}{N!}e^{-\mu}.
 \end{equation*}
-Reinterpretiamo la distribuzione di $\mathbf k$ come probabilità condizionata e calcoliamo la nuova distribuzione\footnote{Questo conto è già stato fatto nell'\autoref{th:taxi}.}:
+Reinterpretiamo la distribuzione di $\mathbf k$ come probabilità condizionata e calcoliamo la nuova distribuzione (questo conto è già stato fatto nell'\autoref{th:taxi}):
 \begin{align*}
 	P(k_j)
 	&= \sum_N P(k_j,N) = \\
@@ -167,14 +167,45 @@ Allora il massimo della forma quadratica si ottiene per
 \begin{equation*}
 	\hat{\boldsymbol\theta} = (A^\transp V^{-1} A)^{-1} (A^\transp V^{-1}) \mathbf y.
 \end{equation*}
-\marginpar{Aggiungere formula per la varianza di $\hat{\boldsymbol\theta}$.}
 Questo stimatore ha bias nullo:
 \begin{equation*}
 	E[\hat{\boldsymbol\theta}]
 	= (A^\transp V^{-1} A)^{-1} (A^\transp V^{-1}) A \boldsymbol\theta
 	= \boldsymbol\theta.
 \end{equation*}
+
 \begin{fact}[Teorema di Gauss-Markov]
 	Se $V$ è effettivamente la matrice di covarianza,
-	$\hat{\boldsymbol\theta}$ è lo stimatore lineare e con bias nullo di minima varianza\footnote{Anche detto BLUE ovvero Best Linear Unbiased Estimator.}.
+	$\hat{\boldsymbol\theta}$ è lo stimatore lineare e con bias nullo di minima varianza, anche detto BLUE ovvero Best Linear Unbiased Estimator.
 \end{fact}
+
+\begin{exercise}
+    %
+    Calcolare la matrice di covarianza di $\hat{\boldsymbol\theta}$, nel
+    caso in cui $V$ è la matrice di covarianza di $\mathbf y$.
+    %
+\end{exercise}
+
+\begin{solution}
+    %
+    Primaditutto osserviamo che la matrice di covarianza di $M\mathbf y$~è
+    %
+    \begin{equation*}
+        %
+        C_{ij} = \cov[M_{ik} y_k, M_{jl} y_l] = (MVM^\top)_{ij}.
+        %
+    \end{equation*}
+    %
+    Quindi la matrice di covarianza di $\hat{\boldsymbol\theta}$ è
+    %
+    \begin{equation*}
+        %
+        (A^\transp V^{-1} A)^{-1} A^\transp V^{-1} V
+        V^{-1} A (A^\transp V^{-1} A)^{-1}
+        = (A^\transp V^{-1} A)^{-1},
+        %
+    \end{equation*}
+    %
+    dove abbiamo usato la simmetria di $V$ e $A^\transp V^{-1} A$.
+    % 
+\end{solution}

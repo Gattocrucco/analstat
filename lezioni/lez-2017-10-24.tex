@@ -257,7 +257,7 @@ che è una funzione del parametro.
 
 %%%% esercizio aggiunto 2022-01-07
 %%%% per sottolineare che sufficienza==>efficienza non funziona in generale
-\begin{exercise}
+\begin{exercise} \label{ex:cramerraond}
     %
     La disuguaglianza di Cramér-Rao (\autoref{th:cramerrao}) ha anche una
     versione multidimensionale cioè con parametro in $\mathbb R^n$, $n > 1$:
@@ -321,12 +321,50 @@ che è una funzione del parametro.
         \hat V(\mathbf x) = \frac 1{N-1} \sum_{i=1}^N (x_i - \bar x)^2
     \end{equation*}
     %
-    sono uno stimatore unbiased e sufficiente di $(\mu,\sigma^2)$ (vedi
-    \autoref{ex:suffgauss}). Poiché $I$ è diagonale e il bias è nullo, per
-    applicare Cramér-Rao basta confrontare le varianze. La varianza di $\bar x$
-    è $\sigma^2/N = I_{\mu\mu}^{-1}$, mentre quella di $\hat V$ è
+    sono uno stimatore sufficiente di $(\mu,\sigma^2)$ (vedi
+    \autoref{ex:suffgauss}). Il bias di $\bar x$ è zero, calcoliamo quello di
+    $\hat V$:
+    %
+    \begin{align*}
+        %
+        E[\hat V(\mathbf x)]
+        &= E\left[ \frac 1{N-1} \sum_{i=1}^N (x_i - \bar x)^2 \right] = \\
+        %
+        &= \frac 1{N-1} \sum_{i=1}^N
+        E\left[\left(x_i - \frac1N \sum_{j=1}^N x_j\right)^2\right] = \\
+        %
+        &= \frac 1{N-1} \sum_{i=1}^N \left(
+        E[x_i^2]
+        - 2 E\left[ x_i \frac1N \sum_{j=1}^N x_j \right] + {}\right. \\
+        %
+        &\qquad\left.
+        + E\left[ \frac1N \sum_{j=1}^N x_j \frac1N \sum_{j=k}^N x_k \right]
+        \right) = \\
+        %
+        &= \frac1{N-1} \sum_{i=1}^N (\var[x_i] + E[x_i]^2) + {} \\
+        %
+        &\qquad - \frac2{N(N-1)} \sum_{i,j=1}^N (\cov[x_i, x_j] + E[x_i]E[x_j]) + {} \\
+        %
+        &\qquad + \frac1{N^2(N-1)} \sum_{i,j,k=1}^N (\cov[x_j, x_k] + E[x_j]E[x_k]) = \\
+        %
+        &= \frac N{N-1} (\sigma^2 + \mu^2)
+        - \frac2{N-1} \sigma^2 - \frac{2N}{N-1} \mu^2 + {} \\
+        %
+        &\qquad + \frac1{N-1} \sigma^2 + \frac N{N-1} \mu^2 = \\
+        %
+        &= \sigma^2,
+        %
+    \end{align*}
+    %
+    quindi è unbiased. Poiché $I$ è diagonale e il bias è nullo, per applicare
+    Cramér-Rao basta confrontare le varianze. La varianza di $\bar x$ è
+    $\sigma^2/N = I_{\mu\mu}^{-1}$, mentre quella di $\hat V$ è
     $2\sigma^4/(N-1)$ (vedi \autoref{ex:varvar}) diversa da
     $I_{\sigma^2\sigma^2}^{-1}$.
+    %
+    Notiamo che nel conto di $E[\hat V]$ non abbiamo usato il fatto che la
+    distribuzione è gaussiana, quindi $\hat V$ è uno stimatore unbiased della
+    varianza per qualunque distribuzione.
     %
 \end{solution}
 

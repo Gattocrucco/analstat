@@ -132,8 +132,7 @@ Abramov.}
 	ma le dimostrazioni mi sembrano bacate. \\
 	\emph{La dimostrazione della sufficienza non l'ho capita,
 	però si dimostra usando Darmois.
-	La dimostrazione dell'efficienza invece mi sembra richieda la sufficienza,
-	ma abbiamo già che sufficiente $\rightarrow$ efficiente.}}%
+	La dimostrazione dell'efficienza invece mi sembra richieda la sufficienza.}}%
 	Consideriamo l'espansione in serie di $K$:
 	\begin{align*}
 		0 = K(\hat\theta)
@@ -157,7 +156,7 @@ Abramov.}
 	Consideriamo la gaussiana
 	\begin{equation*}
 		p(\mathbf x;\mu,\sigma)
-		= \frac1{(\sqrt{2\pi}\sigma)^N} \exp \left( -\frac12\sum_i\left(\frac{x_i-\mu}\sigma\right)^2 \right).
+		= \frac1{(\sqrt{2\pi}\,\sigma)^N} \exp \left( -\frac12\sum_i\left(\frac{x_i-\mu}\sigma\right)^2 \right).
 	\end{equation*}
 	Calcoliamo lo stimatore di massima likelihood:
 	\begin{align*}
@@ -172,30 +171,20 @@ Abramov.}
 		\implies \sigma^2
 		&= \frac1N \sum_i (x_i-\bar x)^2.
 	\end{align*}
-	Le proprietà di $\hat\mu$ sono ovvie.
-	Calcoliamo il bias di $\hat\sigma^2$:
-	\begin{align*}
-		E[\hat\sigma^2]
-		&= \frac{\sum_i}N E[x_i^2 - 2x_i\bar x + \bar x^2] = \\
-		\Bigg[ E[x_i]^2
-		&= \var[x_i] + E[x_i]^2
-		= \mu^2 + \sigma^2 \\
-		E[x_i\bar x]
-		&= \frac 1N E \left[ x_i^2 + x_i \sum_{j\neq i} x_j \right] = \\
-		&= \frac{\mu^2 + \sigma^2 + (N-1)\mu^2}N
-		= \mu^2 + \frac{\sigma^2}N \\
-		E[\bar x^2]
-		&= \mu^2 + \frac{\sigma^2}N \Bigg] \\
-		&= \mu^2 + \sigma^2 - \mu^2 - \frac{\sigma^2}N = \\
-		&= \frac{N-1}N \sigma^2,
-	\end{align*}
-	quindi per avere uno stimatore unbiased devo usare il noto
-	\begin{equation*}
-		\hat V(\mathbf x)
-		= \frac{\sum_i (x_i-\bar x)^2}{N-1}.
-	\end{equation*}
-	Notiamo che nel conto non abbiamo usato il fatto che la distribuzione è gaussiana,
-	quindi $\hat V$ è uno stimatore con bias nullo della varianza per qualunque distribuzione.
+	Le proprietà di $\hat\mu$ le sappiamo.
+	Vediamo il valore atteso di $\hat\sigma^2$: abbiamo già calcolato
+    quello della varianza campione $\hat V = N/(N-1)\hat\sigma$ (vedi
+    \autoref{ex:cramerraond}), quindi
+    %
+    \begin{equation*}
+        %
+        E[\hat\sigma(\mathbf x)]
+        = \frac{N-1}N E[\hat V(\mathbf x)]
+        = \frac{N-1}N \sigma^2,
+    \end{equation*}
+    %
+    che tende a $\sigma^2$ per $N\to\infty$.
+    %
 \end{example}
 
 \marginpar{Mettere come esercizio il conto della varianza della varianza fatto

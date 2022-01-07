@@ -10,7 +10,14 @@ cioè del comportamento su più modelli.
 La questione di quanto continui a funzionare bene uno stimatore se cambiamo modello è detta \emph{robustezza}.
 
 \begin{example}
-	Il Particle Data Group\footnote{Vedi \url{http://pdg.lbl.gov/2017/reviews/rpp2017-rev-rpp-intro.pdf}, §5.2.2.}, quando deve combinare più misure, usa la media pesata\footnote{Vedi \autoref{th:wavg}.}, tuttavia stima la varianza della media pesata in modo non standard.
+    %
+    Il Particle Data Group (vedi
+    \url{http://pdg.lbl.gov/2017/reviews/rpp2017-rev-rpp-intro.pdf}, §5.2.2.),
+    quando deve combinare più misure, usa la media pesata
+    dell'\autoref{th:wavg}, tuttavia stima la varianza della media pesata in
+    modo diverso per tenere conto del fatto che non si fidano della
+    correttezza degli errori riportati.
+    %
 \end{example}
 
 \begin{example}
@@ -72,16 +79,15 @@ dove $\hat m_p$ è definito come quello che minimizza l'espressione.
 
 \paragraph{Moda campione}
 
-Nel limite $p\to-\infty$ gli scarti che contano nella somma sono quelli più piccoli,
-quindi posso trovare $\hat m_{-\infty}$ con questa procedura:
-prendo i due $x$ più vicini tra loro, poi dei due scelgo quello il cui secondo vicino è più vicino.
-$\hat m_{-\infty}$ è la \emph{moda campione} e in effetti stima bene la \emph{moda},
-il punto di massimo della distribuzione.
-La moda è utile per le distribuzioni che non hanno media definita,
-ad esempio la distribuzione di Landau.
-
-\marginpar{Dire che la moda campione può essere difficile usarla in pratica
-se abbiamo valori discreti, tipo output di un ADC.}
+Nel limite $p\to-\infty$ gli scarti che contano nella somma sono quelli più
+piccoli, quindi posso trovare $\hat m_{-\infty}$ con questa procedura: prendo i
+due $x$ più vicini tra loro, poi dei due scelgo quello il cui secondo vicino è
+più vicino. $\hat m_{-\infty}$ è la \emph{moda campione} e in effetti stima
+bene la \emph{moda}, il punto di massimo della distribuzione. La moda è utile
+per le distribuzioni che non hanno media definita, ad esempio la distribuzione
+di Landau, però può essere difficile usarla in pratica se abbiamo valori
+discreti, come l'output di un ADC, perché capiteranno delle $x_i$ uguali tra
+loro; in tal caso la moda può essere stimata con un istogramma.
 
 \paragraph{Semidispersione}
 
