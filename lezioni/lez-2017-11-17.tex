@@ -20,7 +20,7 @@ la probabilità che la regione contenga il valore vero è almeno $\mathrm{CL}$.
 		\cvg_f(\theta)
 		\is \int_{f(x)\ni\theta} \de x\, p(x;\theta);
 	\end{equation*}
-	il livello di confidenza\footnote{Purtroppo il livello di confidenza viene indicato con lo stesso simbolo del livello di credibilità ($\mathrm{CL}$).} è
+	il \emph{livello di confidenza}, da non confondere con il livello di credibilità, è
 	\begin{equation*}
 		\mathrm{CL}
 		= \inf_\theta \cvg_f(\theta).
@@ -94,7 +94,7 @@ quindi non è in qualche modo intrinseca.
 		\implies \mu_\mathrm{\max}
 		&= -\log(1-\mathrm{CL}).
 	\end{align*}
-	Notiamo che abbiamo ottenuto lo stesso risultato dell'esempio bayesiano\footnote{Vedi \autoref{th:poissbayes}.} con priore uniforme,
+	Notiamo che abbiamo ottenuto lo stesso risultato dell'esempio bayesiano con priore uniforme (\autoref{th:poissbayes}),
 	e che tuttavia questa è una futile coincidenza!
 \end{example}
 
@@ -121,25 +121,94 @@ quindi non è in qualche modo intrinseca.
 \end{exercise}
 
 \begin{solution}
-	Usare il fatto che $\max \mathbf x$ è una statistica sufficiente.
-	\marginpar{Spiegare in che modo basta usare una statistica sufficiente.\\
-	\emph{In generale posso sempre fare la costruzione di Neyman con una statistica.
-	Il punto è se in qualche senso usando una statistica sufficiente sono sicuro
-	di non perdere le stime intervallari ``migliori''.
-	Nel caso delle stime puntuali ottimizzate con la varianza e anche nel caso bayesiano
-	mi è chiaro perché la sufficienza è utile,
-	mentre per le stime intervallari non ho mai visto un ragionamento generale
-	per dimostrare che le statistiche sufficienti hanno buone proprietà.
-	Tuttavia sono convinto che ci sia un collegamento.}\\
-	Nel caso di likelihood ratio, la statistica sufficiente in effetti è sufficiente.}
-	Risulta
-	\begin{align*}
-		m_\mathrm{min}
-		&= \max\mathbf x, \\
-		m_\mathrm{max}
-		&= \frac{\max\mathbf x}{\sqrt[N]{1-\mathrm{CL}}}.
-	\end{align*}
+    %
+    È più semplice considerare una statistica 1D delle $x_i$ per costruire lo
+    stimatore anziché lavorare in più dimensioni direttamente.
+    Dall'\autoref{th:unifmaxpdf} sappiamo che il massimo è una statistica
+    sufficiente, e dall'\autoref{th:unifml} che è lo stimatore di massima
+    likelihood e che è asintoticamente efficiente. Intuitivamente se ci basiamo
+    su un buon stimatore puntuale dovrebbe venir fuori un buon stimatore
+    intervallare.
+    %
+    Come funzione di ordinamento prendiamo quindi $O(m, \mathbf x) =
+    \max(\mathbf x) \isis M$, ovvero per ogni $m$ la fetta di banda per
+    $M$ è del tipo $(M_\text{min}, m)$. Il coverage è
+    %
+    \begin{align*}
+        %
+        P(M > M_\text{min};m)
+        &= 1 - P(M < M_\text{min};m) = \\
+        %
+        &= 1 - P(\forall i:x_i < M_\text{min};m) = \\
+        %
+        &= 1 - (M_\text{min}/m)^N = \mathrm{CL} \implies \\
+        %
+        \implies M_\text{min} &= m\sqrt[N]{1 - \mathrm{CL}},
+        %
+    \end{align*}
+    %
+    che usiamo per ``invertire'' la definizione della banda per ricavare
+    l'intervallo per $m$ dato $M$:
+    %
+    \begin{equation*}
+        %
+        M_\text{min} < M < m
+        \implies M < m < \frac{M}{\sqrt[N]{1-\mathrm{CL}}}.
+        %
+    \end{equation*}
+    %
 \end{solution}
+
+\begin{exercise}
+    %
+    Fornire un esempio di uno stimatore intervallare con coverage costante,
+    ovvero tale che la probabilità che l'intervallo contenga il parametro è
+    esattamente uguale al livello di confidenza, e una statistica sufficiente
+    tale che non è possibile calcolare l'intervallo sapendo solo quanto vale
+    la statistica e non le variabili di partenza.
+    %
+\end{exercise}
+
+\begin{solution}
+    %
+    Consideriamo una gaussiana a varianza fissata e media libera:
+    %
+    \begin{equation*}
+        %
+        p(x;\mu) = \frac1{\sqrt{2\pi}}\exp(-(x-\mu)^2/2).
+        %
+    \end{equation*}
+    %
+    A naso uno stimatore sensato per $\mu$ è $f(x) = (x - L, x + L)$.
+    Calcoliamo il coverage:
+    %
+    \begin{align*}
+        %
+        P(\mu \in f(x);\mu)
+        &= P(x - L < \mu < x + L; \mu) = \\
+        %
+        &= P(-L < x - \mu < L; \mu) = \\
+        %
+        &= P(-L < x < L; \mu=0) = \\
+        %
+        &= \Phi(L) - \Phi(-L)
+        = 1 - 2\Phi(-L),
+        %
+    \end{align*}
+    %
+    dove $\Phi(x)$ è la cdf della gaussiana di media nulla. Quindi il coverage
+    non dipende da $\mu$. Consideriamo ora il caso di più estrazioni
+    indipendenti $x_1, \ldots, x_N$. Sappiamo che la media aritmetica $\bar x$
+    è sufficiente. Prendiamo lo stesso stimatore, calcolato solo usando $x_1$:
+    $f(\mathbf x) = (x_1 - L, x_1 + L)$. Il coverage è lo stesso di prima, ma
+    per un certo valore di $\bar x$ ci sono tanti valori possibili di $x_1$,
+    quindi non è possibile ricavare $f(\mathbf x)$ sapendo solo $\bar x$.
+    %
+\end{solution}
+
+Detto in altre parole, una statistica sufficiente in generale non è
+``sufficiente'' per calcolare una data stima intervallare, se l'unica proprietà
+dello stimatore è avere un coverage definito.
 
 \paragraph{Relazione tra coverage e credibilità}
 
