@@ -60,20 +60,111 @@ Facciamo un altro esempio.
 	se esce 1 diciamo che l'intervallo è $\emptyset$, altrimenti~$\R$.
 \end{example}
 
-Fortunatamente esiste un ordinamento che non genera stime vuote e che è invariante per cambio di variabile,
-\marginpar{Però non credo sia l'unico invariante per cambio di variabile, nel
-caso discreto tutti i cambi (biunivoci) lasciano invariate le stime
-intervallari, nel caso continuo posso ad esempio fare una cosa simile al
-likelihood ratio ma usando un altro funzionale lineare della likelihood anziché
-$\sup_{\theta'} p(x;\theta')$.}
-è il \emph{likelihood ratio}\footnote{Vedi Gary J. Feldman, Robert D. Cousins, \emph{A Unified Approach to the Classical Statistical Analysis of Small Signals},  Phys.Rev.D57:3873-3889, 1998 (\url{https://arxiv.org/abs/physics/9711021}).}:
-\begin{equation*}
+Quest'ultimo esempio serve per far capire quanto è debole la proprietà di
+avere un livello di confidenza definito, si possono avere intervalli con una
+precisa probabilità di contenere il valore ignoto da misurare e che comunque
+sono palesemente inutili.
+
+Fortunatamente esiste un ordinamento che funziona sempre decentemente, è il
+seguente \emph{likelihood ratio}\footnote{Vedi Gary J. Feldman, Robert D. Cousins,
+\emph{A Unified Approach to the Classical Statistical Analysis of Small
+Signals}, Phys.Rev.D57:3873-3889, 1998
+(\url{https://arxiv.org/abs/physics/9711021}).}:
+%
+\begin{equation} \label{eq:fclr}
 	O(\theta,x) = -\lambda_\theta(x)
 	\is -2\log\frac {\sup\limits_{\theta'} p(x;\theta')} {p(x;\theta)}.
-\end{equation*}
-Inoltre con questo ordinamento la stima intervallare contiene sempre,
-se esiste,
-la stima di massima likelihood.
+\end{equation}
+
+Una funzione di ordinamento è definita a meno di una trasformazione crescente,
+vedremo a breve a cosa serve prendere il logaritmo e metterci un fattore 2.
+
+\begin{exercise}
+    %
+    Mostrare che gli intervalli costruiti con il likelihood ratio contengono
+    sempre la stima di massima likelihood.
+    %
+\end{exercise}
+
+\begin{solution}
+    %
+    Fissato $x_0$, lo stimatore di massima likelihood è
+    %
+    \begin{equation*}
+        %
+        \hat\theta = \operatorname*{arg\,sup}_\theta p(x_0;\theta).
+        %
+    \end{equation*}
+    %
+    Per ogni $\theta$, il likelihood ratio \eqref{eq:fclr} raggiunge il
+    valore massimo (zero) quando $p(x;\theta) = \sup_{\theta'}p(x;\theta')$,
+    ovvero tutte le volte che $\theta$ è lo stimatore di massima likelihood
+    per $x$. In particolare, per $\theta = \hat\theta$, anche quando $x = x_0$.
+    Poiché la banda è costruita aggiungendo le $x$ partendo da quelle con
+    funzione di ordinamento più alta, $x_0$ verrà inclusa nella sezione della
+    banda corrispondente a $\hat\theta$, che implica che la sezione
+    corrispondente a $x_0$ conterrà $\hat\theta$.
+    %
+\end{solution}
+
+Corollario: il likelihood ratio non produce mai l'insieme vuoto, come invece
+accadeva negli esempi sopra.
+
+\begin{exercise} \label{ex:lrinv}
+    %
+    Dimostrare che gli intervalli ottenuti con il likelihood ratio sono
+    invarianti per cambiamento di variabile (sulle $x$).
+    %
+\end{exercise}
+
+\begin{solution}
+    %
+    Scriviamo formalmente lo stimatore:
+    %
+    \begin{equation*}
+        %
+        f(x) = \setdef[\theta]{O(\theta,x) > q(\theta) \text{ tale che }
+        P_{x'}(O(\theta,x') > q(\theta);\theta) = \mathrm{CL}}.
+        %
+    \end{equation*}
+    %
+    Per dimostrare l'invarianza dobbiamo considerare una variabile $y = g(x)$
+    con $g$ biunivoca, definire uno stimatore $f'$ come quello sopra ma usando
+    $y$ al posto di $x$, e verificare che $f(x) = f'(g(x))$. Abbiamo che
+    $p_y(g(x);\theta) = p(x;\theta)/J(x)$, dove $J$ è il modulo del
+    determinante del jacobiano di $g$ se siamo in $\mathbb R^n$ o altrimenti in
+    ogni caso una qualche funzione di $x$. Quindi la funzione di ordinamento
+    \eqref{eq:fclr}, definita usando $y$, diventa
+    %
+    \begin{align*}
+        %
+        O'(\theta, g(x)) &= -2\log\frac
+        {\sup_{\theta'} p(x;\theta)/J(x)}{p(x;\theta)/J(x)} = \\
+        %
+        &= -2\log\frac
+        {\sup_{\theta'} p(x;\theta)}{p(x;\theta)}
+        = O(\theta, x).
+        %
+    \end{align*}
+    %
+    Adesso calcoliamo $f'(g(x))$:
+    %
+    \begin{align*}
+        %
+        f'(g(x))
+        &= \setdef[\theta]{O'(\theta,g(x)) > q(\theta) \text{ t.c. }
+        P_{y'}(O'(\theta, y') > q(\theta);\theta) = \mathrm{CL}} = \\
+        %
+        &= \setdef[\theta]{O(\theta,x) > q(\theta) \text{ t.c. }
+        P_{x'}(O'(\theta, g(x')) > q(\theta);\theta) = \mathrm{CL}} = \\
+        %
+        &= \setdef[\theta]{O(\theta,x) > q(\theta) \text{ t.c. }
+        P_{x'}(O(\theta, x') > q(\theta);\theta) = \mathrm{CL}}
+        = f(x).
+        %
+    \end{align*}
+    %
+\end{solution}
 
 Notiamo che per i dati in cui probability ordering avrebbe dato una stima vuota,
 il likelihood ratio tenderà a dare regioni piccole.
@@ -90,7 +181,7 @@ per evitare di triggerare molestatori che vogliono discutere della validità del
 	Consideriamo un \emph{parametro di localizzazione},
 	cioè tale che $p(x;\theta)=f(x-\theta)$.
 	Allora $g_\theta=x-\theta$ è un pivot:
-	$p(g_\theta;\theta) = p(x=g_\theta;0)$.
+	$p(g_\theta=g;\theta) = p(x=g;\theta=0)$.
 \end{example}
 
 \begin{fact}[Teorema di Wilks]
