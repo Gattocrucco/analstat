@@ -346,15 +346,6 @@ Se $s$ non è biunivoca bisogna dividere $S_1$ in sottodomini in cui lo è e ris
 	\end{equation*}
 \end{definition}
 
-\noindent Il valore atteso è lineare:
-\begin{equation*}
-	E[s_1+\alpha s_2] = E[s_1] + \alpha E[s_2],
-\end{equation*}
-e per variabili indipendenti vale
-\begin{equation*}
-	\langle xy \rangle = \langle x \rangle \langle y \rangle.
-\end{equation*}
-
 \begin{exercise}
     %
     Dimostrare che il valore atteso è invariante per cambio di variabili,
@@ -380,6 +371,28 @@ e per variabili indipendenti vale
     in realtà l'invarianza funziona sempre in generale.
     %
 \end{solution}
+
+\begin{exercise}
+    %
+    Dimostrare le seguenti proprietà del valore atteso:
+    %
+    \begin{align*}
+        %
+        E[k] &= k\quad\text{se $k$ è una costante,} \\
+        %
+        E[kx] &= kE[x], \\
+        %
+        E[x + y] &= E[x] + E[y].
+        %
+    \end{align*}
+    %
+\end{exercise}
+
+\begin{exercise}
+    %
+    Dimostrare che se $x$ e $y$ sono indipendenti, allora $E[xy] = E[x]E[y]$.
+    %
+\end{exercise}
 
 \begin{definition}[Convergenza in probabilità]
 	Data una variabile $x$, si dice che $f(x)$ \emph{converge debolmente in probabilità} a $f_0$ per $x$ che tende a $x_0$ se

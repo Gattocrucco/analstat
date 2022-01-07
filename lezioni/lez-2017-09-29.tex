@@ -14,15 +14,156 @@
 	Le variabili si dicono \emph{scorrelate} o \emph{correlate} se rispettivamente la covarianza è nulla o non nulla.
 \end{definition}
 
-Si verifica immediatamente che due variabili indipendenti sono scorrelate, ma non vale il viceversa.
-Prendiamo $y=x^2$. Le variabili $x$ e $y$ sono ovviamente dipendenti, ma
-\begin{equation*}
-	\sigma_{xy} = E[(x-\langle x\rangle)(y-\langle y\rangle)] = E[xy] - \langle x\rangle\langle y\rangle = E[x^3] - \langle x\rangle\langle y\rangle
-\end{equation*}
-quindi basta scegliere una distribuzione pari per $x$ affinché siano scorrelate.
+%%%% esercizi su varianza e covarianza aggiunti 2022-02-07
+%%%% servono per fare i conti sia qui che nel capitolo 2
+\begin{exercise}
+    %
+    Dimostrare le seguenti proprietà della varianza:
+    %
+	\begin{align*}
+        %
+		\var[\lambda x] &= \lambda^2 \var[x], \\
+        %
+		\var[x] &= E[x^2] - E[x]^2, \\
+        %
+		\var[x+y] &= \var[x] + \var[y] + 2\cov[x,y].
+        %
+	\end{align*}
+    %
+\end{exercise}
 
-Con la disuguaglianza di Cauchy-Schwartz si dimostra che la correlazione è compresa tra $-1$ e $1$.
-La covarianza di una variabile con sé stessa è la varianza: $\cov[x,x]=\var[x]$.
+\begin{solution}
+    %
+	\begin{align*}
+        %
+		\var[\lambda x] &= E[(\lambda x - E[\lambda x])^2]
+        = \lambda^2 \var[x], \\
+        %
+		\var[x]
+		&= E[(x-E[x])^2] = \\
+		&= E[x^2] - E[2xE[x]] + E[E[x]^2] = \\
+		&= E[x^2] - 2E[x]^2 + E[x]^2 = \\
+		&= E[x^2] - E[x]^2, \\
+        %
+		\var[x+y]
+		&= E[(x+y)^2] - E[x+y]^2 = \\
+		&= E[x^2 + y^2 + 2xy] - E[x]^2 - E[y]^2 - 2E[x]E[y] = \\
+		&= \var[x] + \var[y] + 2(E[xy] - E[x]E[y]) = \\
+		&= \var[x] + \var[y] + 2\cov[x,y]. \\
+        %
+	\end{align*}
+    %
+\end{solution}
+
+\begin{exercise}\label{ex:propcov}
+    %
+    Dimostrare le seguenti proprietà della covarianza:
+    %
+	\begin{align*}
+        %
+        \cov[x,x] &= \var[x] \ge 0, \\
+        %
+        \cov[x,y] &= \cov[y,x], \\
+        %
+		\cov[ax,by] &= ab\cov[x,y], \\
+        %
+		\cov[x,y] &= E[xy] - E[x]E[y], \\
+        %
+		\cov[x+y,z] &= \cov[x,z] + \cov[y,z].
+        %
+	\end{align*}
+    %
+\end{exercise}
+
+\begin{solution}
+    %
+    Le prime due proprietà sono semplici. Le altre sono conti simili a quelli
+    dell'esercizio precedente:
+    %
+    \begin{align*}
+        %
+        \cov[ax,by] &= E[(ax - E[ax])(by - E[by])] = \\
+        %
+        &= abE[(x - E[x])(y - E[y])]
+        = ab\cov[x,y], \\
+        %
+        \cov[x,y] &= E[(x - E[x])(y - E[y])] = \\
+        %
+        &= E[xy] - E[xE[y]] - E[E[x]y] + E[E[x]E[y]] = \\
+        %
+        &= E[xy] - E[x]E[y] - E[x]E[y] + E[x]E[y] = \\
+        %
+        &= E[xy] - E[x]E[y], \\
+        %
+        \cov[x+y,z] &= E[(x+y - E[x+y])(z - E[z])] = \\
+        %
+        &= E[(x+y-E[x]-E[y])(z - E[z])] = \\
+        %
+        &= E[(x - E[x])(z - E[z]) + (y - E[y])(z - E[z])] = \\
+        %
+        &= \cov[x,z] + \cov[y,z].
+        %
+    \end{align*}
+    %
+\end{solution}
+
+\begin{exercise}
+    %
+    Dimostrare che la correlazione è compresa tra $-1$ e $1$.
+    %
+\end{exercise}
+
+\begin{solution}
+    %
+    In base all'\autoref{ex:propcov}, la covarianza è un prodotto scalare,
+    quindi vale la disuguaglianza di Cauchy-Schwartz:
+    %
+    \begin{align*}
+        %
+        \cov[x, y]^2 &\le |\cov[x, x]\cov[y, y]| \implies \\
+        %
+        \implies \frac{|\cov[x, y]|}{\sqrt{\var[x]\var[y]}} &\le 1.
+        %
+    \end{align*}
+    %
+\end{solution}
+
+\begin{exercise}
+    %
+    Dimostrare che due variabili indipendenti sono scorrelate.
+    %
+\end{exercise}
+
+\begin{solution}
+    %
+    \begin{align*}
+        %
+        \cov[x, y] &= E[(x - E[x])(y - E[y])] = \\
+        %
+        &= E[x - E[x]] E[y - E[y]] = \\
+        %
+        &= (E[x] - E[x])(E[y] - E[y]) = 0.
+        %
+    \end{align*}
+    %
+\end{solution}
+
+\begin{exercise}
+    %
+    Trovare un esempio che mostri che due variabili scorrelate possono essere
+    dipendenti.
+    %
+\end{exercise}
+
+\begin{solution}
+    %
+    Prendiamo $y=x^2$. Le variabili $x$ e $y$ sono ovviamente dipendenti, ma
+    \begin{equation*}
+    	\sigma_{xy} = E[(x-\langle x\rangle)(y-\langle y\rangle)] = E[xy] - \langle x\rangle\langle y\rangle = E[x^3] - \langle x\rangle\langle y\rangle,
+    \end{equation*}
+    quindi basta scegliere una distribuzione pari per $x$ affinché siano scorrelate.
+    %
+\end{solution}
 
 \begin{exercise}
 	Qual è la probabilità che, lanciando $n$ dadi, il massimo dei valori ottenuti sia $c$?

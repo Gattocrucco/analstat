@@ -11,6 +11,33 @@
 	Gli elementi diagonali sono le varianze e quelli fuori diagonale sono le covarianze.
 \end{definition}
 
+\begin{exercise}
+    %
+    Dimostrare che la matrice di covarianza è semidefinita positiva.
+    %
+\end{exercise}
+
+\begin{solution}
+    %
+    Una matrice $A$ è semidefinita positiva se è simmetrica e se, per ogni
+    vettore $v$, $v^\top Av \ge 0$.
+    %
+    La matrice di covarianza è simmetrica perché la covarianza è simmetrica.
+    Facciamo la forma quadratica con un vettore:
+    %
+    \begin{align*}
+        %
+        \mathbf a^\top V \mathbf a
+        &= a_i V_{ij} a_j
+        = a_i a_j \cov[x_i, x_j] = \\
+        %
+        &= \cov[a_i x_i, a_j x_j]
+        = \var[a_i x_i] \ge 0.
+        %
+    \end{align*}
+    %
+\end{solution}
+
 Data una statistica abbiamo visto come ricavarne esattamente la distribuzione;
 può però essere utile ricavare solo alcuni momenti in modo approssimato.
 Sia $\mathbf x\in\R^n$, sviluppiamo $s(\mathbf x)$ in serie intorno alla media:
@@ -88,7 +115,7 @@ sottolineiamo che è una del tutto generale approssimazione di un momento di una
         \frac12 \sum_{ij}
         \left.\frac{\partial^2 s}{\partial x_i \partial x_j}
         \right|_{\boldsymbol\mu}
-        \operatorname{Cov}[x_i, x_j],
+        \cov[x_i, x_j],
         %
     \end{equation*}
     %
@@ -106,7 +133,7 @@ sottolineiamo che è una del tutto generale approssimazione di un momento di una
         \frac12 \sum_{ij}
         \left.\frac{\partial^2 s}{\partial x_i \partial x_j}
         \right|_{\boldsymbol\mu}
-        \operatorname{Cov}[x_i, x_j].
+        \cov[x_i, x_j].
         %
     \end{equation*}
     %
@@ -122,7 +149,7 @@ sottolineiamo che è una del tutto generale approssimazione di un momento di una
         \frac12 \sum_{ij}
         \left.\frac{\partial^2 s}{\partial x_i \partial x_j}
         \right|_{\mathbf x}
-        \operatorname{Cov}[x_i, x_j], \\
+        \cov[x_i, x_j], \\
         %
         E[\hat s(\mathbf x)] &\approx s(\boldsymbol\mu) = s(\mathbf x_0).
         %

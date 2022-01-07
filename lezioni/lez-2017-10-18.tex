@@ -334,10 +334,9 @@
 	La varianza di $\hat V$ non dipende da $\mu$ e scala come $\sigma^4$,
 	quindi fissiamo la distribuzione delle $x_i$ a media nulla e varianza unitaria:
 	\begin{equation*}
-		p(x) = \frac1{\sqrt{2\pi}} e^{-\frac12 x^2}.
+		p(x) = \frac1{\sqrt{2\pi}} \exp\left(-\frac12x^2\right).
 	\end{equation*}
 	Innanzitutto ricaviamo alcune utili proprietà della varianza:
-	\marginpar{Spostare le proprietà della varianza dopo la definizione di varianza come esercizio.}
 	\begin{align*}
 		\var[\lambda a] &= \lambda^2 \var[a], \\
 		\var[a]
@@ -398,6 +397,9 @@
 	viene dunque spontaneo calcolare il prodotto delle due:
 	\begin{equation*}
 		\var[\hat V]I(\sigma^2)
-		= \frac N{N-1}.
+		= \frac N{N-1},
 	\end{equation*}
+    %
+    che tende a 1 per $N\to\infty$. Coincidenze?
+    %
 \end{solution}
