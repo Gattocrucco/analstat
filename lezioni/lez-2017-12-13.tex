@@ -16,7 +16,7 @@ Scriviamo il likelihood ratio con l'ipotesi nulla delle medie ottenute da $p_0$
 e come ipotesi alternative tutte le altre medie possibili,
 cioè le medie ottenibili da tutte le distribuzioni possibili sullo stesso spazio di~$p_0$:
 \begin{align*}
-	\lambda_{p_0}(\mathbf x)
+	\lambda_{p_0}(\mathbf k)
 	&= 2\log \frac
 	{\sup\limits_{\boldsymbol\mu} p(\mathbf k;\boldsymbol\mu)}
 	{p(\mathbf k;\mu \mathbf p)} = \\
@@ -51,10 +51,14 @@ la likelihood cambia di un termine che dipende dalla variabile.
     quindi vale $1/(\max\mathbf x)^N$. In analogia con il $\chi^2$, prendiamo
     meno il logaritmo, ottenendo $N \log\max\mathbf x$. Quindi dovremmo
     dire che il modello uniforme non fitta bene se $N \log\max\mathbf x$ viene
-    più grande di tot. È intuitivo che questo non ha senso, per controllare
-    se la distribuzione è uniforme bisogna in qualche modo vedere se gli $x_i$
-    sono sparsi in giro un po' ovunque tra zero e il massimo, non quanto vale
-    il massimo.
+    più grande di tot.
+    
+    È intuitivo che questo ha poco senso, per controllare se la distribuzione è
+    uniforme bisogna in qualche modo vedere se gli $x_i$ sono sparsi in giro un
+    po' ovunque tra zero e il massimo, guardare se il massimo è troppo grande
+    non può dare informazioni se non sappiamo già quanto deve essere larga la
+    uniforme.
+    %
 \end{example}
 
 \subsection{Kolmogorov-Smirnov}

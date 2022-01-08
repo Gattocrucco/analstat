@@ -75,31 +75,61 @@ Calcoliamo il likelihood ratio:
 	&= \sum_{i=1}^N \left(\frac{x_i-\mu_i}{\sigma_i}\right)^2. \label{eq:chi2}
 \end{align}
 Questa statistica si chiama $\chi^2$,
-e infatti\footnote{Vedi \autoref{th:lrgauss}.} ha la distribuzione $\chi^2$ a $N$ gradi di libertà.
+e infatti ha la distribuzione $\chi^2$ a $N$ gradi di libertà (vedi \autoref{th:lrgauss}).
 Usare come p-value la survival function della \eqref{eq:chi2}
-è a tutti gli effetti un test likelihood ratio,
+è a tutti gli effetti un test likelihood ratio, in cui l'ipotesi nulla
+è avere una certa media specifica $\boldsymbol\mu$ e le ipotesi alternative
+sono tutte le medie possibili,
 e si chiama \emph{test del $\chi^2$}.
 Poiché in molti casi comuni la distribuzione della \eqref{eq:chi2} tende alla distribuzione $\chi^2$
-per $N\to\infty$ anche se il modello non è gaussiano,
+per $N\to\infty$ anche se il modello non è gaussiano (\autoref{th:wilks}),
 il test funziona bene con ipotesi alternative molto più vaste che il modello gaussiano con cui l'abbiamo ricavato.
 
-Prendiamo ora un modello gaussiano con varianza fissata e medie che dipendono dal parametro $\theta\in\R^d$:
+Prendiamo ora un modello gaussiano con varianza fissata e medie che dipendono
+dal parametro $\boldsymbol\theta\in\R^d$:
+%
 \begin{equation*}
-	p(\mathbf x;\theta)
-	= \prod_{i=1}^N \frac1{\sqrt{2\pi}\sigma_i}
-	\exp\left(-\frac12\left(\frac{x_i-\mu_i(\theta)}{\sigma_i}\right)^2\right).
+	p(\mathbf x;\boldsymbol\theta)
+	= \prod_{i=1}^N \frac1{\sqrt{2\pi}\,\sigma_i}
+	\exp\left(-\frac12\left(\frac{x_i-\mu_i(\boldsymbol\theta)}{\sigma_i}\right)^2\right),
 \end{equation*}
-Si può dimostrare che,
-detta $\hat\theta$ la stima di massima likelihood,
-l'espressione analoga alla \eqref{eq:chi2}
-\begin{equation*}
-	\sum_{i=1}^N \left( \frac {x_i-\mu_i(\hat\theta(\mathbf x))} {\sigma_i} \right)^2
-\end{equation*}
-\marginpar{Ha esattamente la distribuzione a $N-d$ gradi di libertà o è asintotico anche per la gaussiana?}%
-ha la distribuzione del $\chi^2$ a $N-d$ gradi di libertà.
-Anche in questo caso si parla di test del $\chi^2$.
+%
+con $d < N$. Costruiamo il likelihood ratio prendendo al numeratore il
+sup su tutte le medie possibili, e al denominatore solo su quelle permesse
+dal modello:
+%
+\begin{align*}
+    %
+    \lambda(\mathbf x)
+    &= 2\log \frac
+    {\sup_{\boldsymbol\mu'} p(\mathbf x; \boldsymbol\mu')}
+    {\sup_{\boldsymbol\theta} p(\mathbf x; \boldsymbol\theta)} = \\
+    %
+    &= \sum_{i=1}^N \left(
+    \frac {x_i-\mu_i(\hat{\boldsymbol\theta}(\mathbf x))} {\sigma_i}
+    \right)^2,
+    %
+\end{align*}
+%
+dove $\hat{\boldsymbol\theta}(\mathbf x)$ è lo stimatore di massima likelihood.
+%
+In altre parole, stiamo testando l'ipotesi nulla che le medie siano quelle
+permesse dalla funzione $\boldsymbol\mu(\boldsymbol\theta)$, contro l'ipotesi
+alternativa di tutte le altre medie possibili. Il likelihood ratio non è
+scritto nella forma del teorema di Wilks, però se la funzione
+$\fundef[\boldsymbol\mu]{\mathbb R^d}{\mathbb R^N}$ è onesta, il suo codominio
+definisce una sottovarietà di dimensione $d$ all'interno di $\mathbb R^N$, e
+quindi si può cambiare variabile. Detto più concretamente: sarà possibile fare
+qualcosa del tipo cambiare variabili da $\mu_1,\ldots,\mu_N$ a
+$\theta_1,\ldots,\theta_d,\mu_{d+1},\ldots,\mu_N$, quindi si può applicare il
+teorema di Wilks.
+%
+Quindi se facciamo un fit di massima likelihood con le gaussiane possiamo
+usare il $\chi^2$ calcolato con il risultato del fit per fare un test del
+modello.
 
 \begin{exercise}
 	Scrivere il likelihood ratio di un modello per $N$ poissoniane con medie arbitrarie,
 	e verificare (eventualmente numericamente) se asintoticamente ha la distribuzione $\chi^2$.
+    \marginpar{Scrivere la soluzione.}
 \end{exercise}

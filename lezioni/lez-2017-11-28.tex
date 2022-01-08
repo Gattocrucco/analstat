@@ -4,10 +4,6 @@
 \section{Test di ipotesi}
 
 Finora abbiamo trattato l'inferenza con stime puntuali e stime intervallari.
-\marginpar{Credo sia più chiaro se lo formalizzo come una partizione in due
-dello spazio del parametro, e poi faccio ipotesi nulla semplice come caso
-particolare, anziché fare ipotesi nulla singola vs. ipotesi alternative
-multiple e poi tirare fuori ipotesi nulla composta dopo.}
 Per le stime puntuali, tuttavia,
 ci siamo concentrati solo sui casi in cui si può scegliere la stima migliore in base al bias e alla varianza.
 Ci sono casi in cui lo spazio del parametro non ha un'operazione di somma
@@ -42,7 +38,7 @@ Il risultato del test si dice \emph{positivo} se è diverso dall'ipotesi nulla,
 		\alpha
 		\is P(\neg H_0;H_0) = 1 - P(H_0;H_0).
 	\end{equation*}
-	Il \emph{livello di significatività} è $1-\alpha = P(H_0;H_0)$.
+    %
 \end{definition}
 
 \begin{definition}[Falso negativo]
@@ -89,6 +85,57 @@ la consistenza implica la unbiasedness per $N$ abbastanza grande.
 	I~valori per cui $T$ dà risultato positivo si chiamano \emph{regione critica $C$},
 	i valori per cui dà risultato negativo \emph{regione di accettazione}~($\comp C$).
 \end{definition}
+
+\subsection{Ipotesi nulla composta}
+
+Si possono anche definire i test di ipotesi per il caso in cui l'ipotesi nulla
+non è un singolo valore del parametro, ma un insieme di valori. Sia $\Theta_0
+\subseteq \Theta$ l'insieme delle ipotesi nulle, $\Theta_1 = \Theta \setminus
+\Theta_0$ l'insieme delle ipotesi alternative, e indichiamo con $T_0$ e $T_1$ i
+risultati negativo e positivo del test. In questo caso si definiscono la
+funzione errore di tipo I
+%
+\begin{equation*}
+    %
+    \alpha(\theta) \is P(T_1; \theta), \quad \theta \in \Theta_0,
+    %
+\end{equation*}
+%
+mentre la funzione errore di tipo II è la stessa di prima, però scriviamola
+allo stesso modo di $\alpha(\theta)$:
+%
+\begin{equation*}
+    %
+    \beta(\theta) \is P(T_0; \theta), \quad \theta \in \Theta_1.
+    %
+\end{equation*}
+%
+Queste due funzioni le uniamo in una singola \emph{funzione potenza} su tutto
+il dominio del parametro:
+%
+\begin{equation*}
+    %
+    \eta(\theta) \is P(T_1; \theta)
+    = \begin{cases}
+        \alpha(\theta) & \theta \in \Theta_0, \\
+        1 - \beta(\theta) & \theta \in \Theta_1.
+    \end{cases}
+    %
+\end{equation*}
+%
+Definiamo il \emph{livello di significatività $\alpha$} come il massimo errore
+di tipo I:
+%
+\begin{equation*}
+    %
+    \alpha \is \sup_\theta \alpha(\theta)
+    %
+\end{equation*}
+%
+e diciamo che il test ha taglia $\alpha$ solo se $\alpha(\theta) = \alpha$ per
+tutti i $\theta \in \Theta_0$. Livello di significatività e taglia sono simili
+ai concetti di livello di confidenza e coverage costante delle stime
+intervallari.
 
 \subsection{Test UMP}
 

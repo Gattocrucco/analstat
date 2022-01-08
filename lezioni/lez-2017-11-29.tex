@@ -88,7 +88,8 @@
 		&= \big[2u-u^2\big]_{u_\mathrm{min}m}^{u_\mathrm{max}m} = \\
 		&= \big[1-(1-u)^2\big]_{u_\mathrm{min}m}^{u_\mathrm{max}m}.
 	\end{align*}
-	Vale anche
+	Vale anche \marginpar{È possibile andare avanti a risolvere il sistema
+    analiticamente o viene per forza numerico?}
 	\begin{align*}
 		R_m(u_\mathrm{min}m)
 		&= R_m(u_\mathrm{max}m) \implies \\
@@ -110,7 +111,8 @@ ovvero la pdf è nella forma
 	Consideriamo la gaussiana
 	\begin{equation*}
 		p(x;\mu)
-		= \frac1{\sqrt{2\pi}\sigma} e^{-\frac12\left(\frac{x-\mu}\sigma\right)^2}.
+		= \frac1{\sqrt{2\pi}\,\sigma}
+        \exp\left(-\frac12\left(\frac{x-\mu}\sigma\right)^2\right).
 	\end{equation*}
 	Calcoliamo il likelihood ratio:
 	\begin{align*}
@@ -126,7 +128,7 @@ ovvero la pdf è nella forma
 		&= 2\cdot\frac {\frac1{\sqrt{2\pi}} e^{-\frac12 \lambda}} {\dv{\lambda}{\sqrt\lambda}} = \\
 		&= \frac{\lambda^{-1/2}}{\sqrt{2\pi}}e^{-\lambda/2}.
 	\end{align*}
-	Notiamo che questa è la distribuzione $\chi^2$ con 1 grado di libertà\footnote{Vedi \autoref{th:wilks}.}.
+	Notiamo che questa è la distribuzione $\chi^2$ con 1 grado di libertà (vedi \autoref{th:wilks}).
 	In generale si può mostrare che la somma dei quadrati di $n$ variabili gaussiane
 	con media nulla e varianza unitaria
 	ha distribuzione $\chi^2$ con $n$ gradi di libertà.
@@ -143,14 +145,15 @@ ovvero la pdf è nella forma
 \end{exercise}
 
 \begin{solution}
-	Usiamo il massimo che è sufficiente\footnote{Vedi \autoref{th:unifmaxpdf}.}.
+	Usiamo il massimo che è sufficiente (vedi \autoref{th:unifmaxpdf}).
 	La distribuzione di $X\is\max\mathbf x$ è
 	\begin{equation*}
 		p(X;m)
 		= \frac Nm \left(\frac Xm\right)^{N-1},
 		\quad X \in (0,m).
 	\end{equation*}
-	Calcoliamo il likelihood ratio:
+	Calcoliamo il likelihood ratio (ricordando che la funzione di
+    ordinamento \eqref{eq:fclr} è $-\lambda$):
 	\begin{align*}
 		\lambda_m(X)
 		&= 2\log\frac {\frac NX} {\frac Nm \left(\frac Xm\right)^{N-1}} = \\
@@ -159,17 +162,17 @@ ovvero la pdf è nella forma
 	Calcoliamo la distribuzione di $\lambda$:
 	\begin{align*}
 		u
-		&\is \frac Xm \\
+		&\is \frac Xm, \qquad u \in (0, 1) \\
 		p(u)
 		&= N u^{N-1} \\
 		v
-		&\is \log u \\
+		&\is \log u, \qquad v \in (-\infty, 0) \\
 		p(v)
 		&= \frac{Nu^{N-1}}{\dv{}u\log u}
 		= \frac{Ne^{(N-1)v}}{e^{-v}}
 		= N e^{Nv} \\
 		\lambda
-		&= -2Nv \\
+		&= -2Nv, \qquad \lambda \in (0, \infty) \\
 		p(\lambda)
 		&= \frac 12 e^{-\lambda/2}.
 	\end{align*}
@@ -194,7 +197,8 @@ ovvero la pdf è nella forma
 		&= X\left(e^{-q/2}\right)^{-1/N} = \\
 		&= \frac X {\sqrt[N]{1-\mathrm{CL}}}.
 	\end{align*}
-	Notiamo che otteniamo lo stesso risultato dell'\autoref{th:unifsup}.
+	Notiamo che otteniamo lo stesso risultato dell'\autoref{th:unifsup},
+    infatti $-\lambda$ è una funzione crescente di $X$.
 \end{solution}
 
 \subsection{Stime puntuali e intervallari}
@@ -213,7 +217,8 @@ fosse piccolo, e che la distribuzione fosse approssimativamente gaussiana.
 Adesso possiamo fare un'ulteriore considerazione: se la varianza è costante al
 variare del valore vero e il bias è nullo, e conosciamo la forma della
 distribuzione, allora possiamo generare intervalli di confidenza a partire
-dalla stima: infatti probabilmente avrete già visto costruire intervalli
-di confidenza dicendo che l'intervallo di $\pm 1 \sigma$ intorno alla stima è
-un intervallo di confidenza con $\mathrm{CL} = 68\,\%$. Bene, adesso sapete
-quali sono le ipotesi necessarie per dirlo.
+dalla stima, perché $\hat\theta - \theta$ è un pivot: infatti probabilmente
+avrete già visto costruire intervalli di confidenza dicendo che l'intervallo di
+$\pm 1 \sigma$ intorno alla stima è un intervallo di confidenza con
+$\mathrm{CL} = 68\,\%$. Bene, adesso sapete quali sono le ipotesi necessarie
+per dirlo.

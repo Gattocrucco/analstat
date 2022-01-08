@@ -166,10 +166,39 @@ accadeva negli esempi sopra.
     %
 \end{solution}
 
-Notiamo che per i dati in cui probability ordering avrebbe dato una stima vuota,
-il likelihood ratio tenderà a dare regioni piccole.
-Può essere desiderabile gonfiare a mano la banda di confidenza in queste regioni
-per evitare di triggerare molestatori che vogliono discutere della validità del modello.
+\begin{exercise}
+    %
+    Dimostrare che l'intervallo costruito con il likelihood ratio basandosi su
+    una statistica sufficiente è uguale a quello della variabile di partenza.
+    %
+\end{exercise}
+
+\begin{solution}
+    %
+    La dimostrazione è come quella dell'\autoref{ex:lrinv}, però $g$ anziché
+    essere biunivoca è una statistica sufficiente, ovvero $p(x;\theta) = h(x)
+    p_y(g(x);\theta)$. Essendo che $g$ non è invertibile, l'equazione
+    $p_y(g(x);\theta) = p(x;\theta)/h(x)$ è vera mettendo al posto di $x$ nel
+    termine di destra qualsiasi $x'$ tale che $g(x) = g(x')$, però abbiamo la
+    libertà di lasciare $x$ al numeratore e al denominatore in $O'$ quindi
+    viene comunque $O'(\theta,g(x)) = O(\theta, x)$. Anche gli altri passaggi
+    rimangono validi senza l'invertibilità, in particolare $P_{y'}(O'(\theta,
+    y') > q(\theta);\theta) = P_{x'}(O'(\theta, g(x')) > q(\theta);\theta)$.
+    %
+\end{solution}
+
+\marginpar{Aggiungere esercizio su tirare fuori un altro ordinamento con le
+stesse proprietà di invarianza ma non equivalente a LR. Forse si può anche
+richiedere che contenga ML. Suppongo basti modificare LR prendendo un qualche
+funzionale lineare della likelihood a numeratore e/o denominatore e poi trovare
+un singolo esempio minimale in cui l'ordine di due $x$ a fissato $\theta$ si
+scambia.}
+
+Notiamo che per i dati in cui probability ordering avrebbe dato una stima
+vuota, il likelihood ratio tenderà a dare regioni piccole. Può essere
+desiderabile gonfiare a mano la banda di confidenza in queste regioni per
+evitare di triggerare molestatori che vogliono discutere della validità del
+modello.
 
 \begin{definition}[Pivot]
 	Dato un modello $p(x;\theta)$,
@@ -192,8 +221,9 @@ per evitare di triggerare molestatori che vogliono discutere della validità del
 	\begin{equation*}
 		\Lambda \is
 		2\log\frac {\sup\limits_{\boldsymbol\theta'} p(\mathbf x;\boldsymbol\theta')}
-		{\sup\limits_{\theta_1',\dotsc,\theta_n'} p(\mathbf x;\theta_1',\dotsc,\theta_n',\theta_{n+1},\dots,\theta_d)}
+		{\sup\limits_{\theta_1',\dotsc,\theta_n'} p(\mathbf x;\theta_1',\dotsc,\theta_n',\theta_{n+1},\dots,\theta_d)},
 	\end{equation*}
+    con $n < d$,
 	è un pivot nel limite $N\to\infty$,
 	con distribuzione $\chi^2$ a $k\is d-n$ gradi di libertà:
 	\begin{equation*}
