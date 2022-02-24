@@ -25,10 +25,123 @@
 	\begin{equation*}
 		b(\theta) \is E[\hat\theta;\theta] - \theta.
 	\end{equation*}
-	Una stima si dice \emph{corretta} se il bias è nullo;
+	Una stima si dice \emph{corretta} o \emph{unbiased} se il bias è nullo;
 	\emph{asintoticamente corretta} se il modello è per $N$ estrazioni
 	e nel limite $N\to\infty$ il bias tende a zero.
 \end{definition}
+
+%%% parte aggiunta 2022-02-24 %%%
+
+\begin{exercise}
+    %
+    Dimostrare che per la poissoniana
+    %
+    \begin{equation*}
+        %
+        p(k;\mu) = \frac{\mu^k}{k!}e^{-\mu}
+        %
+    \end{equation*}
+    %
+    l'unico stimatore unbiased di $e^{-\mu}$ è $\delta_{k0}$.
+    %
+\end{exercise}
+
+\begin{solution}
+    %
+    Chiamiamo $f(k)$ lo stimatore di $e^{-\mu}$ che vogliamo ricavare. In base
+    alla definizione di bias, la condizione di unbiasedness è
+    %
+    \begin{equation*}
+        E[f(k);\mu]
+        = \sum_{k=0}^\infty \frac{\mu^k}{k!}e^{-\mu} f(k)
+        = e^{-\mu}.
+    \end{equation*}
+    %
+    Il termine $e^{-\mu}$ si cancella da entrambi i lati, quindi abbiamo
+    %
+    \begin{equation*}
+        %
+        \sum_{k=0}^\infty \frac{\mu^k}{k!} f(k)  =  1.
+        %
+    \end{equation*}
+    %
+    Prendendo il limite per $\mu \to 0$ a entrambi i membri, risulta
+    $f(0) = 1$, quindi ci rimane
+    %
+    \begin{equation*}
+        %
+        \sum_{k=1}^\infty \frac{\mu^k}{k!} f(k) = 0.
+        %
+    \end{equation*}
+    %
+    Poiché le potenze di $\mu$ sono linearmente indipendenti (considerate nello
+    spazio delle funzioni di $\mu$), necessariamente $f(k) = 0$ per $k \ge 1$.
+    %
+\end{solution}
+
+\begin{exercise}
+    %
+    Sempre con la poissoniana, dimostrare che l'unico stimatore unbiased di
+    $\mu^2$ è $k(k-1)$. In particolare viene 0 per $k = 1$.
+    %
+\end{exercise}
+
+\begin{solution}
+    %
+    La condizione di unbiasedness è
+    %
+    \begin{align*}
+        %
+        E[f(k);\mu]
+        = \sum_{k=0}^\infty \frac{\mu^k}{k!}e^{-\mu} f(k)
+        &= \mu^2 \implies \\
+        %
+        \implies
+        \sum_{k=0}^\infty \frac{\mu^k}{k!} f(k)
+        &= \mu^2 e^\mu
+        = \sum_{q=0}^\infty \frac{\mu^{q+2}}{q!},
+        %
+    \end{align*}
+    %
+    dove nell'ultimo passaggio abbiamo espanso in serie $\mu^2e^\mu$.
+    Per unicità della serie, abbiamo che non ci possono essere le potenze
+    $\mu^0$ e $\mu^1$, quindi $f(0) = f(1) = 0$. Rimane
+    %
+    \begin{align*}
+        %
+        \sum_{k=2}^\infty \frac{\mu^k}{k!} f(k)
+        &= \sum_{q=0}^\infty \frac{\mu^{q+2}}{q!} \implies \\
+        %
+        \implies
+        \sum_{k'=0}^\infty \frac{\mu^{k'+2}}{k'!} \frac{f(k'+2)}{(k'+1)(k'+2)}
+        &= \sum_{q=0}^\infty \frac{\mu^{q+2}}{q!},
+        %
+    \end{align*}
+    %
+    da cui sempre per unicità ricaviamo $f(k) = k(k-1)$.
+    %
+\end{solution}
+
+Gli ultimi due esercizi mostrano che avere bias nullo anche se suona bene non è
+detto che sia una proprietà sensata. Nel primo caso ci viene che la stima di
+$e^{-\mu}$ è zero per qualsiasi $k \ge 1$, anche se sicuramente $e^{-\mu} > 0$
+perché se fosse $\mu \to \infty$ allora avremmo anche in probabilità $k \to
+\infty$. Nel secondo caso la stima di $\mu^2$ è zero se $k=1$, e anche lì
+sapremmo che $\mu > 0$ perché altrimenti $P(k=0) = 1$.
+
+Il senso del bias però come vedremo è che è abbastanza semplice da poterci fare
+delle dimostrazioni e ricavarne alcune proprietà utili in pratica seppur non
+in tutti i casi, la prima delle quali lasciamo come esercizio:
+
+\begin{exercise}
+    %
+    Dimostrare che se $\hat\theta(x)$ è uno stimatore unbiased di $\theta$,
+    allora al primo ordine $f(\hat\theta(x))$ è uno stimatore unbiased di
+    $f(\theta)$.
+    %
+\end{exercise}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Efficienza}
 
